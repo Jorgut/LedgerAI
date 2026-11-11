@@ -7,7 +7,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('我的账本'),
+        title: const Text('衡账'),
         backgroundColor: const Color(0xFF10B981),
         actions: [
           IconButton(

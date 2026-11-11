@@ -14,8 +14,8 @@ class LoginScreen extends StatelessWidget {
             children: [
               const Icon(Icons.account_balance_wallet, size: 80, color: Color(0xFF10B981)),
               const SizedBox(height: 16),
-              const Text('AI 记账', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-              const Text('智能自动记账，轻松理财', style: TextStyle(color: Colors.grey)),
+              const Text('衡账', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+              const Text('AI 自动记账，轻松理财', style: TextStyle(color: Colors.grey)),
               const SizedBox(height: 48),
               TextField(
                 decoration: InputDecoration(

@@ -17,7 +17,7 @@ class LedgerAIApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'LedgerAI',
+      title: '衡账',
       theme: ThemeData(
         primaryColor: const Color(0xFF10B981),
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF10B981)),
