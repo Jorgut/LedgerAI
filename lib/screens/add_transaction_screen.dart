@@ -4,18 +4,30 @@ import '../models/transaction.dart';
 import '../services/storage_service.dart';
 
 class AddTransactionScreen extends StatefulWidget {
-  const AddTransactionScreen({super.key});
+  final Transaction? transaction;
+  const AddTransactionScreen({super.key, this.transaction});
 
   @override
   State<AddTransactionScreen> createState() => _AddTransactionScreenState();
 }
 
 class _AddTransactionScreenState extends State<AddTransactionScreen> {
-  int _selectedTab = 1;
-  final _amountController = TextEditingController();
-  String _category = '餐饮';
-  final _noteController = TextEditingController();
-  bool _isIncome = false;
+  late TextEditingController _amountController;
+  late TextEditingController _noteController;
+  late String _category;
+  late bool _isIncome;
+  bool _isEditing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _isEditing = widget.transaction != null;
+    final t = widget.transaction;
+    _amountController = TextEditingController(text: t?.amount.toString() ?? '');
+    _noteController = TextEditingController(text: t?.note ?? '');
+    _category = t?.category ?? '餐饮';
+    _isIncome = t?.isIncome ?? false;
+  }
 
   @override
   void dispose() {
@@ -29,22 +41,22 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     if (amount == null || amount <= 0) return;
 
     final t = Transaction(
-      id: const Uuid().v4(),
+      id: widget.transaction?.id ?? const Uuid().v4(),
       amount: amount,
       category: _category,
       note: _noteController.text,
-      date: DateTime.now(),
+      date: widget.transaction?.date ?? DateTime.now(),
       isIncome: _isIncome,
     );
     await StorageService.addTransaction(t);
-    if (mounted) Navigator.pop(context);
+    if (mounted) Navigator.pop(context, true);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('记一笔'),
+        title: Text(_isEditing ? '编辑交易' : '记一笔'),
         backgroundColor: const Color(0xFF10B981),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -109,7 +121,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               child: ElevatedButton(
                 onPressed: _save,
                 style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF10B981)),
-                child: const Text('保存记录', style: TextStyle(fontSize: 16)),
+                child: Text(_isEditing ? '保存修改' : '保存记录', style: const TextStyle(fontSize: 16)),
               ),
             ),
           ],

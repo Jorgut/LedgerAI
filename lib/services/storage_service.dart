@@ -16,6 +16,10 @@ class StorageService {
     await box.put(t.id, t);
   }
 
+  static Future<void> deleteTransaction(String id) async {
+    await box.delete(id);
+  }
+
   static List<Transaction> getAll() {
     return box.values.toList()..sort((a, b) => b.date.compareTo(a.date));
   }
