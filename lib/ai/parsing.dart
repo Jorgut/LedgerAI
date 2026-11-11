@@ -1,5 +1,4 @@
 import '../core/format.dart';
-import '../core/models.dart';
 
 /// 一句话/小票文本的本地规则解析结果。
 class ParsedReceipt {

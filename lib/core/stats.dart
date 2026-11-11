@@ -98,12 +98,12 @@ class StatsService {
     final points = <MonthPoint>[];
     for (var i = months - 1; i >= 0; i--) {
       final monthDate = DateTime(anchor.year, anchor.month - i, 1);
-      final summary = summary(monthDate.year, monthDate.month);
+      final monthSummary = summary(monthDate.year, monthDate.month);
       points.add(MonthPoint(
         year: monthDate.year,
         month: monthDate.month,
-        income: summary.income,
-        expense: summary.expense,
+        income: monthSummary.income,
+        expense: monthSummary.expense,
       ));
     }
     return points;
