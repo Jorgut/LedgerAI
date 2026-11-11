@@ -1,0 +1,89 @@
+import 'package:flutter/material.dart';
+
+/// 用户偏好设置。全部保存在本机 Hive box 中。
+@immutable
+class AppSettings {
+  const AppSettings({
+    this.onboardingDone = false,
+    this.themeMode = ThemeMode.system,
+    this.highContrast = false,
+    this.monthlyBudget,
+    this.categoryBudgets = const {},
+    this.hapticsEnabled = true,
+    this.biometricLock = false,
+  });
+
+  /// 是否已完成首次引导。
+  final bool onboardingDone;
+
+  /// 深色 / 浅色 / 跟随系统。
+  final ThemeMode themeMode;
+
+  /// 高对比度模式（适老化）。
+  final bool highContrast;
+
+  /// 每月总预算，null 表示未设置。
+  final double? monthlyBudget;
+
+  /// 分类预算：categoryId -> 月度上限。
+  final Map<String, double> categoryBudgets;
+
+  /// 关键操作触觉反馈。
+  final bool hapticsEnabled;
+
+  /// 是否启用 Face ID / Touch ID 解锁（v1 预留，默认关闭）。
+  final bool biometricLock;
+
+  static const AppSettings defaults = AppSettings();
+
+  AppSettings copyWith({
+    bool? onboardingDone,
+    ThemeMode? themeMode,
+    bool? highContrast,
+    double? monthlyBudget,
+    bool clearMonthlyBudget = false,
+    Map<String, double>? categoryBudgets,
+    bool? hapticsEnabled,
+    bool? biometricLock,
+  }) {
+    return AppSettings(
+      onboardingDone: onboardingDone ?? this.onboardingDone,
+      themeMode: themeMode ?? this.themeMode,
+      highContrast: highContrast ?? this.highContrast,
+      monthlyBudget: clearMonthlyBudget ? null : (monthlyBudget ?? this.monthlyBudget),
+      categoryBudgets: categoryBudgets ?? this.categoryBudgets,
+      hapticsEnabled: hapticsEnabled ?? this.hapticsEnabled,
+      biometricLock: biometricLock ?? this.biometricLock,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'onboardingDone': onboardingDone,
+        'themeMode': themeMode.name,
+        'highContrast': highContrast,
+        'monthlyBudget': monthlyBudget,
+        'categoryBudgets': categoryBudgets,
+        'hapticsEnabled': hapticsEnabled,
+        'biometricLock': biometricLock,
+      };
+
+  factory AppSettings.fromJson(Map<String, dynamic> json) {
+    final rawTheme = json['themeMode'] as String?;
+    final themeMode = ThemeMode.values.firstWhere(
+      (mode) => mode.name == rawTheme,
+      orElse: () => ThemeMode.system,
+    );
+    final rawBudgets = json['categoryBudgets'];
+    return AppSettings(
+      onboardingDone: json['onboardingDone'] as bool? ?? false,
+      themeMode: themeMode,
+      highContrast: json['highContrast'] as bool? ?? false,
+      monthlyBudget: (json['monthlyBudget'] as num?)?.toDouble(),
+      categoryBudgets: rawBudgets is Map
+          ? rawBudgets.map((key, value) => MapEntry('$key', (value as num).toDouble()))
+          : const {},
+      hapticsEnabled: json['hapticsEnabled'] as bool? ?? true,
+      biometricLock: json['biometricLock'] as bool? ?? false,
+    );
+  }
+}

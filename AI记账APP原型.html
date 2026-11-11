@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 自动记账 APP 原型图</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #f0f2f5;
+    padding: 30px 20px;
+    color: #1f2937;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: #111827;
+  }
+  .prototypes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .prototype-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .prototype-title {
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: #374151;
+  }
+  .phone {
+    width: 375px;
+    height: 812px;
+    background: #fff;
+    border-radius: 36px;
+    border: 12px solid #1f2937;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .status-bar {
+    height: 44px;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+  }
+  .app-header {
+    background: #10b981;
+    color: white;
+    padding: 16px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .app-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f9fafb;
+  }
+  .bottom-nav {
+    height: 80px;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 20px;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 11px;
+    color: #6b7280;
+    gap: 4px;
+  }
+  .nav-item.active { color: #10b981; }
+  .nav-item i { font-size: 22px; }
+
+  /* 通用组件 */
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .summary-item {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+  }
+  .summary-item .label { font-size: 13px; color: #6b7280; margin-bottom: 4px; }
+  .summary-item .amount { font-size: 22px; font-weight: 700; }
+  .income { color: #10b981; }
+  .expense { color: #ef4444; }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 14px; margin-bottom: 6px; color: #374151; }
+  input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    font-size: 16px;
+    background: white;
+  }
+  .btn {
+    width: 100%;
+    padding: 14px;
+    background: #10b981;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-secondary { background: #3b82f6; }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid #10b981;
+    color: #10b981;
+  }
+
+  .transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .transaction-item:last-child { border-bottom: none; }
+  .trans-left { display: flex; align-items: center; gap: 12px; }
+  .icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .chart-placeholder {
+    background: #f3f4f6;
+    border-radius: 16px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 14px;
+    margin: 12px 0;
+  }
+  .ai-badge {
+    background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+    color: white;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-left: 6px;
+  }
+  .upload-area {
+    border: 2px dashed #d1d5db;
+    border-radius: 16px;
+    padding: 32px 20px;
+    text-align: center;
+    background: #fafafa;
+    margin-bottom: 16px;
+  }
+  .tab-group {
+    display: flex;
+    background: #e5e7eb;
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 20px;
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .tab.active { background: white; color: #10b981; }
+</style>
+</head>
+<body>
+
+<h1>AI 自动记账 APP 原型图</h1>
+<p style="text-align:center; color:#6b7280; margin-bottom:30px;">共 8 个核心界面 · 可直接参考开发 · 响应式 Grid 布局</p>
+
+<div class="prototypes-container">
+
+  <!-- 1. 登录页 -->
+  <div class="prototype-wrapper">
+    <div class="prototype-title">登录页</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span><i class="fas fa-signal"></i> <i class="fas fa-wifi"></i> <i class="fas fa-battery-full"></i></span></div>
+      <div class="app-content" style="padding-top:60px; text-align:center;">
+        <div style="font-size:48px; color:#10b981; margin-bottom:16px;"><i class="fas fa-wallet"></i></div>
+        <h2 style="margin-bottom:8px;">AI 记账</h2>
+        <p style="color:#6b7280; margin-bottom:40px;">智能自动记账，轻松理财</p>
+        <div class="form-group"><input type="text" placeholder="手机号 / 邮箱"></div>
+        <div class="form-group"><input type="password" placeholder="密码"></div>
+        <button class="btn" style="margin-bottom:16px;">登录</button>
+        <div style="display:flex; justify-content:center; gap:40px; margin:30px 0;">
+          <div style="text-align:center;"><i class="fab fa-weixin" style="font-size:36px; color:#07c160;"></i><div style="font-size:12px; margin-top:4px;">微信</div></div>
+          <div style="text-align:center;"><i class="fab fa-alipay" style="font-size:36px; color:#1677ff;"></i><div style="font-size:12px; margin-top:4px;">支付宝</div></div>
+        </div>
+        <p style="font-size:14px; color:#6b7280;"><a href="#" style="color:#10b981;">忘记密码</a> · <a href="#" style="color:#10b981;">注册新账号</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 注册页 -->
+  <div class="prototype-wrapper">
+    <div class="prototype-title">注册页</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span><i class="fas fa-signal"></i> <i class="fas fa-wifi"></i> <i class="fas fa-battery-full"></i></span></div>
+      <div class="app-header"><i class="fas fa-arrow-left"></i> 注册账号</div>
+      <div class="app-content">
+        <div class="form-group"><label>手机号</label><input type="tel" placeholder="请输入手机号"></div>
+        <div class="form-group"><label>验证码</label>
+          <div style="display:flex; gap:8px;">
+            <input type="text" placeholder="验证码" style="flex:1;">
+            <button class="btn" style="width:110px; padding:12px;">获取验证码</button>
+          </div>
+        </div>
+        <div class="form-group"><label>设置密码</label><input type="password" placeholder="6-20位密码"></div>
+        <button class="btn" style="margin-top:20px;">立即注册</button>
+        <p style="text-align:center; margin-top:20px; font-size:14px; color:#6b7280;">已有账号？<a href="#" style="color:#10b981;">去登录</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 首页 -->
+  <div class="prototype-wrapper">
+    <div class="prototype-title">首页（仪表盘）</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span><i class="fas fa-signal"></i> <i class="fas fa-wifi"></i> <i class="fas fa-battery-full"></i></span></div>
+      <div class="app-header">
+        <span>我的账本</span>
+        <i class="fas fa-bell"></i>
+      </div>
+      <div class="app-content">
+        <div class="card" style="text-align:center; background:linear-gradient(135deg,#10b981,#059669); color:white;">
+          <div style="font-size:14px; opacity:0.9;">总资产</div>
+          <div style="font-size:32px; font-weight:700; margin:6px 0;">¥ 28,560.80</div>
+          <div style="font-size:13px;">本月结余 +¥ 3,240</div>
+        </div>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <div class="label">本月收入</div>
+            <div class="amount income">+8,500</div>
+          </div>
+          <div class="summary-item">
+            <div class="label">本月支出</div>
+            <div class="amount expense">-5,260</div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-weight:600; margin-bottom:12px;">最近交易 <span class="ai-badge">AI</span></div>
+          <div class="transaction-item">
+            <div class="trans-left">
+              <div class="icon-circle" style="background:#fef3c7; color:#d97706;"><i class="fas fa-utensils"></i></div>
+              <div><div>午餐 - 麦当劳</div><div style="font-size:12px; color:#9ca3af;">今天 12:30</div></div>
+            </div>
+            <div class="expense">-42.00</div>
+          </div>
+          <div class="transaction-item">
+            <div class="trans-left">
+              <div class="icon-circle" style="background:#dbeafe; color:#2563eb;"><i class="fas fa-subway"></i></div>
+              <div><div>地铁通勤</div><div style="font-size:12px; color:#9ca3af;">今天 08:15</div></div>
+            </div>
+            <div class="expense">-6.00</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item active"><i class="fas fa-home"></i>首页</div>
+        <div class="nav-item"><i class="fas fa-plus-circle"></i>记账</div>
+        <div class="nav-item"><i class="fas fa-chart-pie"></i>报表</div>
+        <div class="nav-item"><i class="fas fa-user"></i>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 添加交易（AI + 手动） -->
+  <div class="prototype-wrapper">
+    <div class="prototype-title">添加交易</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span><i class="fas fa-signal"></i> <i class="fas fa-wifi"></i> <i class="fas fa-battery-full"></i></span></div>
+      <div class="app-header"><i class="fas fa-times"></i> 记一笔</div>
+      <div class="app-content">
+        <div class="tab-group">
+          <div class="tab active">AI 自动</div>
+          <div class="tab">手动输入</div>
+        </div>
+        <div class="upload-area">
+          <i class="fas fa-camera" style="font-size:36px; color:#10b981; margin-bottom:8px;"></i>
+          <div style="font-weight:600;">拍照识别发票 / 小票</div>
+          <div style="font-size:13px; color:#6b7280; margin-top:4px;">支持微信/支付宝账单截图</div>
+        </div>
+        <div class="upload-area">
+          <i class="fas fa-microphone" style="font-size:36px; color:#3b82f6; margin-bottom:8px;"></i>
+          <div style="font-weight:600;">语音记账</div>
+          <div style="font-size:13px; color:#6b7280; margin-top:4px;">说“今天午餐花了42块”</div>
+        </div>
+        <div style="text-align:center; color:#9ca3af; margin:12px 0;">或</div>
+        <div class="form-group"><input type="number" placeholder="金额" style="font-size:24px; text-align:center; font-weight:600;"></div>
+        <div class="form-group"><select><option>餐饮</option><option>交通</option><option>购物</option><option>工资</option></select></div>
+        <button class="btn">保存记录</button>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><i class="fas fa-home"></i>首页</div>
+        <div class="nav-item active"><i class="fas fa-plus-circle"></i>记账</div>
+        <div class="nav-item"><i class="fas fa-chart-pie"></i>报表</div>
+        <div class="nav-item"><i class="fas fa-user"></i>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 交易列表 -->
+  <div class="prototype-wrapper">
+    <div class="prototype-title">交易列表</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span><i class="fas fa-signal"></i> <i class="fas fa-wifi"></i> <i class="fas fa-battery-full"></i></span></div>
+      <div class="app-header">全部交易</div>
+      <div class="app-content">
+        <input type="text" placeholder="搜索交易、备注、商家...">
+        <div style="display:flex; gap:8px; margin:12px 0; overflow-x:auto;">
+          <span style="background:#10b981; color:white; padding:6px 12px; border-radius:999px; font-size:13px;">全部</span>
+          <span style="background:#f3f4f6; padding:6px 12px; border-radius:999px; font-size:13px;">餐饮</span>
+          <span style="background:#f3f4f6; padding:6px 12px; border-radius:999px; font-size:13px;">交通</span>
+          <span style="background:#f3f4f6; padding:6px 12px; border-radius:999px; font-size:13px;">收入</span>
+        </div>
+        <div class="card">
+          <div class="transaction-item">
+            <div class="trans-left">
+              <div class="icon-circle" style="background:#fef3c7; color:#d97706;"><i class="fas fa-utensils"></i></div>
+              <div><div>麦当劳</div><div style="font-size:12px; color:#9ca3af;">餐饮 · 今天</div></div>
+            </div>
+            <div class="expense">-42.00</div>
+          </div>
+          <div class="transaction-item">
+            <div class="trans-left">
+              <div class="icon-circle" style="background:#dcfce7; color:#16a34a;"><i class="fas fa-briefcase"></i></div>
+              <div><div>工资</div><div style="font-size:12px; color:#9ca3af;">收入 · 11月1日</div></div>
+            </div>
+            <div class="income">+8,500.00</div>
+          </div>
+          <div class="transaction-item">
+            <div class="trans-left">
+              <div class="icon-circle" style="background:#fce7f3; color:#db2777;"><i class="fas fa-shopping-bag"></i></div>
+              <div><div>淘宝购物</div><div style="font-size:12px; color:#9ca3af;">购物 · 昨天</div></div>
+            </div>
+            <div class="expense">-189.00</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><i class="fas fa-home"></i>首页</div>
+        <div class="nav-item"><i class="fas fa-plus-circle"></i>记账</div>
+        <div class="nav-item"><i class="fas fa-chart-pie"></i>报表</div>
+        <div class="nav-item"><i class="fas fa-user"></i>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 报表分析 -->
+  <div class="prototype-wrapper">
+    <div class="prototype-title">报表分析</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span><i class="fas fa-signal"></i> <i class="fas fa-wifi"></i> <i class="fas fa-battery-full"></i></span></div>
+      <div class="app-header">财务报表</div>
+      <div class="app-content">
+        <select style="margin-bottom:16px;"><option>2026年11月</option><option>2026年10月</option></select>
+        <div class="chart-placeholder">
+          <div style="text-align:center;">
+            <i class="fas fa-chart-pie" style="font-size:40px; color:#10b981;"></i>
+            <div style="margin-top:8px;">支出分类占比</div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-weight:600; margin-bottom:8px;">AI 理财建议 <span class="ai-badge">AI</span></div>
+          <p style="font-size:14px; line-height:1.6; color:#374151;">本月餐饮支出占比 38%，较上月上升 12%。建议尝试每周自己做饭 2-3 次，预计可节省约 ¥400。</p>
+        </div>
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>餐饮</span><span class="expense">¥2,010 (38%)</span></div>
+          <div style="height:6px; background:#e5e7eb; border-radius:3px;"><div style="width:38%; height:100%; background:#ef4444; border-radius:3px;"></div></div>
+          <div style="display:flex; justify-content:space-between; margin:12px 0 8px;"><span>交通</span><span>¥680 (13%)</span></div>
+          <div style="height:6px; background:#e5e7eb; border-radius:3px;"><div style="width:13%; height:100%; background:#3b82f6; border-radius:3px;"></div></div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><i class="fas fa-home"></i>首页</div>
+        <div class="nav-item"><i class="fas fa-plus-circle"></i>记账</div>
+        <div class="nav-item active"><i class="fas fa-chart-pie"></i>报表</div>
+        <div class="nav-item"><i class="fas fa-user"></i>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. 预算设置 -->
+  <div class="prototype-wrapper">
+    <div class="prototype-title">预算设置</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span><i class="fas fa-signal"></i> <i class="fas fa-wifi"></i> <i class="fas fa-battery-full"></i></span></div>
+      <div class="app-header">预算管理</div>
+      <div class="app-content">
+        <div class="card" style="text-align:center;">
+          <div style="font-size:14px; color:#6b7280;">本月总预算</div>
+          <div style="font-size:28px; font-weight:700; margin:6px 0;">¥ 6,000</div>
+          <div style="font-size:13px; color:#ef4444;">已使用 87%</div>
+          <div style="height:8px; background:#e5e7eb; border-radius:4px; margin-top:12px;"><div style="width:87%; height:100%; background:#ef4444; border-radius:4px;"></div></div>
+        </div>
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <span style="font-weight:600;">分类预算</span>
+            <span style="color:#10b981; font-size:14px;"><i class="fas fa-plus"></i> 添加</span>
+          </div>
+          <div class="transaction-item">
+            <div>餐饮</div>
+            <div>¥1,800 / ¥2,000</div>
+          </div>
+          <div class="transaction-item">
+            <div>交通</div>
+            <div>¥450 / ¥600</div>
+          </div>
+          <div class="transaction-item">
+            <div>购物</div>
+            <div>¥890 / ¥1,000</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><i class="fas fa-home"></i>首页</div>
+        <div class="nav-item"><i class="fas fa-plus-circle"></i>记账</div>
+        <div class="nav-item"><i class="fas fa-chart-pie"></i>报表</div>
+        <div class="nav-item"><i class="fas fa-user"></i>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. 我的 / 设置 -->
+  <div class="prototype-wrapper">
+    <div class="prototype-title">我的 / 设置</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span><i class="fas fa-signal"></i> <i class="fas fa-wifi"></i> <i class="fas fa-battery-full"></i></span></div>
+      <div class="app-header">我的</div>
+      <div class="app-content">
+        <div class="card" style="display:flex; align-items:center; gap:16px;">
+          <div style="width:60px; height:60px; border-radius:50%; background:#10b981; color:white; display:flex; align-items:center; justify-content:center; font-size:24px;"><i class="fas fa-user"></i></div>
+          <div>
+            <div style="font-size:18px; font-weight:600;">用户昵称</div>
+            <div style="font-size:13px; color:#6b7280;">已连续记账 128 天</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="transaction-item"><div><i class="fas fa-wallet" style="width:24px;"></i> 账户管理</div><i class="fas fa-chevron-right" style="color:#d1d5db;"></i></div>
+          <div class="transaction-item"><div><i class="fas fa-bell" style="width:24px;"></i> 通知提醒</div><i class="fas fa-chevron-right" style="color:#d1d5db;"></i></div>
+          <div class="transaction-item"><div><i class="fas fa-shield-alt" style="width:24px;"></i> 数据安全</div><i class="fas fa-chevron-right" style="color:#d1d5db;"></i></div>
+          <div class="transaction-item"><div><i class="fas fa-cloud-download-alt" style="width:24px;"></i> 数据导出 / 备份</div><i class="fas fa-chevron-right" style="color:#d1d5db;"></i></div>
+          <div class="transaction-item"><div><i class="fas fa-moon" style="width:24px;"></i> 深色模式</div><i class="fas fa-chevron-right" style="color:#d1d5db;"></i></div>
+        </div>
+        <button class="btn" style="background:#ef4444; margin-top:8px;">退出登录</button>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><i class="fas fa-home"></i>首页</div>
+        <div class="nav-item"><i class="fas fa-plus-circle"></i>记账</div>
+        <div class="nav-item"><i class="fas fa-chart-pie"></i>报表</div>
+        <div class="nav-item active"><i class="fas fa-user"></i>我的</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p style="text-align:center; margin-top:40px; color:#9ca3af; font-size:13px;">
+  提示：直接用浏览器打开此 HTML 文件即可预览所有原型。建议使用桌面浏览器查看完整 Grid 布局。
+</p>
+
+</body>
+</html>
