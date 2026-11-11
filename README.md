@@ -1,6 +1,8 @@
-# AI 自动记账 APP
+# LedgerAI（智账）
 
-Flutter 骨架项目，目标是上架 iOS App Store 和 Google Play。
+AI 自动记账 APP，支持拍照识别、语音记账、智能建议，并兼顾适老化与无障碍设计。
+
+目标是上架 iOS App Store 和 Google Play。
 
 ## 已包含页面
 - 首页仪表盘
@@ -16,3 +18,6 @@ Flutter 骨架项目，目标是上架 iOS App Store 和 Google Play。
 flutter pub get
 flutter run
 ```
+
+## 相关文档
+- [ACCESSIBILITY.md](ACCESSIBILITY.md) — 适老化与无障碍设计规范

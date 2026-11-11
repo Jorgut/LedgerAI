@@ -1,5 +1,5 @@
-name: ai_accounting
-description: AI 自动记账 APP
+name: ledger_ai
+description: LedgerAI（智账）- AI 自动记账 APP
 publish_to: 'none'
 version: 1.0.0+1
 
