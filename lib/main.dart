@@ -5,9 +5,11 @@ import 'screens/transaction_list_screen.dart';
 import 'screens/report_screen.dart';
 import 'screens/budget_screen.dart';
 import 'screens/profile_screen.dart';
-import 'screens/login_screen.dart';
+import 'services/storage_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await StorageService.init();
   runApp(const LedgerAIApp());
 }
 
@@ -51,11 +53,12 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: _screens[_currentIndex],
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => const AddTransactionScreen()),
           );
+          setState(() {});
         },
         backgroundColor: const Color(0xFF10B981),
         child: const Icon(Icons.add),
