@@ -8,16 +8,16 @@ import 'screens/profile_screen.dart';
 import 'screens/login_screen.dart';
 
 void main() {
-  runApp(const AIAccountingApp());
+  runApp(const LedgerAIApp());
 }
 
-class AIAccountingApp extends StatelessWidget {
-  const AIAccountingApp({super.key});
+class LedgerAIApp extends StatelessWidget {
+  const LedgerAIApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'AI 记账',
+      title: 'LedgerAI',
       theme: ThemeData(
         primaryColor: const Color(0xFF10B981),
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF10B981)),
