@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
+import '../models/transaction.dart';
+import '../services/storage_service.dart';
 
 class AddTransactionScreen extends StatefulWidget {
   const AddTransactionScreen({super.key});
@@ -8,7 +11,34 @@ class AddTransactionScreen extends StatefulWidget {
 }
 
 class _AddTransactionScreenState extends State<AddTransactionScreen> {
-  int _selectedTab = 0;
+  int _selectedTab = 1;
+  final _amountController = TextEditingController();
+  String _category = '餐饮';
+  final _noteController = TextEditingController();
+  bool _isIncome = false;
+
+  @override
+  void dispose() {
+    _amountController.dispose();
+    _noteController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _save() async {
+    final amount = double.tryParse(_amountController.text);
+    if (amount == null || amount <= 0) return;
+
+    final t = Transaction(
+      id: const Uuid().v4(),
+      amount: amount,
+      category: _category,
+      note: _noteController.text,
+      date: DateTime.now(),
+      isIncome: _isIncome,
+    );
+    await StorageService.addTransaction(t);
+    if (mounted) Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,113 +52,66 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           tooltip: '关闭',
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Row(
               children: [
                 Expanded(
-                  child: Semantics(
-                    button: true,
-                    label: 'AI 自动记账',
-                    child: ElevatedButton(
-                      onPressed: () => setState(() => _selectedTab = 0),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _selectedTab == 0 ? const Color(0xFF10B981) : Colors.grey.shade200,
-                        foregroundColor: _selectedTab == 0 ? Colors.white : Colors.black,
-                        minimumSize: const Size(0, 48),
-                      ),
-                      child: const Text('AI 自动', style: TextStyle(fontSize: 16)),
+                  child: ElevatedButton(
+                    onPressed: () => setState(() => _isIncome = false),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: !_isIncome ? const Color(0xFF10B981) : Colors.grey.shade200,
+                      foregroundColor: !_isIncome ? Colors.white : Colors.black,
+                      minimumSize: const Size(0, 48),
                     ),
+                    child: const Text('支出'),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Semantics(
-                    button: true,
-                    label: '手动输入记账',
-                    child: ElevatedButton(
-                      onPressed: () => setState(() => _selectedTab = 1),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _selectedTab == 1 ? const Color(0xFF10B981) : Colors.grey.shade200,
-                        foregroundColor: _selectedTab == 1 ? Colors.white : Colors.black,
-                        minimumSize: const Size(0, 48),
-                      ),
-                      child: const Text('手动输入', style: TextStyle(fontSize: 16)),
+                  child: ElevatedButton(
+                    onPressed: () => setState(() => _isIncome = true),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _isIncome ? const Color(0xFF10B981) : Colors.grey.shade200,
+                      foregroundColor: _isIncome ? Colors.white : Colors.black,
+                      minimumSize: const Size(0, 48),
                     ),
+                    child: const Text('收入'),
                   ),
                 ),
               ],
             ),
-          ),
-          Expanded(
-            child: _selectedTab == 0 ? _buildAIView() : _buildManualView(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAIView() {
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        _buildUploadCard(Icons.camera_alt, '拍照识别发票 / 小票', '支持微信、支付宝账单截图', Colors.green, '拍照识别小票'),
-        const SizedBox(height: 16),
-        _buildUploadCard(Icons.mic, '语音记账', '说“今天午餐花了42块”', Colors.blue, '语音记账'),
-      ],
-    );
-  }
-
-  Widget _buildManualView() {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          TextField(
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: '金额', border: OutlineInputBorder()),
-            style: const TextStyle(fontSize: 24),
-          ),
-          const SizedBox(height: 16),
-          DropdownButtonFormField(
-            decoration: const InputDecoration(labelText: '分类', border: OutlineInputBorder()),
-            items: ['餐饮', '交通', '购物', '工资'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
-            onChanged: (v) {},
-          ),
-          const SizedBox(height: 24),
-          SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF10B981)),
-              child: const Text('保存记录', style: TextStyle(fontSize: 16)),
+            const SizedBox(height: 24),
+            TextField(
+              controller: _amountController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(labelText: '金额', border: OutlineInputBorder()),
+              style: const TextStyle(fontSize: 24),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildUploadCard(IconData icon, String title, String subtitle, Color color, String semanticLabel) {
-    return Semantics(
-      button: true,
-      label: semanticLabel,
-      child: Container(
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade300, width: 2),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          children: [
-            Icon(icon, size: 48, color: color),
-            const SizedBox(height: 12),
-            Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 4),
-            Text(subtitle, style: const TextStyle(color: Colors.grey)),
+            const SizedBox(height: 16),
+            DropdownButtonFormField<String>(
+              value: _category,
+              decoration: const InputDecoration(labelText: '分类', border: OutlineInputBorder()),
+              items: ['餐饮', '交通', '购物', '工资', '其他'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+              onChanged: (v) => setState(() => _category = v ?? '餐饮'),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _noteController,
+              decoration: const InputDecoration(labelText: '备注（可选）', border: OutlineInputBorder()),
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              height: 56,
+              child: ElevatedButton(
+                onPressed: _save,
+                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF10B981)),
+                child: const Text('保存记录', style: TextStyle(fontSize: 16)),
+              ),
+            ),
           ],
         ),
       ),
