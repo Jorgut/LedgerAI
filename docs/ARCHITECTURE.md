@@ -8,7 +8,7 @@
 - v1 只上 **iOS App Store**（iPhone、竖屏、iOS 16+）。Android 后续版本再做。
 - **全离线**：不登录、不联网、不做云同步、不上传任何用户数据。所有识别与建议都在本机完成。
 - **免费**上架，v1 不做内购。
-- Bundle ID：`com.jorgut.ledgerai`；开发团队：`GB38532D8G`；版本 `1.0.0+1`。
+- Bundle ID：`com.archintera.ledgerai`；开发团队：`GB38532D8G`；版本 `1.0.0+1`。
 - 隐私口径：App Store 隐私标签为「Data Not Collected」。不得引入会把数据发到服务器的依赖或代码。
 
 ## 2. 技术栈与工程约定
@@ -127,10 +127,10 @@ class SpeechRecognizer {
 ```
 
 原生通道协议（Swift 必须严格匹配）：
-- `MethodChannel('com.jorgut.ledgerai/ocr')`，方法 `recognizeText`，参数 `{'path': String}`，
+- `MethodChannel('com.archintera.ledgerai/ocr')`，方法 `recognizeText`，参数 `{'path': String}`，
   返回 `{'text': String, 'lines': List<String>}`；失败返回 `FlutterError`。
-- `MethodChannel('com.jorgut.ledgerai/speech')`：`isAvailable` → bool；`start` 参数 `{'localeId': String}`；`stop`；`cancel`。
-- `EventChannel('com.jorgut.ledgerai/speech_events')` 发出 Map：`{'type': 'partial'|'final'|'error'|'state', 'text': String?, 'message': String?, 'state': 'listening'|'idle'?}`。
+- `MethodChannel('com.archintera.ledgerai/speech')`：`isAvailable` → bool；`start` 参数 `{'localeId': String}`；`stop`；`cancel`。
+- `EventChannel('com.archintera.ledgerai/speech_events')` 发出 Map：`{'type': 'partial'|'final'|'error'|'state', 'text': String?, 'message': String?, 'state': 'listening'|'idle'?}`。
 - OCR 用 iOS Vision `VNRecognizeTextRequest`（zh-Hans + en，accurate）。语音用 `SFSpeechRecognizer`，
   **必须要求设备端识别**（`requiresOnDeviceRecognition = true`），不可用时 `isAvailable` 返回 false 并给出中文提示；
   不得把音频写入磁盘或上传。注意 `NSSpeechRecognitionUsageDescription`、`NSMicrophoneUsageDescription` 已在 Info.plist 配置。

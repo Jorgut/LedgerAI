@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// 金额格式：¥1,234.56 / ¥-42.00（始终两位小数，千分位）。
+/// 金额格式：¥1,234.56 / -¥42.00（始终两位小数，千分位；负号在 ¥ 前）。
 String formatMoney(double amount, {bool withSymbol = true, bool signed = false}) {
   final negative = amount < 0;
   final abs = amount.abs();
@@ -84,3 +84,6 @@ double? parseAmount(String raw) {
 /// 主题色。全部页面统一使用这一个品牌绿。
 const Color kBrandColor = Color(0xFF10B981);
 const Color kBrandDark = Color(0xFF059669);
+
+/// 浅色背景上的正文/链接用深一档的绿，保证对比度（#10B981 仅用于填充与强调）。
+const Color kBrandText = Color(0xFF047857);

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'ai/parsing.dart';
 import 'core/app_state.dart';
+import 'ui/screens/add_transaction_screen.dart';
+import 'ui/screens/budget_screen.dart';
 import 'ui/screens/onboarding_screen.dart';
 import 'ui/screens/root_shell.dart';
 import 'ui/theme.dart';
@@ -10,6 +13,10 @@ import 'ui/theme.dart';
 /// 业务数据变化由各页面通过 [AppScope] 自行订阅。
 class LedgerApp extends StatelessWidget {
   const LedgerApp({super.key});
+
+  /// 商店截图模式（`--dart-define=DEMO_SCREEN=...`）：直接打开指定页面，
+  /// 仅供本地截图/验收，正式包不设置该变量。
+  static const String _demoScreen = String.fromEnvironment('DEMO_SCREEN');
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +38,59 @@ class LedgerApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          home: prefs.onboardingDone
-              ? const RootShell()
-              : const OnboardingScreen(onDone: _noop),
+          home: _buildHome(prefs.onboardingDone),
         );
       },
     );
   }
+
+  Widget _buildHome(bool onboardingDone) {
+    if (!onboardingDone) {
+      return const OnboardingScreen(onDone: _noop);
+    }
+    if (!AppState.isDemo || _demoScreen.isEmpty) {
+      return const RootShell();
+    }
+    switch (_demoScreen) {
+      case 'onboarding':
+        return const OnboardingScreen(onDone: _noop);
+      case 'transactions':
+        return const RootShell(initialIndex: 1);
+      case 'reports':
+        return const RootShell(initialIndex: 2);
+      case 'reports2':
+        return const RootShell(
+          initialIndex: 2,
+          showFab: false,
+          reportsInitialScrollOffset: 430,
+        );
+      case 'settings':
+        return const RootShell(initialIndex: 3, showFab: false);
+      case 'budget':
+        return const BudgetScreen();
+      case 'add':
+        return const AddTransactionScreen();
+      case 'add_receipt':
+        return AddTransactionScreen(
+          initialReceipt: _demoReceipt,
+          initialMode: AddTransactionMode.receipt,
+        );
+      case 'add_parsed':
+        return AddTransactionScreen(initialReceipt: _demoReceipt);
+      case 'add_voice':
+        return const AddTransactionScreen(initialMode: AddTransactionMode.voice);
+      default:
+        return const RootShell();
+    }
+  }
+
+  static const ParsedReceipt _demoReceipt = ParsedReceipt(
+    amount: 42,
+    merchant: '麦当劳',
+    categoryId: 'food',
+    note: '午餐 · 麦当劳',
+    rawText: '麦当劳（万达店）\n2026-11-12 12:30\n巨无霸套餐 ¥32.00\n薯条 ¥10.00\n合计 ¥42.00',
+  );
 
   static void _noop() {}
 }

@@ -11,14 +11,14 @@
 - 平台：**iOS 先上架**（本机无 Android SDK，磁盘剩余约 4GB，双端会显著拖慢）。
 - AI：**全离线**——iOS Vision OCR + 设备端语音识别 + 本地规则分类/建议；不接云端大模型。
 - 商业化：**免费上架**，v1 无内购。
-- 开发者团队沿用 FlowCue 的 `GB38532D8G`；Bundle ID 沿用 `com.jorgut.<app>` 命名惯例，定为 `com.jorgut.ledgerai`。
+- 开发者团队沿用 `GB38532D8G`；Bundle ID 按用户要求使用 archintera 前缀，定为 `com.archintera.ledgerai`。
 - 无障碍/适老化要求沿用 `ACCESSIBILITY.md`。
 
 ## 已完成（2026-11-12）
 
 - 环境核实：Flutter 3.47.9 stable、Xcode 27.2、CocoaPods 1.17.0、iOS 模拟器可用（iPhone 17 Pro 已启动）；
   本机有 Apple Distribution 证书（GB38532D8G）与 App Store Connect API Key `~/.appstoreconnect/private_keys/AuthKey_79W52WL2JB.p8`（Issuer ID 待确认）。
-- 生成 iOS 工程：`com.jorgut.ledgerai`、Team `GB38532D8G`、iOS 16.0、iPhone 竖屏、显示名「衡账」、
+- 生成 iOS 工程：`com.archintera.ledgerai`、Team `GB38532D8G`、iOS 16.0、iPhone 竖屏、显示名「衡账」、
   权限文案（相机/相册/麦克风/语音识别）、`ITSAppUsesNonExemptEncryption=false`、简体中文本地化。
 - 依赖：hive/hive_flutter/uuid/intl/image_picker/path_provider/share_plus/flutter_localizations；不引入图表库与状态管理库。
 - 基线构建：`flutter build ios --simulator --debug` 通过（`build/ios/iphonesimulator/Runner.app`），CocoaPods 与插件正常。
@@ -46,7 +46,7 @@
 
 ## 阻塞与外部依赖（需要用户处理时再确认）
 
-1. **App Store Connect 应用记录**：尚未创建。需要 ASC Issuer ID 才能用现有 API Key 自动建记录，或在 ASC 网页手动创建「衡账」App（Bundle ID `com.jorgut.ledgerai`）。
+1. **App Store Connect 应用记录**：尚未创建。需要 ASC Issuer ID 才能用现有 API Key 自动建记录，或在 ASC 网页手动创建「衡账」App（Bundle ID `com.archintera.ledgerai`）。
 2. 审核提交需要用户对具体 App 记录/版本做最终确认（付费账号下的对外发布动作）。
 3. 磁盘仅剩约 4GB，iOS Release archive 前需清理旧构建缓存（DerivedData/旧模拟器），避免空间不足。
 
