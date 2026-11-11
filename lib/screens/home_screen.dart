@@ -10,28 +10,35 @@ class HomeScreen extends StatelessWidget {
         title: const Text('我的账本'),
         backgroundColor: const Color(0xFF10B981),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications_outlined)),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications_outlined),
+            tooltip: '通知',
+          ),
         ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF10B981), Color(0xFF059669)],
+          Semantics(
+            label: '总资产 28560.80 元，本月结余增加 3240 元',
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF10B981), Color(0xFF059669)],
+                ),
+                borderRadius: BorderRadius.circular(16),
               ),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: const Column(
-              children: [
-                Text('总资产', style: TextStyle(color: Colors.white70)),
-                SizedBox(height: 8),
-                Text('¥ 28,560.80', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white)),
-                SizedBox(height: 4),
-                Text('本月结余 +¥ 3,240', style: TextStyle(color: Colors.white)),
-              ],
+              child: const Column(
+                children: [
+                  Text('总资产', style: TextStyle(color: Colors.white70, fontSize: 16)),
+                  SizedBox(height: 8),
+                  Text('¥ 28,560.80', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white)),
+                  SizedBox(height: 4),
+                  Text('本月结余 +¥ 3,240', style: TextStyle(color: Colors.white, fontSize: 16)),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 16),
@@ -53,29 +60,37 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildSummaryCard(String title, String amount, Color color) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10)],
-      ),
-      child: Column(
-        children: [
-          Text(title, style: const TextStyle(color: Colors.grey)),
-          const SizedBox(height: 4),
-          Text(amount, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color)),
-        ],
+    return Semantics(
+      label: '$title $amount 元',
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10)],
+        ),
+        child: Column(
+          children: [
+            Text(title, style: const TextStyle(color: Colors.grey, fontSize: 16)),
+            const SizedBox(height: 4),
+            Text(amount, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color)),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildTransactionItem(String title, String subtitle, String amount, IconData icon) {
-    return ListTile(
-      leading: CircleAvatar(backgroundColor: Colors.orange.shade100, child: Icon(icon, color: Colors.orange)),
-      title: Text(title),
-      subtitle: Text(subtitle),
-      trailing: Text(amount, style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+    return Semantics(
+      label: '$title，$subtitle，金额 $amount 元',
+      button: true,
+      child: ListTile(
+        minVerticalPadding: 16,
+        leading: CircleAvatar(backgroundColor: Colors.orange.shade100, child: Icon(icon, color: Colors.orange)),
+        title: Text(title, style: const TextStyle(fontSize: 16)),
+        subtitle: Text(subtitle),
+        trailing: Text(amount, style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 16)),
+      ),
     );
   }
 }

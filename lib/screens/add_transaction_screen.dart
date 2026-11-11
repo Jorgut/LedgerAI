@@ -16,7 +16,11 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       appBar: AppBar(
         title: const Text('记一笔'),
         backgroundColor: const Color(0xFF10B981),
-        leading: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.close)),
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.close),
+          tooltip: '关闭',
+        ),
       ),
       body: Column(
         children: [
@@ -25,24 +29,34 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
             child: Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => setState(() => _selectedTab = 0),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _selectedTab == 0 ? const Color(0xFF10B981) : Colors.grey.shade200,
-                      foregroundColor: _selectedTab == 0 ? Colors.white : Colors.black,
+                  child: Semantics(
+                    button: true,
+                    label: 'AI 自动记账',
+                    child: ElevatedButton(
+                      onPressed: () => setState(() => _selectedTab = 0),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _selectedTab == 0 ? const Color(0xFF10B981) : Colors.grey.shade200,
+                        foregroundColor: _selectedTab == 0 ? Colors.white : Colors.black,
+                        minimumSize: const Size(0, 48),
+                      ),
+                      child: const Text('AI 自动', style: TextStyle(fontSize: 16)),
                     ),
-                    child: const Text('AI 自动'),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => setState(() => _selectedTab = 1),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _selectedTab == 1 ? const Color(0xFF10B981) : Colors.grey.shade200,
-                      foregroundColor: _selectedTab == 1 ? Colors.white : Colors.black,
+                  child: Semantics(
+                    button: true,
+                    label: '手动输入记账',
+                    child: ElevatedButton(
+                      onPressed: () => setState(() => _selectedTab = 1),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _selectedTab == 1 ? const Color(0xFF10B981) : Colors.grey.shade200,
+                        foregroundColor: _selectedTab == 1 ? Colors.white : Colors.black,
+                        minimumSize: const Size(0, 48),
+                      ),
+                      child: const Text('手动输入', style: TextStyle(fontSize: 16)),
                     ),
-                    child: const Text('手动输入'),
                   ),
                 ),
               ],
@@ -60,9 +74,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        _buildUploadCard(Icons.camera_alt, '拍照识别发票 / 小票', '支持微信、支付宝账单截图', Colors.green),
+        _buildUploadCard(Icons.camera_alt, '拍照识别发票 / 小票', '支持微信、支付宝账单截图', Colors.green, '拍照识别小票'),
         const SizedBox(height: 16),
-        _buildUploadCard(Icons.mic, '语音记账', '说“今天午餐花了42块”', Colors.blue),
+        _buildUploadCard(Icons.mic, '语音记账', '说“今天午餐花了42块”', Colors.blue, '语音记账'),
       ],
     );
   }
@@ -86,7 +100,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           const SizedBox(height: 24),
           SizedBox(
             width: double.infinity,
-            height: 48,
+            height: 56,
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF10B981)),
@@ -98,21 +112,25 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     );
   }
 
-  Widget _buildUploadCard(IconData icon, String title, String subtitle, Color color) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300, width: 2),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        children: [
-          Icon(icon, size: 48, color: color),
-          const SizedBox(height: 12),
-          Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 4),
-          Text(subtitle, style: const TextStyle(color: Colors.grey)),
-        ],
+  Widget _buildUploadCard(IconData icon, String title, String subtitle, Color color, String semanticLabel) {
+    return Semantics(
+      button: true,
+      label: semanticLabel,
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey.shade300, width: 2),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          children: [
+            Icon(icon, size: 48, color: color),
+            const SizedBox(height: 12),
+            Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 4),
+            Text(subtitle, style: const TextStyle(color: Colors.grey)),
+          ],
+        ),
       ),
     );
   }
