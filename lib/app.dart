@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'ai/parsing.dart';
 import 'core/app_state.dart';
+import 'ui/brand_intro.dart';
 import 'ui/screens/add_transaction_screen.dart';
 import 'ui/screens/budget_screen.dart';
 import 'ui/screens/onboarding_screen.dart';
@@ -52,10 +53,19 @@ class LedgerApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          home: _buildHome(prefs.onboardingDone),
+          home: _buildRoot(prefs.onboardingDone),
         );
       },
     );
+  }
+
+  Widget _buildRoot(bool onboardingDone) {
+    if (AppState.isDemo && _demoScreen == 'intro') {
+      return BrandIntro(onFinished: _noop);
+    }
+    final child = _buildHome(onboardingDone);
+    final skipIntro = AppState.isDemo && _demoScreen.isNotEmpty;
+    return BrandIntroGate(enabled: !skipIntro, child: child);
   }
 
   Widget _buildHome(bool onboardingDone) {

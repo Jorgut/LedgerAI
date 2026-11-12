@@ -165,6 +165,13 @@
   - `source/heng_oracle.svg`、`source/heng_reference.jpg`
 - 已清理之前所有过程稿（mark/seals/oracle/launch/motion 草稿）。
 
+
+- 启动页/品牌开场已落地（1.1 开发中）：
+  - iOS LaunchScreen 使用与开场一致的深绿渐变背景（全屏、静态），避免与 Flutter 动效重复；
+  - 新增 `lib/ui/brand_intro.dart`：2.6s 景深显影（甲骨模糊→清晰、HENG、副标、footer 依次淡入），可点击跳过，reduce-motion 降级为 400ms 淡入；商店截图模式与 widget 测试自动跳过；
+  - 最终静态图仍以 `store/marketing/brand/final/launch.png` 为准；
+  - 待发布前做真机/Release 验收。
+
 ## 下一步
 
 1. **待用户决定**：1.0 是否撤回并用 build 2 重提（仅 OCR 修复 + 可带新图标），或让 1.0 先过审、修复随 1.1 发布。

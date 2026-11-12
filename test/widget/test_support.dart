@@ -18,6 +18,7 @@ import 'package:ledger_ai/core/app_settings.dart';
 import 'package:ledger_ai/core/app_state.dart';
 import 'package:ledger_ai/core/models.dart';
 import 'package:ledger_ai/core/storage.dart';
+import 'package:ledger_ai/ui/brand_intro.dart';
 import 'package:ledger_ai/ui/theme.dart';
 
 /// 一个 widget 测试用例的完整环境：临时目录 + Hive box + AppState。
@@ -41,6 +42,8 @@ class TestHarness {
   final AppState state;
 
   static Future<TestHarness> open() async {
+    // 测试环境不播冷启动品牌动效，避免 2.6s 计时器干扰组件测试。
+    BrandIntroGate.forceDisabled = true;
     installPlatformMocks();
     final tempDir = Directory.systemTemp.createTempSync('ledger_ai_widget_');
     final store = await LocalStore.openForTest(tempDir.path);
@@ -67,9 +70,11 @@ class TestHarness {
 ///
 /// 每次测试后 flutter_test 会自动清除 mock，所以在每个用例的 setUp 里重新安装。
 void installPlatformMocks() {
-  final messenger = TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+  final messenger =
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
   // 触觉反馈 / 系统声音等系统调用：静默成功。
-  messenger.setMockMethodCallHandler(SystemChannels.platform, (call) async => null);
+  messenger.setMockMethodCallHandler(
+      SystemChannels.platform, (call) async => null);
   // 设备端语音 / OCR：测试环境视为不可用（模拟器行为），不影响手动记账。
   // 通道前缀与 lib/ai + AppDelegate 保持一致：com.archintera.ledgerai/*。
   messenger.setMockMethodCallHandler(
@@ -234,19 +239,22 @@ Future<void> waitUntil(
   for (var i = 0; i < attempts; i++) {
     if (condition()) return;
     // runAsync 让真实 dart:io 事件循环推进，pump 让 fake-zone 里的回调继续。
-    await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 10)));
+    await tester
+        .runAsync(() => Future<void>.delayed(const Duration(milliseconds: 10)));
     await tester.pump();
   }
   fail('等待条件超时：${reason ?? '未命名条件'}');
 }
 
 /// 在真实事件循环里写入测试交易（避免 FakeAsync 卡住 Hive 落盘）。
-Future<void> seedAsync(WidgetTester tester, TestHarness harness, Iterable<Txn> txns) =>
+Future<void> seedAsync(
+        WidgetTester tester, TestHarness harness, Iterable<Txn> txns) =>
     tester.runAsync(() => harness.seed(txns)).then((_) {});
 
 /// 使用 iPhone 竖屏尺寸（390×844pt）跑组件测试，避免默认 800×600 横屏
 /// 造成与真机差异过大的布局结论。测试结束自动复位。
-void usePhoneSurface(WidgetTester tester, {double width = 390, double height = 844}) {
+void usePhoneSurface(WidgetTester tester,
+    {double width = 390, double height = 844}) {
   tester.view.physicalSize = Size(width * 3, height * 3);
   tester.view.devicePixelRatio = 3.0;
   addTearDown(tester.view.resetPhysicalSize);
@@ -273,7 +281,9 @@ void expectMinTapTarget(WidgetTester tester, Finder finder, {String? label}) {
     final renderObject = element.renderObject;
     expect(renderObject, isA<RenderBox>(), reason: '目标控件不可测量：$description');
     final size = (renderObject! as RenderBox).size;
-    expect(size.width, greaterThanOrEqualTo(48.0), reason: '$description 宽度 ${size.width} < 48dp');
-    expect(size.height, greaterThanOrEqualTo(48.0), reason: '$description 高度 ${size.height} < 48dp');
+    expect(size.width, greaterThanOrEqualTo(48.0),
+        reason: '$description 宽度 ${size.width} < 48dp');
+    expect(size.height, greaterThanOrEqualTo(48.0),
+        reason: '$description 高度 ${size.height} < 48dp');
   }
 }
