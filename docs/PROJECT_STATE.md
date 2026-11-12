@@ -59,8 +59,11 @@
 - 2026-11-12：`flutter test test/widget/home_screen_test.dart`：7 例中 6 通过，1 例失败 —
   「200% 大字号下不溢出」在首页出现右侧 172px RenderFlex 溢出（无障碍 P1，列入 1.0.1 修复，不阻塞本次审核）。
 - 2026-11-12：App Store Connect 提交成功，`submittedDate` 2026-11-12T03:53:45Z，状态 `WAITING_FOR_REVIEW`。
-- 2026-11-12：TestFlight 内部测试组「Personal Testing」已创建（`f18d353f-199a-42c5-8112-668b5b545fbc`），build 1 已关联；
-  内部测试员需在 ASC 网页「TestFlight ▸ Internal Testing」添加团队成员（API 不支持把内部测试员加入组）。
+- 2026-11-12：TestFlight 内部测试组「Personal Testing」已创建（`f18d353f-199a-42c5-8112-668b5b545fbc`），build 1 已关联，
+  已邀请 2 名内部测试员：`jorgutyn@yahoo.com`（Developer）与 `juhonl@163.com`（Account Holder），状态均 Invited。
+  内部测试员无法用公开 API 添加（409 Tester(s) cannot be assigned），本次通过独立 Chrome 实例（临时 profile + CDP，
+  不影响用户原 Chrome 会话）在 ASC 网页自动完成；该实例仍开着 TestFlight 组页面。
+  另已通过 API 写入「What to Test」中文测试说明（betaBuildLocalization `f37d9291-326c-44cd-ac18-8fc0dd01d618`）。
 
 ## 阻塞与外部依赖
 
