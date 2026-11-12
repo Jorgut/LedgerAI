@@ -117,7 +117,12 @@
 - 新增 `test/ai/receipt_amount_regression_test.dart`：真实设备 OCR 文本 + 用户小票 + 列拆散 + 只有日期四组回归，全部通过。
 - 已构建并上传 **TestFlight build 2（1.0.0 (2)）**，处理完成（VALID）并加入「Personal Testing」内部测试组；
   构建包含：OCR 金额修复 + 新科技感图标/启动图 + 应用内动效。用户可在 TestFlight 更新测试同一张小票。
-- 商店提交（build 1）仍在 `WAITING_FOR_REVIEW`；是否撤回并改提 build 2 待用户决定。
+- 商店提交已按用户要求撤回并改提 **build 3（1.0.0 (3)）**：
+  - build 3 = 简化版图标（去掉同心圆/弧线/HUD 边框）+ OCR 金额修复 + 应用内动效；
+  - 6 张带中英文案排版的商店截图已替换上传（`store/screenshots_marketing/`）；
+  - 2026-11-12T11:10Z 重新提交，状态 `WAITING_FOR_REVIEW`。
+- 15 秒演示视频已生成：`store/marketing/demo_15s.mp4`（1080×1920，含小票→识别→隐私→CTA 四段）。
+- 英文/买断 IAP 按用户决定推迟到 1.1，并与全球发布一起做。
 - 外部 TestFlight：用户已创建外测组「Testing」并添加测试员 `409700385@qq.com`；原状态不可安装（无构建、无测试信息、无 Beta App Review）。
   已补齐：build 2 加入外测组、中文 Test Information/审核联系方式填写、**Beta App Review 已提交**（2026-11-12T02:41Z，`WAITING_FOR_REVIEW`）。
   Public link：`https://testflight.apple.com/join/nvHDDQQT`（Beta 审核通过后可用）；测试员状态目前 `NOT_INVITED`，审核通过后 Apple 自动发邀请。
