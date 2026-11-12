@@ -54,8 +54,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   static const List<_FontScaleOption> _fontScaleOptions = [
     _FontScaleOption('标准', 1.0),
     _FontScaleOption('大', 1.15),
-    _FontScaleOption('特大', 1.3),
-    _FontScaleOption('超大', 1.5),
+    _FontScaleOption('特大', 1.30),
+    _FontScaleOption('超大', 1.50),
   ];
 
   // ---------------------------------------------------------------------------
@@ -86,10 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _setElderMode(bool value) async {
     await AppScope.read(context).updateSettingsWith(
-      (settings) => settings.copyWith(
-        elderMode: value,
-        fontScale: value && settings.fontScale < 1.3 ? 1.3 : settings.fontScale,
-      ),
+      (settings) => settings.copyWith(elderMode: value),
     );
     if (!mounted) return;
     _hapticTick();
@@ -572,9 +569,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Slider(
+                            value: prefs.fontScale.clamp(0.85, 1.5),
+                            min: 0.85,
+                            max: 1.5,
+                            divisions: 13,
+                            label: '${(prefs.fontScale * 100).round()}%',
+                            onChanged: _setFontScale,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 48,
+                          child: Text(
+                            '${(prefs.fontScale * 100).round()}%',
+                            textAlign: TextAlign.end,
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
                     child: Text(
-                      '只影响衡账 App，不改变系统字号；系统已放大的字号会保留更大值。',
+                      '标准 / 大 / 特大 / 超大四档，下方滑块可微调；'
+                      '只影响衡账 App，仍会叠加系统字号。父母模式期间自动使用特大字号，关闭后回到你选择的字号。',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -837,7 +860,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             const SizedBox(height: 24),
             Center(
               child: Text(
-                '© 2026 衡账 · 本地优先记账',
+                'HENG PRIVATE LEDGER\nDESIGNED BY ARCHINTERA',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),

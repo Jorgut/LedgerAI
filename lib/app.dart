@@ -40,8 +40,9 @@ class LedgerApp extends StatelessWidget {
             var chosenScale = prefs.fontScale;
             if (prefs.elderMode && chosenScale < 1.3) chosenScale = 1.3;
             final systemFactor = media.textScaler.scale(16) / 16;
-            final effective =
-                chosenScale > systemFactor ? chosenScale : systemFactor;
+            // 应用内字号作为倍率叠加到系统字号上：标准 0.95 会比系统默认略小，
+            // 同时仍尊重系统级无障碍放大。
+            final effective = chosenScale * systemFactor * 0.95;
             if ((effective - systemFactor).abs() < 0.001) return child!;
             return MediaQuery(
               data: media.copyWith(textScaler: TextScaler.linear(effective)),
