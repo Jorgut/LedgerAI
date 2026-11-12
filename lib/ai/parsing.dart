@@ -109,11 +109,8 @@ class ReceiptParser {
     '本次消费',
     '本次交易',
     '订单金额',
-    '金额',
     'grand total',
     'total',
-    'amount',
-    'sum',
   ];
 
   /// 小计（最低优先级，避免把 Subtotal 当成 Total）。
@@ -229,7 +226,17 @@ class ReceiptParser {
   // 金额提取
   // ---------------------------------------------------------------------------
 
-  double? _pickAmount(List<String> lines) {
+  /// 金额扫描前先抹掉日期/时间/电话等数字，避免把「2026.07.30」当成 2026.07 元。
+  String _maskNonAmountNumbers(String line) => line
+      .replaceAll(_dateYmd, ' ')
+      .replaceAll(_dateCompact, ' ')
+      .replaceAll(_dateMdy, ' ')
+      .replaceAll(_dateShort, ' ')
+      .replaceAll(_timeLike, ' ')
+      .replaceAll(_phoneLike, ' ');
+
+  double? _pickAmount(List<String> rawLines) {
+    final lines = rawLines.map(_maskNonAmountNumbers).toList();
     final lowerLines = lines.map((line) => line.toLowerCase()).toList();
     // 去掉空白后再匹配中文关键词，兼容 OCR 把「合 计」拆开的写法。
     final compactLines = lowerLines
@@ -252,11 +259,14 @@ class ReceiptParser {
           if (segment == null) continue;
           final amount = _amountFromSegment(segment);
           if (amount != null) return amount;
-          // OCR 可能把金额拆到下一行。
-          if (i + 1 < lines.length) {
-            final nextLine = _standaloneAmount(lines[i + 1]);
-            if (nextLine != null) return nextLine;
+          // OCR 可能把金额拆到后面若干行（列被拆散时更远）；在该关键词之后
+          // 找独立数字并取最大值——合计金额通常不小于任何单项，且日期/电话已抹掉。
+          if (const ['金额', 'amount', 'sum', '单价', '数量', 'price', 'qty']
+              .contains(keyword)) {
+            continue;
           }
+          final followed = _largestFollowingAmount(lines, i);
+          if (followed != null) return followed;
         }
       }
     }
@@ -285,8 +295,13 @@ class ReceiptParser {
       }
     }
     if (bareValues.isNotEmpty) {
-      bareValues.sort();
-      return bareValues.last;
+      // 兜底再排除一次「年份区间」的数值（例如 2026.07 被拆开后仍可能残留）。
+      final filtered = bareValues
+          .where((value) => value < 1990 || value > 2100)
+          .toList();
+      final pool = filtered.isEmpty ? bareValues : filtered;
+      pool.sort();
+      return pool.last;
     }
 
     return null;
@@ -309,6 +324,19 @@ class ReceiptParser {
     final match = _numberCore.firstMatch(segment);
     if (match == null) return null;
     return _cleanAmount(match.group(0));
+  }
+
+  /// 在关键词所在行之后（最多 [maxScan] 行）找独立数字，返回其中最大值。
+  double? _largestFollowingAmount(List<String> lines, int keywordLine,
+      {int maxScan = 10}) {
+    double? best;
+    final end = (keywordLine + maxScan).clamp(0, lines.length - 1);
+    for (var j = keywordLine + 1; j <= end; j++) {
+      final value = _standaloneAmount(lines[j]);
+      if (value == null) continue;
+      if (best == null || value > best) best = value;
+    }
+    return best;
   }
 
   double? _standaloneAmount(String line) {
