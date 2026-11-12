@@ -73,6 +73,20 @@
 3. EU DSA trader（商家）状态未提供：ASC 控制台提示需 Account Holder/Admin 在 EU 分发前补充，
    否则可能影响 EU 上架范围。需用户决定并提供商家信息。
 
+## 图标统一（2026-11-12 后续修改）
+
+- 用户反馈 App 图标（几何 ¥ + 小票框）与应用内左上角 Logo（Material 钱包图标）不统一，且更喜欢应用内样式。
+- 已重写 `scripts/generate_icon.py` 与 `scripts/make_launch_images.py`：App 图标、LaunchImage、应用内 Header 现在使用**同一字形**
+  `Icons.account_balance_wallet_rounded`（MaterialIcons 字体码位 0xF520）与同一渐变（#047857→#065F46），
+  重新生成 1024 主图标、19 个 AppIcon 尺寸与 3 个 LaunchImage；校验尺寸/无 alpha 通过。
+- 注意：1.0 已提交审核的二进制仍是旧图标；新图标随 1.1（或 1.0 被拒重提）生效。
+
+## 多语言计划
+
+- 1.1 优先做 IAP 与图标统一；英文 UI + App Store 英文本地化建议放 1.2（避免一次版本范围过大）。
+- 实现方式：Flutter `gen-l10n` + ARB（先把现状硬编码中文抽成 `app_zh.arb`，再补 `app_en.arb`），
+  权限文案用 `InfoPlist.strings`，商店文案/截图按语言单独配置；俄语视数据再定。
+
 ## 下一步
 
 1. 等审核结果；被拒则修 → 重传（build 号 +1）→ 重新提交。

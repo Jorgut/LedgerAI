@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""衡账 LedgerAI · LaunchImage 生成器（仅依赖 Pillow + numpy）。
+"""衡账 LedgerAI · LaunchImage 生成器（Pillow + numpy + Flutter Material 图标字体）。
 
 用法（在仓库根目录执行）：
 
     python3 scripts/make_launch_images.py
 
-产物（覆盖 Flutter 模板的 1×1 透明占位图）：
+产物（覆盖 Flutter 模板的透明占位图）：
 
     ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png     168×185   (1x)
     ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png  336×370   (2x)
     ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png  504×555   (3x)
 
-尺寸依据：`ios/Runner/Base.lproj/LaunchScreen.storyboard` 中 LaunchImage 视图为
-`contentMode="center"`、无尺寸约束，因此图片按自身点尺寸（168×185pt）居中显示。
-本脚本只替换图片资源，不修改 storyboard。
+尺寸依据：`ios/Runner/Base.lproj/LaunchScreen.storyboard` 的 LaunchImage 视图为
+`contentMode="center"`、无尺寸约束，因此按图片自身点尺寸（168×185pt）居中显示。
 
-设计：品牌绿渐变圆角方块 + 白色几何 ¥ + 下方「衡账」字标；背景透明，
-在 storyboard 的白色底上呈现为居中的品牌徽标。渲染时先按 6× 超采样再降采样，
-得到干净的抗锯齿边缘；文字使用系统中的中文字体，缺失时自动退化为纯图标版本。
+设计：与 App 图标、应用内左上角 Logo 完全一致——品牌绿渐变圆角徽标 +
+白色 `Icons.account_balance_wallet_rounded`，下方「衡账」字标；背景透明，
+在 storyboard 白色底上呈现为居中的品牌徽标。
 """
 
 from __future__ import annotations
@@ -27,26 +26,31 @@ import sys
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 IMAGESET = ROOT / "ios" / "Runner" / "Assets.xcassets" / "LaunchImage.imageset"
+MATERIAL_FONT = Path(
+    "/Users/aj/Development/flutter/flutter/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf"
+)
+WALLET_GLYPH = chr(0xF520)
 
-# 点尺寸（与 storyboard 中的 LaunchImage 视图一致）
 POINT_W, POINT_H = 168, 185
-SCALE = 6  # 超采样倍数：168×6 = 1008，185×6 = 1110
+SCALE = 6
 W, H = POINT_W * SCALE, POINT_H * SCALE
 
-BRAND = (16, 185, 129)        # #10B981
-BRAND_DARK = (5, 150, 105)    # #059669
-INK = (6, 95, 70)             # #065F46 字标颜色
+# 与应用内 AppTheme.brandGradient 一致
+BRAND = (4, 120, 87)
+BRAND_DARK = (6, 95, 70)
+INK = (6, 95, 70)
 
-BADGE = 116                   # 徽标边长（pt）
-BADGE_RADIUS = 26             # 徽标圆角（pt）
-GAP = 7                       # 徽标与字标间距（pt）
+BADGE = 116
+BADGE_RADIUS = 26
+GAP = 7
 WORDMARK = "衡账"
-WORDMARK_SIZE = 26            # 字标字号（pt）
-WORDMARK_TRACKING = 3         # 字间距（pt）
+WORDMARK_SIZE = 26
+WORDMARK_TRACKING = 3
+GLYPH_RATIO = 0.60
 
 CJK_FONT_CANDIDATES = [
     ("/System/Library/Fonts/STHeiti Medium.ttc", 0),
@@ -55,9 +59,6 @@ CJK_FONT_CANDIDATES = [
 ]
 
 
-# --------------------------------------------------------------------------- #
-# 品牌渐变（与 App 图标同一套色）
-# --------------------------------------------------------------------------- #
 def brand_gradient(width: int, height: int) -> Image.Image:
     y, x = np.mgrid[0:height, 0:width].astype(np.float32)
     t = np.clip(
@@ -66,12 +67,10 @@ def brand_gradient(width: int, height: int) -> Image.Image:
     a = np.array(BRAND, np.float32)
     b = np.array(BRAND_DARK, np.float32)
     rgb = a * (1 - t) + b * t
-
     nx = (x / max(width - 1, 1) - 0.26) / 0.62
     ny = (y / max(height - 1, 1) - 0.16) / 0.62
-    glow = (np.clip(1 - np.sqrt(nx * nx + ny * ny), 0, 1) ** 2 * 0.16)[..., None]
+    glow = (np.clip(1 - np.sqrt(nx * nx + ny * ny), 0, 1) ** 2 * 0.14)[..., None]
     rgb = rgb + (np.array([255, 255, 255], np.float32) - rgb) * glow
-
     return Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8), "RGB").convert("RGBA")
 
 
@@ -83,133 +82,80 @@ def rounded_mask(size: int, radius: int) -> Image.Image:
     return mask
 
 
-# --------------------------------------------------------------------------- #
-# 白色几何 ¥（与 App 图标同一套比例，按高度缩放）
-# --------------------------------------------------------------------------- #
-def draw_yuan(draw: ImageDraw.ImageDraw, cx: float, cy: float, height: float,
-              fill: tuple) -> None:
-    stroke = 0.170 * height
-    apex_y = cy - 0.50 * height
-    junction_y = apex_y + 0.40 * height
-    arm_dx = 0.32 * height
-    stem_bottom = apex_y + height
-    bar_th = 0.155 * height
-    bar1_y = apex_y + 0.550 * height
-    bar2_y = bar1_y + bar_th + 0.115 * height
-    bar_half = 0.350 * height
-
-    w = int(round(stroke))
-    half = w / 2.0
-
-    def round_line(p1, p2):
-        draw.line([p1, p2], fill=fill, width=w)
-        for x, y in (p1, p2):
-            draw.ellipse([x - half, y - half, x + half, y + half], fill=fill)
-
-    apex = (cx, apex_y)
-    round_line(apex, (cx - arm_dx, junction_y))
-    round_line(apex, (cx + arm_dx, junction_y))
-    round_line((cx, junction_y), (cx, stem_bottom))
-
-    r = bar_th / 2.0
-    for y in (bar1_y, bar2_y):
-        draw.rounded_rectangle(
-            [cx - bar_half, y, cx + bar_half, y + bar_th], radius=r, fill=fill
-        )
+def draw_wallet(img: Image.Image, width_ratio: float = GLYPH_RATIO) -> None:
+    size = img.size[0]
+    font = ImageFont.truetype(str(MATERIAL_FONT), int(round(size * width_ratio)))
+    bbox = font.getbbox(WALLET_GLYPH)
+    glyph_w = bbox[2] - bbox[0]
+    glyph_h = bbox[3] - bbox[1]
+    x = (size - glyph_w) / 2 - bbox[0]
+    y = (size - glyph_h) / 2 - bbox[1]
+    ImageDraw.Draw(img).text((x, y), WALLET_GLYPH, font=font, fill=(255, 255, 255, 255))
 
 
-def load_wordmark_font(size: int) -> ImageFont.FreeTypeFont | None:
+def load_cjk_font(size_px: int):
     for path, index in CJK_FONT_CANDIDATES:
-        if Path(path).exists():
-            try:
-                return ImageFont.truetype(path, size=size, index=index)
-            except OSError:
-                continue
+        try:
+            return ImageFont.truetype(path, size_px, index=index)
+        except Exception:
+            continue
     return None
 
 
-# --------------------------------------------------------------------------- #
-# 组合：徽标 + 字标，然后按内容外接框做光学居中
-# --------------------------------------------------------------------------- #
-def render_content() -> Image.Image:
-    content = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+def render() -> Image.Image:
+    canvas = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+
     badge_px = BADGE * SCALE
-    badge_top = 0
-    badge_left = (W - badge_px) // 2
-
-    # 柔和投影，让徽标在纯白启动页上有轻微层次
-    shadow = Image.new("RGBA", content.size, (0, 0, 0, 0))
-    ImageDraw.Draw(shadow).rounded_rectangle(
-        [badge_left, badge_top + 4 * SCALE,
-         badge_left + badge_px, badge_top + badge_px + 4 * SCALE],
-        radius=BADGE_RADIUS * SCALE,
-        fill=(1, 61, 43, 34),
-    )
-    shadow = shadow.filter(ImageFilter.GaussianBlur(7 * SCALE))
-    content = Image.alpha_composite(content, shadow)
-
-    # 渐变徽标
+    radius_px = BADGE_RADIUS * SCALE
     badge = brand_gradient(badge_px, badge_px)
-    badge.putalpha(rounded_mask(badge_px, BADGE_RADIUS * SCALE))
-    content.alpha_composite(badge, (badge_left, badge_top))
+    draw_wallet(badge)
+    badge.putalpha(rounded_mask(badge_px, radius_px))
 
-    # 白色 ¥
-    draw_yuan(
-        ImageDraw.Draw(content),
-        badge_left + badge_px / 2,
-        badge_top + badge_px / 2,
-        60 * SCALE,
-        (255, 255, 255, 255),
-    )
+    badge_x = (W - badge_px) // 2
+    badge_y = 0
+    canvas.alpha_composite(badge, (badge_x, badge_y))
 
-    # 「衡账」字标
-    font = load_wordmark_font(WORDMARK_SIZE * SCALE)
+    font = load_cjk_font(WORDMARK_SIZE * SCALE)
     if font is not None:
-        tracking = WORDMARK_TRACKING * SCALE
-        advances = [font.getlength(ch) for ch in WORDMARK]
-        total = sum(advances) + tracking * (len(WORDMARK) - 1)
-        ink = font.getbbox(WORDMARK)
+        draw = ImageDraw.Draw(canvas)
+        # 手动字间距
+        widths = []
+        for ch in WORDMARK:
+            bbox = font.getbbox(ch)
+            widths.append(bbox[2] - bbox[0])
+        tracking_px = WORDMARK_TRACKING * SCALE
+        total = sum(widths) + tracking_px * (len(WORDMARK) - 1)
         x = (W - total) / 2
-        # 默认锚点下 getbbox 的 ink[1] 是文字上缘相对原点的偏移
-        text_y = badge_top + badge_px + GAP * SCALE - ink[1]
-        for ch, adv in zip(WORDMARK, advances):
-            ImageDraw.Draw(content).text((x, text_y), ch, font=font, fill=INK)
-            x += adv + tracking
+        y = badge_y + badge_px + GAP * SCALE
+        for ch, w in zip(WORDMARK, widths):
+            bbox = font.getbbox(ch)
+            draw.text((x - bbox[0], y - bbox[1]), ch, font=font, fill=INK + (255,))
+            x += w + tracking_px
 
-    # 光学居中：把实际内容（含投影）挪到画布正中
-    bbox = content.getbbox()
-    if bbox is None:
-        raise RuntimeError("启动图内容为空")
-    bw, bh = bbox[2] - bbox[0], bbox[3] - bbox[1]
-    dx = round((W - bw) / 2 - bbox[0])
-    dy = round((H - bh) / 2 - bbox[1])
-    centered = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    centered.alpha_composite(content, (dx, dy))
-    return centered
-
-
-def save_variant(content: Image.Image, path: Path, width: int, height: int) -> None:
-    out = content.resize((width, height), Image.LANCZOS)
-    out.save(path, format="PNG", optimize=True)
-    with Image.open(path) as im:
-        im.verify()  # PNG 完整性校验要求紧接着 open 调用
-    with Image.open(path) as im:
-        if im.size != (width, height):
-            raise AssertionError(f"{path.name}: 尺寸 {im.size}，期望 {(width, height)}")
-        if im.mode != "RGBA":
-            raise AssertionError(f"{path.name}: 期望 RGBA，实际 {im.mode}")
-        if im.getchannel("A").getextrema()[1] == 0:
-            raise AssertionError(f"{path.name}: 图片完全透明")
-    print(f"  [OK] {path.name:<22} {width}×{height}   RGBA（含透明背景）")
+    return canvas
 
 
 def main() -> int:
-    content = render_content()
-    print(f"生成 LaunchImage（画布 {POINT_W}×{POINT_H}pt，{SCALE}× 超采样）")
-    save_variant(content, IMAGESET / "LaunchImage.png", POINT_W, POINT_H)
-    save_variant(content, IMAGESET / "LaunchImage@2x.png", POINT_W * 2, POINT_H * 2)
-    save_variant(content, IMAGESET / "LaunchImage@3x.png", POINT_W * 3, POINT_H * 3)
-    print("全部启动图尺寸校验通过。")
+    if not MATERIAL_FONT.exists():
+        print(f"[FAIL] 找不到 Material Icons 字体：{MATERIAL_FONT}", file=sys.stderr)
+        return 1
+    image = render()
+    targets = [
+        ("LaunchImage.png", 1),
+        ("LaunchImage@2x.png", 2),
+        ("LaunchImage@3x.png", 3),
+    ]
+    for name, scale in targets:
+        target = IMAGESET / name
+        size = (POINT_W * scale, POINT_H * scale)
+        out = image.resize(size, Image.LANCZOS)
+        out.save(target, format="PNG", optimize=True)
+        with Image.open(target) as check:
+            if check.size != size:
+                print(f"[FAIL] {name}: 尺寸 {check.size}，期望 {size}", file=sys.stderr)
+                return 1
+        print(f"[OK] {name:<24} {size[0]}×{size[1]}  RGBA")
+    print("LaunchImage 生成完成。")
     return 0
 
 
