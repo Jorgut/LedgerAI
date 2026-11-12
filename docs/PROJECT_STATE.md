@@ -1,6 +1,6 @@
 # 衡账 LedgerAI · 项目状态
 
-更新：2026-11-12（Asia/Almaty）。阶段：v1.0 iOS 上架冲刺中。
+更新：2026-11-12（Asia/Almaty）。阶段：**已提交 App Store 审核（Waiting for Review）**。
 
 ## 目标
 
@@ -13,6 +13,17 @@
 - 商业化：**免费上架**，v1 无内购。
 - 开发者团队沿用 `GB38532D8G`；Bundle ID 按用户要求使用 archintera 前缀，定为 `com.archintera.ledgerai`。
 - 无障碍/适老化要求沿用 `ACCESSIBILITY.md`。
+
+## 上架结果（2026-11-12）
+
+- App Store Connect App：**衡账**，Apple ID `6833748333`，Bundle ID `com.archintera.ledgerai`，SKU `ledgerai-ios-1`，团队 `GB38532D8G`。
+- 构建：`1.0.0 (1)`，Apple Distribution 签名，已上传并通过处理（build ID `cb7ca9a4-d922-44a5-916d-34955b963c57`），已关联到 1.0.0 版本。
+- 商店元数据：中文（简体）名称/副标题/关键词/描述/促销文案/支持与营销 URL；
+  隐私政策 URL `https://jorgut.github.io/LedgerAI/PRIVACY.html`（GitHub Pages，仓库已公开）。
+- 截图：6.9 英寸（1320×2868）6 张，已上传（首页/拍照识别/报表/预算/账单/设置），APP_IPHONE_67 集合。
+- 分类：财务（主）+ 效率（次）；年龄分级 4+；价格：免费（永久免费 price schedule）；内容版权：不包含第三方内容。
+- App 隐私：**Data Not Collected** 已通过 ASC 网页发布（Published）。
+- 审核联系信息与备注已填写；**提交审核时间 2026-11-12 08:53（Asia/Almaty）**，状态 Waiting for Review；审核通过后自动发布（AFTER_APPROVAL）。
 
 ## 已完成（2026-11-12）
 
@@ -44,14 +55,16 @@
 - 2026-11-12：iOS 模拟器 Debug 构建通过（105.5s），产物 `build/ios/iphonesimulator/Runner.app`。
 - 2026-11-12：`dart analyze lib/core lib/ai` 无问题；`dart analyze lib/ui` 待 UI 落地后验证。
 
-## 阻塞与外部依赖（需要用户处理时再确认）
+## 阻塞与外部依赖
 
-1. **App Store Connect 应用记录**：尚未创建。需要 ASC Issuer ID 才能用现有 API Key 自动建记录，或在 ASC 网页手动创建「衡账」App（Bundle ID `com.archintera.ledgerai`）。
-2. 审核提交需要用户对具体 App 记录/版本做最终确认（付费账号下的对外发布动作）。
-3. 磁盘仅剩约 4GB，iOS Release archive 前需清理旧构建缓存（DerivedData/旧模拟器），避免空间不足。
+1. 审核结果由 Apple 决定（通常 24–48 小时）。被拒时按 Resolution Center 反馈修复并重新提交。
+2. 真机验证：模拟器无相机、无设备端中文语音模型，原生 OCR/语音通道仅做过 `swiftc -typecheck`；
+   建议用 TestFlight 装到 iPhone 实测「拍照识别 / 语音记账 / 权限拒绝降级 / 飞行模式全流程」。
+3. EU DSA trader（商家）状态未提供：ASC 控制台提示需 Account Holder/Admin 在 EU 分发前补充，
+   否则可能影响 EU 上架范围。需用户决定并提供商家信息。
 
 ## 下一步
 
-1. 合并 UI/AI/物料，`flutter analyze` + `flutter test` + 模拟器全流程验收。
-2. DEMO 模式截图（6.9"/6.7"）→ 元数据 → archive → TestFlight → 提审。
-3. 上架后记录版本号、审核状态与后续 Android 计划。
+1. 等审核结果；被拒则修 → 重传（build 号 +1）→ 重新提交。
+2. 真机 TestFlight 验收（相机/语音/权限/导出）。
+3. 通过后确认自动上架，记录版本与审核结论；后续再做 Android（需安装 Android SDK）与英文/俄文本地化。
