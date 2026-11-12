@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/format.dart';
+import '../../motion/motion.dart';
 import '../../theme.dart';
 
 /// 预算进度条：正常为品牌绿，接近上限变琥珀色，超支变红。
@@ -107,48 +108,58 @@ class BudgetProgressBar extends StatelessWidget {
             ),
           ClipRRect(
             borderRadius: BorderRadius.circular(height / 2),
-            child: LinearProgressIndicator(
-              value: hasBudget ? ratio.clamp(0.0, 1.0) : 0,
-              minHeight: height,
-              color: barColor,
-              backgroundColor: trackColor,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween<double>(
+                  begin: 0, end: hasBudget ? ratio.clamp(0.0, 1.0) : 0),
+              duration: reduceMotionOf(context)
+                  ? Duration.zero
+                  : const Duration(milliseconds: 640),
+              curve: Curves.easeOutCubic,
+              builder: (context, value, _) => LinearProgressIndicator(
+                value: value,
+                minHeight: height,
+                color: barColor,
+                backgroundColor: trackColor,
+              ),
             ),
           ),
           if (showStatus) const SizedBox(height: 6),
           if (showStatus)
             Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (isOver || isNear) ...[
-                Icon(
-                  isOver ? Icons.error_outline_rounded : Icons.warning_amber_rounded,
-                  size: 18,
-                  color: barColor,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (isOver || isNear) ...[
+                  Icon(
+                    isOver
+                        ? Icons.error_outline_rounded
+                        : Icons.warning_amber_rounded,
+                    size: 18,
+                    color: barColor,
+                  ),
+                  const SizedBox(width: 4),
+                ],
+                Expanded(
+                  child: Text(
+                    statusText,
+                    style: baseStyle?.copyWith(
+                      // 溢出/接近上限时用语义色图标提示，文字保持高对比度。
+                      color: isOver
+                          ? theme.colorScheme.error
+                          : theme.colorScheme.onSurfaceVariant,
+                      fontWeight: isOver ? FontWeight.w600 : FontWeight.w400,
+                    ),
+                  ),
                 ),
-                const SizedBox(width: 4),
+                if (isOver)
+                  Text(
+                    '超支 ${formatMoney(spent - budget)}',
+                    style: baseStyle?.copyWith(
+                      color: theme.colorScheme.error,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
               ],
-              Expanded(
-                child: Text(
-                  statusText,
-                  style: baseStyle?.copyWith(
-                    // 溢出/接近上限时用语义色图标提示，文字保持高对比度。
-                    color: isOver
-                        ? theme.colorScheme.error
-                        : theme.colorScheme.onSurfaceVariant,
-                    fontWeight: isOver ? FontWeight.w600 : FontWeight.w400,
-                  ),
-                ),
-              ),
-              if (isOver)
-                Text(
-                  '超支 ${formatMoney(spent - budget)}',
-                  style: baseStyle?.copyWith(
-                    color: theme.colorScheme.error,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-            ],
-          ),
+            ),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_state.dart';
+import '../motion/motion.dart';
 import '../theme.dart';
 import '../widgets/common/app_snack.dart';
 
@@ -53,8 +54,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     setState(() => _finishing = true);
     final app = AppScope.read(context);
     try {
-      await app.updateSettingsWith((settings) =>
-          settings.copyWith(onboardingDone: true));
+      await app.updateSettingsWith(
+          (settings) => settings.copyWith(onboardingDone: true));
     } catch (_) {
       // 写入失败时留在引导页并提示，用户可重试；绝不崩溃。
       if (!mounted) return;
@@ -121,9 +122,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 controller: _controller,
                 itemCount: _pages.length,
                 onPageChanged: (index) => setState(() => _page = index),
-                itemBuilder: (context, index) => _PageContent(
-                  page: _pages[index],
-                  textTheme: theme.textTheme,
+                itemBuilder: (context, index) => FadeSlideIn(
+                  key: ValueKey(index),
+                  duration: const Duration(milliseconds: 420),
+                  child: _PageContent(
+                    page: _pages[index],
+                    textTheme: theme.textTheme,
+                  ),
                 ),
               ),
             ),
@@ -165,7 +170,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ? const SizedBox(
                               width: 22,
                               height: 22,
-                              child: CircularProgressIndicator(strokeWidth: 2.4),
+                              child:
+                                  CircularProgressIndicator(strokeWidth: 2.4),
                             )
                           : Text(isLast ? '开始记账' : '下一步'),
                     ),
@@ -203,8 +209,9 @@ class _PageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final accent =
-        AppTheme.isDark(context) ? theme.colorScheme.primary : AppTheme.brandText;
+    final accent = AppTheme.isDark(context)
+        ? theme.colorScheme.primary
+        : AppTheme.brandText;
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(
@@ -231,25 +238,33 @@ class _PageContent extends StatelessWidget {
                       ],
                     ),
                   ),
-                  child: Center(
-                    child: Container(
-                      width: 92,
-                      height: 92,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: theme.colorScheme.surface,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(
-                              alpha: AppTheme.isDark(context) ? 0.35 : 0.06,
-                            ),
-                            blurRadius: 18,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      const Positioned.fill(
+                        child: ClipOval(child: TechBackdrop(opacity: 0.55)),
                       ),
-                      child: Icon(page.icon, size: 44, color: accent),
-                    ),
+                      Center(
+                        child: Container(
+                          width: 92,
+                          height: 92,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: theme.colorScheme.surface,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(
+                                  alpha: AppTheme.isDark(context) ? 0.35 : 0.06,
+                                ),
+                                blurRadius: 18,
+                                offset: const Offset(0, 8),
+                              ),
+                            ],
+                          ),
+                          child: Icon(page.icon, size: 44, color: accent),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -283,8 +298,8 @@ class _PageContent extends StatelessWidget {
                           vertical: 8,
                         ),
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.primary
-                              .withValues(alpha: 0.10),
+                          color:
+                              theme.colorScheme.primary.withValues(alpha: 0.10),
                           borderRadius: BorderRadius.circular(999),
                         ),
                         child: Row(

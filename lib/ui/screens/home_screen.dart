@@ -4,8 +4,8 @@ import '../../core/app_state.dart';
 import '../../core/format.dart';
 import '../../core/models.dart';
 import '../../core/stats.dart';
+import '../motion/motion.dart';
 import '../theme.dart';
-import '../widgets/common/amount_text.dart';
 import '../widgets/common/app_card.dart';
 import '../widgets/common/empty_state.dart';
 import '../widgets/common/quick_action_tile.dart';
@@ -65,51 +65,58 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 120),
         children: [
-          _BalanceCard(summary: summary, now: now),
+          FadeSlideIn(child: _BalanceCard(summary: summary, now: now)),
           const SizedBox(height: 16),
-          _BudgetCard(
-            budget: budget,
-            ratio: budgetRatio,
-            expense: summary.expense,
-            now: now,
-            onOpenBudget: () => _openBudget(context),
+          FadeSlideIn(
+            delayFraction: 0.06,
+            child: _BudgetCard(
+              budget: budget,
+              ratio: budgetRatio,
+              expense: summary.expense,
+              now: now,
+              onOpenBudget: () => _openBudget(context),
+            ),
           ),
           const SizedBox(height: 8),
           const SectionHeader(
             title: '快速记账',
             subtitle: '拍照、语音或手动，几秒记一笔',
           ),
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: QuickActionTile(
-                    icon: Icons.document_scanner_rounded,
-                    label: '拍照记账',
-                    color: AppTheme.brandText,
-                    onTap: () => _openAdd(context, AddTransactionMode.receipt),
+          FadeSlideIn(
+            delayFraction: 0.12,
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
+                    child: QuickActionTile(
+                      icon: Icons.document_scanner_rounded,
+                      label: '拍照记账',
+                      color: AppTheme.brandText,
+                      onTap: () =>
+                          _openAdd(context, AddTransactionMode.receipt),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: QuickActionTile(
-                    icon: Icons.mic_rounded,
-                    label: '语音记账',
-                    color: const Color(0xFF2563EB),
-                    onTap: () => _openAdd(context, AddTransactionMode.voice),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: QuickActionTile(
+                      icon: Icons.mic_rounded,
+                      label: '语音记账',
+                      color: const Color(0xFF2563EB),
+                      onTap: () => _openAdd(context, AddTransactionMode.voice),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: QuickActionTile(
-                    icon: Icons.edit_note_rounded,
-                    label: '手动记账',
-                    color: const Color(0xFF7C3AED),
-                    onTap: () => _openAdd(context, AddTransactionMode.manual),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: QuickActionTile(
+                      icon: Icons.edit_note_rounded,
+                      label: '手动记账',
+                      color: const Color(0xFF7C3AED),
+                      onTap: () => _openAdd(context, AddTransactionMode.manual),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           SectionHeader(
@@ -129,8 +136,7 @@ class HomeScreen extends StatelessWidget {
                 title: '还没有记录',
                 message: '拍一张小票、说一句话，或手动记第一笔。',
                 actionLabel: '记第一笔',
-                onAction: () =>
-                    _openAdd(context, AddTransactionMode.manual),
+                onAction: () => _openAdd(context, AddTransactionMode.manual),
               ),
             )
           else
@@ -140,10 +146,13 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   for (var i = 0; i < recent.length; i++) ...[
                     if (i > 0) const Divider(height: 1, indent: 72),
-                    TransactionTile(
-                      txn: recent[i],
-                      dense: true,
-                      onTap: () => _openEdit(context, recent[i]),
+                    FadeSlideIn(
+                      delayFraction: 0.16 + i * 0.05,
+                      child: TransactionTile(
+                        txn: recent[i],
+                        dense: true,
+                        onTap: () => _openEdit(context, recent[i]),
+                      ),
                     ),
                   ],
                 ],
@@ -209,7 +218,6 @@ class _BalanceCard extends StatelessWidget {
       container: true,
       child: Container(
         decoration: BoxDecoration(
-          gradient: AppTheme.brandGradient,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -219,102 +227,119 @@ class _BalanceCard extends StatelessWidget {
             ),
           ],
         ),
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 18),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    '本月结余',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: Colors.white.withValues(alpha: 0.94),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.16),
-                    borderRadius: BorderRadius.circular(999),
-                  ),
-                  child: Text(
-                    formatMonthLabel(now.year, now.month),
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: Colors.white,
-                      fontSize: 13,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            SizedBox(
-              width: double.infinity,
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                alignment: Alignment.centerLeft,
-                child: AmountText(
-                  summary.balance,
-                  signed: true,
-                  style: theme.textTheme.displaySmall?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  semanticLabel:
-                      '本月结余 ${formatMoney(summary.balance)} 元',
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: DecoratedBox(
+                  decoration:
+                      const BoxDecoration(gradient: AppTheme.brandGradient),
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            Container(
-              height: 1,
-              color: Colors.white.withValues(alpha: 0.18),
-            ),
-            const SizedBox(height: 14),
-            Row(
-              children: [
-                Expanded(
-                  child: _HeroStat(
-                    label: '收入',
-                    amount: summary.income,
-                    semanticLabel:
-                        '本月收入 ${formatMoney(summary.income)} 元',
-                  ),
-                ),
-                Container(
-                  width: 1,
-                  height: 38,
-                  color: Colors.white.withValues(alpha: 0.18),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: _HeroStat(
-                      label: '支出',
-                      amount: summary.expense,
-                      semanticLabel:
-                          '本月支出 ${formatMoney(summary.expense)} 元',
+              const Positioned.fill(child: TechBackdrop()),
+              const Positioned.fill(child: SheenSweep()),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 18),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '本月结余',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: Colors.white.withValues(alpha: 0.94),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.16),
+                            borderRadius: BorderRadius.circular(999),
+                          ),
+                          child: Text(
+                            formatMonthLabel(now.year, now.month),
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: Colors.white,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-              ],
-            ),
-            if (summary.isEmpty) ...[
-              const SizedBox(height: 14),
-              Text(
-                '本月还没有记录，从下面快速记第一笔吧。',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: Colors.white.withValues(alpha: 0.92),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: AnimatedAmount(
+                          summary.balance,
+                          signed: true,
+                          style: theme.textTheme.displaySmall?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          semanticLabel:
+                              '本月结余 ${formatMoney(summary.balance)} 元',
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      height: 1,
+                      color: Colors.white.withValues(alpha: 0.18),
+                    ),
+                    const SizedBox(height: 14),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _HeroStat(
+                            label: '收入',
+                            amount: summary.income,
+                            semanticLabel:
+                                '本月收入 ${formatMoney(summary.income)} 元',
+                          ),
+                        ),
+                        Container(
+                          width: 1,
+                          height: 38,
+                          color: Colors.white.withValues(alpha: 0.18),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16),
+                            child: _HeroStat(
+                              label: '支出',
+                              amount: summary.expense,
+                              semanticLabel:
+                                  '本月支出 ${formatMoney(summary.expense)} 元',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (summary.isEmpty) ...[
+                      const SizedBox(height: 14),
+                      Text(
+                        '本月还没有记录，从下面快速记第一笔吧。',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: Colors.white.withValues(alpha: 0.92),
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
               ),
             ],
-          ],
+          ),
         ),
       ),
     );
@@ -350,7 +375,7 @@ class _HeroStat extends StatelessWidget {
           child: FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
-            child: AmountText(
+            child: AnimatedAmount(
               amount,
               style: theme.textTheme.titleLarge?.copyWith(
                 color: Colors.white,
@@ -505,7 +530,9 @@ class _BudgetCard extends StatelessWidget {
                 ),
               ),
               Text(
-                over ? '已超支 ${formatMoney(-remaining)}' : '剩余 ${formatMoney(remaining)}',
+                over
+                    ? '已超支 ${formatMoney(-remaining)}'
+                    : '剩余 ${formatMoney(remaining)}',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: progressColor,
                   fontWeight: FontWeight.w600,
@@ -527,8 +554,9 @@ class _IconBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final accent =
-        AppTheme.isDark(context) ? theme.colorScheme.primary : AppTheme.brandText;
+    final accent = AppTheme.isDark(context)
+        ? theme.colorScheme.primary
+        : AppTheme.brandText;
     return Container(
       width: 40,
       height: 40,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/format.dart';
 import '../../../core/stats.dart';
+import '../../motion/motion.dart';
 import '../../theme.dart';
 import 'chart_placeholder.dart';
 
@@ -57,8 +58,7 @@ class TrendChart extends StatelessWidget {
 
     final description = points
         .map(
-          (point) =>
-              '${formatMonthShort(point.month)}：'
+          (point) => '${formatMonthShort(point.month)}：'
               '${showIncome ? '收入 ${formatMoney(point.income)}' : ''}'
               '${showIncome && showExpense ? '，' : ''}'
               '${showExpense ? '支出 ${formatMoney(point.expense)}' : ''}',
@@ -86,16 +86,24 @@ class TrendChart extends StatelessWidget {
             height: height,
             width: double.infinity,
             child: RepaintBoundary(
-              child: CustomPaint(
-                painter: _TrendChartPainter(
-                  points: points,
-                  showIncome: showIncome,
-                  showExpense: showExpense,
-                  incomeColor: incomeColor,
-                  expenseColor: expenseColor,
-                  gridColor: gridColor,
-                  labelStyle: labelStyle,
-                  textScaler: textScaler,
+              child: TweenAnimationBuilder<double>(
+                tween: Tween<double>(begin: 0, end: 1),
+                duration: reduceMotionOf(context)
+                    ? Duration.zero
+                    : const Duration(milliseconds: 760),
+                curve: Curves.easeOutCubic,
+                builder: (context, progress, _) => CustomPaint(
+                  painter: _TrendChartPainter(
+                    points: points,
+                    showIncome: showIncome,
+                    showExpense: showExpense,
+                    incomeColor: incomeColor,
+                    expenseColor: expenseColor,
+                    gridColor: gridColor,
+                    labelStyle: labelStyle,
+                    textScaler: textScaler,
+                    progress: progress,
+                  ),
                 ),
               ),
             ),
@@ -145,6 +153,7 @@ class _TrendChartPainter extends CustomPainter {
     required this.gridColor,
     required this.labelStyle,
     required this.textScaler,
+    this.progress = 1,
   });
 
   final List<MonthPoint> points;
@@ -155,6 +164,9 @@ class _TrendChartPainter extends CustomPainter {
   final Color gridColor;
   final TextStyle labelStyle;
   final TextScaler textScaler;
+
+  /// 0..1，柱状图生长进度（首屏一次入场动画）。
+  final double progress;
 
   static const int _gridLines = 4;
 
@@ -230,7 +242,7 @@ class _TrendChartPainter extends CustomPainter {
       var x = slotLeft + (slotWidth - groupWidth) / 2;
 
       void drawBar(double value, Color color) {
-        final top = yFor(value);
+        final top = yFor(value * progress);
         final barHeight = plotHeight - (top - topPadding);
         if (barHeight <= 0.4) return;
         barPaint.color = color;
@@ -317,6 +329,7 @@ class _TrendChartPainter extends CustomPainter {
         oldDelegate.expenseColor != expenseColor ||
         oldDelegate.gridColor != gridColor ||
         oldDelegate.labelStyle != labelStyle ||
-        oldDelegate.textScaler != textScaler;
+        oldDelegate.textScaler != textScaler ||
+        oldDelegate.progress != progress;
   }
 }

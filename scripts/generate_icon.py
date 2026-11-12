@@ -1,22 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""衡账 LedgerAI · App 图标生成器（仅依赖 Pillow + numpy + Flutter Material 图标字体）。
+"""衡账 LedgerAI · App 图标生成器（Pillow + numpy + Flutter Material 图标字体）。
 
-设计：**与 App 内左上角 Logo 完全一致**——品牌绿渐变圆角方块 + 白色
-`Icons.account_balance_wallet_rounded`（Material Icons，码位 0xF520）。
-使用同一字形、同一渐变（#047857 → #065F46），保证「App Store 图标 = 启动图 = 应用内 Logo」。
+设计：与应用内左上角 Logo 同一字形（Material `account_balance_wallet_rounded`，码位 0xF520），
+并在品牌绿渐变上加入「科技感」层：深绿渐变 + 青绿光晕 + 同心 HUD 圆环 + 局部青色弧线 + 内描边。
+白色字形按**墨迹质心**做视觉居中（不是简单几何外框居中），解决小尺寸下"看起来偏右"的问题。
 
-用法（在仓库根目录执行）：
+用法（仓库根目录）：
 
     python3 scripts/generate_icon.py
 
 产物：
-
-1. ``assets/app_icon_1024.png``                   —— 1024×1024、RGB（无 alpha）主图标
-2. ``ios/Runner/Assets.xcassets/AppIcon.appiconset/*.png``
-   —— 严格按 Contents.json 中列出的 ``size × scale`` 生成全部尺寸（覆盖原有占位图）
-
-脚本结尾逐张校验像素尺寸与无 alpha；任一失败即非 0 退出，便于提交前拦截。
+1. assets/app_icon_1024.png —— 1024×1024 RGB 无 alpha 主图标
+2. ios/Runner/Assets.xcassets/AppIcon.appiconset/*.png —— Contents.json 列出的全部尺寸
+脚本末尾逐张校验尺寸与无 alpha。
 """
 
 from __future__ import annotations
@@ -26,14 +23,13 @@ import sys
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 MASTER_PATH = ROOT / "assets" / "app_icon_1024.png"
 ICONSET_DIR = ROOT / "ios" / "Runner" / "Assets.xcassets" / "AppIcon.appiconset"
 CONTENTS_PATH = ICONSET_DIR / "Contents.json"
 
-# Material Icons 字体（Flutter SDK 自带）；如本机路径不同，可用环境变量覆盖。
 MATERIAL_FONT = Path(
     "/Users/aj/Development/flutter/flutter/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf"
 )
@@ -41,48 +37,104 @@ WALLET_GLYPH = chr(0xF520)  # Icons.account_balance_wallet_rounded
 
 CANVAS = 1024
 SUPERSAMPLE = 2
-GLYPH_WIDTH_RATIO = 0.60  # 白色钱包图形占画布宽度比例（与应用内 18/32 视觉比例一致）
+S = CANVAS * SUPERSAMPLE
+GLYPH_WIDTH_RATIO = 0.56
 
-# 与应用内 AppTheme.brandGradient 完全一致：kBrandText(#047857) → #065F46
-BRAND = (4, 120, 87)
-BRAND_DARK = (6, 95, 70)
+# 深绿科技渐变 + 青绿光晕
+BG_TOP = (9, 84, 66)       # #095442
+BG_BOTTOM = (3, 32, 26)    # #03201A
+GLOW = (45, 212, 191)      # #2DD4BF
+ARC = (45, 212, 191, 150)
 
 
-def brand_gradient(size: int) -> Image.Image:
+def tech_background(size: int) -> Image.Image:
     y, x = np.mgrid[0:size, 0:size].astype(np.float32)
     t = np.clip((x / (size - 1)) * 0.55 + (y / (size - 1)) * 0.45, 0, 1)[..., None]
-    a = np.array(BRAND, np.float32)
-    b = np.array(BRAND_DARK, np.float32)
+    a = np.array(BG_TOP, np.float32)
+    b = np.array(BG_BOTTOM, np.float32)
     rgb = a * (1 - t) + b * t
 
-    # 左上柔光，避免纯渐变发平
-    nx = (x / (size - 1) - 0.26) / 0.62
-    ny = (y / (size - 1) - 0.16) / 0.62
-    glow = (np.clip(1 - np.sqrt(nx * nx + ny * ny), 0, 1) ** 2 * 0.14)[..., None]
-    rgb = rgb + (np.array([255, 255, 255], np.float32) - rgb) * glow
-
+    # 左上角青绿光晕
+    nx = (x / (size - 1) - 0.18) / 0.55
+    ny = (y / (size - 1) - 0.12) / 0.55
+    glow = (np.clip(1 - np.sqrt(nx * nx + ny * ny), 0, 1) ** 2 * (110 / 255))[..., None]
+    rgb = rgb + (np.array(GLOW, np.float32) - rgb) * glow
     return Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8), "RGB").convert("RGBA")
 
 
-def draw_wallet(img: Image.Image, width_ratio: float = GLYPH_WIDTH_RATIO) -> None:
-    """在画布中心绘制白色钱包 glyph（与 Flutter Icon 渲染同一字体字形）。"""
-    size = img.size[0]
-    target_w = size * width_ratio
-    font = ImageFont.truetype(str(MATERIAL_FONT), int(round(target_w)))
-    bbox = font.getbbox(WALLET_GLYPH)
-    glyph_w = bbox[2] - bbox[0]
-    glyph_h = bbox[3] - bbox[1]
-    x = (size - glyph_w) / 2 - bbox[0]
-    y = (size - glyph_h) / 2 - bbox[1]
-    ImageDraw.Draw(img).text(
-        (x, y), WALLET_GLYPH, font=font, fill=(255, 255, 255, 255)
+def draw_rings(img: Image.Image) -> None:
+    draw = ImageDraw.Draw(img)
+    line = max(2, S // 650)
+    for ratio, alpha in ((0.33, 28), (0.415, 18)):
+        r = int(S * ratio)
+        draw.ellipse(
+            [S // 2 - r, S // 2 - r, S // 2 + r, S // 2 + r],
+            outline=(255, 255, 255, alpha),
+            width=line,
+        )
+    # 右下角青色弧线（科技感点缀）
+    arc_r = int(S * 0.44)
+    draw.arc(
+        [S // 2 - arc_r, S // 2 - arc_r, S // 2 + arc_r, S // 2 + arc_r],
+        start=20,
+        end=110,
+        fill=ARC,
+        width=max(4, S // 420),
+    )
+    # 内侧 HUD 描边
+    inset = int(S * 0.05)
+    draw.rounded_rectangle(
+        [inset, inset, S - inset, S - inset],
+        radius=int(S * 0.17),
+        outline=(255, 255, 255, 32),
+        width=max(2, S // 700),
     )
 
 
+def glyph_layer() -> Image.Image:
+    """白色钱包字形，按墨迹质心居中。"""
+    font = ImageFont.truetype(str(MATERIAL_FONT), int(round(S * GLYPH_WIDTH_RATIO)))
+    bbox = font.getbbox(WALLET_GLYPH)
+    glyph_w, glyph_h = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    pad = 80
+    mask = Image.new("L", (glyph_w + pad * 2, glyph_h + pad * 2), 0)
+    ImageDraw.Draw(mask).text(
+        (pad - bbox[0], pad - bbox[1]), WALLET_GLYPH, font=font, fill=255
+    )
+    arr = np.array(mask)
+    ys, xs = np.nonzero(arr)
+    # 质心相对画布中心的偏移（视觉居中）
+    dx = int(round(mask.size[0] / 2 - xs.mean()))
+    dy = int(round(mask.size[1] / 2 - ys.mean()))
+    layer = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    layer.paste(
+        Image.new("RGBA", mask.size, (255, 255, 255, 255)),
+        ((S - mask.size[0]) // 2 + dx, (S - mask.size[1]) // 2 + dy),
+        mask,
+    )
+    return layer
+
+
 def render_master() -> Image.Image:
-    S = CANVAS * SUPERSAMPLE
-    img = brand_gradient(S)
-    draw_wallet(img)
+    img = tech_background(S)
+    draw_rings(img)
+
+    # 字形后的青绿光晕
+    glow = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    r = int(S * 0.23)
+    ImageDraw.Draw(glow).ellipse(
+        [S // 2 - r, S // 2 - r, S // 2 + r, S // 2 + r], fill=(45, 212, 191, 70)
+    )
+    glow = glow.filter(ImageFilter.GaussianBlur(S // 45))
+    img = Image.alpha_composite(img, glow)
+
+    glyph = glyph_layer()
+    shadow = glyph.filter(ImageFilter.GaussianBlur(S // 110))
+    shadow_arr = np.array(shadow)
+    shadow_arr[..., 3] = (shadow_arr[..., 3] * 0.5).astype(np.uint8)
+    img = Image.alpha_composite(img, Image.fromarray(shadow_arr))
+    img = Image.alpha_composite(img, glyph)
+
     return img.convert("RGB").resize((CANVAS, CANVAS), Image.LANCZOS)
 
 

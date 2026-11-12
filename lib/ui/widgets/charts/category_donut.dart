@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/format.dart';
 import '../../../core/stats.dart';
+import '../../motion/motion.dart';
 import '../../theme.dart';
 
 /// 分类占比环形图（自绘），中心显示当期总额。
@@ -52,12 +53,20 @@ class CategoryDonut extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             RepaintBoundary(
-              child: CustomPaint(
-                painter: _DonutPainter(
-                  slices: slices,
-                  total: total,
-                  strokeWidth: strokeWidth,
-                  trackColor: trackColor,
+              child: TweenAnimationBuilder<double>(
+                tween: Tween<double>(begin: 0, end: 1),
+                duration: reduceMotionOf(context)
+                    ? Duration.zero
+                    : const Duration(milliseconds: 820),
+                curve: Curves.easeOutCubic,
+                builder: (context, progress, _) => CustomPaint(
+                  painter: _DonutPainter(
+                    slices: slices,
+                    total: total,
+                    strokeWidth: strokeWidth,
+                    trackColor: trackColor,
+                    progress: progress,
+                  ),
                 ),
               ),
             ),
@@ -116,12 +125,14 @@ class _DonutPainter extends CustomPainter {
     required this.total,
     required this.strokeWidth,
     required this.trackColor,
+    this.progress = 1,
   });
 
   final List<CategorySlice> slices;
   final double total;
   final double strokeWidth;
   final Color trackColor;
+  final double progress;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -148,10 +159,9 @@ class _DonutPainter extends CustomPainter {
 
     for (var i = 0; i < slices.length; i++) {
       final slice = slices[i];
-      var sweep = slice.ratio * math.pi * 2;
+      var sweep = slice.ratio * math.pi * 2 * progress;
       if (sweep <= 0) continue;
-      final effectiveGap =
-          slices.length > 1 ? math.min(gap, sweep * 0.4) : 0.0;
+      final effectiveGap = slices.length > 1 ? math.min(gap, sweep * 0.4) : 0.0;
       sweep -= effectiveGap;
       if (sweep <= 0) {
         start += slice.ratio * math.pi * 2;
@@ -168,6 +178,7 @@ class _DonutPainter extends CustomPainter {
     return oldDelegate.slices != slices ||
         oldDelegate.total != total ||
         oldDelegate.strokeWidth != strokeWidth ||
-        oldDelegate.trackColor != trackColor;
+        oldDelegate.trackColor != trackColor ||
+        oldDelegate.progress != progress;
   }
 }

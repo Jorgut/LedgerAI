@@ -11,6 +11,7 @@ import '../../ai/speech_service.dart';
 import '../../core/app_state.dart';
 import '../../core/format.dart';
 import '../../core/models.dart';
+import '../motion/motion.dart';
 import '../theme.dart';
 import '../widgets/common/app_card.dart';
 import '../widgets/common/app_snack.dart';
@@ -668,9 +669,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     );
   }
 
-  Color _accent(ThemeData theme) => AppTheme.isDark(context)
-      ? theme.colorScheme.primary
-      : AppTheme.brandText;
+  Color _accent(ThemeData theme) =>
+      AppTheme.isDark(context) ? theme.colorScheme.primary : AppTheme.brandText;
 
   Widget _buildSourceBanner(ThemeData theme) {
     if (!_justParsed) return const SizedBox.shrink();
@@ -694,9 +694,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                isOcr
-                    ? '已从小票识别填入，请核对金额、分类和日期后保存。'
-                    : '已从语音识别填入，请核对金额、分类和日期后保存。',
+                isOcr ? '已从小票识别填入，请核对金额、分类和日期后保存。' : '已从语音识别填入，请核对金额、分类和日期后保存。',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurface,
                 ),
@@ -926,10 +924,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color:
-                      selected ? accent : theme.colorScheme.onSurface,
-                  fontWeight:
-                      selected ? FontWeight.w700 : FontWeight.w400,
+                  color: selected ? accent : theme.colorScheme.onSurface,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
                 ),
               ),
             ],
@@ -1080,126 +1076,131 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   Widget _buildReceiptPanel(ThemeData theme) {
     final accent = _accent(theme);
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+    return Stack(
       children: [
-        AppCard(
-          child: Column(
-            children: [
-              Container(
-                width: 96,
-                height: 96,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withValues(alpha: 0.10),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.document_scanner_rounded,
-                  size: 44,
-                  color: accent,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                '拍照识别小票',
-                textAlign: TextAlign.center,
-                style: theme.textTheme.titleLarge,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                '对准小票或账单截图，本机自动识别金额、商户和日期。照片不会上传，也不会保存到相册。',
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: FilledButton.icon(
-                  onPressed: _ocrBusy
-                      ? null
-                      : () => _pickReceipt(ImageSource.camera),
-                  icon: const Icon(Icons.photo_camera_rounded),
-                  label: const Text('拍照识别'),
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton.icon(
-                  onPressed: _ocrBusy
-                      ? null
-                      : () => _pickReceipt(ImageSource.gallery),
-                  icon: const Icon(Icons.photo_library_rounded),
-                  label: const Text('从相册选择'),
-                ),
-              ),
-              if (_ocrBusy) ...[
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: CircularProgressIndicator(strokeWidth: 2.2),
+        ListView(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+          children: [
+            AppCard(
+              child: Column(
+                children: [
+                  Container(
+                    width: 96,
+                    height: 96,
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.primary.withValues(alpha: 0.10),
+                      shape: BoxShape.circle,
                     ),
-                    const SizedBox(width: 10),
-                    Flexible(
-                      child: Text(
-                        '正在本机识别…',
-                        style: theme.textTheme.bodyMedium,
+                    child: Icon(
+                      Icons.document_scanner_rounded,
+                      size: 44,
+                      color: accent,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    '拍照识别小票',
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '对准小票或账单截图，本机自动识别金额、商户和日期。照片不会上传，也不会保存到相册。',
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: FilledButton.icon(
+                      onPressed: _ocrBusy
+                          ? null
+                          : () => _pickReceipt(ImageSource.camera),
+                      icon: const Icon(Icons.photo_camera_rounded),
+                      label: const Text('拍照识别'),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: _ocrBusy
+                          ? null
+                          : () => _pickReceipt(ImageSource.gallery),
+                      icon: const Icon(Icons.photo_library_rounded),
+                      label: const Text('从相册选择'),
+                    ),
+                  ),
+                  if (_ocrBusy) ...[
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(strokeWidth: 2.2),
+                        ),
+                        const SizedBox(width: 10),
+                        Flexible(
+                          child: Text(
+                            '正在本机识别…',
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                  if (_ocrError != null) ...[
+                    const SizedBox(height: 16),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.errorContainer,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.error_outline_rounded,
+                            size: 20,
+                            color: theme.colorScheme.onErrorContainer,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              _ocrError!,
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: theme.colorScheme.onErrorContainer,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
-                ),
-              ],
-              if (_ocrError != null) ...[
-                const SizedBox(height: 16),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.errorContainer,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.error_outline_rounded,
-                        size: 20,
-                        color: theme.colorScheme.onErrorContainer,
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          _ocrError!,
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.onErrorContainer,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
+            ),
+            if (_rawText != null) ...[
+              const SizedBox(height: 16),
+              _buildRawTextCard(theme),
             ],
-          ),
+            const SizedBox(height: 8),
+            Center(
+              child: TextButton.icon(
+                onPressed: () => _switchMode(AddTransactionMode.manual),
+                icon: const Icon(Icons.edit_note_rounded),
+                label: const Text('改为手动输入'),
+              ),
+            ),
+          ],
         ),
-        if (_rawText != null) ...[
-          const SizedBox(height: 16),
-          _buildRawTextCard(theme),
-        ],
-        const SizedBox(height: 8),
-        Center(
-          child: TextButton.icon(
-            onPressed: () => _switchMode(AddTransactionMode.manual),
-            icon: const Icon(Icons.edit_note_rounded),
-            label: const Text('改为手动输入'),
-          ),
-        ),
+        if (_ocrBusy) const Positioned.fill(child: ScanLine(active: true)),
       ],
     );
   }
@@ -1241,28 +1242,31 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                     onLongPressEnd: (_) => _stopVoice(),
                     onLongPressCancel: _stopVoice,
                     behavior: HitTestBehavior.opaque,
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      width: _listening ? 136 : 124,
-                      height: _listening ? 136 : 124,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: AppTheme.brandGradient,
-                        boxShadow: [
-                          BoxShadow(
-                            color:
-                                AppTheme.brand.withValues(alpha: 0.30),
-                            blurRadius: _listening ? 28 : 14,
-                            spreadRadius: _listening ? 6 : 0,
-                          ),
-                        ],
-                      ),
-                      child: Icon(
-                        _listening
-                            ? Icons.graphic_eq_rounded
-                            : Icons.mic_rounded,
-                        size: 52,
-                        color: Colors.white,
+                    child: PulseRings(
+                      active: _listening,
+                      size: 176,
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        width: _listening ? 136 : 124,
+                        height: _listening ? 136 : 124,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: AppTheme.brandGradient,
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppTheme.brand.withValues(alpha: 0.30),
+                              blurRadius: _listening ? 28 : 14,
+                              spreadRadius: _listening ? 6 : 0,
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          _listening
+                              ? Icons.graphic_eq_rounded
+                              : Icons.mic_rounded,
+                          size: 52,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -1284,9 +1288,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Text(
-                    _liveText.trim().isEmpty
-                        ? '实时识别文字会显示在这里'
-                        : _liveText,
+                    _liveText.trim().isEmpty ? '实时识别文字会显示在这里' : _liveText,
                     textAlign: TextAlign.center,
                     style: _liveText.trim().isEmpty
                         ? theme.textTheme.bodyMedium?.copyWith(
