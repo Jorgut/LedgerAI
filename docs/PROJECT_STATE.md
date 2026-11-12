@@ -144,6 +144,10 @@
   - `AppDelegate.swift` 增加 CloudKit 通道（status/pull/push，private database）；
   - `lib/sync/cloud_sync.dart` 全量合并同步（LWW + 墓碑）；
   - 设置页新增「iCloud 同步」开关 + 立即同步 + 上次同步时间（1.1 内测免费）。
+- **TestFlight 1.1.0 (4)** 已上传并处理完成，已加入内部组「Personal Testing」：
+  - 含适老化、微信/支付宝 CSV 导入、iCloud 同步第一版；
+  - 需在两台登录同一 iCloud 的设备上验证；TestFlight 使用 CloudKit **Production** 环境，
+    首次若报错需要去 CloudKit Dashboard 部署 schema（开发环境自动建 schema 后 Deploy to Production）。
 - 待办 1.1：同步真机双设备验证、小组件、多账本、英文 UI/商店、Pro 买断 IAP、名称修改、WELTRIA「更多作品」入口。
 - 1.2：Android + Google Play、家庭共享（CloudKit）、投资/理财轻量功能。
 
