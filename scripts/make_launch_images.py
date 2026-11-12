@@ -70,36 +70,11 @@ def rounded_mask(size: int, radius: int) -> Image.Image:
 
 def draw_badge(size: int) -> Image.Image:
     badge = tech_gradient(size, size)
-    draw = ImageDraw.Draw(badge)
-    line = max(2, size // 220)
-    for ratio, alpha in ((0.33, 34), (0.415, 22)):
-        r = int(size * ratio)
-        draw.ellipse(
-            [size // 2 - r, size // 2 - r, size // 2 + r, size // 2 + r],
-            outline=(255, 255, 255, alpha),
-            width=line,
-        )
-    arc_r = int(size * 0.44)
-    draw.arc(
-        [size // 2 - arc_r, size // 2 - arc_r, size // 2 + arc_r, size // 2 + arc_r],
-        start=20,
-        end=110,
-        fill=(45, 212, 191, 170),
-        width=max(3, size // 140),
-    )
-    inset = int(size * 0.05)
-    draw.rounded_rectangle(
-        [inset, inset, size - inset, size - inset],
-        radius=int(size * 0.17),
-        outline=(255, 255, 255, 40),
-        width=max(2, size // 240),
-    )
-
-    # 光晕
+    # v3：不画同心圆/弧线/HUD 边框，只留光晕，干净为主
     glow = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     gr = int(size * 0.23)
     ImageDraw.Draw(glow).ellipse(
-        [size // 2 - gr, size // 2 - gr, size // 2 + gr, size // 2 + gr], fill=(45, 212, 191, 80)
+        [size // 2 - gr, size // 2 - gr, size // 2 + gr, size // 2 + gr], fill=(45, 212, 191, 70)
     )
     badge = Image.alpha_composite(badge, glow.filter(ImageFilter.GaussianBlur(size // 30)))
 

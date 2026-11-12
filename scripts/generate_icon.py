@@ -63,32 +63,14 @@ def tech_background(size: int) -> Image.Image:
 
 
 def draw_rings(img: Image.Image) -> None:
-    draw = ImageDraw.Draw(img)
-    line = max(2, S // 650)
-    for ratio, alpha in ((0.33, 28), (0.415, 18)):
-        r = int(S * ratio)
-        draw.ellipse(
-            [S // 2 - r, S // 2 - r, S // 2 + r, S // 2 + r],
-            outline=(255, 255, 255, alpha),
-            width=line,
-        )
-    # 右下角青色弧线（科技感点缀）
-    arc_r = int(S * 0.44)
-    draw.arc(
-        [S // 2 - arc_r, S // 2 - arc_r, S // 2 + arc_r, S // 2 + arc_r],
-        start=20,
-        end=110,
-        fill=ARC,
-        width=max(4, S // 420),
+    """v3：去掉同心圆/弧线/HUD 边框，只保留轻微光晕，避免小尺寸下视觉杂乱。"""
+    glow = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    r = int(S * 0.30)
+    ImageDraw.Draw(glow).ellipse(
+        [S // 2 - r, S // 2 - r, S // 2 + r, S // 2 + r],
+        fill=(45, 212, 191, 28),
     )
-    # 内侧 HUD 描边
-    inset = int(S * 0.05)
-    draw.rounded_rectangle(
-        [inset, inset, S - inset, S - inset],
-        radius=int(S * 0.17),
-        outline=(255, 255, 255, 32),
-        width=max(2, S // 700),
-    )
+    img.alpha_composite(glow.filter(ImageFilter.GaussianBlur(S // 22)))
 
 
 def glyph_layer() -> Image.Image:
