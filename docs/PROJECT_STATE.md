@@ -53,7 +53,14 @@
 ## 验证记录
 
 - 2026-11-12：iOS 模拟器 Debug 构建通过（105.5s），产物 `build/ios/iphonesimulator/Runner.app`。
-- 2026-11-12：`dart analyze lib/core lib/ai` 无问题；`dart analyze lib/ui` 待 UI 落地后验证。
+- 2026-11-12：`dart analyze lib test integration_test` 无问题。
+- 2026-11-12：`flutter test test/core` **106/106 通过**；`flutter test test/ai` **51/51 通过**。
+- 2026-11-12：`flutter build ipa --release --export-method app-store` 成功（archive 179.9MB，IPA 22MB，Apple Distribution 签名，Team GB38532D8G）。
+- 2026-11-12：`flutter test test/widget/home_screen_test.dart`：7 例中 6 通过，1 例失败 —
+  「200% 大字号下不溢出」在首页出现右侧 172px RenderFlex 溢出（无障碍 P1，列入 1.0.1 修复，不阻塞本次审核）。
+- 2026-11-12：App Store Connect 提交成功，`submittedDate` 2026-11-12T03:53:45Z，状态 `WAITING_FOR_REVIEW`。
+- 2026-11-12：TestFlight 内部测试组「Personal Testing」已创建（`f18d353f-199a-42c5-8112-668b5b545fbc`），build 1 已关联；
+  内部测试员需在 ASC 网页「TestFlight ▸ Internal Testing」添加团队成员（API 不支持把内部测试员加入组）。
 
 ## 阻塞与外部依赖
 
