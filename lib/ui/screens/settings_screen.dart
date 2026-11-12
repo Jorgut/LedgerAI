@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -7,6 +8,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../core/app_state.dart';
+import '../../core/bill_import.dart';
+import '../../core/models.dart';
 import '../../core/format.dart';
 import '../theme.dart';
 import '../widgets/common/app_snack.dart';
@@ -158,6 +161,91 @@ class _SettingsScreenState extends State<SettingsScreen> {
     } finally {
       if (mounted) setState(() => _exporting = false);
     }
+  }
+
+  Future<void> _importBillCsv() async {
+    if (_importing || _exporting) return;
+    final app = AppScope.read(context);
+    try {
+      const typeGroup = XTypeGroup(
+        label: '账单 CSV',
+        extensions: ['csv'],
+        mimeTypes: ['text/csv', 'text/comma-separated-values'],
+      );
+      final file = await openFile(acceptedTypeGroups: const [typeGroup]);
+      if (file == null) return;
+      final bytes = await file.readAsBytes();
+      final content = utf8.decode(bytes, allowMalformed: true);
+      if (!mounted) return;
+      if (content.contains('\uFFFD')) {
+        _showSnack('文件编码可能不是 UTF-8，部分文字可能乱码；建议在微信/支付宝里重新导出');
+      }
+      final result =
+          const BillCsvImporter().parse(content, fileName: file.name);
+      if (result.isEmpty) {
+        _showSnack(
+            result.warnings.isEmpty ? '没有可导入的账单' : result.warnings.first);
+        return;
+      }
+      final existing = <String>{
+        for (final txn in app.transactions) _billFingerprint(txn),
+      };
+      final fresh = <Txn>[];
+      var duplicates = 0;
+      for (final txn in result.transactions) {
+        if (existing.add(_billFingerprint(txn))) {
+          fresh.add(txn);
+        } else {
+          duplicates++;
+        }
+      }
+      if (!mounted) return;
+      if (fresh.isEmpty) {
+        _showSnack('这 ${result.transactions.length} 笔记录都已经在账本里了');
+        return;
+      }
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: const Text('导入账单'),
+          content: Text(
+            '识别到 ${result.transactions.length} 笔收支，'
+            '${duplicates > 0 ? '其中 $duplicates 笔已存在，' : ''}'
+            '将新增 ${fresh.length} 笔。\n'
+            '${result.skipped > 0 ? '已跳过 ${result.skipped} 行（不计收支/失败/重复等）。\n' : ''}'
+            '导入后可在账单页修改分类和备注。',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: const Text('取消'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              child: Text('导入 ${fresh.length} 笔'),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true) return;
+      setState(() => _importing = true);
+      for (final txn in fresh) {
+        await app.saveTransaction(txn);
+      }
+      if (!mounted) return;
+      setState(() => _importing = false);
+      _showSnack('已导入 ${fresh.length} 笔账单');
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _importing = false);
+      _showSnack('导入失败：$e');
+    }
+  }
+
+  static String _billFingerprint(Txn txn) {
+    final merchant = (txn.merchant ?? '').trim().toLowerCase();
+    return '${txn.date.toIso8601String()}|${txn.amount.toStringAsFixed(2)}|'
+        '${txn.isIncome}|$merchant|${txn.note.trim().toLowerCase()}';
   }
 
   Future<void> _importBackup() async {
@@ -453,6 +541,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onTap: _exporting || _importing
                         ? null
                         : () => _export(csv: false),
+                  ),
+                  const Divider(),
+                  ListTile(
+                    leading: const Icon(Icons.file_upload_outlined),
+                    title: const Text('导入微信/支付宝账单'),
+                    subtitle: const Text('CSV 文件，自动识别收支、商户并分类；重复记录会跳过'),
+                    trailing: _importing
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.chevron_right_rounded),
+                    onTap: _exporting || _importing ? null : _importBillCsv,
                   ),
                   const Divider(),
                   ListTile(

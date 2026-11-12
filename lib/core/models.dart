@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 enum EntrySource {
   manual('手动'),
   ocr('拍照识别'),
-  voice('语音记账');
+  voice('语音记账'),
+  csv('导入账单');
 
   const EntrySource(this.label);
   final String label;
@@ -123,7 +124,8 @@ class Txn {
       );
 
   @override
-  String toString() => 'Txn($id, $amount, $categoryId, ${date.toIso8601String()})';
+  String toString() =>
+      'Txn($id, $amount, $categoryId, ${date.toIso8601String()})';
 }
 
 /// 内置分类。id 稳定不可改，用于存储与导出。
@@ -147,25 +149,95 @@ class Category {
   static const String otherIncomeId = 'other_income';
 
   static const List<Category> expenses = [
-    Category(id: 'food', name: '餐饮', icon: Icons.restaurant_rounded, color: Color(0xFFF59E0B)),
-    Category(id: 'transport', name: '交通', icon: Icons.directions_bus_rounded, color: Color(0xFF3B82F6)),
-    Category(id: 'shopping', name: '购物', icon: Icons.shopping_bag_rounded, color: Color(0xFFEC4899)),
-    Category(id: 'home', name: '居家', icon: Icons.home_rounded, color: Color(0xFF8B5CF6)),
-    Category(id: 'entertainment', name: '娱乐', icon: Icons.sports_esports_rounded, color: Color(0xFF06B6D4)),
-    Category(id: 'medical', name: '医疗', icon: Icons.local_hospital_rounded, color: Color(0xFFEF4444)),
-    Category(id: 'education', name: '学习', icon: Icons.menu_book_rounded, color: Color(0xFF6366F1)),
-    Category(id: 'communication', name: '通讯', icon: Icons.phone_iphone_rounded, color: Color(0xFF0EA5E9)),
-    Category(id: 'social', name: '人情', icon: Icons.card_giftcard_rounded, color: Color(0xFFF43F5E)),
-    Category(id: otherExpenseId, name: '其他', icon: Icons.more_horiz_rounded, color: Color(0xFF94A3B8)),
+    Category(
+        id: 'food',
+        name: '餐饮',
+        icon: Icons.restaurant_rounded,
+        color: Color(0xFFF59E0B)),
+    Category(
+        id: 'transport',
+        name: '交通',
+        icon: Icons.directions_bus_rounded,
+        color: Color(0xFF3B82F6)),
+    Category(
+        id: 'shopping',
+        name: '购物',
+        icon: Icons.shopping_bag_rounded,
+        color: Color(0xFFEC4899)),
+    Category(
+        id: 'home',
+        name: '居家',
+        icon: Icons.home_rounded,
+        color: Color(0xFF8B5CF6)),
+    Category(
+        id: 'entertainment',
+        name: '娱乐',
+        icon: Icons.sports_esports_rounded,
+        color: Color(0xFF06B6D4)),
+    Category(
+        id: 'medical',
+        name: '医疗',
+        icon: Icons.local_hospital_rounded,
+        color: Color(0xFFEF4444)),
+    Category(
+        id: 'education',
+        name: '学习',
+        icon: Icons.menu_book_rounded,
+        color: Color(0xFF6366F1)),
+    Category(
+        id: 'communication',
+        name: '通讯',
+        icon: Icons.phone_iphone_rounded,
+        color: Color(0xFF0EA5E9)),
+    Category(
+        id: 'social',
+        name: '人情',
+        icon: Icons.card_giftcard_rounded,
+        color: Color(0xFFF43F5E)),
+    Category(
+        id: otherExpenseId,
+        name: '其他',
+        icon: Icons.more_horiz_rounded,
+        color: Color(0xFF94A3B8)),
   ];
 
   static const List<Category> incomes = [
-    Category(id: 'salary', name: '工资', icon: Icons.account_balance_wallet_rounded, color: Color(0xFF10B981), isIncome: true),
-    Category(id: 'bonus', name: '奖金', icon: Icons.emoji_events_rounded, color: Color(0xFF22C55E), isIncome: true),
-    Category(id: 'investment', name: '理财', icon: Icons.trending_up_rounded, color: Color(0xFF14B8A6), isIncome: true),
-    Category(id: 'parttime', name: '兼职', icon: Icons.work_rounded, color: Color(0xFF84CC16), isIncome: true),
-    Category(id: 'gift', name: '红包', icon: Icons.redeem_rounded, color: Color(0xFFF97316), isIncome: true),
-    Category(id: otherIncomeId, name: '其他', icon: Icons.more_horiz_rounded, color: Color(0xFF94A3B8), isIncome: true),
+    Category(
+        id: 'salary',
+        name: '工资',
+        icon: Icons.account_balance_wallet_rounded,
+        color: Color(0xFF10B981),
+        isIncome: true),
+    Category(
+        id: 'bonus',
+        name: '奖金',
+        icon: Icons.emoji_events_rounded,
+        color: Color(0xFF22C55E),
+        isIncome: true),
+    Category(
+        id: 'investment',
+        name: '理财',
+        icon: Icons.trending_up_rounded,
+        color: Color(0xFF14B8A6),
+        isIncome: true),
+    Category(
+        id: 'parttime',
+        name: '兼职',
+        icon: Icons.work_rounded,
+        color: Color(0xFF84CC16),
+        isIncome: true),
+    Category(
+        id: 'gift',
+        name: '红包',
+        icon: Icons.redeem_rounded,
+        color: Color(0xFFF97316),
+        isIncome: true),
+    Category(
+        id: otherIncomeId,
+        name: '其他',
+        icon: Icons.more_horiz_rounded,
+        color: Color(0xFF94A3B8),
+        isIncome: true),
   ];
 
   static const List<Category> all = [...expenses, ...incomes];
