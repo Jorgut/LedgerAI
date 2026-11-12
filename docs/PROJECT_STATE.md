@@ -177,7 +177,8 @@
   - Paper #F4F3EE / Ink #0B1F1A / Forest 700 #0B5B47 / Mint #CDEEE1 / Copper #B4845A；
   - 深色模式 #0B1512 / #111F1A；
   - 无障碍测试 4/4 通过；模拟器截图：`store/marketing/brand/final/home_forest_paper.png`。
-- TestFlight 1.1.0 (5) 已上传（含品牌启动动效，未含色板；色板随下一次构建）。
+- TestFlight 1.1.0 (5) 已上传（含品牌启动动效，未含色板）。
+- TestFlight 1.1.0 (6) 已构建上传（含品牌动效 + Forest Paper 色板），等待处理/挂内部组。
 
 ## 下一步
 
