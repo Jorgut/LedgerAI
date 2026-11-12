@@ -44,6 +44,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _exporting = false;
   bool _importing = false;
 
+  static const List<_FontScaleOption> _fontScaleOptions = [
+    _FontScaleOption('标准', 1.0),
+    _FontScaleOption('大', 1.15),
+    _FontScaleOption('特大', 1.3),
+    _FontScaleOption('超大', 1.5),
+  ];
+
   // ---------------------------------------------------------------------------
   // 偏好设置
   // ---------------------------------------------------------------------------
@@ -68,6 +75,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
     if (!mounted) return;
     if (value) _hapticTick();
+  }
+
+  Future<void> _setElderMode(bool value) async {
+    await AppScope.read(context).updateSettingsWith(
+      (settings) => settings.copyWith(
+        elderMode: value,
+        fontScale: value && settings.fontScale < 1.3 ? 1.3 : settings.fontScale,
+      ),
+    );
+    if (!mounted) return;
+    _hapticTick();
+  }
+
+  Future<void> _setFontScale(double value) async {
+    await AppScope.read(context).updateSettingsWith(
+      (settings) => settings.copyWith(fontScale: value),
+    );
+    if (!mounted) return;
+    _hapticTick();
   }
 
   Future<void> _setHaptics(bool value) async {
@@ -137,7 +163,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _importBackup() async {
     if (_importing || _exporting) return;
     try {
-      const typeGroup = XTypeGroup(label: 'JSON 备份', extensions: ['json'], mimeTypes: ['application/json']);
+      const typeGroup = XTypeGroup(
+          label: 'JSON 备份',
+          extensions: ['json'],
+          mimeTypes: ['application/json']);
       final file = await openFile(acceptedTypeGroups: const [typeGroup]);
       if (file == null) return;
       final content = await file.readAsString();
@@ -146,7 +175,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         context: context,
         builder: (dialogContext) => AlertDialog(
           title: const Text('导入 JSON 备份'),
-          content: const Text('将把备份中的账单合并到当前账本（同 ID 记录会覆盖），并恢复备份里的预算与偏好设置。是否继续？'),
+          content:
+              const Text('将把备份中的账单合并到当前账本（同 ID 记录会覆盖），并恢复备份里的预算与偏好设置。是否继续？'),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
@@ -266,7 +296,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           controller: _scrollController,
           padding: AppTheme.pageInsets,
           children: [
-            const SectionHeader(title: '外观', padding: EdgeInsets.fromLTRB(4, 0, 4, 8)),
+            const SectionHeader(
+                title: '外观', padding: EdgeInsets.fromLTRB(4, 0, 4, 8)),
             Card(
               child: Column(
                 children: [
@@ -302,7 +333,68 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            const SectionHeader(title: '通用', padding: EdgeInsets.fromLTRB(4, 0, 4, 8)),
+            const SectionHeader(
+              title: '适老化',
+              padding: EdgeInsets.fromLTRB(4, 0, 4, 8),
+            ),
+            Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SwitchListTile(
+                    secondary: const Icon(Icons.elderly_rounded),
+                    title: const Text('父母模式'),
+                    subtitle: const Text('更大字体、更高对比、简化展示，适合长辈使用'),
+                    value: prefs.elderMode,
+                    onChanged: _setElderMode,
+                  ),
+                  const Divider(),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.format_size_rounded),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Text(
+                            '应用内字体大小',
+                            style: theme.textTheme.bodyLarge,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (final option in _fontScaleOptions)
+                          ChoiceChip(
+                            label: Text(option.label),
+                            selected:
+                                (prefs.fontScale - option.scale).abs() < 0.01,
+                            onSelected: (_) => _setFontScale(option.scale),
+                          ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
+                    child: Text(
+                      '只影响衡账 App，不改变系统字号；系统已放大的字号会保留更大值。',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            const SectionHeader(
+                title: '通用', padding: EdgeInsets.fromLTRB(4, 0, 4, 8)),
             Card(
               child: Column(
                 children: [
@@ -348,7 +440,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       '共 ${app.transactions.length} 笔账单，可在 Excel / Numbers 中查看',
                     ),
                     trailing: const Icon(Icons.chevron_right_rounded),
-                    onTap: _exporting || _importing ? null : () => _export(csv: true),
+                    onTap: _exporting || _importing
+                        ? null
+                        : () => _export(csv: true),
                   ),
                   const Divider(),
                   ListTile(
@@ -356,7 +450,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     title: const Text('导出 JSON 备份'),
                     subtitle: const Text('包含全部账单与设置，可用于迁移或找回数据'),
                     trailing: const Icon(Icons.chevron_right_rounded),
-                    onTap: _exporting || _importing ? null : () => _export(csv: false),
+                    onTap: _exporting || _importing
+                        ? null
+                        : () => _export(csv: false),
                   ),
                   const Divider(),
                   ListTile(
@@ -389,7 +485,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            const SectionHeader(title: '关于', padding: EdgeInsets.fromLTRB(4, 0, 4, 8)),
+            const SectionHeader(
+                title: '关于', padding: EdgeInsets.fromLTRB(4, 0, 4, 8)),
             Card(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -563,4 +660,11 @@ class _PrivacyBadge extends StatelessWidget {
       ),
     );
   }
+}
+
+class _FontScaleOption {
+  const _FontScaleOption(this.label, this.scale);
+
+  final String label;
+  final double scale;
 }

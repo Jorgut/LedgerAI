@@ -127,6 +127,17 @@
   已补齐：build 2 加入外测组、中文 Test Information/审核联系方式填写、**Beta App Review 已提交**（2026-11-12T02:41Z，`WAITING_FOR_REVIEW`）。
   Public link：`https://testflight.apple.com/join/nvHDDQQT`（Beta 审核通过后可用）；测试员状态目前 `NOT_INVITED`，审核通过后 Apple 自动发邀请。
 
+## 1.1 开发启动（2026-11-12）
+
+- 名称暂定 **A：衡账 - 不登录不联网的记账本**；用户继续研究单字「衡」与英文命名。
+- 已实现第一块 **适老化**：
+  - `AppSettings` 新增 `elderMode`、`fontScale`（标准/大/特大/超大，1.0/1.15/1.3/1.5）；
+  - `MaterialApp.builder` 按设置覆盖 `TextScaler`，与系统字号取较大值；
+  - 设置页新增「适老化」区块：父母模式开关 + 字体大小 ChoiceChip + 说明；
+  - 父母模式自动开启高对比度（`AppTheme.light/dark(highContrast: true)`）。
+- 待办 1.1：iCloud 同步、小组件、微信/支付宝账单导入、多账本、英文 UI/商店、Pro 买断 IAP、名称修改、WELTRIA「更多作品」入口。
+- 1.2：Android + Google Play、家庭共享（CloudKit）、投资/理财轻量功能。
+
 ## 下一步
 
 1. **待用户决定**：1.0 是否撤回并用 build 2 重提（仅 OCR 修复 + 可带新图标），或让 1.0 先过审、修复随 1.1 发布。

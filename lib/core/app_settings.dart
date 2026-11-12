@@ -11,6 +11,8 @@ class AppSettings {
     this.categoryBudgets = const {},
     this.hapticsEnabled = true,
     this.biometricLock = false,
+    this.elderMode = false,
+    this.fontScale = 1.0,
   });
 
   /// 是否已完成首次引导。
@@ -34,6 +36,13 @@ class AppSettings {
   /// 是否启用 Face ID / Touch ID 解锁（v1 预留，默认关闭）。
   final bool biometricLock;
 
+  /// 适老化/父母模式：放大字体、提高对比度、简化展示。
+  final bool elderMode;
+
+  /// 应用内字体缩放（1.0 = 标准；1.15 大；1.3 特大；1.5 超大）。
+  /// 与系统字号叠加时取较大值由 app 层控制。
+  final double fontScale;
+
   static const AppSettings defaults = AppSettings();
 
   AppSettings copyWith({
@@ -45,6 +54,8 @@ class AppSettings {
     Map<String, double>? categoryBudgets,
     bool? hapticsEnabled,
     bool? biometricLock,
+    bool? elderMode,
+    double? fontScale,
   }) {
     return AppSettings(
       onboardingDone: onboardingDone ?? this.onboardingDone,
@@ -54,6 +65,8 @@ class AppSettings {
       categoryBudgets: categoryBudgets ?? this.categoryBudgets,
       hapticsEnabled: hapticsEnabled ?? this.hapticsEnabled,
       biometricLock: biometricLock ?? this.biometricLock,
+      elderMode: elderMode ?? this.elderMode,
+      fontScale: fontScale ?? this.fontScale,
     );
   }
 
@@ -65,6 +78,8 @@ class AppSettings {
         'categoryBudgets': categoryBudgets,
         'hapticsEnabled': hapticsEnabled,
         'biometricLock': biometricLock,
+        'elderMode': elderMode,
+        'fontScale': fontScale,
       };
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
@@ -84,6 +99,8 @@ class AppSettings {
           : const {},
       hapticsEnabled: json['hapticsEnabled'] as bool? ?? true,
       biometricLock: json['biometricLock'] as bool? ?? false,
+      elderMode: json['elderMode'] as bool? ?? false,
+      fontScale: (json['fontScale'] as num?)?.toDouble() ?? 1.0,
     );
   }
 }

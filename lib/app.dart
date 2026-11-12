@@ -25,12 +25,26 @@ class LedgerApp extends StatelessWidget {
       animation: state.settings,
       builder: (context, _) {
         final prefs = state.prefs;
+        final highContrast = prefs.highContrast || prefs.elderMode;
         return MaterialApp(
           title: '衡账',
           debugShowCheckedModeBanner: false,
-          theme: AppTheme.light(highContrast: prefs.highContrast),
-          darkTheme: AppTheme.dark(highContrast: prefs.highContrast),
+          theme: AppTheme.light(highContrast: highContrast),
+          darkTheme: AppTheme.dark(highContrast: highContrast),
           themeMode: prefs.themeMode,
+          builder: (context, child) {
+            final media = MediaQuery.of(context);
+            var chosenScale = prefs.fontScale;
+            if (prefs.elderMode && chosenScale < 1.3) chosenScale = 1.3;
+            final systemFactor = media.textScaler.scale(16) / 16;
+            final effective =
+                chosenScale > systemFactor ? chosenScale : systemFactor;
+            if ((effective - systemFactor).abs() < 0.001) return child!;
+            return MediaQuery(
+              data: media.copyWith(textScaler: TextScaler.linear(effective)),
+              child: child!,
+            );
+          },
           locale: const Locale('zh', 'CN'),
           supportedLocales: const [Locale('zh', 'CN')],
           localizationsDelegates: const [
@@ -84,7 +98,8 @@ class LedgerApp extends StatelessWidget {
       case 'add_parsed':
         return AddTransactionScreen(initialReceipt: _demoReceipt);
       case 'add_voice':
-        return const AddTransactionScreen(initialMode: AddTransactionMode.voice);
+        return const AddTransactionScreen(
+            initialMode: AddTransactionMode.voice);
       default:
         return const RootShell();
     }
