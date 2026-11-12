@@ -151,6 +151,20 @@
 - 待办 1.1：同步真机双设备验证、小组件、多账本、英文 UI/商店、Pro 买断 IAP、名称修改、WELTRIA「更多作品」入口。
 - 1.2：Android + Google Play、家庭共享（CloudKit）、投资/理财轻量功能。
 
+
+
+## 品牌视觉定稿（2026-11-12）
+
+- 最终采用 **B2 极简启动页**：甲骨文「衡」直接使用，不抽象；HENG 130px；底部两行
+  `PRIVATE LEDGER` / `DESIGNED BY ARCHINTERA`（同一字体/字号/字重，颜色区分主次）。
+- 动效采用 **C 景深显影**：2.6s、单次、ease-out、可跳过、reduce-motion 降级；iOS LaunchScreen 静态，动效为 App 内冷启动开场。
+- 最终资产目录：`store/marketing/brand/final/`
+  - `launch.png`（1320×2868）
+  - `launch_motion.mp4`（540×1174 预览；正式实现 1080×1920）
+  - `ui_palette.png`（Forest Paper 色板，待应用）
+  - `source/heng_oracle.svg`、`source/heng_reference.jpg`
+- 已清理之前所有过程稿（mark/seals/oracle/launch/motion 草稿）。
+
 ## 下一步
 
 1. **待用户决定**：1.0 是否撤回并用 build 2 重提（仅 OCR 修复 + 可带新图标），或让 1.0 先过审、修复随 1.1 发布。
