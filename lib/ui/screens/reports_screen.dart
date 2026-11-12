@@ -387,7 +387,7 @@ class _CategoryRow extends StatelessWidget {
                   width: 10,
                   height: 10,
                   decoration: BoxDecoration(
-                    color: category.color,
+                    color: AppTheme.categoryColorOf(context, category),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -429,7 +429,7 @@ class _CategoryRow extends StatelessWidget {
               child: LinearProgressIndicator(
                 value: (slice.ratio / maxRatio).clamp(0.0, 1.0),
                 minHeight: 6,
-                color: category.color,
+                color: AppTheme.categoryColorOf(context, category),
                 backgroundColor: theme.colorScheme.surfaceContainerHighest,
               ),
             ),

@@ -670,7 +670,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   Color _accent(ThemeData theme) =>
-      AppTheme.isDark(context) ? theme.colorScheme.primary : AppTheme.brandText;
+      AppTheme.isDark(context) ? theme.colorScheme.primary : AppTheme.brandTextOf(context);
 
   Widget _buildSourceBanner(ThemeData theme) {
     if (!_justParsed) return const SizedBox.shrink();
@@ -1251,10 +1251,10 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         height: _listening ? 136 : 124,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          gradient: AppTheme.brandGradient,
+                          gradient: AppTheme.brandGradientOf(context),
                           boxShadow: [
                             BoxShadow(
-                              color: AppTheme.brand.withValues(alpha: 0.30),
+                              color: AppTheme.brandOf(context).withValues(alpha: 0.30),
                               blurRadius: _listening ? 28 : 14,
                               spreadRadius: _listening ? 6 : 0,
                             ),
@@ -1453,7 +1453,7 @@ class _ModeBar extends StatelessWidget {
                               color: mode == option.mode
                                   ? (AppTheme.isDark(context)
                                       ? theme.colorScheme.primary
-                                      : AppTheme.brandText)
+                                      : AppTheme.brandTextOf(context))
                                   : theme.colorScheme.onSurfaceVariant,
                             ),
                             const SizedBox(width: 5),
@@ -1466,7 +1466,7 @@ class _ModeBar extends StatelessWidget {
                                   color: mode == option.mode
                                       ? (AppTheme.isDark(context)
                                           ? theme.colorScheme.primary
-                                          : AppTheme.brandText)
+                                          : AppTheme.brandTextOf(context))
                                       : theme.colorScheme.onSurfaceVariant,
                                 ),
                               ),

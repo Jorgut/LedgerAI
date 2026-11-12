@@ -29,7 +29,7 @@ class EmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final accent =
-        AppTheme.isDark(context) ? theme.colorScheme.primary : AppTheme.brandText;
+        AppTheme.isDark(context) ? theme.colorScheme.primary : AppTheme.brandTextOf(context);
     final showAction = actionLabel != null && onAction != null;
     return Padding(
       padding: EdgeInsets.symmetric(

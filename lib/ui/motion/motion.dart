@@ -365,7 +365,7 @@ class _PulseRingsState extends State<PulseRings>
   @override
   Widget build(BuildContext context) {
     if (!widget.active || reduceMotionOf(context)) return widget.child;
-    final color = widget.color ?? AppTheme.brand;
+    final color = widget.color ?? AppTheme.brandOf(context);
     return SizedBox(
       width: widget.size,
       height: widget.size,
@@ -455,7 +455,7 @@ class _ScanLineState extends State<ScanLine> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     if (!widget.active || reduceMotionOf(context)) return const SizedBox.shrink();
-    final color = widget.color ?? AppTheme.brand;
+    final color = widget.color ?? AppTheme.brandOf(context);
     return IgnorePointer(
       child: AnimatedBuilder(
         animation: _controller,

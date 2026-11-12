@@ -182,6 +182,14 @@
 
 - 1.1 第 3 段（英文/小组件/IAP）已开始：新增 `docs/LOCALIZATION_PLAN.md` 与 `store/metadata_en.md`（英文商店文案）；UI 文案迁移、小组件、Pro IAP 后续分批执行。
 
+
+## 三套主题色（2026-11-12）
+
+- 默认 **A 清新**；设置 → 主题色可切换 A 清新 / B 森林 / C 清新森林；
+- 三套都是完整的 ThemeExtension（`lib/ui/color_themes.dart`）：背景、主色、语义色、分类色、渐变一起切换；
+- 分类色/环形图/快捷入口已改为从当前主题读取，不再依赖硬编码；
+- 无障碍测试与核心测试通过；截图：`store/marketing/brand/final/theme_a_home.png`、`theme_a_settings.png`。
+
 ## 下一步
 
 1. **待用户决定**：1.0 是否撤回并用 build 2 重提（仅 OCR 修复 + 可带新图标），或让 1.0 先过审、修复随 1.1 发布。

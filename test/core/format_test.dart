@@ -92,13 +92,17 @@ void main() {
     });
 
     test('isSameMonth', () {
-      expect(isSameMonth(DateTime(2026, 11, 1), DateTime(2026, 11, 30)), isTrue);
-      expect(isSameMonth(DateTime(2026, 11, 30), DateTime(2026, 12, 1)), isFalse);
-      expect(isSameMonth(DateTime(2026, 11, 1), DateTime(2025, 11, 1)), isFalse);
+      expect(
+          isSameMonth(DateTime(2026, 11, 1), DateTime(2026, 11, 30)), isTrue);
+      expect(
+          isSameMonth(DateTime(2026, 11, 30), DateTime(2026, 12, 1)), isFalse);
+      expect(
+          isSameMonth(DateTime(2026, 11, 1), DateTime(2025, 11, 1)), isFalse);
     });
 
     test('firstDayOfMonth / lastDayOfMonth', () {
-      expect(firstDayOfMonth(DateTime(2026, 11, 12, 13, 5)), DateTime(2026, 11, 1));
+      expect(firstDayOfMonth(DateTime(2026, 11, 12, 13, 5)),
+          DateTime(2026, 11, 1));
       expect(lastDayOfMonth(DateTime(2026, 11, 12)), DateTime(2026, 11, 30));
       expect(lastDayOfMonth(DateTime(2026, 2, 10)), DateTime(2026, 2, 28));
       expect(lastDayOfMonth(DateTime(2028, 2, 1)), DateTime(2028, 2, 29));
@@ -144,7 +148,7 @@ void main() {
   });
 
   test('品牌色常量', () {
-    expect(kBrandColor, const Color(0xFF10B981));
-    expect(kBrandDark, const Color(0xFF059669));
+    expect(kBrandColor, const Color(0xFF0B5B47));
+    expect(kBrandDark, const Color(0xFF063A2C));
   });
 }

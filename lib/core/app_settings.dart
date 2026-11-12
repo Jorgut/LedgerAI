@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+/// 三套主题色。默认 [fresh]（A 清新）。
+enum AppColorTheme {
+  fresh('A 清新', '高明度、冷背景、明快绿'),
+  forest('B 森林', '暖纸色、深绿、沉稳'),
+  freshForest('C 清新森林', '冷白绿底、深绿主色、薄荷高光');
+
+  const AppColorTheme(this.label, this.description);
+
+  final String label;
+  final String description;
+}
+
 /// 用户偏好设置。全部保存在本机 Hive box 中。
 @immutable
 class AppSettings {
@@ -15,6 +27,7 @@ class AppSettings {
     this.fontScale = 1.0,
     this.icloudSyncEnabled = false,
     this.lastSyncAt,
+    this.colorTheme = AppColorTheme.fresh,
   });
 
   /// 是否已完成首次引导。
@@ -51,6 +64,9 @@ class AppSettings {
   /// 上次成功同步时间。
   final DateTime? lastSyncAt;
 
+  /// 主题色；默认 A 清新。
+  final AppColorTheme colorTheme;
+
   static const AppSettings defaults = AppSettings();
 
   AppSettings copyWith({
@@ -67,6 +83,7 @@ class AppSettings {
     bool? icloudSyncEnabled,
     DateTime? lastSyncAt,
     bool clearLastSyncAt = false,
+    AppColorTheme? colorTheme,
   }) {
     return AppSettings(
       onboardingDone: onboardingDone ?? this.onboardingDone,
@@ -81,6 +98,7 @@ class AppSettings {
       fontScale: fontScale ?? this.fontScale,
       icloudSyncEnabled: icloudSyncEnabled ?? this.icloudSyncEnabled,
       lastSyncAt: clearLastSyncAt ? null : (lastSyncAt ?? this.lastSyncAt),
+      colorTheme: colorTheme ?? this.colorTheme,
     );
   }
 
@@ -96,6 +114,7 @@ class AppSettings {
         'fontScale': fontScale,
         'icloudSyncEnabled': icloudSyncEnabled,
         'lastSyncAt': lastSyncAt?.toIso8601String(),
+        'colorTheme': colorTheme.name,
       };
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
@@ -122,6 +141,10 @@ class AppSettings {
       lastSyncAt: json['lastSyncAt'] is String
           ? DateTime.tryParse(json['lastSyncAt'] as String)
           : null,
+      colorTheme: AppColorTheme.values.firstWhere(
+        (theme) => theme.name == json['colorTheme'],
+        orElse: () => AppColorTheme.fresh,
+      ),
     );
   }
 }

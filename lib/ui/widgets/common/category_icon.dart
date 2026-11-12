@@ -23,8 +23,8 @@ class CategoryIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = AppTheme.isDark(context);
-    final background = _background(category.color, isDark);
-    final foreground = _foreground(category.color, isDark);
+    final background = _background(AppTheme.categoryColorOf(context, category), isDark);
+    final foreground = _foreground(AppTheme.categoryColorOf(context, category), isDark);
     final icon = Container(
       width: size,
       height: size,

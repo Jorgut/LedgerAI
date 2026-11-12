@@ -24,7 +24,7 @@ class QuickActionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = AppTheme.isDark(context);
-    final accent = color ?? AppTheme.brandText;
+    final accent = color ?? AppTheme.brandTextOf(context);
     final background = isDark
         ? Color.alphaBlend(
             accent.withValues(alpha: 0.20),

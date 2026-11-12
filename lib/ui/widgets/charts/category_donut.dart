@@ -40,6 +40,10 @@ class CategoryDonut extends StatelessWidget {
             )
             .join('；')
         : '暂无分类数据';
+    final categoryColors = {
+      for (final slice in slices)
+        slice.category.id: AppTheme.categoryColorOf(context, slice.category),
+    };
 
     return Semantics(
       container: true,
@@ -65,6 +69,7 @@ class CategoryDonut extends StatelessWidget {
                     total: total,
                     strokeWidth: strokeWidth,
                     trackColor: trackColor,
+                    categoryColors: categoryColors,
                     progress: progress,
                   ),
                 ),
@@ -125,6 +130,7 @@ class _DonutPainter extends CustomPainter {
     required this.total,
     required this.strokeWidth,
     required this.trackColor,
+    required this.categoryColors,
     this.progress = 1,
   });
 
@@ -132,6 +138,7 @@ class _DonutPainter extends CustomPainter {
   final double total;
   final double strokeWidth;
   final Color trackColor;
+  final Map<String, Color> categoryColors;
   final double progress;
 
   @override
@@ -167,7 +174,7 @@ class _DonutPainter extends CustomPainter {
         start += slice.ratio * math.pi * 2;
         continue;
       }
-      arcPaint.color = slice.category.color;
+      arcPaint.color = categoryColors[slice.category.id] ?? slice.category.color;
       canvas.drawArc(rect, start + effectiveGap / 2, sweep, false, arcPaint);
       start += slice.ratio * math.pi * 2;
     }

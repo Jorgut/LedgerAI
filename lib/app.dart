@@ -30,8 +30,10 @@ class LedgerApp extends StatelessWidget {
         return MaterialApp(
           title: '衡账',
           debugShowCheckedModeBanner: false,
-          theme: AppTheme.light(highContrast: highContrast),
-          darkTheme: AppTheme.dark(highContrast: highContrast),
+          theme: AppTheme.light(
+              highContrast: highContrast, colorTheme: prefs.colorTheme),
+          darkTheme: AppTheme.dark(
+              highContrast: highContrast, colorTheme: prefs.colorTheme),
           themeMode: prefs.themeMode,
           builder: (context, child) {
             final media = MediaQuery.of(context);

@@ -410,10 +410,10 @@ class _CategoryBudgetRow extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: category.color.withValues(alpha: 0.16),
+                  color: AppTheme.categoryColorOf(context, category).withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(category.icon, size: 22, color: category.color),
+                child: Icon(category.icon, size: 22, color: AppTheme.categoryColorOf(context, category)),
               ),
               const SizedBox(width: 12),
               Expanded(

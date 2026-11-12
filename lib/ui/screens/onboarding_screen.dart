@@ -152,7 +152,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               color: selected
                                   ? (AppTheme.isDark(context)
                                       ? theme.colorScheme.primary
-                                      : AppTheme.brandText)
+                                      : AppTheme.brandTextOf(context))
                                   : theme.colorScheme.outlineVariant,
                               borderRadius: BorderRadius.circular(4),
                             ),
@@ -211,7 +211,7 @@ class _PageContent extends StatelessWidget {
     final theme = Theme.of(context);
     final accent = AppTheme.isDark(context)
         ? theme.colorScheme.primary
-        : AppTheme.brandText;
+        : AppTheme.brandTextOf(context);
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(

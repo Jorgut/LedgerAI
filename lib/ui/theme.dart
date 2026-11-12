@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../core/app_settings.dart';
 import '../core/format.dart';
+import '../core/models.dart';
+import 'color_themes.dart';
 
 export '../core/format.dart' show kBrandColor, kBrandDark, kBrandText;
 
@@ -74,17 +77,29 @@ class AppTheme {
   static bool isDark(BuildContext context) =>
       Theme.of(context).brightness == Brightness.dark;
 
-  /// 收入文字色：浅色 `#047857`，深色 `#34D399`。
-  static Color incomeColorOf(BuildContext context) =>
-      isDark(context) ? incomeDark : incomeLight;
+  /// 当前主题色。
+  static HengPalette paletteOf(BuildContext context) => HengPalette.of(context);
 
-  /// 支出文字色：浅色 `#DC2626`，深色 `#F87171`。
-  static Color expenseColorOf(BuildContext context) =>
-      isDark(context) ? expenseDark : expenseLight;
+  static Color brandOf(BuildContext context) => paletteOf(context).accent;
 
-  /// 提醒文字色：浅色 `#B45309`，深色 `#FBBF24`。
-  static Color warningColorOf(BuildContext context) =>
-      isDark(context) ? warningDark : warningLight;
+  static Color brandTextOf(BuildContext context) => paletteOf(context).primary;
+
+  static Color brandDarkOf(BuildContext context) => paletteOf(context).primaryDark;
+
+  static LinearGradient brandGradientOf(BuildContext context) =>
+      paletteOf(context).gradient;
+
+  static Color categoryColorOf(BuildContext context, Category category) =>
+      paletteOf(context).categories[category.id] ?? category.color;
+
+  /// 收入文字色。
+  static Color incomeColorOf(BuildContext context) => paletteOf(context).income;
+
+  /// 支出文字色。
+  static Color expenseColorOf(BuildContext context) => paletteOf(context).expense;
+
+  /// 提醒文字色。
+  static Color warningColorOf(BuildContext context) => paletteOf(context).warning;
 
   /// 按元素主题取收入 / 支出色（不依赖 BuildContext 的场景）。
   static Color amountColor(Brightness brightness, {required bool isIncome}) {
@@ -98,32 +113,40 @@ class AppTheme {
   // 主题构建
   // ---------------------------------------------------------------------------
 
-  static ThemeData light({bool highContrast = false}) =>
-      _build(Brightness.light, highContrast);
+  static ThemeData light({
+    bool highContrast = false,
+    AppColorTheme colorTheme = AppColorTheme.fresh,
+  }) =>
+      _build(Brightness.light, highContrast, colorTheme);
 
-  static ThemeData dark({bool highContrast = false}) =>
-      _build(Brightness.dark, highContrast);
+  static ThemeData dark({
+    bool highContrast = false,
+    AppColorTheme colorTheme = AppColorTheme.fresh,
+  }) =>
+      _build(Brightness.dark, highContrast, colorTheme);
 
-  static ThemeData _build(Brightness brightness, bool highContrast) {
+  static ThemeData _build(
+    Brightness brightness,
+    bool highContrast,
+    AppColorTheme colorTheme,
+  ) {
     final isDark = brightness == Brightness.dark;
-    final scheme = _scheme(brightness, highContrast);
-    final cardColor = isDark ? darkSurface : lightSurface;
-    final canvas = isDark ? darkBackground : lightBackground;
-    final fieldFill =
-        isDark ? const Color(0xFF17251F) : const Color(0xFFF1F3EE);
-    final borderColor = highContrast
-        ? scheme.outline
-        : (isDark ? const Color(0xFF24352D) : const Color(0xFFE3E6E0));
-    final actionColor = isDark
-        ? scheme.primary
-        : (highContrast ? const Color(0xFF063A2C) : lightAction);
-    final actionForeground = isDark ? scheme.onPrimary : Colors.white;
+    final palette = HengPalette.forTheme(colorTheme, brightness,
+        highContrast: highContrast);
+    final scheme = _scheme(palette, highContrast);
+    final cardColor = palette.surface;
+    final canvas = palette.background;
+    final fieldFill = palette.field;
+    final borderColor = highContrast ? scheme.outline : palette.border;
+    final actionColor = palette.primary;
+    final actionForeground = palette.onPrimary;
 
     final base = ThemeData(
       brightness: brightness,
       useMaterial3: true,
       colorScheme: scheme,
       scaffoldBackgroundColor: canvas,
+      extensions: [palette],
       canvasColor: canvas,
       visualDensity: VisualDensity.standard,
       materialTapTargetSize: MaterialTapTargetSize.padded,
@@ -379,7 +402,7 @@ class AppTheme {
         showCheckmark: true,
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: isDark ? scheme.primary : brand,
+        color: palette.primary,
         linearTrackColor: scheme.surfaceContainerHighest,
         circularTrackColor: scheme.surfaceContainerHighest,
         linearMinHeight: 8,
@@ -409,87 +432,57 @@ class AppTheme {
   // 颜色与字体
   // ---------------------------------------------------------------------------
 
-  static ColorScheme _scheme(Brightness brightness, bool highContrast) {
-    final isDark = brightness == Brightness.dark;
+  static ColorScheme _scheme(HengPalette palette, bool highContrast) {
+    final isDark = palette.brightness == Brightness.dark;
     final base = ColorScheme.fromSeed(
-      seedColor: brand,
-      brightness: brightness,
+      seedColor: palette.primary,
+      brightness: palette.brightness,
       contrastLevel: highContrast ? 1.0 : 0.0,
     );
-
-    if (isDark) {
-      return base.copyWith(
-        primary:
-            highContrast ? const Color(0xFFA7F3D0) : const Color(0xFF6EE7B7),
-        onPrimary: const Color(0xFF052B21),
-        primaryContainer:
-            highContrast ? const Color(0xFF0B5B47) : const Color(0xFF064E3B),
-        onPrimaryContainer: const Color(0xFFCDEEE1),
-        secondary: const Color(0xFF5EEAD4),
-        onSecondary: const Color(0xFF042F2A),
-        secondaryContainer: const Color(0xFF0B3B32),
-        onSecondaryContainer: const Color(0xFFCCFBF1),
-        tertiary: const Color(0xFFD6B48A),
-        onTertiary: const Color(0xFF2B1A0E),
-        tertiaryContainer: const Color(0xFF3B2A1A),
-        onTertiaryContainer: const Color(0xFFF3E7DA),
-        error: const Color(0xFFF87171),
-        onError: const Color(0xFF450A0A),
-        errorContainer: const Color(0xFF7F1D1D),
-        onErrorContainer: const Color(0xFFFEE2E2),
-        surface: darkSurface,
-        onSurface: highContrast ? Colors.white : const Color(0xFFE8F1EC),
-        onSurfaceVariant:
-            highContrast ? const Color(0xFFE8F1EC) : const Color(0xFF9FB8AD),
-        surfaceContainerLowest: const Color(0xFF07100C),
-        surfaceContainerLow: const Color(0xFF0D1A14),
-        surfaceContainer: darkSurface,
-        surfaceContainerHigh: const Color(0xFF17271F),
-        surfaceContainerHighest: const Color(0xFF1D3027),
-        outline:
-            highContrast ? const Color(0xFFA9BFB5) : const Color(0xFF3A5046),
-        outlineVariant:
-            highContrast ? const Color(0xFF7F978B) : const Color(0xFF24352D),
-        inverseSurface: const Color(0xFFF4F3EE),
-        onInverseSurface: const Color(0xFF0B1F1A),
-        inversePrimary: brandText,
-        surfaceTint: Colors.transparent,
-      );
-    }
-
+    final surface = palette.surface;
+    final mutedOutline = palette.border;
+    final primaryContainer =
+        Color.alphaBlend(palette.primary.withValues(alpha: 0.14), surface);
+    final onPrimaryContainer = palette.primaryDark;
+    final error = palette.expense;
     return base.copyWith(
-      primary: highContrast ? const Color(0xFF063A2C) : brand,
-      onPrimary: Colors.white,
-      primaryContainer:
-          highContrast ? const Color(0xFFCDEEE1) : const Color(0xFFDCEFE6),
-      onPrimaryContainer: const Color(0xFF063A2C),
-      secondary: const Color(0xFF147A61),
-      onSecondary: Colors.white,
-      secondaryContainer: const Color(0xFFE7F2EC),
-      onSecondaryContainer: const Color(0xFF063A2C),
-      tertiary: const Color(0xFFB4845A),
-      onTertiary: const Color(0xFF2B1A0E),
-      tertiaryContainer: const Color(0xFFF3E7DA),
-      onTertiaryContainer: const Color(0xFF3B2414),
-      error: const Color(0xFFB42318),
+      primary: palette.primary,
+      onPrimary: palette.onPrimary,
+      primaryContainer: primaryContainer,
+      onPrimaryContainer: onPrimaryContainer,
+      secondary: palette.accent,
+      onSecondary: isDark ? palette.onPrimary : Colors.white,
+      secondaryContainer:
+          Color.alphaBlend(palette.accent.withValues(alpha: 0.14), surface),
+      onSecondaryContainer: palette.primaryDark,
+      tertiary: palette.warning,
+      onTertiary: isDark ? palette.onPrimary : Colors.white,
+      error: error,
       onError: Colors.white,
-      errorContainer: const Color(0xFFFDE8E6),
-      onErrorContainer: const Color(0xFF5A1208),
-      surface: lightSurface,
-      onSurface: highContrast ? Colors.black : const Color(0xFF0B1F1A),
-      onSurfaceVariant:
-          highContrast ? const Color(0xFF2F3E37) : const Color(0xFF5F6E67),
-      surfaceContainerLowest: Colors.white,
-      surfaceContainerLow: Colors.white,
-      surfaceContainer: lightSurface,
-      surfaceContainerHigh: const Color(0xFFF7F6F1),
-      surfaceContainerHighest: const Color(0xFFEFEEE8),
-      outline: highContrast ? const Color(0xFF4B5B54) : const Color(0xFFD8DDD6),
-      outlineVariant:
-          highContrast ? const Color(0xFF6B7C75) : const Color(0xFFE3E6E0),
-      inverseSurface: const Color(0xFF111F1A),
-      onInverseSurface: const Color(0xFFF4F3EE),
-      inversePrimary: const Color(0xFFCDEEE1),
+      errorContainer:
+          Color.alphaBlend(error.withValues(alpha: 0.12), surface),
+      onErrorContainer: error,
+      surface: surface,
+      onSurface: palette.text,
+      onSurfaceVariant: palette.muted,
+      surfaceContainerLowest: isDark ? palette.background : surface,
+      surfaceContainerLow: isDark
+          ? Color.alphaBlend(Colors.white.withValues(alpha: 0.03), surface)
+          : surface,
+      surfaceContainer: surface,
+      surfaceContainerHigh: isDark
+          ? Color.alphaBlend(Colors.white.withValues(alpha: 0.06), surface)
+          : Color.alphaBlend(Colors.black.withValues(alpha: 0.03), surface),
+      surfaceContainerHighest: isDark
+          ? Color.alphaBlend(Colors.white.withValues(alpha: 0.10), surface)
+          : Color.alphaBlend(Colors.black.withValues(alpha: 0.06), surface),
+      outline: mutedOutline,
+      outlineVariant: isDark
+          ? Color.alphaBlend(Colors.white.withValues(alpha: 0.10), surface)
+          : Color.alphaBlend(Colors.black.withValues(alpha: 0.10), surface),
+      inverseSurface: isDark ? palette.text : palette.primaryDark,
+      onInverseSurface: isDark ? palette.background : palette.surface,
+      inversePrimary: palette.accent,
       surfaceTint: Colors.transparent,
     );
   }

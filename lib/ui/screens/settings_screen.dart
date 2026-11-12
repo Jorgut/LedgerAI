@@ -7,10 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../core/app_settings.dart';
 import '../../core/app_state.dart';
 import '../../core/bill_import.dart';
 import '../../core/models.dart';
 import '../../sync/cloud_sync.dart';
+import '../color_themes.dart';
 import '../../core/format.dart';
 import '../theme.dart';
 import '../widgets/common/app_snack.dart';
@@ -128,6 +130,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     } finally {
       if (mounted) setState(() => _syncing = false);
     }
+  }
+
+  Future<void> _setColorTheme(AppColorTheme value) async {
+    await AppScope.read(context).updateSettingsWith(
+      (settings) => settings.copyWith(colorTheme: value),
+    );
+    if (!mounted) return;
+    _hapticTick();
   }
 
   Future<void> _setFontScale(double value) async {
@@ -461,6 +471,60 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             const SizedBox(height: 20),
             const SectionHeader(
+              title: '主题色',
+              padding: EdgeInsets.fromLTRB(4, 0, 4, 8),
+            ),
+            Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
+                    child: Row(
+                      children: [
+                        Icon(Icons.palette_outlined,
+                            color: theme.colorScheme.onSurfaceVariant),
+                        const SizedBox(width: 12),
+                        Text('选择主题色', style: theme.textTheme.bodyLarge),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (final option in AppColorTheme.values)
+                          ChoiceChip(
+                            avatar: CircleAvatar(
+                              radius: 8,
+                              backgroundColor: HengPalette.forTheme(
+                                option,
+                                Theme.of(context).brightness,
+                              ).primary,
+                            ),
+                            label: Text(option.label),
+                            selected: prefs.colorTheme == option,
+                            onSelected: (_) => _setColorTheme(option),
+                          ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
+                    child: Text(
+                      '默认 A 清新；深色模式会自动使用对应深色版本。',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            const SectionHeader(
               title: '适老化',
               padding: EdgeInsets.fromLTRB(4, 0, 4, 8),
             ),
@@ -691,7 +755,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           width: 52,
                           height: 52,
                           decoration: BoxDecoration(
-                            gradient: AppTheme.brandGradient,
+                            gradient: AppTheme.brandGradientOf(context),
                             borderRadius: BorderRadius.circular(
                               AppTheme.controlRadius,
                             ),
@@ -812,7 +876,7 @@ class _ThemeModeTile extends StatelessWidget {
               Icons.check_circle_rounded,
               color: AppTheme.isDark(context)
                   ? theme.colorScheme.primary
-                  : AppTheme.brandText,
+                  : AppTheme.brandTextOf(context),
             )
           : null,
       onTap: onTap,
@@ -829,7 +893,7 @@ class _PrivacyBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = AppTheme.isDark(context);
-    final color = isDark ? AppTheme.incomeDark : AppTheme.brandText;
+    final color = isDark ? AppTheme.incomeDark : AppTheme.brandTextOf(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(

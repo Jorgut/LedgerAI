@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
               width: 32,
               height: 32,
               decoration: BoxDecoration(
-                gradient: AppTheme.brandGradient,
+                gradient: AppTheme.brandGradientOf(context),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(
@@ -92,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                     child: QuickActionTile(
                       icon: Icons.document_scanner_rounded,
                       label: '拍照记账',
-                      color: AppTheme.brandText,
+                      color: AppTheme.brandTextOf(context),
                       onTap: () =>
                           _openAdd(context, AddTransactionMode.receipt),
                     ),
@@ -221,7 +221,7 @@ class _BalanceCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: AppTheme.brand.withValues(alpha: 0.22),
+              color: AppTheme.brandOf(context).withValues(alpha: 0.22),
               blurRadius: 20,
               offset: const Offset(0, 8),
             ),
@@ -234,7 +234,7 @@ class _BalanceCard extends StatelessWidget {
               Positioned.fill(
                 child: DecoratedBox(
                   decoration:
-                      const BoxDecoration(gradient: AppTheme.brandGradient),
+                      BoxDecoration(gradient: AppTheme.brandGradientOf(context)),
                 ),
               ),
               const Positioned.fill(child: TechBackdrop()),
@@ -459,7 +459,7 @@ class _BudgetCard extends StatelessWidget {
             ? AppTheme.warningColorOf(context)
             : (AppTheme.isDark(context)
                 ? theme.colorScheme.primary
-                : AppTheme.brand);
+                : AppTheme.brandOf(context));
     final remaining = budget! - expense;
     final percent = (used * 100).clamp(0, 999).round();
 
@@ -556,7 +556,7 @@ class _IconBadge extends StatelessWidget {
     final theme = Theme.of(context);
     final accent = AppTheme.isDark(context)
         ? theme.colorScheme.primary
-        : AppTheme.brandText;
+        : AppTheme.brandTextOf(context);
     return Container(
       width: 40,
       height: 40,

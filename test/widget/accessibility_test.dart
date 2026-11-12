@@ -62,6 +62,12 @@ void main() {
       find.widgetWithText(SwitchListTile, '高对比度'),
       label: '高对比度开关',
     );
+    await tester.scrollUntilVisible(
+      find.widgetWithText(ListTile, '预算管理'),
+      240,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.pumpAndSettle();
     expectMinTapTarget(
       tester,
       find.widgetWithText(ListTile, '预算管理'),
@@ -109,7 +115,12 @@ void main() {
 
   testWidgets('交易行语义标签朗读备注、分类、收支方向与日期', (tester) async {
     await tester.runAsync(() => harness.seed([
-          testTxn(id: 'food', amount: 42, categoryId: 'food', note: '午餐', date: todayAt()),
+          testTxn(
+              id: 'food',
+              amount: 42,
+              categoryId: 'food',
+              note: '午餐',
+              date: todayAt()),
         ]));
     await pumpScoped(tester, harness.state, const TransactionsScreen());
 
