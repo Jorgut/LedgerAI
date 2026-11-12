@@ -46,3 +46,6 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# 本地 ASC 凭据/ID
+.env.asc

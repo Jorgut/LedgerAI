@@ -26,8 +26,10 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives.asymmetric.utils import decode_dss_signature
 
-ISSUER_ID = os.environ.get("ASC_ISSUER_ID", "e47c13e9-4fa8-4764-aa53-5b257951df84")
-KEY_ID = os.environ.get("ASC_KEY_ID", "79W52WL2JB")
+ISSUER_ID = os.environ.get("ASC_ISSUER_ID", "")
+KEY_ID = os.environ.get("ASC_KEY_ID", "")
+if not ISSUER_ID or not KEY_ID:
+    raise SystemExit("请先设置 ASC_ISSUER_ID 与 ASC_KEY_ID 环境变量（本地可放在未提交的 .env.asc 中）")
 KEY_PATH = Path(
     os.environ.get(
         "ASC_KEY_PATH",
