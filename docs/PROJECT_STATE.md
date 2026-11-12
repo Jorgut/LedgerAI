@@ -115,7 +115,9 @@
   - 小计/合计类关键词后面若同行无金额，向后最多 10 行找独立数字并取最大值（兼容 OCR 列被拆散）；
   - 兜底小数再排除 1990–2100 的年份区间。
 - 新增 `test/ai/receipt_amount_regression_test.dart`：真实设备 OCR 文本 + 用户小票 + 列拆散 + 只有日期四组回归，全部通过。
-- 当前 TestFlight/商店 build 1 仍是旧解析；修复需重新构建上传（见"下一步"待用户决定）。
+- 已构建并上传 **TestFlight build 2（1.0.0 (2)）**，处理完成（VALID）并加入「Personal Testing」内部测试组；
+  构建包含：OCR 金额修复 + 新科技感图标/启动图 + 应用内动效。用户可在 TestFlight 更新测试同一张小票。
+- 商店提交（build 1）仍在 `WAITING_FOR_REVIEW`；是否撤回并改提 build 2 待用户决定。
 
 ## 下一步
 
