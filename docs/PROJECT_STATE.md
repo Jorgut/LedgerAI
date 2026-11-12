@@ -178,7 +178,8 @@
   - 深色模式 #0B1512 / #111F1A；
   - 无障碍测试 4/4 通过；模拟器截图：`store/marketing/brand/final/home_forest_paper.png`。
 - TestFlight 1.1.0 (5) 已上传（含品牌启动动效，未含色板）。
-- TestFlight 1.1.0 (6) 已处理完成并挂到内部组「Personal Testing」：含品牌启动动效 + Forest Paper 色板（build 5 未挂组，6 为最新可测）。
+- TestFlight 1.1.0 (6) 已处理完成并挂到内部组「Personal Testing」：含品牌启动动效 + Forest Paper 色板（build 5 未挂组）。
+- TestFlight 1.1.0 (7) 已上传（三套主题色，默认 A）；Apple API 挂组暂时 404，待处理完成后挂内部组。
 
 - 1.1 第 3 段（英文/小组件/IAP）已开始：新增 `docs/LOCALIZATION_PLAN.md` 与 `store/metadata_en.md`（英文商店文案）；UI 文案迁移、小组件、Pro IAP 后续分批执行。
 
