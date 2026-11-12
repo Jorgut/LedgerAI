@@ -102,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                     child: QuickActionTile(
                       icon: Icons.mic_rounded,
                       label: '语音记账',
-                      color: const Color(0xFF2563EB),
+                      color: const Color(0xFF5B6C8A),
                       onTap: () => _openAdd(context, AddTransactionMode.voice),
                     ),
                   ),
@@ -111,7 +111,7 @@ class HomeScreen extends StatelessWidget {
                     child: QuickActionTile(
                       icon: Icons.edit_note_rounded,
                       label: '手动记账',
-                      color: const Color(0xFF7C3AED),
+                      color: const Color(0xFFB4845A),
                       onTap: () => _openAdd(context, AddTransactionMode.manual),
                     ),
                   ),

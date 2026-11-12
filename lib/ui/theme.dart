@@ -30,24 +30,24 @@ class AppTheme {
   /// 浅色背景上可读的强调绿（文字 / 图标 / 链接）。
   static const Color brandText = kBrandText;
 
-  static const Color lightBackground = Color(0xFFF6F7F9);
-  static const Color darkBackground = Color(0xFF0F1419);
+  static const Color lightBackground = Color(0xFFF4F3EE);
+  static const Color darkBackground = Color(0xFF0B1512);
   static const Color lightSurface = Color(0xFFFFFFFF);
-  static const Color darkSurface = Color(0xFF161C22);
+  static const Color darkSurface = Color(0xFF111F1A);
 
   /// 浅色主题下白字可读的绿（按钮 / 主操作）。
   static const Color lightAction = kBrandText;
 
   /// 收入色（语义色，按主题自动调整，见 [incomeColorOf]）。
-  static const Color incomeLight = Color(0xFF047857);
-  static const Color incomeDark = Color(0xFF34D399);
+  static const Color incomeLight = Color(0xFF0E7C5A);
+  static const Color incomeDark = Color(0xFF6EE7B7);
 
   /// 支出色（语义色，按主题自动调整，见 [expenseColorOf]）。
-  static const Color expenseLight = Color(0xFFDC2626);
+  static const Color expenseLight = Color(0xFFB42318);
   static const Color expenseDark = Color(0xFFF87171);
 
   /// 提醒色（预算接近上限等）。
-  static const Color warningLight = Color(0xFFB45309);
+  static const Color warningLight = Color(0xFFB26A00);
   static const Color warningDark = Color(0xFFFBBF24);
 
   static const double radius = 16;
@@ -63,11 +63,13 @@ class AppTheme {
   static const LinearGradient brandGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [kBrandText, Color(0xFF065F46)],
+    colors: [kBrandText, kBrandDark],
   );
 
   /// 等宽数字（金额专用）。
-  static const List<FontFeature> tabularFigures = [FontFeature.tabularFigures()];
+  static const List<FontFeature> tabularFigures = [
+    FontFeature.tabularFigures()
+  ];
 
   static bool isDark(BuildContext context) =>
       Theme.of(context).brightness == Brightness.dark;
@@ -107,13 +109,14 @@ class AppTheme {
     final scheme = _scheme(brightness, highContrast);
     final cardColor = isDark ? darkSurface : lightSurface;
     final canvas = isDark ? darkBackground : lightBackground;
-    final fieldFill = isDark ? const Color(0xFF1B242D) : const Color(0xFFF1F3F5);
+    final fieldFill =
+        isDark ? const Color(0xFF17251F) : const Color(0xFFF1F3EE);
     final borderColor = highContrast
         ? scheme.outline
-        : (isDark ? const Color(0xFF232D37) : const Color(0xFFE9ECF0));
+        : (isDark ? const Color(0xFF24352D) : const Color(0xFFE3E6E0));
     final actionColor = isDark
         ? scheme.primary
-        : (highContrast ? const Color(0xFF065F46) : lightAction);
+        : (highContrast ? const Color(0xFF063A2C) : lightAction);
     final actionForeground = isDark ? scheme.onPrimary : Colors.white;
 
     final base = ThemeData(
@@ -164,11 +167,15 @@ class AppTheme {
         filled: true,
         fillColor: fieldFill,
         isDense: false,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        hintStyle: textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
-        labelStyle: textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        hintStyle:
+            textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+        labelStyle:
+            textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
         floatingLabelStyle: textTheme.bodyMedium?.copyWith(color: actionColor),
-        helperStyle: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+        helperStyle:
+            textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
         errorStyle: textTheme.bodySmall?.copyWith(color: scheme.error),
         errorMaxLines: 3,
         prefixIconColor: scheme.onSurfaceVariant,
@@ -202,9 +209,8 @@ class AppTheme {
         style: FilledButton.styleFrom(
           backgroundColor: actionColor,
           foregroundColor: actionForeground,
-          disabledBackgroundColor: isDark
-              ? const Color(0xFF2A343E)
-              : const Color(0xFFCBD5D1),
+          disabledBackgroundColor:
+              isDark ? const Color(0xFF2A343E) : const Color(0xFFCBD5D1),
           disabledForegroundColor:
               isDark ? const Color(0xFF6B7280) : Colors.white,
           minimumSize: const Size(64, 52),
@@ -413,166 +419,169 @@ class AppTheme {
 
     if (isDark) {
       return base.copyWith(
-        primary: highContrast ? const Color(0xFF6EE7B7) : const Color(0xFF34D399),
-        onPrimary: const Color(0xFF022C22),
+        primary:
+            highContrast ? const Color(0xFFA7F3D0) : const Color(0xFF6EE7B7),
+        onPrimary: const Color(0xFF052B21),
         primaryContainer:
-            highContrast ? const Color(0xFF065F46) : const Color(0xFF064E3B),
-        onPrimaryContainer: const Color(0xFFA7F3D0),
-        secondary: const Color(0xFF34D399),
-        onSecondary: const Color(0xFF022C22),
-        secondaryContainer: const Color(0xFF064E3B),
-        onSecondaryContainer: const Color(0xFFD1FAE5),
-        tertiary: const Color(0xFF93C5FD),
-        onTertiary: const Color(0xFF0C1B33),
-        tertiaryContainer: const Color(0xFF1E3A8A),
-        onTertiaryContainer: const Color(0xFFDBEAFE),
+            highContrast ? const Color(0xFF0B5B47) : const Color(0xFF064E3B),
+        onPrimaryContainer: const Color(0xFFCDEEE1),
+        secondary: const Color(0xFF5EEAD4),
+        onSecondary: const Color(0xFF042F2A),
+        secondaryContainer: const Color(0xFF0B3B32),
+        onSecondaryContainer: const Color(0xFFCCFBF1),
+        tertiary: const Color(0xFFD6B48A),
+        onTertiary: const Color(0xFF2B1A0E),
+        tertiaryContainer: const Color(0xFF3B2A1A),
+        onTertiaryContainer: const Color(0xFFF3E7DA),
         error: const Color(0xFFF87171),
         onError: const Color(0xFF450A0A),
         errorContainer: const Color(0xFF7F1D1D),
         onErrorContainer: const Color(0xFFFEE2E2),
         surface: darkSurface,
-        onSurface: highContrast ? Colors.white : const Color(0xFFE5E7EB),
+        onSurface: highContrast ? Colors.white : const Color(0xFFE8F1EC),
         onSurfaceVariant:
-            highContrast ? const Color(0xFFE5E7EB) : const Color(0xFF9CA3AF),
-        surfaceContainerLowest: const Color(0xFF0B0F14),
-        surfaceContainerLow: const Color(0xFF111820),
+            highContrast ? const Color(0xFFE8F1EC) : const Color(0xFF9FB8AD),
+        surfaceContainerLowest: const Color(0xFF07100C),
+        surfaceContainerLow: const Color(0xFF0D1A14),
         surfaceContainer: darkSurface,
-        surfaceContainerHigh: const Color(0xFF1D252E),
-        surfaceContainerHighest: const Color(0xFF242E38),
-        outline: highContrast ? const Color(0xFF9CA3AF) : const Color(0xFF374151),
+        surfaceContainerHigh: const Color(0xFF17271F),
+        surfaceContainerHighest: const Color(0xFF1D3027),
+        outline:
+            highContrast ? const Color(0xFFA9BFB5) : const Color(0xFF3A5046),
         outlineVariant:
-            highContrast ? const Color(0xFF6B7280) : const Color(0xFF2A343E),
-        inverseSurface: const Color(0xFFF3F4F6),
-        onInverseSurface: const Color(0xFF111827),
+            highContrast ? const Color(0xFF7F978B) : const Color(0xFF24352D),
+        inverseSurface: const Color(0xFFF4F3EE),
+        onInverseSurface: const Color(0xFF0B1F1A),
         inversePrimary: brandText,
         surfaceTint: Colors.transparent,
       );
     }
 
     return base.copyWith(
-      primary: highContrast ? brandText : brand,
+      primary: highContrast ? const Color(0xFF063A2C) : brand,
       onPrimary: Colors.white,
       primaryContainer:
-          highContrast ? const Color(0xFFA7F3D0) : const Color(0xFFD1FAE5),
-      onPrimaryContainer:
-          highContrast ? const Color(0xFF022C22) : const Color(0xFF064E3B),
-      secondary: brandDark,
+          highContrast ? const Color(0xFFCDEEE1) : const Color(0xFFDCEFE6),
+      onPrimaryContainer: const Color(0xFF063A2C),
+      secondary: const Color(0xFF147A61),
       onSecondary: Colors.white,
-      secondaryContainer: const Color(0xFFECFDF5),
-      onSecondaryContainer: const Color(0xFF064E3B),
-      tertiary: const Color(0xFF3B82F6),
-      onTertiary: Colors.white,
-      tertiaryContainer: const Color(0xFFDBEAFE),
-      onTertiaryContainer: const Color(0xFF1E3A8A),
-      error: const Color(0xFFDC2626),
+      secondaryContainer: const Color(0xFFE7F2EC),
+      onSecondaryContainer: const Color(0xFF063A2C),
+      tertiary: const Color(0xFFB4845A),
+      onTertiary: const Color(0xFF2B1A0E),
+      tertiaryContainer: const Color(0xFFF3E7DA),
+      onTertiaryContainer: const Color(0xFF3B2414),
+      error: const Color(0xFFB42318),
       onError: Colors.white,
-      errorContainer: const Color(0xFFFEE2E2),
-      onErrorContainer: const Color(0xFF7F1D1D),
+      errorContainer: const Color(0xFFFDE8E6),
+      onErrorContainer: const Color(0xFF5A1208),
       surface: lightSurface,
-      onSurface: highContrast ? const Color(0xFF0B0F14) : const Color(0xFF111827),
+      onSurface: highContrast ? Colors.black : const Color(0xFF0B1F1A),
       onSurfaceVariant:
-          highContrast ? const Color(0xFF374151) : const Color(0xFF6B7280),
+          highContrast ? const Color(0xFF2F3E37) : const Color(0xFF5F6E67),
       surfaceContainerLowest: Colors.white,
       surfaceContainerLow: Colors.white,
       surfaceContainer: lightSurface,
-      surfaceContainerHigh: const Color(0xFFF3F4F6),
-      surfaceContainerHighest: const Color(0xFFE9ECF0),
-      outline: highContrast ? const Color(0xFF4B5563) : const Color(0xFFD1D5DB),
+      surfaceContainerHigh: const Color(0xFFF7F6F1),
+      surfaceContainerHighest: const Color(0xFFEFEEE8),
+      outline: highContrast ? const Color(0xFF4B5B54) : const Color(0xFFD8DDD6),
       outlineVariant:
-          highContrast ? const Color(0xFF6B7280) : const Color(0xFFE5E7EB),
-      inverseSurface: const Color(0xFF1F2937),
-      onInverseSurface: const Color(0xFFF9FAFB),
-      inversePrimary: const Color(0xFF6EE7B7),
+          highContrast ? const Color(0xFF6B7C75) : const Color(0xFFE3E6E0),
+      inverseSurface: const Color(0xFF111F1A),
+      onInverseSurface: const Color(0xFFF4F3EE),
+      inversePrimary: const Color(0xFFCDEEE1),
       surfaceTint: Colors.transparent,
     );
   }
 
   /// 字阶：正文 16sp、重要信息 18sp+、标题 22sp+；全部启用等宽数字。
   static TextTheme _textTheme(TextTheme base, ColorScheme scheme) {
-    final text = base.copyWith(
-      displayLarge: base.displayLarge?.copyWith(
-        fontSize: 48,
-        fontWeight: FontWeight.w700,
-        letterSpacing: -0.5,
-        height: 1.12,
-      ),
-      displayMedium: base.displayMedium?.copyWith(
-        fontSize: 40,
-        fontWeight: FontWeight.w700,
-        letterSpacing: -0.4,
-        height: 1.14,
-      ),
-      displaySmall: base.displaySmall?.copyWith(
-        fontSize: 34,
-        fontWeight: FontWeight.w700,
-        letterSpacing: -0.3,
-        height: 1.16,
-      ),
-      headlineLarge: base.headlineLarge?.copyWith(
-        fontSize: 30,
-        fontWeight: FontWeight.w700,
-        height: 1.2,
-      ),
-      headlineMedium: base.headlineMedium?.copyWith(
-        fontSize: 28,
-        fontWeight: FontWeight.w700,
-        height: 1.2,
-      ),
-      headlineSmall: base.headlineSmall?.copyWith(
-        fontSize: 24,
-        fontWeight: FontWeight.w700,
-        height: 1.24,
-      ),
-      titleLarge: base.titleLarge?.copyWith(
-        fontSize: 22,
-        fontWeight: FontWeight.w700,
-        height: 1.3,
-      ),
-      titleMedium: base.titleMedium?.copyWith(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        height: 1.35,
-      ),
-      titleSmall: base.titleSmall?.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-        height: 1.4,
-      ),
-      bodyLarge: base.bodyLarge?.copyWith(
-        fontSize: 17,
-        fontWeight: FontWeight.w400,
-        height: 1.5,
-      ),
-      bodyMedium: base.bodyMedium?.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        height: 1.5,
-      ),
-      bodySmall: base.bodySmall?.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        height: 1.45,
-      ),
-      labelLarge: base.labelLarge?.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-        height: 1.3,
-      ),
-      labelMedium: base.labelMedium?.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        height: 1.3,
-      ),
-      labelSmall: base.labelSmall?.copyWith(
-        fontSize: 12,
-        fontWeight: FontWeight.w500,
-        height: 1.3,
-        letterSpacing: 0.2,
-      ),
-    ).apply(
-      bodyColor: scheme.onSurface,
-      displayColor: scheme.onSurface,
-    );
+    final text = base
+        .copyWith(
+          displayLarge: base.displayLarge?.copyWith(
+            fontSize: 48,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.5,
+            height: 1.12,
+          ),
+          displayMedium: base.displayMedium?.copyWith(
+            fontSize: 40,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.4,
+            height: 1.14,
+          ),
+          displaySmall: base.displaySmall?.copyWith(
+            fontSize: 34,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.3,
+            height: 1.16,
+          ),
+          headlineLarge: base.headlineLarge?.copyWith(
+            fontSize: 30,
+            fontWeight: FontWeight.w700,
+            height: 1.2,
+          ),
+          headlineMedium: base.headlineMedium?.copyWith(
+            fontSize: 28,
+            fontWeight: FontWeight.w700,
+            height: 1.2,
+          ),
+          headlineSmall: base.headlineSmall?.copyWith(
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            height: 1.24,
+          ),
+          titleLarge: base.titleLarge?.copyWith(
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+            height: 1.3,
+          ),
+          titleMedium: base.titleMedium?.copyWith(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            height: 1.35,
+          ),
+          titleSmall: base.titleSmall?.copyWith(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            height: 1.4,
+          ),
+          bodyLarge: base.bodyLarge?.copyWith(
+            fontSize: 17,
+            fontWeight: FontWeight.w400,
+            height: 1.5,
+          ),
+          bodyMedium: base.bodyMedium?.copyWith(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            height: 1.5,
+          ),
+          bodySmall: base.bodySmall?.copyWith(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            height: 1.45,
+          ),
+          labelLarge: base.labelLarge?.copyWith(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            height: 1.3,
+          ),
+          labelMedium: base.labelMedium?.copyWith(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            height: 1.3,
+          ),
+          labelSmall: base.labelSmall?.copyWith(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            height: 1.3,
+            letterSpacing: 0.2,
+          ),
+        )
+        .apply(
+          bodyColor: scheme.onSurface,
+          displayColor: scheme.onSurface,
+        );
 
     TextStyle? tabular(TextStyle? style) =>
         style?.copyWith(fontFeatures: tabularFigures);

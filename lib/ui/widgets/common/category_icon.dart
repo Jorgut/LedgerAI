@@ -42,7 +42,7 @@ class CategoryIcon extends StatelessWidget {
     if (isDark) {
       return Color.alphaBlend(
         base.withValues(alpha: 0.22),
-        const Color(0xFF161C22),
+        const Color(0xFF111F1A),
       );
     }
     return base.withValues(alpha: 0.14);

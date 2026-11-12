@@ -164,52 +164,52 @@ class Category {
         id: 'food',
         name: '餐饮',
         icon: Icons.restaurant_rounded,
-        color: Color(0xFFF59E0B)),
+        color: Color(0xFFD9A441)),
     Category(
         id: 'transport',
         name: '交通',
         icon: Icons.directions_bus_rounded,
-        color: Color(0xFF3B82F6)),
+        color: Color(0xFF5B6C8A)),
     Category(
         id: 'shopping',
         name: '购物',
         icon: Icons.shopping_bag_rounded,
-        color: Color(0xFFEC4899)),
+        color: Color(0xFFC8553D)),
     Category(
         id: 'home',
         name: '居家',
         icon: Icons.home_rounded,
-        color: Color(0xFF8B5CF6)),
+        color: Color(0xFF2A9D8F)),
     Category(
         id: 'entertainment',
         name: '娱乐',
         icon: Icons.sports_esports_rounded,
-        color: Color(0xFF06B6D4)),
+        color: Color(0xFF8A5A7A)),
     Category(
         id: 'medical',
         name: '医疗',
         icon: Icons.local_hospital_rounded,
-        color: Color(0xFFEF4444)),
+        color: Color(0xFFB4535A)),
     Category(
         id: 'education',
         name: '学习',
         icon: Icons.menu_book_rounded,
-        color: Color(0xFF6366F1)),
+        color: Color(0xFF6B8E6B)),
     Category(
         id: 'communication',
         name: '通讯',
         icon: Icons.phone_iphone_rounded,
-        color: Color(0xFF0EA5E9)),
+        color: Color(0xFF7C8AA0)),
     Category(
         id: 'social',
         name: '人情',
         icon: Icons.card_giftcard_rounded,
-        color: Color(0xFFF43F5E)),
+        color: Color(0xFFB86B5C)),
     Category(
         id: otherExpenseId,
         name: '其他',
         icon: Icons.more_horiz_rounded,
-        color: Color(0xFF94A3B8)),
+        color: Color(0xFF94A0A8)),
   ];
 
   static const List<Category> incomes = [
@@ -217,37 +217,37 @@ class Category {
         id: 'salary',
         name: '工资',
         icon: Icons.account_balance_wallet_rounded,
-        color: Color(0xFF10B981),
+        color: Color(0xFF0E7C5A),
         isIncome: true),
     Category(
         id: 'bonus',
         name: '奖金',
         icon: Icons.emoji_events_rounded,
-        color: Color(0xFF22C55E),
+        color: Color(0xFF4F9B6E),
         isIncome: true),
     Category(
         id: 'investment',
         name: '理财',
         icon: Icons.trending_up_rounded,
-        color: Color(0xFF14B8A6),
+        color: Color(0xFF2A9D8F),
         isIncome: true),
     Category(
         id: 'parttime',
         name: '兼职',
         icon: Icons.work_rounded,
-        color: Color(0xFF84CC16),
+        color: Color(0xFF6B8E6B),
         isIncome: true),
     Category(
         id: 'gift',
         name: '红包',
         icon: Icons.redeem_rounded,
-        color: Color(0xFFF97316),
+        color: Color(0xFFB4845A),
         isIncome: true),
     Category(
         id: otherIncomeId,
         name: '其他',
         icon: Icons.more_horiz_rounded,
-        color: Color(0xFF94A3B8),
+        color: Color(0xFF94A0A8),
         isIncome: true),
   ];
 

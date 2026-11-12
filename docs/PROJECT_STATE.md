@@ -172,6 +172,13 @@
   - 最终静态图仍以 `store/marketing/brand/final/launch.png` 为准；
   - 待发布前做真机/Release 验收。
 
+
+- Forest Paper 色板已落地到 `lib/ui/theme.dart`、`lib/core/format.dart`、分类色与首页快捷入口：
+  - Paper #F4F3EE / Ink #0B1F1A / Forest 700 #0B5B47 / Mint #CDEEE1 / Copper #B4845A；
+  - 深色模式 #0B1512 / #111F1A；
+  - 无障碍测试 4/4 通过；模拟器截图：`store/marketing/brand/final/home_forest_paper.png`。
+- TestFlight 1.1.0 (5) 已上传（含品牌启动动效，未含色板；色板随下一次构建）。
+
 ## 下一步
 
 1. **待用户决定**：1.0 是否撤回并用 build 2 重提（仅 OCR 修复 + 可带新图标），或让 1.0 先过审、修复随 1.1 发布。
