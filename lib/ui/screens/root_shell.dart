@@ -16,6 +16,7 @@ class RootShell extends StatefulWidget {
     this.initialIndex = 0,
     this.showFab = true,
     this.reportsInitialScrollOffset = 0,
+    this.settingsInitialScrollOffset = 0,
   });
 
   /// 启动时选中的 Tab（0 首页 / 1 账单 / 2 报表 / 3 我的）。
@@ -27,6 +28,9 @@ class RootShell extends StatefulWidget {
 
   /// 截图/演示模式用于直接定位报表页滚动位置。
   final double reportsInitialScrollOffset;
+
+  /// 截图/演示模式用于直接定位设置页滚动位置。
+  final double settingsInitialScrollOffset;
 
   @override
   State<RootShell> createState() => _RootShellState();
@@ -74,7 +78,7 @@ class _RootShellState extends State<RootShell> {
           HomeScreen(onSeeAll: () => _selectTab(1)),
           const TransactionsScreen(),
           ReportsScreen(initialScrollOffset: widget.reportsInitialScrollOffset),
-          const SettingsScreen(),
+          SettingsScreen(initialScrollOffset: widget.settingsInitialScrollOffset),
         ],
       ),
       floatingActionButton: widget.showFab

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -21,14 +22,27 @@ const String _kBuildNumber = '1';
 ///
 /// 所有偏好通过 [AppState.updateSettingsWith] 写入本机，不联网、不上传。
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  const SettingsScreen({super.key, this.initialScrollOffset = 0});
+
+  /// 仅截图/演示模式使用。
+  final double initialScrollOffset;
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  late final ScrollController _scrollController =
+      ScrollController(initialScrollOffset: widget.initialScrollOffset);
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   bool _exporting = false;
+  bool _importing = false;
 
   // ---------------------------------------------------------------------------
   // 偏好设置
@@ -117,6 +131,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
       if (mounted) _showSnack('导出失败，请稍后重试');
     } finally {
       if (mounted) setState(() => _exporting = false);
+    }
+  }
+
+  Future<void> _importBackup() async {
+    if (_importing || _exporting) return;
+    try {
+      const typeGroup = XTypeGroup(label: 'JSON 备份', extensions: ['json'], mimeTypes: ['application/json']);
+      final file = await openFile(acceptedTypeGroups: const [typeGroup]);
+      if (file == null) return;
+      final content = await file.readAsString();
+      if (!mounted) return;
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: const Text('导入 JSON 备份'),
+          content: const Text('将把备份中的账单合并到当前账本（同 ID 记录会覆盖），并恢复备份里的预算与偏好设置。是否继续？'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: const Text('取消'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              child: const Text('导入'),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true || !mounted) return;
+      setState(() => _importing = true);
+      final app = AppScope.read(context);
+      final count = await app.importBackup(content);
+      if (!mounted) return;
+      _showSnack('已导入 $count 笔账单');
+    } catch (_) {
+      if (mounted) _showSnack('导入失败，请确认文件是衡账导出的 JSON 备份');
+    } finally {
+      if (mounted) setState(() => _importing = false);
     }
   }
 
@@ -211,6 +263,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: SafeArea(
         child: ListView(
+          controller: _scrollController,
           padding: AppTheme.pageInsets,
           children: [
             const SectionHeader(title: '外观', padding: EdgeInsets.fromLTRB(4, 0, 4, 8)),
@@ -283,7 +336,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Card(
               child: Column(
                 children: [
-                  if (_exporting)
+                  if (_exporting || _importing)
                     const Padding(
                       padding: EdgeInsets.only(bottom: 2),
                       child: LinearProgressIndicator(minHeight: 2),
@@ -295,7 +348,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       '共 ${app.transactions.length} 笔账单，可在 Excel / Numbers 中查看',
                     ),
                     trailing: const Icon(Icons.chevron_right_rounded),
-                    onTap: _exporting ? null : () => _export(csv: true),
+                    onTap: _exporting || _importing ? null : () => _export(csv: true),
                   ),
                   const Divider(),
                   ListTile(
@@ -303,7 +356,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     title: const Text('导出 JSON 备份'),
                     subtitle: const Text('包含全部账单与设置，可用于迁移或找回数据'),
                     trailing: const Icon(Icons.chevron_right_rounded),
-                    onTap: _exporting ? null : () => _export(csv: false),
+                    onTap: _exporting || _importing ? null : () => _export(csv: false),
+                  ),
+                  const Divider(),
+                  ListTile(
+                    leading: const Icon(Icons.restore_page_outlined),
+                    title: const Text('导入 JSON 备份'),
+                    subtitle: const Text('从衡账导出的备份文件合并账单与设置'),
+                    trailing: _importing
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.chevron_right_rounded),
+                    onTap: _exporting || _importing ? null : _importBackup,
                   ),
                   const Divider(),
                   ListTile(

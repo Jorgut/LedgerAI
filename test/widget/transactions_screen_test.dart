@@ -63,21 +63,25 @@ void main() {
         ]));
     await pumpScoped(tester, harness.state, const TransactionsScreen());
 
-    await tester.enterText(find.byType(TextField), '午餐');
-    await tester.pumpAndSettle();
+    // 搜索框是 EditableText，find.text 也会命中输入内容；这里只看列表内的记录。
+    Finder listText(String text) =>
+        find.descendant(of: find.byType(ListView), matching: find.text(text));
 
-    expect(find.text('午餐'), findsOneWidget);
-    expect(find.text('打车'), findsNothing);
+    await tester.enterText(find.byType(TextField), '午餐');
+    await pumpFrames(tester);
+
+    expect(listText('午餐'), findsOneWidget);
+    expect(listText('打车'), findsNothing);
     expect(find.byTooltip('清除搜索'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField), '不存在的关键词');
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
     expect(find.text('没有符合条件的记录'), findsOneWidget);
 
     await tester.tap(find.byTooltip('清除搜索'));
-    await tester.pumpAndSettle();
-    expect(find.text('午餐'), findsOneWidget);
-    expect(find.text('打车'), findsOneWidget);
+    await pumpFrames(tester);
+    expect(listText('午餐'), findsOneWidget);
+    expect(listText('打车'), findsOneWidget);
   });
 
   testWidgets('左滑删除后可从 SnackBar 撤销', (tester) async {

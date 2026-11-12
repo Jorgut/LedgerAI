@@ -38,7 +38,7 @@ import Vision
     let messenger = registrar?.messenger() ?? engineBridge.applicationRegistrar.messenger()
 
     let ocrChannel = FlutterMethodChannel(
-      name: "com.jorgut.ledgerai/ocr",
+      name: "com.archintera.ledgerai/ocr",
       binaryMessenger: messenger
     )
     ocrChannel.setMethodCallHandler { [weak self] call, result in
@@ -50,7 +50,7 @@ import Vision
     }
 
     let speechChannel = FlutterMethodChannel(
-      name: "com.jorgut.ledgerai/speech",
+      name: "com.archintera.ledgerai/speech",
       binaryMessenger: messenger
     )
     speechChannel.setMethodCallHandler { [weak self] call, result in
@@ -62,7 +62,7 @@ import Vision
     }
 
     let speechEvents = FlutterEventChannel(
-      name: "com.jorgut.ledgerai/speech_events",
+      name: "com.archintera.ledgerai/speech_events",
       binaryMessenger: messenger
     )
     speechEvents.setStreamHandler(speechHandler)

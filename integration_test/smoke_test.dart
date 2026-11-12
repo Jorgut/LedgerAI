@@ -59,7 +59,10 @@ void main() {
       () => state.transactions.isNotEmpty,
       reason: '保存交易到本机',
     );
-    await tester.pumpAndSettle();
+    // 限定次数 pump，避免保存按钮的进度动画让 pumpAndSettle 无限等待。
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     expect(find.text('最近 1 笔'), findsOneWidget);
 
     // 4) 切换到账单 Tab，记录出现在列表中。

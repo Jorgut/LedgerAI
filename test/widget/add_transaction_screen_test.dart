@@ -30,7 +30,7 @@ void main() {
       () => harness.state.transactions.isNotEmpty,
       reason: '保存记录到 Hive',
     );
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
 
     final txn = harness.state.transactions.single;
     expect(txn.amount, 42.5);
@@ -157,7 +157,7 @@ void main() {
       () => harness.state.transactions.isEmpty,
       reason: '删除记录',
     );
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
     expect(find.text('编辑记录'), findsNothing);
   });
 

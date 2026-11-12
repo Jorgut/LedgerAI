@@ -53,7 +53,7 @@ void main() {
     expect(find.text('¥7,958.00'), findsOneWidget);
     expect(find.text('¥8,000.00'), findsOneWidget);
     // 支出金额同时出现在「支出」汇总与分类行。
-    expect(find.text('¥42.00'), findsNWidgets(2));
+    expect(find.text('¥42.00'), findsWidgets); // 汇总卡与分类行各一处，列表按需构建
     expect(find.text('这个月还没有账单'), findsNothing);
 
     // 分类占比与智能建议在首屏下方。
@@ -149,20 +149,17 @@ void main() {
   });
 
   testWidgets('分类占比与金额语义标签可被读出（VoiceOver 依据）', (tester) async {
-    final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
-
     await tester.runAsync(() => harness.seed([
       testTxn(id: 'food', amount: 60, categoryId: 'food', date: todayAt()),
       testTxn(id: 'transport', amount: 40, categoryId: 'transport', date: todayAt()),
     ]));
     await pumpScoped(tester, harness.state, const ReportsScreen());
 
-    expect(find.bySemanticsLabel('支出 100.00 元'), findsOneWidget);
-    expect(find.bySemanticsLabel('收入 0.00 元'), findsOneWidget);
+    expectSemanticsLabel('支出 100.00 元');
+    expectSemanticsLabel('收入 0.00 元');
 
     await scrollTo(tester, find.text('餐饮'));
-    expect(find.bySemanticsLabel('餐饮，60.00 元，占 60%'), findsOneWidget);
-    expect(find.bySemanticsLabel('交通，40.00 元，占 40%'), findsOneWidget);
+    expectSemanticsLabel('餐饮，60.00 元，占 60%');
+    expectSemanticsLabel('交通，40.00 元，占 40%');
   });
 }

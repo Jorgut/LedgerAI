@@ -154,7 +154,8 @@
 - [ ] `README.md` 仍写旧功能（登录页、上架 Google Play），需 release 改为真实功能与构建说明
 - [x] `test/widget/**` 已按最终 `lib/ui/**` 编写：首页/记账/账单/报表/预算/设置页面用例、应用壳闭环、无障碍专项（200% 字号、高对比度、48dp、VoiceOver 语义）；`integration_test/smoke_test.dart` 冒烟路径已写。组件测试通过 `test/widget/test_support.dart` 注入真实 Hive + `AppState.forStore`，并给触觉/语音/OCR 通道打了桩，不依赖插件实现
 - [ ] 上述测试需 Lead 在本地执行确认全绿（qa 按约定不运行 flutter test；当前 `dart analyze test integration_test` 无 error）
-- [ ] **P1 代码健壮性（ui 修复建议）**：`AddTransactionScreen._save` 把触觉反馈 / Snackbar / `Navigator.pop` 与保存放在同一个 try 中——若 `HapticFeedback` 平台调用抛异常，会把「已保存成功」误报为「保存失败」且不退出页面，用户重试可能产生重复账单。`TransactionsScreen._deleteTransaction` 同类问题（删除已成功却提示失败）。建议触觉反馈移出 try 或单独 try 包裹
+- [x] **P1 代码健壮性（已修复）**：`AddTransactionScreen._save` / `TransactionsScreen._deleteTransaction` 已把触觉反馈移出「保存/删除失败」判定（ui-core，2026-11-12），避免已写入却提示失败导致的重复记账
+- [x] 原生通道前缀已统一为 `com.archintera.ledgerai/*`（lib/ai + AppDelegate + 测试桩，Lead，2026-11-12），与文档/Bundle ID 一致
 - [ ] **P1 一致性**：`SettingsScreen` 中 `_kAppVersion = '1.0.0'`、`_kBuildNumber = '1'` 为硬编码，每次提审 bump `pubspec.yaml` build 号时需同步修改，否则「关于」页版本号与二进制不一致
 - [ ] **P2 备份健壮性**：`ExportService.parseBackupTransactions` 遇到单条坏记录会整体返回 null（无法只跳过坏条目）；v1 设置页未暴露导入入口，可延后
 - [ ] 本清单中依赖 UI/真机的项目前均未验证，需 Lead 构建后在模拟器逐项补勾

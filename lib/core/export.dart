@@ -38,6 +38,22 @@ class ExportService {
     return const JsonEncoder.withIndent('  ').convert(payload);
   }
 
+  /// 解析备份文件中的设置；不存在或格式不合法时返回 null。
+  static AppSettings? parseBackupSettings(String raw) {
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is! Map<String, dynamic>) return null;
+      final settings = decoded['settings'];
+      if (settings is Map<String, dynamic>) return AppSettings.fromJson(settings);
+      if (settings is Map) {
+        return AppSettings.fromJson(settings.map((key, value) => MapEntry('$key', value)));
+      }
+    } catch (_) {
+      // 设置损坏时忽略，不影响账单导入。
+    }
+    return null;
+  }
+
   /// 解析备份文件内容；格式不合法时返回 null。
   static List<Txn>? parseBackupTransactions(String raw) {
     try {

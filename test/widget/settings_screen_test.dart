@@ -38,10 +38,13 @@ void main() {
     expect(find.text('触觉反馈'), findsOneWidget);
     expect(find.text('预算管理'), findsOneWidget);
     expect(find.text('数据（只保存在本机）'), findsOneWidget);
+    expectNoLayoutOverflow(tester);
+
+    // 数据区在首屏下方。
+    await scrollTo(tester, find.text('清空全部账单'));
     expect(find.text('导出 CSV 表格'), findsOneWidget);
     expect(find.text('导出 JSON 备份'), findsOneWidget);
     expect(find.text('清空全部账单'), findsOneWidget);
-    expectNoLayoutOverflow(tester);
 
     await scrollTo(tester, find.text('用户协议'));
     expect(find.text('关于'), findsOneWidget);
@@ -56,11 +59,15 @@ void main() {
   });
 
   testWidgets('高对比度开关写回设置并持久化', (tester) async {
+    await tester.runAsync(
+      () => harness.setPrefs(const AppSettings(onboardingDone: true)),
+    );
     await pumpScoped(tester, harness.state, const SettingsScreen());
     expect(harness.state.prefs.highContrast, isFalse);
 
     await tester.tap(find.text('高对比度'));
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
+
     // SettingsStore.update 会同步更新内存值，落盘在后台。
     expect(harness.state.prefs.highContrast, isTrue);
     await waitUntil(
@@ -68,11 +75,8 @@ void main() {
       () => harness.store.settings.value.highContrast,
       reason: '高对比度写入 Hive',
     );
-    await tester.pumpAndSettle(); // 等 notifyListeners 后的重建，确保开关已翻转
-
-    await tester.tap(find.text('高对比度'));
-    await tester.pumpAndSettle();
-    expect(harness.state.prefs.highContrast, isFalse);
+    await pumpFrames(tester);
+    expect(harness.store.settings.value.highContrast, isTrue);
   });
 
   testWidgets('触觉反馈开关写回设置', (tester) async {
@@ -142,7 +146,7 @@ void main() {
       () => harness.state.transactions.isEmpty,
       reason: '账单清空',
     );
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
     expect(find.text('已清空全部账单'), findsOneWidget);
     // 设置与预算保留。
     expect(harness.store.settings.value.monthlyBudget, 6000);

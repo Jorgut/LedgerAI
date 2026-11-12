@@ -108,21 +108,15 @@ void main() {
   });
 
   testWidgets('交易行语义标签朗读备注、分类、收支方向与日期', (tester) async {
-    final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
-
     await tester.runAsync(() => harness.seed([
           testTxn(id: 'food', amount: 42, categoryId: 'food', note: '午餐', date: todayAt()),
         ]));
     await pumpScoped(tester, harness.state, const TransactionsScreen());
 
-    expect(find.bySemanticsLabel('午餐，餐饮，支出 42.00 元，今天'), findsOneWidget);
+    expectSemanticsLabel('午餐，餐饮，支出 42.00 元，今天');
   });
 
   testWidgets('报表环形图提供等价语义标签', (tester) async {
-    final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
-
     await tester.runAsync(() => harness.seed([
           testTxn(id: 'food', amount: 42, categoryId: 'food', date: todayAt()),
         ]));
@@ -133,7 +127,7 @@ void main() {
       theme: AppTheme.light(highContrast: true),
     );
 
-    await scrollTo(tester, find.text('总支出'));
-    expect(find.bySemanticsLabel('分类占比环形图，总支出 ¥42.00'), findsOneWidget);
+    await scrollTo(tester, find.text('餐饮'));
+    expectSemanticsLabel('分类占比环形图，总支出 ¥42.00');
   });
 }

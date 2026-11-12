@@ -62,6 +62,11 @@ class AppState extends ChangeNotifier {
     if (parsed == null) {
       throw const FormatException('备份文件格式不正确');
     }
+    final importedSettings = ExportService.parseBackupSettings(raw);
+    if (importedSettings != null) {
+      // 保留已完成引导标记，避免导入后再次弹出首次引导。
+      await settings.update(importedSettings.copyWith(onboardingDone: true));
+    }
     await repo.saveAll(parsed);
     return parsed.length;
   }

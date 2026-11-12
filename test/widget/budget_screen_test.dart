@@ -25,10 +25,11 @@ void main() {
     expect(find.text('点击分类设置'), findsOneWidget);
     expect(find.text('餐饮'), findsOneWidget);
     expect(find.text('交通'), findsOneWidget);
-    expect(
-      find.text('预算只用于本机提醒，不会限制消费；分类预算之和可以超过总预算。'),
-      findsOneWidget,
-    );
+
+    // 说明卡片在 10 个分类行之后，先滚到底再断言。
+    final note = find.text('预算只用于本机提醒，不会限制消费；分类预算之和可以超过总预算。');
+    await scrollTo(tester, note);
+    expect(note, findsOneWidget);
     expectNoLayoutOverflow(tester);
   });
 
@@ -36,19 +37,19 @@ void main() {
     await pumpScoped(tester, harness.state, const BudgetScreen());
 
     await tester.tap(find.text('设置月度预算'));
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
     expect(find.text('设置月度总预算'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField), '3000');
     await tester.tap(find.text('保存'));
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
 
     await waitUntil(
       tester,
       () => harness.state.prefs.monthlyBudget == 3000,
       reason: '月度预算写入 Hive',
     );
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
 
     expect(find.text('本月总预算'), findsOneWidget);
     expect(find.text('¥3,000.00'), findsOneWidget);
@@ -59,10 +60,10 @@ void main() {
     await pumpScoped(tester, harness.state, const BudgetScreen());
 
     await tester.tap(find.text('设置月度预算'));
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
     await tester.enterText(find.byType(TextField), '0');
     await tester.tap(find.text('保存'));
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
 
     expect(find.text('请输入大于 0 的金额，例如 3000'), findsOneWidget);
     expect(harness.state.prefs.monthlyBudget, isNull);
@@ -96,17 +97,17 @@ void main() {
     await pumpScoped(tester, harness.state, const BudgetScreen());
 
     await tester.tap(find.text('清除预算'));
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
     expect(find.text('清除月度预算？'), findsOneWidget);
 
     await tester.tap(find.text('清除'));
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
     await waitUntil(
       tester,
       () => harness.state.prefs.monthlyBudget == null,
       reason: '清除月度预算写入 Hive',
     );
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
 
     expect(find.text('已清除月度预算'), findsOneWidget);
     expect(find.text('还没有设置月度预算'), findsOneWidget);
@@ -116,19 +117,19 @@ void main() {
     await pumpScoped(tester, harness.state, const BudgetScreen());
 
     await tester.tap(find.text('餐饮'));
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
     expect(find.text('设置「餐饮」预算'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField), '2000');
     await tester.tap(find.text('保存'));
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
 
     await waitUntil(
       tester,
       () => harness.state.prefs.categoryBudgets['food'] == 2000,
       reason: '分类预算写入 Hive',
     );
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
 
     expect(find.text('「餐饮」预算已更新'), findsOneWidget);
     expect(find.text('预算 ¥2,000.00 · 已支出 ¥0.00（0%）'), findsOneWidget);

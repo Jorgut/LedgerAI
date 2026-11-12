@@ -1,5 +1,6 @@
 // 首页组件测试：空状态、有数据概览、预算卡、快速入口跳转、大字号、语义。
 // 被测页面：lib/ui/screens/home_screen.dart（真实 Hive + AppState 注入）。
+// 注意：统一用 iPhone 390×844 画布；首屏下方内容先 scrollTo 再断言/点击。
 // ignore_for_file: prefer_const_constructors, prefer_const_declarations, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
@@ -18,25 +19,30 @@ void main() {
   tearDown(() async => harness.dispose());
 
   testWidgets('空账本：显示 0 结余、空状态与快速入口', (tester) async {
+    usePhoneSurface(tester);
     await pumpScoped(tester, harness.state, const HomeScreen());
 
     expect(find.text('衡账'), findsOneWidget);
     expect(find.text('本月结余'), findsOneWidget);
     expect(find.text('¥0.00'), findsNWidgets(3)); // 结余 / 收入 / 支出
-    expect(find.text('还没有记录'), findsOneWidget);
-    expect(find.text('记第一笔'), findsOneWidget);
     expect(find.text('快速记账'), findsOneWidget);
     expect(find.text('拍照记账'), findsOneWidget);
     expect(find.text('语音记账'), findsOneWidget);
     expect(find.text('手动记账'), findsOneWidget);
-    expect(find.text('最近记录'), findsOneWidget);
-    expect(find.text('查看全部'), findsOneWidget);
     expect(find.text('设置本月预算'), findsOneWidget);
     expect(find.text('设置预算'), findsOneWidget);
+
+    // 最近记录区在首屏下方。
+    await scrollTo(tester, find.text('还没有记录'));
+    expect(find.text('还没有记录'), findsOneWidget);
+    expect(find.text('记第一笔'), findsOneWidget);
+    expect(find.text('最近记录'), findsOneWidget);
+    expect(find.text('查看全部'), findsOneWidget);
     expectNoLayoutOverflow(tester);
   });
 
   testWidgets('有数据：本月收入 / 支出 / 结余与最近记录', (tester) async {
+    usePhoneSurface(tester);
     await tester.runAsync(() => harness.seed([
           testTxn(
             id: 'income',
@@ -53,6 +59,9 @@ void main() {
     expect(find.text('+¥7,958.00'), findsOneWidget); // 结余（带正号）
     expect(find.text('¥8,000.00'), findsOneWidget); // 收入
     expect(find.text('¥42.00'), findsOneWidget); // 支出
+
+    // 最近记录在首屏下方。
+    await scrollTo(tester, find.text('最近 2 笔'));
     expect(find.text('最近 2 笔'), findsOneWidget);
     expect(find.text('月薪'), findsOneWidget);
     expect(find.text('午餐'), findsOneWidget);
@@ -61,6 +70,7 @@ void main() {
   });
 
   testWidgets('设置预算后显示进度与剩余金额', (tester) async {
+    usePhoneSurface(tester);
     await tester.runAsync(() async {
       await harness.setPrefs(const AppSettings(monthlyBudget: 6000));
       await harness.seed([
@@ -76,9 +86,11 @@ void main() {
     expectNoLayoutOverflow(tester);
   });
 
-  testWidgets('快速入口「手动记账」打开展开记账页', (tester) async {
+  testWidgets('快速入口「手动记账」打开记账页', (tester) async {
+    usePhoneSurface(tester);
     await pumpScoped(tester, harness.state, const HomeScreen());
 
+    await scrollTo(tester, find.text('手动记账'));
     await tester.tap(find.text('手动记账'));
     await tester.pumpAndSettle();
 
@@ -88,6 +100,7 @@ void main() {
   });
 
   testWidgets('「查看全部」打开账单页', (tester) async {
+    usePhoneSurface(tester);
     await pumpScoped(tester, harness.state, const HomeScreen());
 
     await scrollTo(tester, find.text('查看全部'));
@@ -99,9 +112,7 @@ void main() {
   });
 
   testWidgets('金额语义标签包含收支方向（VoiceOver）', (tester) async {
-    final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
-
+    usePhoneSurface(tester);
     await tester.runAsync(() => harness.seed([
           testTxn(
             id: 'income',
@@ -114,12 +125,13 @@ void main() {
         ]));
     await pumpScoped(tester, harness.state, const HomeScreen());
 
-    expect(find.bySemanticsLabel('本月结余 ¥7,958.00 元'), findsOneWidget);
-    expect(find.bySemanticsLabel('本月收入 ¥8,000.00 元'), findsOneWidget);
-    expect(find.bySemanticsLabel('本月支出 ¥42.00 元'), findsOneWidget);
+    expectSemanticsLabel('本月结余 ¥7,958.00 元');
+    expectSemanticsLabel('本月收入 ¥8,000.00 元');
+    expectSemanticsLabel('本月支出 ¥42.00 元');
   });
 
   testWidgets('200% 大字号下不溢出（浅色 / 深色）', (tester) async {
+    usePhoneSurface(tester);
     await tester.runAsync(() => harness.seed([
           testTxn(id: 'food', amount: 123456.78, categoryId: 'food', date: todayAt()),
         ]));
@@ -142,6 +154,7 @@ void main() {
   });
 
   testWidgets('快速入口整块点击区 ≥ 48dp', (tester) async {
+    usePhoneSurface(tester);
     await pumpScoped(tester, harness.state, const HomeScreen());
 
     final tiles = find.byType(QuickActionTile);

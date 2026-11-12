@@ -28,10 +28,10 @@ class SpeechRecognizer {
   const SpeechRecognizer();
 
   static const MethodChannel _methods = MethodChannel(
-    'com.jorgut.ledgerai/speech',
+    'com.archintera.ledgerai/speech',
   );
   static const EventChannel _events = EventChannel(
-    'com.jorgut.ledgerai/speech_events',
+    'com.archintera.ledgerai/speech_events',
   );
 
   /// 广播流只创建一次：EventChannel 同一通道只允许一个监听句柄，

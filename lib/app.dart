@@ -66,6 +66,12 @@ class LedgerApp extends StatelessWidget {
         );
       case 'settings':
         return const RootShell(initialIndex: 3, showFab: false);
+      case 'settings2':
+        return const RootShell(
+          initialIndex: 3,
+          showFab: false,
+          settingsInitialScrollOffset: 260,
+        );
       case 'budget':
         return const BudgetScreen();
       case 'add':

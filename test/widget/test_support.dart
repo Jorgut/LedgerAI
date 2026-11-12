@@ -70,7 +70,8 @@ void installPlatformMocks() {
   final messenger = TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
   // 触觉反馈 / 系统声音等系统调用：静默成功。
   messenger.setMockMethodCallHandler(SystemChannels.platform, (call) async => null);
-  // 设备端语音：测试环境视为不可用（模拟器行为），不影响手动记账。
+  // 设备端语音 / OCR：测试环境视为不可用（模拟器行为），不影响手动记账。
+  // 通道前缀与 lib/ai + AppDelegate 保持一致：com.archintera.ledgerai/*。
   messenger.setMockMethodCallHandler(
     const MethodChannel('com.archintera.ledgerai/speech'),
     (call) async => call.method == 'isAvailable' ? false : null,
@@ -200,6 +201,27 @@ Future<void> scrollTo(
     scrollable: find.byType(Scrollable).first,
   );
   await tester.pumpAndSettle();
+}
+
+/// 推进固定帧数，代替可能永不稳定的 `pumpAndSettle`：
+/// 页面里有输入框光标闪烁、SnackBar、进度动画时，用限定次数的 pump。
+Future<void> pumpFrames(
+  WidgetTester tester, {
+  int frames = 10,
+  Duration step = const Duration(milliseconds: 100),
+}) async {
+  for (var i = 0; i < frames; i++) {
+    await tester.pump(step);
+  }
+}
+
+/// 断言存在指定的屏幕阅读器标签（比对 Semantics widget 的 label 属性）。
+/// 比 `find.bySemanticsLabel` 更稳：不依赖语义树合并/节点归属细节。
+void expectSemanticsLabel(String label) {
+  final finder = find.byWidgetPredicate(
+    (widget) => widget is Semantics && widget.properties.label == label,
+  );
+  expect(finder, findsWidgets, reason: '缺少语义标签：$label');
 }
 
 /// 轮询等待真实异步（如 Hive 落盘）完成；widget 测试里涉及真实 IO 时使用。

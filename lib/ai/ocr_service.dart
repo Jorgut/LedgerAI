@@ -16,7 +16,7 @@ class OcrResult {
 class ReceiptOcr {
   const ReceiptOcr();
 
-  static const MethodChannel channel = MethodChannel('com.jorgut.ledgerai/ocr');
+  static const MethodChannel channel = MethodChannel('com.archintera.ledgerai/ocr');
 
   /// 单次识别的最长等待时间：超过后回退到手动输入，避免界面一直转圈。
   static const Duration timeout = Duration(seconds: 25);

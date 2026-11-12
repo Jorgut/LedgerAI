@@ -38,7 +38,7 @@ void main() {
       () => find.text('本月结余').evaluate().isNotEmpty,
       reason: '引导完成并进入首页',
     );
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
     expect(harness.state.prefs.onboardingDone, isTrue);
 
     expect(find.text('本月结余'), findsOneWidget);
@@ -96,7 +96,7 @@ void main() {
       () => harness.state.transactions.isNotEmpty,
       reason: '保存一笔记录',
     );
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
 
     // 回到首页：最近记录出现。
     expect(find.text('最近 1 笔'), findsOneWidget);
