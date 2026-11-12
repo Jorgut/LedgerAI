@@ -138,7 +138,13 @@
 - 已完成 1.1 迁移入口：**微信/支付宝账单 CSV 导入**（`lib/core/bill_import.dart` + 设置页入口），
   支持识别收支/商户/分类、跳过不计收支与失败交易、稳定 id 去重；单测 `test/core/bill_import_test.dart` 4/4 通过。
 - 英文名确认为 **HENG**；App Store 名称暂定「衡账 - 不登录不联网的记账本」。
-- 待办 1.1：iCloud 同步（见 `docs/ICLOUD_SYNC_PLAN.md`，需先开 iCloud capability）、小组件、多账本、英文 UI/商店、Pro 买断 IAP、名称修改、WELTRIA「更多作品」入口。
+- iCloud 同步（第一版已接）：
+  - Xcode 已自动开启 iCloud/CloudKit capability（`iCloud.com.archintera.ledgerai`）；
+  - Txn 增加 `updatedAt`；本地 `deletions_v1` 墓碑盒；
+  - `AppDelegate.swift` 增加 CloudKit 通道（status/pull/push，private database）；
+  - `lib/sync/cloud_sync.dart` 全量合并同步（LWW + 墓碑）；
+  - 设置页新增「iCloud 同步」开关 + 立即同步 + 上次同步时间（1.1 内测免费）。
+- 待办 1.1：同步真机双设备验证、小组件、多账本、英文 UI/商店、Pro 买断 IAP、名称修改、WELTRIA「更多作品」入口。
 - 1.2：Android + Google Play、家庭共享（CloudKit）、投资/理财轻量功能。
 
 ## 下一步

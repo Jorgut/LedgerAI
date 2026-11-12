@@ -31,7 +31,9 @@ class Txn {
     this.source = EntrySource.manual,
     this.merchant,
     DateTime? createdAt,
-  }) : createdAt = createdAt ?? date;
+    DateTime? updatedAt,
+  })  : createdAt = createdAt ?? date,
+        updatedAt = updatedAt ?? createdAt ?? date;
 
   final String id;
   final double amount;
@@ -42,6 +44,9 @@ class Txn {
   final EntrySource source;
   final String? merchant;
   final DateTime createdAt;
+
+  /// 最后修改时间（同步用 LWW 合并）。
+  final DateTime updatedAt;
 
   Category get category => Category.byId(categoryId);
 
@@ -55,6 +60,7 @@ class Txn {
     EntrySource? source,
     String? merchant,
     DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return Txn(
       id: id ?? this.id,
@@ -66,6 +72,7 @@ class Txn {
       source: source ?? this.source,
       merchant: merchant ?? this.merchant,
       createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
@@ -79,6 +86,7 @@ class Txn {
         'source': source.name,
         'merchant': merchant,
         'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
       };
 
   factory Txn.fromJson(Map<String, dynamic> json) {
@@ -95,6 +103,9 @@ class Txn {
       source: EntrySource.parse(json['source'] as String?),
       merchant: json['merchant'] as String?,
       createdAt: rawCreated is String ? DateTime.parse(rawCreated) : date,
+      updatedAt: json['updatedAt'] is String
+          ? DateTime.parse(json['updatedAt'] as String)
+          : (rawCreated is String ? DateTime.parse(rawCreated) : date),
     );
   }
 

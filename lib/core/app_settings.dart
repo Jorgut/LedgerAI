@@ -13,6 +13,8 @@ class AppSettings {
     this.biometricLock = false,
     this.elderMode = false,
     this.fontScale = 1.0,
+    this.icloudSyncEnabled = false,
+    this.lastSyncAt,
   });
 
   /// 是否已完成首次引导。
@@ -43,6 +45,12 @@ class AppSettings {
   /// 与系统字号叠加时取较大值由 app 层控制。
   final double fontScale;
 
+  /// 是否启用 iCloud 同步（CloudKit，数据只进用户自己的 iCloud）。
+  final bool icloudSyncEnabled;
+
+  /// 上次成功同步时间。
+  final DateTime? lastSyncAt;
+
   static const AppSettings defaults = AppSettings();
 
   AppSettings copyWith({
@@ -56,17 +64,23 @@ class AppSettings {
     bool? biometricLock,
     bool? elderMode,
     double? fontScale,
+    bool? icloudSyncEnabled,
+    DateTime? lastSyncAt,
+    bool clearLastSyncAt = false,
   }) {
     return AppSettings(
       onboardingDone: onboardingDone ?? this.onboardingDone,
       themeMode: themeMode ?? this.themeMode,
       highContrast: highContrast ?? this.highContrast,
-      monthlyBudget: clearMonthlyBudget ? null : (monthlyBudget ?? this.monthlyBudget),
+      monthlyBudget:
+          clearMonthlyBudget ? null : (monthlyBudget ?? this.monthlyBudget),
       categoryBudgets: categoryBudgets ?? this.categoryBudgets,
       hapticsEnabled: hapticsEnabled ?? this.hapticsEnabled,
       biometricLock: biometricLock ?? this.biometricLock,
       elderMode: elderMode ?? this.elderMode,
       fontScale: fontScale ?? this.fontScale,
+      icloudSyncEnabled: icloudSyncEnabled ?? this.icloudSyncEnabled,
+      lastSyncAt: clearLastSyncAt ? null : (lastSyncAt ?? this.lastSyncAt),
     );
   }
 
@@ -80,6 +94,8 @@ class AppSettings {
         'biometricLock': biometricLock,
         'elderMode': elderMode,
         'fontScale': fontScale,
+        'icloudSyncEnabled': icloudSyncEnabled,
+        'lastSyncAt': lastSyncAt?.toIso8601String(),
       };
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
@@ -95,12 +111,17 @@ class AppSettings {
       highContrast: json['highContrast'] as bool? ?? false,
       monthlyBudget: (json['monthlyBudget'] as num?)?.toDouble(),
       categoryBudgets: rawBudgets is Map
-          ? rawBudgets.map((key, value) => MapEntry('$key', (value as num).toDouble()))
+          ? rawBudgets
+              .map((key, value) => MapEntry('$key', (value as num).toDouble()))
           : const {},
       hapticsEnabled: json['hapticsEnabled'] as bool? ?? true,
       biometricLock: json['biometricLock'] as bool? ?? false,
       elderMode: json['elderMode'] as bool? ?? false,
       fontScale: (json['fontScale'] as num?)?.toDouble() ?? 1.0,
+      icloudSyncEnabled: json['icloudSyncEnabled'] as bool? ?? false,
+      lastSyncAt: json['lastSyncAt'] is String
+          ? DateTime.tryParse(json['lastSyncAt'] as String)
+          : null,
     );
   }
 }

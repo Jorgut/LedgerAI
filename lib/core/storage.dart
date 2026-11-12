@@ -6,25 +6,29 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'app_settings.dart';
 import 'models.dart';
 
-/// 本地存储入口：两个 Hive box。
+/// 本地存储入口：三个 Hive box。
 /// - `txns_v2`：Txn 的 JSON 字符串，key 为交易 id。
 /// - `settings_v1`：用户偏好（一个 JSON 字符串）。
+/// - `deletions_v1`：删除墓碑 id -> 删除时间（毫秒），供 iCloud 同步使用。
 ///
 /// 刻意不依赖 Hive codegen：手写 JSON 序列化，字段向后兼容，便于测试。
 class LocalStore {
-  LocalStore._(this._txnBox, this._settingsBox);
+  LocalStore._(this._txnBox, this._settingsBox, this._deletionBox);
 
   final Box<String> _txnBox;
   final Box<String> _settingsBox;
+  final Box<int> _deletionBox;
 
-  late final TransactionRepository transactions = TransactionRepository(_txnBox);
+  late final TransactionRepository transactions =
+      TransactionRepository(_txnBox, _deletionBox);
   late final SettingsStore settings = SettingsStore(_settingsBox);
 
   static Future<LocalStore> open({String? subDirectory}) async {
     await Hive.initFlutter(subDirectory);
     final txnBox = await Hive.openBox<String>('txns_v2');
     final settingsBox = await Hive.openBox<String>('settings_v1');
-    return LocalStore._(txnBox, settingsBox);
+    final deletionBox = await Hive.openBox<int>('deletions_v1');
+    return LocalStore._(txnBox, settingsBox, deletionBox);
   }
 
   /// 仅测试使用：用已初始化的 Hive 打开独立箱。
@@ -32,21 +36,32 @@ class LocalStore {
     Hive.init(path);
     final txnBox = await Hive.openBox<String>('txns_v2');
     final settingsBox = await Hive.openBox<String>('settings_v1');
-    return LocalStore._(txnBox, settingsBox);
+    final deletionBox = await Hive.openBox<int>('deletions_v1');
+    return LocalStore._(txnBox, settingsBox, deletionBox);
   }
 
   Future<void> close() async {
     await _txnBox.close();
     await _settingsBox.close();
+    await _deletionBox.close();
   }
 }
 
 /// 交易仓库。全部读取走内存缓存，写入后失效并通知监听者。
 class TransactionRepository extends ChangeNotifier {
-  TransactionRepository(this._box);
+  TransactionRepository(this._box, this._deletionBox);
 
   final Box<String> _box;
+  final Box<int> _deletionBox;
   List<Txn>? _cache;
+
+  /// 删除墓碑：id -> 删除时间。同步时推送到 iCloud，避免删除被其他设备拉回来。
+  Map<String, DateTime> get deletions => {
+        for (final key in _deletionBox.keys)
+          if (key is String)
+            key:
+                DateTime.fromMillisecondsSinceEpoch(_deletionBox.get(key) ?? 0),
+      };
 
   List<Txn> get all {
     final cached = _cache;
@@ -82,12 +97,14 @@ class TransactionRepository extends ChangeNotifier {
       return month == null ? all : byMonth(month.year, month.month);
     }
     return all.where((t) {
-      if (month != null && (t.date.year != month.year || t.date.month != month.month)) {
+      if (month != null &&
+          (t.date.year != month.year || t.date.month != month.month)) {
         return false;
       }
       final category = t.category.name;
-      final haystack = '${t.note} ${t.merchant ?? ''} $category ${t.amount.toStringAsFixed(2)}'
-          .toLowerCase();
+      final haystack =
+          '${t.note} ${t.merchant ?? ''} $category ${t.amount.toStringAsFixed(2)}'
+              .toLowerCase();
       return haystack.contains(keyword);
     }).toList(growable: false);
   }
@@ -101,6 +118,7 @@ class TransactionRepository extends ChangeNotifier {
 
   Future<void> save(Txn txn) async {
     await _box.put(txn.id, jsonEncode(txn.toJson()));
+    await _deletionBox.delete(txn.id);
     _invalidate();
     notifyListeners();
   }
@@ -110,18 +128,37 @@ class TransactionRepository extends ChangeNotifier {
       for (final txn in txns) txn.id: jsonEncode(txn.toJson()),
     };
     await _box.putAll(entries);
+    for (final id in entries.keys) {
+      await _deletionBox.delete(id);
+    }
     _invalidate();
     notifyListeners();
   }
 
   Future<void> delete(String id) async {
+    await _deletionBox.put(id, DateTime.now().millisecondsSinceEpoch);
     await _box.delete(id);
+    _invalidate();
+    notifyListeners();
+  }
+
+  /// 应用远端删除（保留远端时间戳，供下次推送/合并使用）。
+  Future<void> applyRemoteDeletion(String id, DateTime deletedAt) async {
+    await _deletionBox.put(id, deletedAt.millisecondsSinceEpoch);
+    await _box.delete(id);
+    _invalidate();
+    notifyListeners();
+  }
+
+  Future<void> clearDeletion(String id) async {
+    await _deletionBox.delete(id);
     _invalidate();
     notifyListeners();
   }
 
   Future<void> clear() async {
     await _box.clear();
+    await _deletionBox.clear();
     _invalidate();
     notifyListeners();
   }
@@ -162,7 +199,8 @@ class SettingsStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateWith(AppSettings Function(AppSettings current) transform) =>
+  Future<void> updateWith(
+          AppSettings Function(AppSettings current) transform) =>
       update(transform(_settings));
 
   Future<void> reset() async {

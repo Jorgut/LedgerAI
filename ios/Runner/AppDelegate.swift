@@ -1,4 +1,5 @@
 import AVFoundation
+import CloudKit
 import Flutter
 import ImageIO
 import Speech
@@ -18,6 +19,7 @@ import Vision
 @objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
   private let ocrHandler = LedgerAIOcrHandler()
   private let speechHandler = LedgerAISpeechHandler()
+  private let cloudKitHandler = LedgerAICloudKitHandler()
 
   override func application(
     _ application: UIApplication,
@@ -66,6 +68,18 @@ import Vision
       binaryMessenger: messenger
     )
     speechEvents.setStreamHandler(speechHandler)
+
+    let cloudChannel = FlutterMethodChannel(
+      name: "com.archintera.ledgerai/cloudkit",
+      binaryMessenger: messenger
+    )
+    cloudChannel.setMethodCallHandler { [weak self] call, result in
+      guard let self = self else {
+        result(FlutterError(code: "engine_detached", message: "应用正在退出", details: nil))
+        return
+      }
+      self.cloudKitHandler.handle(call, result: result)
+    }
   }
 }
 
@@ -581,5 +595,266 @@ private final class LedgerAISpeechHandler: NSObject, FlutterStreamHandler {
       }
     }
     return "语音识别失败，请重试或改用手动输入。"
+  }
+}
+
+
+// MARK: - iCloud 同步（CloudKit private database）
+
+/// 数据只写入用户自己的 iCloud private database，开发者不接触。
+/// 通道：com.archintera.ledgerai/cloudkit
+/// - status: 账号/网络是否可用
+/// - pull: 拉取全部 Txn（含墓碑），返回 records + deleted
+/// - push: 全量上传本地 Txn + 删除墓碑
+private final class LedgerAICloudKitHandler {
+  private let container = CKContainer(identifier: "iCloud.com.archintera.ledgerai")
+  private let zoneID = CKRecordZone.ID(
+    zoneName: "LedgerZone",
+    ownerName: CKCurrentUserDefaultName
+  )
+  private let recordType = "Txn"
+
+  private var database: CKDatabase { container.privateCloudDatabase }
+
+  func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    switch call.method {
+    case "status":
+      accountStatus(result)
+    case "pull":
+      ensureZone { [weak self] error in
+        guard let self = self else { return }
+        if let error = error {
+          self.fail(error, result)
+          return
+        }
+        self.fetchAllRecords(cursor: nil, collected: [], deleted: [], result: result)
+      }
+    case "push":
+      guard let args = call.arguments as? [String: Any] else {
+        result(FlutterError(code: "bad_args", message: "同步参数不正确", details: nil))
+        return
+      }
+      ensureZone { [weak self] error in
+        guard let self = self else { return }
+        if let error = error {
+          self.fail(error, result)
+          return
+        }
+        self.push(args: args, result: result)
+      }
+    default:
+      result(FlutterMethodNotImplemented)
+    }
+  }
+
+  private func accountStatus(_ result: @escaping FlutterResult) {
+    container.accountStatus { status, error in
+      DispatchQueue.main.async {
+        if let error = error {
+          result([
+            "available": false,
+            "message": self.message(for: error),
+          ])
+          return
+        }
+        switch status {
+        case .available:
+          result(["available": true, "message": "iCloud 已连接"])
+        case .noAccount:
+          result(["available": false, "message": "请先在系统设置中登录 iCloud"])
+        case .restricted:
+          result(["available": false, "message": "iCloud 被系统限制，无法同步"])
+        case .couldNotDetermine:
+          result(["available": false, "message": "无法确定 iCloud 状态，请稍后重试"])
+        case .temporarilyUnavailable:
+          result(["available": false, "message": "iCloud 暂时不可用，请稍后重试"])
+        @unknown default:
+          result(["available": false, "message": "iCloud 状态未知"])
+        }
+      }
+    }
+  }
+
+  private func ensureZone(completion: @escaping (Error?) -> Void) {
+    let zone = CKRecordZone(zoneID: zoneID)
+    database.save(zone) { _, error in
+      DispatchQueue.main.async { completion(error) }
+    }
+  }
+
+  private func fetchAllRecords(
+    cursor: CKQueryOperation.Cursor?,
+    collected: [CKRecord],
+    deleted: [CKRecord],
+    result: @escaping FlutterResult
+  ) {
+    var all = collected
+    var tombstones = deleted
+
+    let operation: CKQueryOperation
+    if let cursor = cursor {
+      operation = CKQueryOperation(cursor: cursor)
+    } else {
+      let query = CKQuery(recordType: recordType, predicate: NSPredicate(value: true))
+      operation = CKQueryOperation(query: query)
+      operation.zoneID = zoneID
+      operation.resultsLimit = 200
+    }
+
+    operation.recordFetchedBlock = { record in
+      if record["deletedAt"] is Date {
+        tombstones.append(record)
+      } else {
+        all.append(record)
+      }
+    }
+    operation.queryCompletionBlock = { [weak self] nextCursor, error in
+      guard let self = self else { return }
+      if let error = error {
+        DispatchQueue.main.async { self.fail(error, result) }
+        return
+      }
+      if let nextCursor = nextCursor {
+        self.fetchAllRecords(
+          cursor: nextCursor,
+          collected: all,
+          deleted: tombstones,
+          result: result
+        )
+        return
+      }
+      DispatchQueue.main.async {
+        result([
+          "records": all.compactMap { self.encode($0) },
+          "deleted": tombstones.compactMap { record -> [String: Any]? in
+            guard let at = record["deletedAt"] as? Date else { return nil }
+            return [
+              "id": record.recordID.recordName,
+              "deletedAt": Int64(at.timeIntervalSince1970 * 1000),
+            ]
+          },
+        ])
+      }
+    }
+    database.add(operation)
+  }
+
+  private func push(args: [String: Any], result: @escaping FlutterResult) {
+    let rawRecords = args["records"] as? [[String: Any]] ?? []
+    let rawDeleted = args["deleted"] as? [[String: Any]] ?? []
+
+    var records: [CKRecord] = []
+    for map in rawRecords {
+      guard let id = map["id"] as? String else { continue }
+      let record = CKRecord(
+        recordType: recordType,
+        recordID: CKRecord.ID(recordName: id, zoneID: zoneID)
+      )
+      record["amount"] = NSNumber(value: map["amount"] as? Double ?? 0)
+      record["categoryId"] = (map["categoryId"] as? String ?? "other_expense") as NSString
+      if let dateMs = map["date"] as? Int64 {
+        record["date"] = Date(timeIntervalSince1970: Double(dateMs) / 1000) as NSDate
+      }
+      record["note"] = (map["note"] as? String ?? "") as NSString
+      record["isIncome"] = NSNumber(value: map["isIncome"] as? Bool ?? false)
+      record["source"] = (map["source"] as? String ?? "manual") as NSString
+      if let merchant = map["merchant"] as? String, !merchant.isEmpty {
+        record["merchant"] = merchant as NSString
+      }
+      if let updatedMs = map["updatedAt"] as? Int64 {
+        record["updatedAt"] = Date(timeIntervalSince1970: Double(updatedMs) / 1000) as NSDate
+      }
+      records.append(record)
+    }
+
+    for map in rawDeleted {
+      guard let id = map["id"] as? String else { continue }
+      let record = CKRecord(
+        recordType: recordType,
+        recordID: CKRecord.ID(recordName: id, zoneID: zoneID)
+      )
+      if let at = map["deletedAt"] as? Int64 {
+        record["deletedAt"] = Date(timeIntervalSince1970: Double(at) / 1000) as NSDate
+      }
+      records.append(record)
+    }
+
+    guard !records.isEmpty else {
+      result(["saved": 0])
+      return
+    }
+    saveBatches(records: records, index: 0, saved: 0, result: result)
+  }
+
+  private func saveBatches(
+    records: [CKRecord],
+    index: Int,
+    saved: Int,
+    result: @escaping FlutterResult
+  ) {
+    if index >= records.count {
+      result(["saved": saved])
+      return
+    }
+    let end = min(index + 100, records.count)
+    let batch = Array(records[index..<end])
+    let operation = CKModifyRecordsOperation(recordsToSave: batch, recordIDsToDelete: nil)
+    operation.savePolicy = .allKeys
+    operation.isAtomic = false
+    operation.modifyRecordsCompletionBlock = { [weak self] _, _, error in
+      guard let self = self else { return }
+      if let error = error {
+        DispatchQueue.main.async { self.fail(error, result) }
+        return
+      }
+      DispatchQueue.main.async {
+        self.saveBatches(records: records, index: end, saved: saved + batch.count, result: result)
+      }
+    }
+    database.add(operation)
+  }
+
+  private func encode(_ record: CKRecord) -> [String: Any] {
+    var map: [String: Any] = [
+      "id": record.recordID.recordName,
+      "amount": (record["amount"] as? NSNumber)?.doubleValue ?? 0,
+      "categoryId": record["categoryId"] as? String ?? "other_expense",
+      "note": record["note"] as? String ?? "",
+      "isIncome": (record["isIncome"] as? NSNumber)?.boolValue ?? false,
+      "source": record["source"] as? String ?? "manual",
+    ]
+    if let date = record["date"] as? Date {
+      map["date"] = Int64(date.timeIntervalSince1970 * 1000)
+    }
+    if let updated = record["updatedAt"] as? Date {
+      map["updatedAt"] = Int64(updated.timeIntervalSince1970 * 1000)
+    }
+    if let merchant = record["merchant"] as? String {
+      map["merchant"] = merchant
+    }
+    return map
+  }
+
+  private func fail(_ error: Error, _ result: @escaping FlutterResult) {
+    let message = self.message(for: error)
+    result(FlutterError(code: "cloudkit_error", message: message, details: nil))
+  }
+
+  private func message(for error: Error) -> String {
+    if let ckError = error as? CKError {
+      switch ckError.code {
+      case .notAuthenticated:
+        return "请先在系统设置中登录 iCloud"
+      case .networkUnavailable, .networkFailure:
+        return "网络不可用，请稍后重试"
+      case .quotaExceeded:
+        return "iCloud 空间不足，请清理后重试"
+      case .serviceUnavailable, .zoneBusy:
+        return "iCloud 繁忙，请稍后重试"
+      default:
+        return "iCloud 同步失败：\(ckError.localizedDescription)"
+      }
+    }
+    return "iCloud 同步失败：\(error.localizedDescription)"
   }
 }

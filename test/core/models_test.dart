@@ -35,17 +35,19 @@ Txn buildTxn({
 
 void main() {
   group('EntrySource', () {
-    test('三个枚举值的中文标签', () {
-      expect(EntrySource.values, hasLength(3));
+    test('四个枚举值的中文标签', () {
+      expect(EntrySource.values, hasLength(4));
       expect(EntrySource.manual.label, '手动');
       expect(EntrySource.ocr.label, '拍照识别');
       expect(EntrySource.voice.label, '语音记账');
+      expect(EntrySource.csv.label, '导入账单');
     });
 
     test('parse 按 name 解析，未知值回退 manual', () {
       expect(EntrySource.parse('manual'), EntrySource.manual);
       expect(EntrySource.parse('ocr'), EntrySource.ocr);
       expect(EntrySource.parse('voice'), EntrySource.voice);
+      expect(EntrySource.parse('csv'), EntrySource.csv);
       expect(EntrySource.parse('ocr '), EntrySource.manual); // 不做 trim
       expect(EntrySource.parse('camera'), EntrySource.manual);
       expect(EntrySource.parse(''), EntrySource.manual);
@@ -88,7 +90,8 @@ void main() {
         date: DateTime(2026, 1, 2, 8, 5, 6, 7),
         createdAt: DateTime(2026, 1, 2, 8, 6),
       );
-      final decoded = jsonDecode(jsonEncode(txn.toJson())) as Map<String, dynamic>;
+      final decoded =
+          jsonDecode(jsonEncode(txn.toJson())) as Map<String, dynamic>;
       final restored = Txn.fromJson(decoded);
 
       expect(restored, txn);
@@ -142,7 +145,8 @@ void main() {
   group('Txn.copyWith', () {
     test('只覆盖传入字段，其余保留', () {
       final original = buildTxn();
-      final updated = original.copyWith(amount: 100, note: '晚餐', isIncome: true);
+      final updated =
+          original.copyWith(amount: 100, note: '晚餐', isIncome: true);
 
       expect(updated.amount, 100);
       expect(updated.note, '晚餐');
@@ -187,12 +191,14 @@ void main() {
   group('Txn.category', () {
     test('按 categoryId 返回内置分类', () {
       expect(buildTxn(categoryId: 'food').category.name, '餐饮');
-      expect(buildTxn(categoryId: 'salary', isIncome: true).category.name, '工资');
+      expect(
+          buildTxn(categoryId: 'salary', isIncome: true).category.name, '工资');
       expect(buildTxn(categoryId: 'salary').category.isIncome, isTrue);
     });
 
     test('未知分类 id 回退到「其他支出」', () {
-      final txn = Txn.fromJson(<String, dynamic>{'id': 'x', 'amount': 1, 'categoryId': 'ghost'});
+      final txn = Txn.fromJson(
+          <String, dynamic>{'id': 'x', 'amount': 1, 'categoryId': 'ghost'});
       expect(txn.category.id, Category.otherExpenseId);
       expect(txn.category.name, '其他');
     });

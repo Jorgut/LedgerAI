@@ -10,6 +10,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../core/app_state.dart';
 import '../../core/bill_import.dart';
 import '../../core/models.dart';
+import '../../sync/cloud_sync.dart';
 import '../../core/format.dart';
 import '../theme.dart';
 import '../widgets/common/app_snack.dart';
@@ -46,6 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   bool _exporting = false;
   bool _importing = false;
+  bool _syncing = false;
 
   static const List<_FontScaleOption> _fontScaleOptions = [
     _FontScaleOption('标准', 1.0),
@@ -89,6 +91,43 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
     if (!mounted) return;
     _hapticTick();
+  }
+
+  static String _formatSyncTime(DateTime time) {
+    String two(int v) => v.toString().padLeft(2, '0');
+    return '${time.year}-${two(time.month)}-${two(time.day)} '
+        '${two(time.hour)}:${two(time.minute)}';
+  }
+
+  Future<void> _setSyncEnabled(bool value) async {
+    await AppScope.read(context).updateSettingsWith(
+      (settings) => settings.copyWith(icloudSyncEnabled: value),
+    );
+    if (!mounted) return;
+    _hapticTick();
+    if (value) await _syncNow();
+  }
+
+  Future<void> _syncNow() async {
+    if (_syncing) return;
+    setState(() => _syncing = true);
+    try {
+      final report =
+          await const CloudSyncService().sync(AppScope.read(context));
+      if (!mounted) return;
+      _showSnack(
+        '同步完成：下载 ${report.downloaded} 笔，上传 ${report.uploaded} 笔'
+        '${report.deleted > 0 ? '，删除 ${report.deleted} 笔' : ''}',
+      );
+    } on CloudSyncException catch (e) {
+      if (!mounted) return;
+      _showSnack(e.message);
+    } catch (e) {
+      if (!mounted) return;
+      _showSnack('同步失败：$e');
+    } finally {
+      if (mounted) setState(() => _syncing = false);
+    }
   }
 
   Future<void> _setFontScale(double value) async {
@@ -504,6 +543,57 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     trailing: const Icon(Icons.chevron_right_rounded),
                     onTap: () => _openPage(const BudgetScreen()),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            const SectionHeader(
+              title: 'iCloud 同步',
+              padding: EdgeInsets.fromLTRB(4, 0, 4, 8),
+            ),
+            Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SwitchListTile(
+                    secondary: const Icon(Icons.cloud_outlined),
+                    title: const Text('iCloud 同步'),
+                    subtitle: Text(
+                      prefs.icloudSyncEnabled
+                          ? (prefs.lastSyncAt == null
+                              ? '已开启，等待首次同步'
+                              : '上次同步：${_formatSyncTime(prefs.lastSyncAt!)}')
+                          : '多设备同步到自己的 iCloud，开发者看不到数据',
+                    ),
+                    value: prefs.icloudSyncEnabled,
+                    onChanged: _syncing ? null : _setSyncEnabled,
+                  ),
+                  if (prefs.icloudSyncEnabled) ...[
+                    const Divider(),
+                    ListTile(
+                      leading: const Icon(Icons.sync_rounded),
+                      title: const Text('立即同步'),
+                      subtitle: Text(_syncing ? '正在同步…' : '把本机账单与 iCloud 合并'),
+                      trailing: _syncing
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const Icon(Icons.chevron_right_rounded),
+                      onTap: _syncing ? null : _syncNow,
+                    ),
+                  ],
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
+                    child: Text(
+                      '数据只写入你自己的 iCloud private database，衡账没有服务器；'
+                      '1.1 内测期间免费。',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
                   ),
                 ],
               ),
