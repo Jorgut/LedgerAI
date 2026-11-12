@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="1024" height="1024">
+  <g>
+    <path fill="#000000" fill-rule="evenodd" d="M32 11 C36.5 15 38 19.5 37.5 23.5 C37 27.5 35 29.5 32 30.5 C29 29.5 27 27.5 26.5 23.5 C26 19.5 27.5 15 32 11 Z M32 17 L35 21 L32 25 L29 21 Z"/>
+    <g fill="none" stroke="#000000" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M32 30 L32 42"/>
+      <path d="M32 42 L25 53"/>
+      <path d="M32 42 L39 53"/>
+      <path d="M22 11 C18 14 16 19 15 25 C14 33 16 43 20 51"/>
+      <path d="M42 11 C46 14 48 19 49 25 C50 33 48 43 44 51"/>
+      <path d="M26 8 L22 12"/>
+      <path d="M38 8 L42 12"/>
+    </g>
+  </g>
+</svg>
