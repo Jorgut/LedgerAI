@@ -47,3 +47,13 @@
 - 中文 App Store 名称：**衡账 - 不登录不联网的记账本**（方案 A）；
 - 单字「衡」作为短品牌/图标水印候选，不等于 App Store 名称；
 - 英文名 1.1 英文化时再最终确认（候选 Heng — Private Ledger）。
+
+## 五、技术标识（Bundle ID / 通道 / CloudKit 容器）保持 ledgerai
+
+英文品牌定为 **HENG**，但以下技术标识**不改**：
+
+- Bundle ID：`com.archintera.ledgerai`（App Store 应用记录 6833748333、TestFlight、审核、以后的 IAP 都绑定它；改 Bundle ID = 新建应用，历史数据/评价/审核全部重来）
+- MethodChannel：`com.archintera.ledgerai/ocr`、`/speech`、`/cloudkit`
+- CloudKit container：`iCloud.com.archintera.ledgerai`
+
+理由：这些是内部/平台标识，用户看不到；保持同一族 `ledgerai` 便于排查问题和后续维护。**HENG / 衡账是展示品牌**，不动技术标识。若未来 2.0 真要迁移，应作为独立迁移项目（新 App 记录 + 数据迁移 + 用户通知），不在 1.x 做。
