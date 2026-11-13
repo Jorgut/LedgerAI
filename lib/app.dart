@@ -8,6 +8,7 @@ import 'l10n/app_localizations.dart';
 import 'ui/brand_intro.dart';
 import 'ui/screens/add_transaction_screen.dart';
 import 'ui/screens/budget_screen.dart';
+import 'ui/screens/trip_demo_screen.dart';
 import 'ui/screens/onboarding_screen.dart';
 import 'ui/screens/root_shell.dart';
 import 'ui/theme.dart';
@@ -107,6 +108,8 @@ class LedgerApp extends StatelessWidget {
         );
       case 'budget':
         return const BudgetScreen();
+      case 'trip':
+        return const TripDemoScreen();
       case 'add':
         return const AddTransactionScreen();
       case 'add_receipt':

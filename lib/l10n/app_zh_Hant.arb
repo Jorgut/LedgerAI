@@ -660,5 +660,8 @@
   "sourceManual": "手動",
   "sourceOcr": "拍照辨識",
   "sourceVoice": "語音記帳",
-  "sourceCsv": "匯入帳單"
+  "sourceCsv": "匯入帳單",
+  "themeBlush": "D 玫瑰紙",
+  "themePeach": "E 蜜桃",
+  "themeLavender": "F 薰衣草"
 }

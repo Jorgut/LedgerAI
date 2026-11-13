@@ -1340,4 +1340,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sourceCsv => 'Imported';
+
+  @override
+  String get themeBlush => 'D Rose Paper';
+
+  @override
+  String get themePeach => 'E Peach';
+
+  @override
+  String get themeLavender => 'F Lavender';
 }

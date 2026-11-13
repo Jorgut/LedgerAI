@@ -22,11 +22,14 @@ enum AppLanguage {
       };
 }
 
-/// 三套主题色。默认 [fresh]（A 清新）。
+/// 主题色。默认 [fresh]（A 清新）。
 enum AppColorTheme {
   fresh('A 清新', '高明度、冷背景、明快绿'),
   forest('B 森林', '暖纸色、深绿、沉稳'),
-  freshForest('C 清新森林', '冷白绿底、深绿主色、薄荷高光');
+  freshForest('C 清新森林', '冷白绿底、深绿主色、薄荷高光'),
+  blush('D 玫瑰纸', '暖白底、玫瑰灰、柔和女性向'),
+  peach('E 蜜桃', '奶油底、蜜桃/陶土、温暖'),
+  lavender('F 薰衣草', '灰紫底、柔紫、安静高级');
 
   const AppColorTheme(this.label, this.description);
 

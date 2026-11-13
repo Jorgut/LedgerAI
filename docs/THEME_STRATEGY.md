@@ -70,3 +70,43 @@ Do **not** change layout or navigation per theme.
 - Price of Pro (suggest one-time, not subscription).
 - Whether C is included in Pro or sold as a separate "Fresh Pack" later.
 - Whether B/C get theme-specific empty-state illustrations (recommended: one small motif each, not full redesign).
+
+---
+
+## Feminine direction exploration (2026-11-14)
+
+Feedback: the green A/B/C line does not feel feminine enough for the Xiaohongshu audience.
+
+New directions:
+
+| Theme | Tier (proposed) | Character |
+|---|---|---|
+| D Rose Paper | Free | Blush cream, dusty rose, quiet luxury |
+| E Peach | Pro | Terracotta warmth, soft morning light |
+| F Lavender | Pro | Mauve silk, cool calm, evening ritual |
+
+Recommendation for launch:
+
+- **3 themes:** D Rose Paper (free) + E Peach (Pro) + F Lavender (Pro).
+- Keep A/B/C in code as a later "Classic" pack or retire B/C from the visible selector at launch.
+- Do not ship 6 themes at once: choice overload, QA cost, weaker Pro story.
+
+Micro-adjustments per theme:
+
+- **D Rose Paper:** blush card gradient, rose-gray icons, warmer divider, rounded 20 cards; no hearts/flowers.
+- **E Peach:** terracotta gradient, cream surfaces, soft peach chips, subtle warm shadow.
+- **F Lavender:** mauve gradient, pale lilac chips, cooler highlights, lower contrast borders.
+
+Guardrails:
+
+- Keep layout, type scale, spacing identical.
+- No clichés (hearts, petals, script fonts) — softness through color, material, and spacing.
+- Re-run WCAG: Peach primary was darkened to `#A94E33` to pass 4.5:1.
+- Theme previews must use the real Home screen, not swatches alone.
+
+## Travel mode status
+
+- Not built yet; planned 1.2.
+- Concept screen added as `lib/ui/screens/trip_demo_screen.dart` and demo route `DEMO_SCREEN=trip`.
+- Concept covers: trip total/per-person, who-owes-whom, shared expenses, iCloud invite copy.
+- Not wired to local storage, CloudKit sharing, FX, or StoreKit.

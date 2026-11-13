@@ -262,7 +262,8 @@
   - `store/marketing/brand/final/v1/key_screens_dark.png`
 - 主题展示：`store/marketing/brand/final/showcase/themes_light_dark.png`（A 免费，B/C 计划 Pro）
 - 无障碍：`showcase/accessibility_audit.png` + `docs/ACCESSIBILITY_AUDIT.md`
-- 主题研究：`docs/THEME_STRATEGY.md`（建议 3 套：1 免费 + 2 Pro；微调原则）
+- 主题研究：`docs/THEME_STRATEGY.md`（女性向 D/E/F；建议上架 3 套：D 免费 + E/F Pro；A/B/C 可作 Classic）
+- 旅行分账概念页：`lib/ui/screens/trip_demo_screen.dart` + `DEMO_SCREEN=trip`（1.2 才接数据/CloudKit）；展示图 `showcase/travel_split.png`。
 - TestFlight 1.1.0 (14) 已挂组；1.0 仍 WAITING_FOR_REVIEW。
 
 ## 下一步

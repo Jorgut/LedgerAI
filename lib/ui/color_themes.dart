@@ -102,6 +102,64 @@ class HengPalette extends ThemeExtension<HengPalette> {
     'other_income': Color(0xFF94A0A8),
   };
 
+
+  static const Map<String, Color> _blushCategories = {
+    'food': Color(0xFFC9826B),
+    'transport': Color(0xFF8C7A96),
+    'shopping': Color(0xFFB65A6A),
+    'home': Color(0xFF8A9A7B),
+    'entertainment': Color(0xFFA87A9A),
+    'medical': Color(0xFFB4535A),
+    'education': Color(0xFF7D8E9E),
+    'communication': Color(0xFF9A8AA8),
+    'social': Color(0xFFC07A72),
+    'other_expense': Color(0xFFA89A98),
+    'salary': Color(0xFF5F7F6A),
+    'bonus': Color(0xFF7A9A7B),
+    'investment': Color(0xFF8A9A8A),
+    'parttime': Color(0xFF9A8A6A),
+    'gift': Color(0xFFC08080),
+    'other_income': Color(0xFFA89A98),
+  };
+
+  static const Map<String, Color> _peachCategories = {
+    'food': Color(0xFFC97A52),
+    'transport': Color(0xFF7D8A9A),
+    'shopping': Color(0xFFB85C5C),
+    'home': Color(0xFF8A9A72),
+    'entertainment': Color(0xFFB07A8A),
+    'medical': Color(0xFFB4535A),
+    'education': Color(0xFF7D8E9E),
+    'communication': Color(0xFF8A8AA8),
+    'social': Color(0xFFC08668),
+    'other_expense': Color(0xFFAA9A90),
+    'salary': Color(0xFF5F7F6A),
+    'bonus': Color(0xFF7A9A7B),
+    'investment': Color(0xFF8A9A8A),
+    'parttime': Color(0xFF9A8A6A),
+    'gift': Color(0xFFC08070),
+    'other_income': Color(0xFFAA9A90),
+  };
+
+  static const Map<String, Color> _lavenderCategories = {
+    'food': Color(0xFFB0808A),
+    'transport': Color(0xFF7A7A9A),
+    'shopping': Color(0xFF9A6A8A),
+    'home': Color(0xFF7A8A9A),
+    'entertainment': Color(0xFF9A7AB0),
+    'medical': Color(0xFFA85A6A),
+    'education': Color(0xFF6F7A9A),
+    'communication': Color(0xFF8A7AA8),
+    'social': Color(0xFFA87A8A),
+    'other_expense': Color(0xFF9A929A),
+    'salary': Color(0xFF5F7A72),
+    'bonus': Color(0xFF7A9A8A),
+    'investment': Color(0xFF7A8A9A),
+    'parttime': Color(0xFF8A8A6A),
+    'gift': Color(0xFFB08090),
+    'other_income': Color(0xFF9A929A),
+  };
+
   static HengPalette forTheme(
     AppColorTheme theme,
     Brightness brightness, {
@@ -252,6 +310,150 @@ class HengPalette extends ThemeExtension<HengPalette> {
                   colors: [Color(0xFF0B5B47), Color(0xFF063A2C)],
                 ),
                 categories: _freshForestCategories,
+              );
+      case AppColorTheme.blush:
+        return dark
+            ? const HengPalette(
+                theme: AppColorTheme.blush,
+                brightness: Brightness.dark,
+                background: Color(0xFF140E10),
+                surface: Color(0xFF1E1518),
+                field: Color(0xFF271B1F),
+                border: Color(0xFF3A2A2F),
+                primary: Color(0xFFF0A6B2),
+                primaryDark: Color(0xFF8A4654),
+                onPrimary: Color(0xFF3A1620),
+                accent: Color(0xFFD98A96),
+                text: Color(0xFFF5E9E7),
+                muted: Color(0xFFC4AEB0),
+                income: Color(0xFF9ED4B0),
+                expense: Color(0xFFF08A94),
+                warning: Color(0xFFF0C08A),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFF7A3A48), Color(0xFF2A1219)],
+                ),
+                categories: _blushCategories,
+              )
+            : const HengPalette(
+                theme: AppColorTheme.blush,
+                brightness: Brightness.light,
+                background: Color(0xFFFBF6F3),
+                surface: Colors.white,
+                field: Color(0xFFF5ECE8),
+                border: Color(0xFFEADDD8),
+                primary: Color(0xFFA64B5A),
+                primaryDark: Color(0xFF7A3541),
+                onPrimary: Colors.white,
+                accent: Color(0xFFD98A96),
+                text: Color(0xFF2B1B1C),
+                muted: Color(0xFF7C6667),
+                income: Color(0xFF5F7F6A),
+                expense: Color(0xFFB42318),
+                warning: Color(0xFF8A5300),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFFB85C6B), Color(0xFF8A3D4A)],
+                ),
+                categories: _blushCategories,
+              );
+      case AppColorTheme.peach:
+        return dark
+            ? const HengPalette(
+                theme: AppColorTheme.peach,
+                brightness: Brightness.dark,
+                background: Color(0xFF170F0B),
+                surface: Color(0xFF231811),
+                field: Color(0xFF2E1F16),
+                border: Color(0xFF433026),
+                primary: Color(0xFFF0B08A),
+                primaryDark: Color(0xFF9A5A38),
+                onPrimary: Color(0xFF3D2418),
+                accent: Color(0xFFE8A27D),
+                text: Color(0xFFF7EAE2),
+                muted: Color(0xFFC8B2A4),
+                income: Color(0xFF9ED4B0),
+                expense: Color(0xFFF08A84),
+                warning: Color(0xFFF0C08A),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFF8A4A2E), Color(0xFF2A1810)],
+                ),
+                categories: _peachCategories,
+              )
+            : const HengPalette(
+                theme: AppColorTheme.peach,
+                brightness: Brightness.light,
+                background: Color(0xFFFFF7F0),
+                surface: Colors.white,
+                field: Color(0xFFF8EDE3),
+                border: Color(0xFFEEDFD2),
+                primary: Color(0xFFA94E33),
+                primaryDark: Color(0xFF7A3A24),
+                onPrimary: Colors.white,
+                accent: Color(0xFFE8A27D),
+                text: Color(0xFF2D1C14),
+                muted: Color(0xFF80665A),
+                income: Color(0xFF5F7F6A),
+                expense: Color(0xFFB42318),
+                warning: Color(0xFF8A5300),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFFC46A48), Color(0xFF9A4A2E)],
+                ),
+                categories: _peachCategories,
+              );
+      case AppColorTheme.lavender:
+        return dark
+            ? const HengPalette(
+                theme: AppColorTheme.lavender,
+                brightness: Brightness.dark,
+                background: Color(0xFF120D16),
+                surface: Color(0xFF1C1420),
+                field: Color(0xFF261A2C),
+                border: Color(0xFF382942),
+                primary: Color(0xFFD6B8F0),
+                primaryDark: Color(0xFF7A5B93),
+                onPrimary: Color(0xFF2B1638),
+                accent: Color(0xFFB9A0D0),
+                text: Color(0xFFF1E9F5),
+                muted: Color(0xFFBDAEC8),
+                income: Color(0xFF9ED4B0),
+                expense: Color(0xFFF08A94),
+                warning: Color(0xFFF0C08A),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFF5A3D72), Color(0xFF1C1026)],
+                ),
+                categories: _lavenderCategories,
+              )
+            : const HengPalette(
+                theme: AppColorTheme.lavender,
+                brightness: Brightness.light,
+                background: Color(0xFFF8F5FA),
+                surface: Colors.white,
+                field: Color(0xFFF1EBF5),
+                border: Color(0xFFE4DAEC),
+                primary: Color(0xFF72558A),
+                primaryDark: Color(0xFF4F3A62),
+                onPrimary: Colors.white,
+                accent: Color(0xFFB9A0D0),
+                text: Color(0xFF241A2B),
+                muted: Color(0xFF6F6278),
+                income: Color(0xFF5F7F6A),
+                expense: Color(0xFFB42318),
+                warning: Color(0xFF8A5300),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFF83659A), Color(0xFF5A3D72)],
+                ),
+                categories: _lavenderCategories,
               );
     }
   }

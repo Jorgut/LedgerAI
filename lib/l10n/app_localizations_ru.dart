@@ -1343,4 +1343,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get sourceCsv => 'Импорт';
+
+  @override
+  String get themeBlush => 'D Розовая бумага';
+
+  @override
+  String get themePeach => 'E Персик';
+
+  @override
+  String get themeLavender => 'F Лаванда';
 }

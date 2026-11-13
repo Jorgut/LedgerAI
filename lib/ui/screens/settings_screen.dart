@@ -131,6 +131,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         AppColorTheme.fresh => l10n.themeFresh,
         AppColorTheme.forest => l10n.themeForest,
         AppColorTheme.freshForest => l10n.themeFreshForest,
+        AppColorTheme.blush => l10n.themeBlush,
+        AppColorTheme.peach => l10n.themePeach,
+        AppColorTheme.lavender => l10n.themeLavender,
       };
 
   Future<void> _setLanguage(AppLanguage value) async {

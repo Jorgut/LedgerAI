@@ -660,5 +660,8 @@
   "sourceManual": "Manual",
   "sourceOcr": "Receipt scan",
   "sourceVoice": "Voice entry",
-  "sourceCsv": "Imported"
+  "sourceCsv": "Imported",
+  "themeBlush": "D Rose Paper",
+  "themePeach": "E Peach",
+  "themeLavender": "F Lavender"
 }

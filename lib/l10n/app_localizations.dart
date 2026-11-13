@@ -2377,6 +2377,24 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'导入账单'**
   String get sourceCsv;
+
+  /// No description provided for @themeBlush.
+  ///
+  /// In zh, this message translates to:
+  /// **'D 玫瑰纸'**
+  String get themeBlush;
+
+  /// No description provided for @themePeach.
+  ///
+  /// In zh, this message translates to:
+  /// **'E 蜜桃'**
+  String get themePeach;
+
+  /// No description provided for @themeLavender.
+  ///
+  /// In zh, this message translates to:
+  /// **'F 薰衣草'**
+  String get themeLavender;
 }
 
 class _AppLocalizationsDelegate

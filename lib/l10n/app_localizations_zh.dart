@@ -1292,6 +1292,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get sourceCsv => '导入账单';
+
+  @override
+  String get themeBlush => 'D 玫瑰纸';
+
+  @override
+  String get themePeach => 'E 蜜桃';
+
+  @override
+  String get themeLavender => 'F 薰衣草';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2582,4 +2591,13 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get sourceCsv => '匯入帳單';
+
+  @override
+  String get themeBlush => 'D 玫瑰紙';
+
+  @override
+  String get themePeach => 'E 蜜桃';
+
+  @override
+  String get themeLavender => 'F 薰衣草';
 }

@@ -849,5 +849,8 @@
   "sourceManual": "手动",
   "sourceOcr": "拍照识别",
   "sourceVoice": "语音记账",
-  "sourceCsv": "导入账单"
+  "sourceCsv": "导入账单",
+  "themeBlush": "D 玫瑰纸",
+  "themePeach": "E 蜜桃",
+  "themeLavender": "F 薰衣草"
 }

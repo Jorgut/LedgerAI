@@ -660,5 +660,8 @@
   "sourceManual": "Вручную",
   "sourceOcr": "Скан чека",
   "sourceVoice": "Голосом",
-  "sourceCsv": "Импорт"
+  "sourceCsv": "Импорт",
+  "themeBlush": "D Розовая бумага",
+  "themePeach": "E Персик",
+  "themeLavender": "F Лаванда"
 }
