@@ -663,5 +663,8 @@
   "sourceCsv": "匯入帳單",
   "themeBlush": "D 玫瑰紙",
   "themePeach": "E 蜜桃",
-  "themeLavender": "F 薰衣草"
+  "themeLavender": "F 薰衣草",
+  "navTrip": "旅行",
+  "travelMode": "旅行分帳",
+  "travelModeSubtitle": "和朋友一起記旅行帳，自動算誰欠誰"
 }

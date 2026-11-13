@@ -1352,4 +1352,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get themeLavender => 'F Лаванда';
+
+  @override
+  String get navTrip => 'Поездка';
+
+  @override
+  String get travelMode => 'Режим поездки';
+
+  @override
+  String get travelModeSubtitle => 'Общие расходы в поездке — расчёты за вас';
 }

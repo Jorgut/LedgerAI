@@ -5,6 +5,7 @@ import '../../l10n/app_localizations.dart';
 import '../theme.dart';
 import 'add_transaction_screen.dart';
 import 'home_screen.dart';
+import 'trip_demo_screen.dart';
 import 'reports_screen.dart';
 import 'settings_screen.dart';
 import 'transactions_screen.dart';
@@ -19,6 +20,7 @@ class RootShell extends StatefulWidget {
     this.showFab = true,
     this.reportsInitialScrollOffset = 0,
     this.settingsInitialScrollOffset = 0,
+    this.includeTrip = false,
   });
 
   /// 启动时选中的 Tab（0 首页 / 1 账单 / 2 报表 / 3 我的）。
@@ -34,6 +36,9 @@ class RootShell extends StatefulWidget {
   /// 截图/演示模式用于直接定位设置页滚动位置。
   final double settingsInitialScrollOffset;
 
+  /// Demo/1.2 preview: add the optional Trip tab.
+  final bool includeTrip;
+
   @override
   State<RootShell> createState() => _RootShellState();
 }
@@ -44,7 +49,7 @@ class _RootShellState extends State<RootShell> {
   @override
   void initState() {
     super.initState();
-    _index = widget.initialIndex.clamp(0, 3).toInt();
+    _index = widget.initialIndex.clamp(0, widget.includeTrip ? 4 : 3).toInt();
   }
 
   void _selectTab(int index) {
@@ -78,10 +83,14 @@ class _RootShellState extends State<RootShell> {
       body: IndexedStack(
         index: _index,
         children: [
-          HomeScreen(onSeeAll: () => _selectTab(1)),
+          HomeScreen(
+            onSeeAll: () => _selectTab(1),
+            onOpenTrip: widget.includeTrip ? () => _selectTab(4) : null,
+          ),
           const TransactionsScreen(),
           ReportsScreen(initialScrollOffset: widget.reportsInitialScrollOffset),
           SettingsScreen(initialScrollOffset: widget.settingsInitialScrollOffset),
+          if (widget.includeTrip) const TripDemoScreen(),
         ],
       ),
       floatingActionButton: widget.showFab
@@ -128,6 +137,13 @@ class _RootShellState extends State<RootShell> {
               label: l10n.navSettings,
               tooltip: l10n.navSettings,
             ),
+            if (widget.includeTrip)
+              NavigationDestination(
+                icon: const Icon(Icons.flight_takeoff_outlined),
+                selectedIcon: const Icon(Icons.flight_takeoff_rounded),
+                label: l10n.navTrip,
+                tooltip: l10n.navTrip,
+              ),
           ],
         ),
       ),

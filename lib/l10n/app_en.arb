@@ -663,5 +663,8 @@
   "sourceCsv": "Imported",
   "themeBlush": "D Rose Paper",
   "themePeach": "E Peach",
-  "themeLavender": "F Lavender"
+  "themeLavender": "F Lavender",
+  "navTrip": "Trip",
+  "travelMode": "Travel mode",
+  "travelModeSubtitle": "Split a trip with friends — we do the math"
 }

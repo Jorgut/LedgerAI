@@ -663,5 +663,8 @@
   "sourceCsv": "Импорт",
   "themeBlush": "D Розовая бумага",
   "themePeach": "E Персик",
-  "themeLavender": "F Лаванда"
+  "themeLavender": "F Лаванда",
+  "navTrip": "Поездка",
+  "travelMode": "Режим поездки",
+  "travelModeSubtitle": "Общие расходы в поездке — расчёты за вас"
 }

@@ -1349,4 +1349,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get themeLavender => 'F Lavender';
+
+  @override
+  String get navTrip => 'Trip';
+
+  @override
+  String get travelMode => 'Travel mode';
+
+  @override
+  String get travelModeSubtitle => 'Split a trip with friends — we do the math';
 }

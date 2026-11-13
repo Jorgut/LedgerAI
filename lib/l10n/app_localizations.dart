@@ -2395,6 +2395,24 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'F 薰衣草'**
   String get themeLavender;
+
+  /// No description provided for @navTrip.
+  ///
+  /// In zh, this message translates to:
+  /// **'旅行'**
+  String get navTrip;
+
+  /// No description provided for @travelMode.
+  ///
+  /// In zh, this message translates to:
+  /// **'旅行分账'**
+  String get travelMode;
+
+  /// No description provided for @travelModeSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'和朋友一起记旅行账，自动算谁欠谁'**
+  String get travelModeSubtitle;
 }
 
 class _AppLocalizationsDelegate

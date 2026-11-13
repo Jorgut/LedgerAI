@@ -263,7 +263,9 @@
 - 主题展示：`store/marketing/brand/final/showcase/themes_light_dark.png`（A 免费，B/C 计划 Pro）
 - 无障碍：`showcase/accessibility_audit.png` + `docs/ACCESSIBILITY_AUDIT.md`
 - 主题研究：`docs/THEME_STRATEGY.md`（女性向 D/E/F；建议上架 3 套：D 免费 + E/F Pro；A/B/C 可作 Classic）
-- 旅行分账概念页：`lib/ui/screens/trip_demo_screen.dart` + `DEMO_SCREEN=trip`（1.2 才接数据/CloudKit）；展示图 `showcase/travel_split.png`。
+- 旅行分账概念页：`lib/ui/screens/trip_demo_screen.dart` + `DEMO_SCREEN=trip`（1.2 才接数据/CloudKit）。
+- 入口已做 Preview：首页 Travel mode 卡片；进入后可选 Trip tab（同一底部导航，5 项）；展示图 `showcase/travel_split.png`。
+- PREVIEW 入口只在 includeTrip/DEMO 模式出现，正式用户不可见。
 - TestFlight 1.1.0 (14) 已挂组；1.0 仍 WAITING_FOR_REVIEW。
 
 ## 下一步

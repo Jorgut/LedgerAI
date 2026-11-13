@@ -1301,6 +1301,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get themeLavender => 'F 薰衣草';
+
+  @override
+  String get navTrip => '旅行';
+
+  @override
+  String get travelMode => '旅行分账';
+
+  @override
+  String get travelModeSubtitle => '和朋友一起记旅行账，自动算谁欠谁';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2600,4 +2609,13 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get themeLavender => 'F 薰衣草';
+
+  @override
+  String get navTrip => '旅行';
+
+  @override
+  String get travelMode => '旅行分帳';
+
+  @override
+  String get travelModeSubtitle => '和朋友一起記旅行帳，自動算誰欠誰';
 }

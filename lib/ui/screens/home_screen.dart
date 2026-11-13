@@ -18,10 +18,13 @@ import 'transactions_screen.dart';
 
 /// 首页：本月概览、预算进度、快速记账入口、最近记录。
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, this.onSeeAll});
+  const HomeScreen({super.key, this.onSeeAll, this.onOpenTrip});
 
   /// 「查看全部」回调；由 RootShell 切换到账单 Tab。为 null 时打开账单页。
   final VoidCallback? onSeeAll;
+
+  /// Demo/1.2 preview: open the optional Trip tab.
+  final VoidCallback? onOpenTrip;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +86,72 @@ class HomeScreen extends StatelessWidget {
               onOpenBudget: () => _openBudget(context),
             ),
           ),
+          if (onOpenTrip != null) ...[
+            const SizedBox(height: 10),
+            AppCard(
+              onTap: onOpenTrip,
+              child: Row(
+                children: [
+                  Container(
+                    width: 42,
+                    height: 42,
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.primary.withValues(alpha: 0.10),
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                    child: Icon(Icons.flight_takeoff_rounded,
+                        color: theme.colorScheme.primary),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Flexible(
+                              child: Text(l10n.travelMode,
+                                  style: theme.textTheme.titleSmall),
+                            ),
+                            const SizedBox(width: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 7, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.primary
+                                    .withValues(alpha: 0.12),
+                                borderRadius: BorderRadius.circular(999),
+                              ),
+                              child: Text(
+                                'PREVIEW',
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  color: theme.colorScheme.primary,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 9,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          l10n.travelModeSubtitle,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Icon(Icons.chevron_right_rounded,
+                      color: theme.colorScheme.onSurfaceVariant),
+                ],
+              ),
+            ),
+          ],
           const SizedBox(height: 8),
           SectionHeader(
             title: l10n.quickActions,
