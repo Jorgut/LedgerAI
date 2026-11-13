@@ -8,6 +8,7 @@ import 'l10n/app_localizations.dart';
 import 'ui/brand_intro.dart';
 import 'ui/screens/add_transaction_screen.dart';
 import 'ui/screens/budget_screen.dart';
+import 'ui/screens/split_demo_screen.dart';
 import 'ui/screens/onboarding_screen.dart';
 import 'ui/screens/root_shell.dart';
 import 'ui/theme.dart';
@@ -108,9 +109,9 @@ class LedgerApp extends StatelessWidget {
       case 'budget':
         return const BudgetScreen();
       case 'trip':
-        return const RootShell(initialIndex: 4, includeTrip: true, showFab: false);
-      case 'home_trip':
-        return const RootShell(includeTrip: true, showFab: false);
+        return const SplitDemoScreen();
+      case 'home_split':
+        return const RootShell(splitPreview: true, showFab: false);
       case 'add':
         return const AddTransactionScreen();
       case 'add_receipt':

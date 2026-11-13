@@ -2413,6 +2413,18 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'和朋友一起记旅行账，自动算谁欠谁'**
   String get travelModeSubtitle;
+
+  /// No description provided for @splitMode.
+  ///
+  /// In zh, this message translates to:
+  /// **'分账'**
+  String get splitMode;
+
+  /// No description provided for @splitModeSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'聚餐、房租、旅行，自动算清谁欠谁'**
+  String get splitModeSubtitle;
 }
 
 class _AppLocalizationsDelegate

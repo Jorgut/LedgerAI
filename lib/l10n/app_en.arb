@@ -666,5 +666,7 @@
   "themeLavender": "F Lavender",
   "navTrip": "Trip",
   "travelMode": "Travel mode",
-  "travelModeSubtitle": "Split a trip with friends — we do the math"
+  "travelModeSubtitle": "Split a trip with friends — we do the math",
+  "splitMode": "Split",
+  "splitModeSubtitle": "Dinner, rent, trips — settle up automatically"
 }

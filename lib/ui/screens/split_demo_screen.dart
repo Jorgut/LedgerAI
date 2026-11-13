@@ -5,9 +5,9 @@ import '../theme.dart';
 import '../widgets/common/app_card.dart';
 import '../widgets/common/section_header.dart';
 
-/// 旅行分账概念页（仅 demo/宣发使用；正式数据模型在 1.2 接入）。
-class TripDemoScreen extends StatelessWidget {
-  const TripDemoScreen({super.key});
+/// 分账概念页（仅 demo/宣发使用；正式数据模型在 1.2 接入）。
+class SplitDemoScreen extends StatelessWidget {
+  const SplitDemoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

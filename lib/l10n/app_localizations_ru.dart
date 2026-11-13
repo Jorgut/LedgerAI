@@ -1361,4 +1361,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get travelModeSubtitle => 'Общие расходы в поездке — расчёты за вас';
+
+  @override
+  String get splitMode => 'Разделить';
+
+  @override
+  String get splitModeSubtitle => 'Ужин, аренда, поездки — расчёты за вас';
 }

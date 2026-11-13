@@ -1310,6 +1310,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get travelModeSubtitle => '和朋友一起记旅行账，自动算谁欠谁';
+
+  @override
+  String get splitMode => '分账';
+
+  @override
+  String get splitModeSubtitle => '聚餐、房租、旅行，自动算清谁欠谁';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2618,4 +2624,10 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get travelModeSubtitle => '和朋友一起記旅行帳，自動算誰欠誰';
+
+  @override
+  String get splitMode => '分帳';
+
+  @override
+  String get splitModeSubtitle => '聚餐、房租、旅行，自動算清誰欠誰';
 }

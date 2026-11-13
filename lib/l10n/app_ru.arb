@@ -666,5 +666,7 @@
   "themeLavender": "F Лаванда",
   "navTrip": "Поездка",
   "travelMode": "Режим поездки",
-  "travelModeSubtitle": "Общие расходы в поездке — расчёты за вас"
+  "travelModeSubtitle": "Общие расходы в поездке — расчёты за вас",
+  "splitMode": "Разделить",
+  "splitModeSubtitle": "Ужин, аренда, поездки — расчёты за вас"
 }

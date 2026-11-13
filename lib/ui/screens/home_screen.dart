@@ -18,13 +18,13 @@ import 'transactions_screen.dart';
 
 /// 首页：本月概览、预算进度、快速记账入口、最近记录。
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, this.onSeeAll, this.onOpenTrip});
+  const HomeScreen({super.key, this.onSeeAll, this.onOpenSplit});
 
   /// 「查看全部」回调；由 RootShell 切换到账单 Tab。为 null 时打开账单页。
   final VoidCallback? onSeeAll;
 
   /// Demo/1.2 preview: open the optional Trip tab.
-  final VoidCallback? onOpenTrip;
+  final VoidCallback? onOpenSplit;
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +86,10 @@ class HomeScreen extends StatelessWidget {
               onOpenBudget: () => _openBudget(context),
             ),
           ),
-          if (onOpenTrip != null) ...[
+          if (onOpenSplit != null) ...[
             const SizedBox(height: 10),
             AppCard(
-              onTap: onOpenTrip,
+              onTap: onOpenSplit,
               child: Row(
                 children: [
                   Container(
@@ -99,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                       color: theme.colorScheme.primary.withValues(alpha: 0.10),
                       borderRadius: BorderRadius.circular(13),
                     ),
-                    child: Icon(Icons.flight_takeoff_rounded,
+                    child: Icon(Icons.call_split_rounded,
                         color: theme.colorScheme.primary),
                   ),
                   const SizedBox(width: 12),
@@ -110,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                         Row(
                           children: [
                             Flexible(
-                              child: Text(l10n.travelMode,
+                              child: Text(l10n.splitMode,
                                   style: theme.textTheme.titleSmall),
                             ),
                             const SizedBox(width: 8),
@@ -135,7 +135,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          l10n.travelModeSubtitle,
+                          l10n.splitModeSubtitle,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: theme.textTheme.bodySmall?.copyWith(

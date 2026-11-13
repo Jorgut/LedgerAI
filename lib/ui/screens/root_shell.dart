@@ -5,9 +5,9 @@ import '../../l10n/app_localizations.dart';
 import '../theme.dart';
 import 'add_transaction_screen.dart';
 import 'home_screen.dart';
-import 'trip_demo_screen.dart';
 import 'reports_screen.dart';
 import 'settings_screen.dart';
+import 'split_demo_screen.dart';
 import 'transactions_screen.dart';
 
 /// 主壳：首页 / 账单 / 报表 / 我的 四个 Tab + 中央「记一笔」FAB。
@@ -20,7 +20,7 @@ class RootShell extends StatefulWidget {
     this.showFab = true,
     this.reportsInitialScrollOffset = 0,
     this.settingsInitialScrollOffset = 0,
-    this.includeTrip = false,
+    this.splitPreview = false,
   });
 
   /// 启动时选中的 Tab（0 首页 / 1 账单 / 2 报表 / 3 我的）。
@@ -36,8 +36,8 @@ class RootShell extends StatefulWidget {
   /// 截图/演示模式用于直接定位设置页滚动位置。
   final double settingsInitialScrollOffset;
 
-  /// Demo/1.2 preview: add the optional Trip tab.
-  final bool includeTrip;
+  /// Demo/1.2 preview: show the Split entry on Home (no bottom tab).
+  final bool splitPreview;
 
   @override
   State<RootShell> createState() => _RootShellState();
@@ -49,12 +49,18 @@ class _RootShellState extends State<RootShell> {
   @override
   void initState() {
     super.initState();
-    _index = widget.initialIndex.clamp(0, widget.includeTrip ? 4 : 3).toInt();
+    _index = widget.initialIndex.clamp(0, 3).toInt();
   }
 
   void _selectTab(int index) {
     if (index == _index) return;
     setState(() => _index = index);
+  }
+
+  Future<void> _openSplitPreview() async {
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(builder: (_) => const SplitDemoScreen()),
+    );
   }
 
   Future<void> _openAdd() async {
@@ -85,12 +91,11 @@ class _RootShellState extends State<RootShell> {
         children: [
           HomeScreen(
             onSeeAll: () => _selectTab(1),
-            onOpenTrip: widget.includeTrip ? () => _selectTab(4) : null,
+            onOpenSplit: widget.splitPreview ? _openSplitPreview : null,
           ),
           const TransactionsScreen(),
           ReportsScreen(initialScrollOffset: widget.reportsInitialScrollOffset),
           SettingsScreen(initialScrollOffset: widget.settingsInitialScrollOffset),
-          if (widget.includeTrip) const TripDemoScreen(),
         ],
       ),
       floatingActionButton: widget.showFab
@@ -137,13 +142,6 @@ class _RootShellState extends State<RootShell> {
               label: l10n.navSettings,
               tooltip: l10n.navSettings,
             ),
-            if (widget.includeTrip)
-              NavigationDestination(
-                icon: const Icon(Icons.flight_takeoff_outlined),
-                selectedIcon: const Icon(Icons.flight_takeoff_rounded),
-                label: l10n.navTrip,
-                tooltip: l10n.navTrip,
-              ),
           ],
         ),
       ),
