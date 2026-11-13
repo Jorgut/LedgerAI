@@ -4,6 +4,7 @@ import '../../core/format.dart';
 import '../theme.dart';
 import '../widgets/common/app_card.dart';
 import '../widgets/common/section_header.dart';
+import '../../l10n/app_localizations.dart';
 
 /// 分账概念页（仅 demo/宣发使用；正式数据模型在 1.2 接入）。
 class SplitDemoScreen extends StatelessWidget {
@@ -29,7 +30,14 @@ class SplitDemoScreen extends StatelessWidget {
         children: [
           _TripHero(theme: theme),
           const SizedBox(height: 16),
-          const SectionHeader(title: 'Who owes whom', subtitle: 'Equal split · 4 people'),
+          SectionHeader(
+            title: 'Who owes whom',
+            subtitle: 'Equal split · 4 people',
+            trailing: TextButton(
+              onPressed: () {},
+              child: Text(AppLocalizations.of(context).splitSettleUp),
+            ),
+          ),
           Card(
             child: Column(
               children: const [

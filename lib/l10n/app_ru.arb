@@ -668,6 +668,7 @@
   "travelMode": "Режим поездки",
   "travelModeSubtitle": "Общие расходы в поездке — расчёты за вас",
   "splitMode": "Делим счёт",
-  "splitModeSubtitle": "Ужин, аренда, поездки — расчёты за вас",
-  "splitBadge": "НОВОЕ"
+  "splitModeSubtitle": "Ужин, аренда, поездки — делим и рассчитываемся",
+  "splitBadge": "НОВОЕ",
+  "splitSettleUp": "Рассчитаться"
 }

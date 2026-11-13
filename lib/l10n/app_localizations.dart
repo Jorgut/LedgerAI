@@ -2431,6 +2431,12 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'新'**
   String get splitBadge;
+
+  /// No description provided for @splitSettleUp.
+  ///
+  /// In zh, this message translates to:
+  /// **'结算'**
+  String get splitSettleUp;
 }
 
 class _AppLocalizationsDelegate

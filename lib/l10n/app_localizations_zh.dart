@@ -1319,6 +1319,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get splitBadge => '新';
+
+  @override
+  String get splitSettleUp => '结算';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2636,4 +2639,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get splitBadge => '新';
+
+  @override
+  String get splitSettleUp => '結清';
 }

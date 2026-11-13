@@ -1366,8 +1366,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get splitMode => 'Делим счёт';
 
   @override
-  String get splitModeSubtitle => 'Ужин, аренда, поездки — расчёты за вас';
+  String get splitModeSubtitle =>
+      'Ужин, аренда, поездки — делим и рассчитываемся';
 
   @override
   String get splitBadge => 'НОВОЕ';
+
+  @override
+  String get splitSettleUp => 'Рассчитаться';
 }

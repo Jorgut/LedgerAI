@@ -667,7 +667,8 @@
   "navTrip": "Trip",
   "travelMode": "Travel mode",
   "travelModeSubtitle": "Split a trip with friends — we do the math",
-  "splitMode": "Split & Settle",
-  "splitModeSubtitle": "Dinner, rent, trips — settle up automatically",
-  "splitBadge": "NEW"
+  "splitMode": "Split a bill",
+  "splitModeSubtitle": "Dinner, rent, trips — split and settle.",
+  "splitBadge": "NEW",
+  "splitSettleUp": "Settle up"
 }
