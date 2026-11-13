@@ -254,6 +254,17 @@
 - TestFlight 1.1.0 (14) 已挂组：英文展示修复 + 对比度修复；1.0 仍 WAITING_FOR_REVIEW。
 - 注意：B/C Pro 主题目前只是展示分层，StoreKit 解锁尚未实现，三套主题当前都可选。
 
+
+## 展示资产 v1（2026-11-14）
+
+- 7 个关键页面英文截图（Home/Transactions/Reports/Add/Budget/Settings/Onboarding）：
+  - `store/marketing/brand/final/v1/key_screens_light.png`
+  - `store/marketing/brand/final/v1/key_screens_dark.png`
+- 主题展示：`store/marketing/brand/final/showcase/themes_light_dark.png`（A 免费，B/C 计划 Pro）
+- 无障碍：`showcase/accessibility_audit.png` + `docs/ACCESSIBILITY_AUDIT.md`
+- 主题研究：`docs/THEME_STRATEGY.md`（建议 3 套：1 免费 + 2 Pro；微调原则）
+- TestFlight 1.1.0 (14) 已挂组；1.0 仍 WAITING_FOR_REVIEW。
+
 ## 下一步
 
 1. **待用户决定**：1.0 是否撤回并用 build 2 重提（仅 OCR 修复 + 可带新图标），或让 1.0 先过审、修复随 1.1 发布。
