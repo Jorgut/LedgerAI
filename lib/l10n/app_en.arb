@@ -305,5 +305,117 @@
   },
   "themeFresh": "A Fresh",
   "themeForest": "B Forest",
-  "themeFreshForest": "C Fresh Forest"
+  "themeFreshForest": "C Fresh Forest",
+  "txDeleteFailed": "Delete failed. Try again.",
+  "txDeleted": "Deleted “{category}” {amount}",
+  "@txDeleted": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "txRestored": "Entry restored",
+  "txRestoreFailed": "Restore failed. Please add it again.",
+  "txFilter": "Filter",
+  "txReset": "Reset",
+  "txType": "Type",
+  "txAll": "All",
+  "txCategory": "Category",
+  "txAllCategories": "All categories",
+  "txExpenseCategories": "Expense categories",
+  "txIncomeCategories": "Income categories",
+  "txDone": "Done",
+  "txTitle": "Transactions",
+  "txSearchHint": "Search note, merchant, category, or amount",
+  "txClearSearch": "Clear search",
+  "txRemoveTypeFilter": "Remove type filter",
+  "txRemoveCategoryFilter": "Remove category filter",
+  "txClearFilter": "Clear filter",
+  "txMonthEmpty": "No entries in {month}",
+  "@txMonthEmpty": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      }
+    }
+  },
+  "txMonthEmptyHint": "Tap + in the middle, or use receipt/voice entry.",
+  "txAddOne": "Add entry",
+  "txNoMatch": "No matching entries",
+  "txNoMatchHint": "Try another keyword or clear filters.",
+  "txClearFilters": "Clear filters",
+  "txDelete": "Delete",
+  "txExpenseFooter": "Expenses {amount}",
+  "@txExpenseFooter": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "txIncomeFooter": "Income {amount}",
+  "@txIncomeFooter": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "rptTitle": "Reports",
+  "rptBackMonth": "Back to this month",
+  "rptEmpty": "No entries this month",
+  "rptEmptyHint": "Scan a receipt or hold to speak; reports will build automatically.",
+  "rptTrend": "6-month trend",
+  "rptTrendSub": "Income vs expenses by month",
+  "rptShare": "Category share",
+  "rptBalance": "Balance this month",
+  "rptBalanceSem": "Balance this month {amount}",
+  "@rptBalanceSem": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "rptCount": "{count} entries",
+  "@rptCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rptAmountLabel": "{label} {amount}",
+  "@rptAmountLabel": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "rptTotalIncome": "Total income",
+  "rptTotalExpense": "Total expenses",
+  "rptCategorySem": "{category}, {amount}, {percent}%",
+  "@rptCategorySem": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "rptInsights": "Insights",
+  "rptLocal": "Computed on device"
 }

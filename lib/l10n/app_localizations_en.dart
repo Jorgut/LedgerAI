@@ -473,4 +473,154 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get themeFreshForest => 'C Fresh Forest';
+
+  @override
+  String get txDeleteFailed => 'Delete failed. Try again.';
+
+  @override
+  String txDeleted(String amount, String category) {
+    return 'Deleted “$category” $amount';
+  }
+
+  @override
+  String get txRestored => 'Entry restored';
+
+  @override
+  String get txRestoreFailed => 'Restore failed. Please add it again.';
+
+  @override
+  String get txFilter => 'Filter';
+
+  @override
+  String get txReset => 'Reset';
+
+  @override
+  String get txType => 'Type';
+
+  @override
+  String get txAll => 'All';
+
+  @override
+  String get txCategory => 'Category';
+
+  @override
+  String get txAllCategories => 'All categories';
+
+  @override
+  String get txExpenseCategories => 'Expense categories';
+
+  @override
+  String get txIncomeCategories => 'Income categories';
+
+  @override
+  String get txDone => 'Done';
+
+  @override
+  String get txTitle => 'Transactions';
+
+  @override
+  String get txSearchHint => 'Search note, merchant, category, or amount';
+
+  @override
+  String get txClearSearch => 'Clear search';
+
+  @override
+  String get txRemoveTypeFilter => 'Remove type filter';
+
+  @override
+  String get txRemoveCategoryFilter => 'Remove category filter';
+
+  @override
+  String get txClearFilter => 'Clear filter';
+
+  @override
+  String txMonthEmpty(int month) {
+    return 'No entries in $month';
+  }
+
+  @override
+  String get txMonthEmptyHint =>
+      'Tap + in the middle, or use receipt/voice entry.';
+
+  @override
+  String get txAddOne => 'Add entry';
+
+  @override
+  String get txNoMatch => 'No matching entries';
+
+  @override
+  String get txNoMatchHint => 'Try another keyword or clear filters.';
+
+  @override
+  String get txClearFilters => 'Clear filters';
+
+  @override
+  String get txDelete => 'Delete';
+
+  @override
+  String txExpenseFooter(String amount) {
+    return 'Expenses $amount';
+  }
+
+  @override
+  String txIncomeFooter(String amount) {
+    return 'Income $amount';
+  }
+
+  @override
+  String get rptTitle => 'Reports';
+
+  @override
+  String get rptBackMonth => 'Back to this month';
+
+  @override
+  String get rptEmpty => 'No entries this month';
+
+  @override
+  String get rptEmptyHint =>
+      'Scan a receipt or hold to speak; reports will build automatically.';
+
+  @override
+  String get rptTrend => '6-month trend';
+
+  @override
+  String get rptTrendSub => 'Income vs expenses by month';
+
+  @override
+  String get rptShare => 'Category share';
+
+  @override
+  String get rptBalance => 'Balance this month';
+
+  @override
+  String rptBalanceSem(String amount) {
+    return 'Balance this month $amount';
+  }
+
+  @override
+  String rptCount(int count) {
+    return '$count entries';
+  }
+
+  @override
+  String rptAmountLabel(String amount, String label) {
+    return '$label $amount';
+  }
+
+  @override
+  String get rptTotalIncome => 'Total income';
+
+  @override
+  String get rptTotalExpense => 'Total expenses';
+
+  @override
+  String rptCategorySem(String amount, int percent, String category) {
+    return '$category, $amount, $percent%';
+  }
+
+  @override
+  String get rptInsights => 'Insights';
+
+  @override
+  String get rptLocal => 'Computed on device';
 }

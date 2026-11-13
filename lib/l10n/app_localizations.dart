@@ -875,6 +875,270 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'C 清新森林'**
   String get themeFreshForest;
+
+  /// No description provided for @txDeleteFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除失败，请重试'**
+  String get txDeleteFailed;
+
+  /// No description provided for @txDeleted.
+  ///
+  /// In zh, this message translates to:
+  /// **'已删除「{category}」{amount}'**
+  String txDeleted(String amount, String category);
+
+  /// No description provided for @txRestored.
+  ///
+  /// In zh, this message translates to:
+  /// **'已恢复这笔记录'**
+  String get txRestored;
+
+  /// No description provided for @txRestoreFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'恢复失败，请重新记一笔'**
+  String get txRestoreFailed;
+
+  /// No description provided for @txFilter.
+  ///
+  /// In zh, this message translates to:
+  /// **'筛选'**
+  String get txFilter;
+
+  /// No description provided for @txReset.
+  ///
+  /// In zh, this message translates to:
+  /// **'重置'**
+  String get txReset;
+
+  /// No description provided for @txType.
+  ///
+  /// In zh, this message translates to:
+  /// **'类型'**
+  String get txType;
+
+  /// No description provided for @txAll.
+  ///
+  /// In zh, this message translates to:
+  /// **'全部'**
+  String get txAll;
+
+  /// No description provided for @txCategory.
+  ///
+  /// In zh, this message translates to:
+  /// **'分类'**
+  String get txCategory;
+
+  /// No description provided for @txAllCategories.
+  ///
+  /// In zh, this message translates to:
+  /// **'全部分类'**
+  String get txAllCategories;
+
+  /// No description provided for @txExpenseCategories.
+  ///
+  /// In zh, this message translates to:
+  /// **'支出分类'**
+  String get txExpenseCategories;
+
+  /// No description provided for @txIncomeCategories.
+  ///
+  /// In zh, this message translates to:
+  /// **'收入分类'**
+  String get txIncomeCategories;
+
+  /// No description provided for @txDone.
+  ///
+  /// In zh, this message translates to:
+  /// **'完成'**
+  String get txDone;
+
+  /// No description provided for @txTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'账单'**
+  String get txTitle;
+
+  /// No description provided for @txSearchHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'搜索备注、商户、分类或金额'**
+  String get txSearchHint;
+
+  /// No description provided for @txClearSearch.
+  ///
+  /// In zh, this message translates to:
+  /// **'清除搜索'**
+  String get txClearSearch;
+
+  /// No description provided for @txRemoveTypeFilter.
+  ///
+  /// In zh, this message translates to:
+  /// **'移除类型筛选'**
+  String get txRemoveTypeFilter;
+
+  /// No description provided for @txRemoveCategoryFilter.
+  ///
+  /// In zh, this message translates to:
+  /// **'移除分类筛选'**
+  String get txRemoveCategoryFilter;
+
+  /// No description provided for @txClearFilter.
+  ///
+  /// In zh, this message translates to:
+  /// **'清除筛选'**
+  String get txClearFilter;
+
+  /// No description provided for @txMonthEmpty.
+  ///
+  /// In zh, this message translates to:
+  /// **'{month}月还没有记录'**
+  String txMonthEmpty(int month);
+
+  /// No description provided for @txMonthEmptyHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'点中间的「+」，或用拍照、语音快速记一笔。'**
+  String get txMonthEmptyHint;
+
+  /// No description provided for @txAddOne.
+  ///
+  /// In zh, this message translates to:
+  /// **'记一笔'**
+  String get txAddOne;
+
+  /// No description provided for @txNoMatch.
+  ///
+  /// In zh, this message translates to:
+  /// **'没有符合条件的记录'**
+  String get txNoMatch;
+
+  /// No description provided for @txNoMatchHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'换个关键词，或清除筛选后再看看。'**
+  String get txNoMatchHint;
+
+  /// No description provided for @txClearFilters.
+  ///
+  /// In zh, this message translates to:
+  /// **'清除筛选'**
+  String get txClearFilters;
+
+  /// No description provided for @txDelete.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除'**
+  String get txDelete;
+
+  /// No description provided for @txExpenseFooter.
+  ///
+  /// In zh, this message translates to:
+  /// **'支出 {amount}'**
+  String txExpenseFooter(String amount);
+
+  /// No description provided for @txIncomeFooter.
+  ///
+  /// In zh, this message translates to:
+  /// **'收入 {amount}'**
+  String txIncomeFooter(String amount);
+
+  /// No description provided for @rptTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'报表'**
+  String get rptTitle;
+
+  /// No description provided for @rptBackMonth.
+  ///
+  /// In zh, this message translates to:
+  /// **'回到本月'**
+  String get rptBackMonth;
+
+  /// No description provided for @rptEmpty.
+  ///
+  /// In zh, this message translates to:
+  /// **'这个月还没有账单'**
+  String get rptEmpty;
+
+  /// No description provided for @rptEmptyHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'用拍照识别扫一张小票，或按住说一句话，报表会自动汇总。'**
+  String get rptEmptyHint;
+
+  /// No description provided for @rptTrend.
+  ///
+  /// In zh, this message translates to:
+  /// **'近 6 个月趋势'**
+  String get rptTrend;
+
+  /// No description provided for @rptTrendSub.
+  ///
+  /// In zh, this message translates to:
+  /// **'收入与支出按月对比'**
+  String get rptTrendSub;
+
+  /// No description provided for @rptShare.
+  ///
+  /// In zh, this message translates to:
+  /// **'分类占比'**
+  String get rptShare;
+
+  /// No description provided for @rptBalance.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月结余'**
+  String get rptBalance;
+
+  /// No description provided for @rptBalanceSem.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月结余 {amount} 元'**
+  String rptBalanceSem(String amount);
+
+  /// No description provided for @rptCount.
+  ///
+  /// In zh, this message translates to:
+  /// **'共 {count} 笔记录'**
+  String rptCount(int count);
+
+  /// No description provided for @rptAmountLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'{label} {amount} 元'**
+  String rptAmountLabel(String amount, String label);
+
+  /// No description provided for @rptTotalIncome.
+  ///
+  /// In zh, this message translates to:
+  /// **'总收入'**
+  String get rptTotalIncome;
+
+  /// No description provided for @rptTotalExpense.
+  ///
+  /// In zh, this message translates to:
+  /// **'总支出'**
+  String get rptTotalExpense;
+
+  /// No description provided for @rptCategorySem.
+  ///
+  /// In zh, this message translates to:
+  /// **'{category}，{amount} 元，占 {percent}%'**
+  String rptCategorySem(String amount, int percent, String category);
+
+  /// No description provided for @rptInsights.
+  ///
+  /// In zh, this message translates to:
+  /// **'智能建议'**
+  String get rptInsights;
+
+  /// No description provided for @rptLocal.
+  ///
+  /// In zh, this message translates to:
+  /// **'本机计算'**
+  String get rptLocal;
 }
 
 class _AppLocalizationsDelegate

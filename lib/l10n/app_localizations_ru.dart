@@ -473,4 +473,153 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get themeFreshForest => 'C Свежий лес';
+
+  @override
+  String get txDeleteFailed => 'Не удалось удалить. Повторите.';
+
+  @override
+  String txDeleted(String amount, String category) {
+    return 'Удалено «$category» $amount';
+  }
+
+  @override
+  String get txRestored => 'Запись восстановлена';
+
+  @override
+  String get txRestoreFailed => 'Не удалось восстановить. Добавьте снова.';
+
+  @override
+  String get txFilter => 'Фильтр';
+
+  @override
+  String get txReset => 'Сбросить';
+
+  @override
+  String get txType => 'Тип';
+
+  @override
+  String get txAll => 'Все';
+
+  @override
+  String get txCategory => 'Категория';
+
+  @override
+  String get txAllCategories => 'Все категории';
+
+  @override
+  String get txExpenseCategories => 'Категории расходов';
+
+  @override
+  String get txIncomeCategories => 'Категории доходов';
+
+  @override
+  String get txDone => 'Готово';
+
+  @override
+  String get txTitle => 'Операции';
+
+  @override
+  String get txSearchHint => 'Поиск по заметке, магазину, категории или сумме';
+
+  @override
+  String get txClearSearch => 'Очистить поиск';
+
+  @override
+  String get txRemoveTypeFilter => 'Убрать фильтр типа';
+
+  @override
+  String get txRemoveCategoryFilter => 'Убрать фильтр категории';
+
+  @override
+  String get txClearFilter => 'Сбросить фильтр';
+
+  @override
+  String txMonthEmpty(int month) {
+    return 'В $month нет записей';
+  }
+
+  @override
+  String get txMonthEmptyHint => 'Нажмите «+» или используйте чек/голос.';
+
+  @override
+  String get txAddOne => 'Добавить';
+
+  @override
+  String get txNoMatch => 'Нет подходящих записей';
+
+  @override
+  String get txNoMatchHint => 'Измените запрос или сбросьте фильтры.';
+
+  @override
+  String get txClearFilters => 'Сбросить фильтры';
+
+  @override
+  String get txDelete => 'Удалить';
+
+  @override
+  String txExpenseFooter(String amount) {
+    return 'Расход $amount';
+  }
+
+  @override
+  String txIncomeFooter(String amount) {
+    return 'Доход $amount';
+  }
+
+  @override
+  String get rptTitle => 'Отчёты';
+
+  @override
+  String get rptBackMonth => 'К текущему месяцу';
+
+  @override
+  String get rptEmpty => 'В этом месяце нет записей';
+
+  @override
+  String get rptEmptyHint =>
+      'Сканируйте чек или удерживайте для голоса; отчёт соберётся сам.';
+
+  @override
+  String get rptTrend => 'Тренд за 6 месяцев';
+
+  @override
+  String get rptTrendSub => 'Доходы и расходы по месяцам';
+
+  @override
+  String get rptShare => 'Доли категорий';
+
+  @override
+  String get rptBalance => 'Баланс за месяц';
+
+  @override
+  String rptBalanceSem(String amount) {
+    return 'Баланс за месяц $amount';
+  }
+
+  @override
+  String rptCount(int count) {
+    return '$count записей';
+  }
+
+  @override
+  String rptAmountLabel(String amount, String label) {
+    return '$label $amount';
+  }
+
+  @override
+  String get rptTotalIncome => 'Всего доходов';
+
+  @override
+  String get rptTotalExpense => 'Всего расходов';
+
+  @override
+  String rptCategorySem(String amount, int percent, String category) {
+    return '$category, $amount, $percent%';
+  }
+
+  @override
+  String get rptInsights => 'Советы';
+
+  @override
+  String get rptLocal => 'Расчёт на устройстве';
 }

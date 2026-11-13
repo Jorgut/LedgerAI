@@ -6,6 +6,7 @@ import '../../core/insights.dart';
 import '../../core/stats.dart';
 import '../theme.dart';
 import '../widgets/charts/category_donut.dart';
+import '../../l10n/app_localizations.dart';
 import '../widgets/charts/chart_placeholder.dart';
 import '../widgets/charts/trend_chart.dart';
 import '../widgets/common/amount_text.dart';
@@ -60,6 +61,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
   @override
   Widget build(BuildContext context) {
     final app = AppScope.of(context);
+    final l10n = AppLocalizations.of(context);
     final summary = app.stats.summary(_month.year, _month.month);
     final trend = app.stats.trend(months: 6, end: _month);
     final slices = app.stats.breakdown(
@@ -71,7 +73,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('报表'),
+        title: Text(l10n.rptTitle),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -91,7 +93,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                     ? null
                     : TextButton(
                         onPressed: _goToCurrentMonth,
-                        child: const Text('回到本月'),
+                        child: Text(l10n.rptBackMonth),
                       ),
               ),
             ),
@@ -99,13 +101,13 @@ class _ReportsScreenState extends State<ReportsScreen> {
             _SummaryCard(summary: summary),
             if (summary.isEmpty) ...[
               const SizedBox(height: 12),
-              const AppCard(
+              AppCard(
                 padding: EdgeInsets.zero,
                 child: EmptyState(
                   compact: true,
                   icon: Icons.receipt_long_rounded,
-                  title: '这个月还没有账单',
-                  message: '用拍照识别扫一张小票，或按住说一句话，报表会自动汇总。',
+                  title: l10n.rptEmpty,
+                  message: l10n.rptEmptyHint,
                 ),
               ),
             ],
@@ -114,9 +116,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SectionHeader(
-                    title: '近 6 个月趋势',
-                    subtitle: '收入与支出按月对比',
+                  SectionHeader(
+                    title: l10n.rptTrend,
+                    subtitle: l10n.rptTrendSub,
                     padding: EdgeInsets.zero,
                   ),
                   const SizedBox(height: 12),
@@ -129,8 +131,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SectionHeader(
-                    title: '分类占比',
+                  SectionHeader(
+                    title: l10n.rptShare,
                     padding: EdgeInsets.zero,
                   ),
                   const SizedBox(height: 8),
@@ -166,6 +168,7 @@ class _SummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,7 +178,7 @@ class _SummaryCard extends StatelessWidget {
             children: [
               Expanded(
                 child: _StatCell(
-                  label: '收入',
+                  label: l10n.income,
                   amount: summary.income,
                   color: AppTheme.incomeColorOf(context),
                 ),
@@ -183,7 +186,7 @@ class _SummaryCard extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: _StatCell(
-                  label: '支出',
+                  label: l10n.expense,
                   amount: summary.expense,
                   color: AppTheme.expenseColorOf(context),
                 ),
@@ -194,7 +197,7 @@ class _SummaryCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                '本月结余',
+                l10n.rptBalance,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -209,7 +212,7 @@ class _SummaryCard extends StatelessWidget {
                     style: theme.textTheme.titleLarge,
                     textAlign: TextAlign.end,
                     semanticLabel:
-                        '本月结余 ${summary.balance.toStringAsFixed(2)} 元',
+                        l10n.rptBalanceSem(summary.balance.toStringAsFixed(2)),
                   ),
                 ),
               ),
@@ -217,7 +220,7 @@ class _SummaryCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            '共 ${summary.count} 笔记录',
+            l10n.rptCount(summary.count),
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -258,7 +261,9 @@ class _StatCell extends StatelessWidget {
           child: AmountText(
             amount,
             style: theme.textTheme.titleLarge?.copyWith(color: color),
-            semanticLabel: '$label ${amount.toStringAsFixed(2)} 元',
+            semanticLabel:
+                AppLocalizations.of(context).rptAmountLabel(
+                    label, amount.toStringAsFixed(2)),
           ),
         ),
       ],
@@ -280,9 +285,9 @@ class _TypeToggle extends StatelessWidget {
       style: const ButtonStyle(
         minimumSize: WidgetStatePropertyAll<Size>(Size(0, 48)),
       ),
-      segments: const [
-        ButtonSegment<bool>(value: false, label: Text('支出')),
-        ButtonSegment<bool>(value: true, label: Text('收入')),
+      segments: [
+        ButtonSegment<bool>(value: false, label: Text(AppLocalizations.of(context).expense)),
+        ButtonSegment<bool>(value: true, label: Text(AppLocalizations.of(context).income)),
       ],
       selected: <bool>{isIncome},
       onSelectionChanged: (selection) => onChanged(selection.first),
@@ -306,7 +311,7 @@ class _CategoryBreakdown extends StatelessWidget {
   Widget build(BuildContext context) {
     if (slices.isEmpty || total <= 0) {
       return ChartPlaceholder(
-        message: '本月还没有${isIncome ? '收入' : '支出'}记录',
+        message: AppLocalizations.of(context).rptEmpty,
         icon: Icons.pie_chart_outline_rounded,
         height: 160,
       );
@@ -315,7 +320,9 @@ class _CategoryBreakdown extends StatelessWidget {
     final donut = CategoryDonut(
       slices: slices,
       total: total,
-      centerLabel: isIncome ? '总收入' : '总支出',
+      centerLabel: isIncome
+          ? AppLocalizations.of(context).rptTotalIncome
+          : AppLocalizations.of(context).rptTotalExpense,
     );
     final list = Column(
       children: [
@@ -374,7 +381,8 @@ class _CategoryRow extends StatelessWidget {
 
     return Semantics(
       container: true,
-      label: '${category.name}，${amount.toStringAsFixed(2)} 元，占 $percent%',
+      label: AppLocalizations.of(context).rptCategorySem(
+          amount.toStringAsFixed(2), int.tryParse(percent) ?? 0, category.name),
       excludeSemantics: true,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
@@ -450,14 +458,15 @@ class _InsightsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     if (insights.isEmpty) return const SizedBox.shrink();
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionHeader(
-          title: '智能建议',
+          title: l10n.rptInsights,
           padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
           trailing: Text(
-            '本机计算',
+            l10n.rptLocal,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),

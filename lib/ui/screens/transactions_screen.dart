@@ -9,6 +9,7 @@ import '../widgets/common/app_snack.dart';
 import '../widgets/common/empty_state.dart';
 import '../widgets/common/month_switcher.dart';
 import '../widgets/common/transaction_tile.dart';
+import '../../l10n/app_localizations.dart';
 import 'add_transaction_screen.dart';
 
 /// 账单页：月份切换、搜索、类型/分类筛选、按日分组、左滑删除（可撤销）、点击编辑。
@@ -99,13 +100,14 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
 
   Future<void> _deleteTransaction(Txn txn) async {
     final app = AppScope.read(context);
+    final l10n = AppLocalizations.of(context);
     final haptics = app.prefs.hapticsEnabled;
     final messenger = ScaffoldMessenger.maybeOf(context);
     try {
       await app.deleteTransaction(txn.id);
     } catch (_) {
       if (!mounted) return;
-      AppSnack.error(context, '删除失败，请重试');
+      AppSnack.error(context, l10n.txDeleteFailed);
       // Dismissible 已经把行移出树，恢复数据后重建列表。
       setState(() {});
       return;
@@ -123,23 +125,24 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
     if (!mounted) return;
     AppSnack.undo(
       context,
-      message: '已删除「${txn.category.name}」${formatMoney(txn.amount)}',
+      message: l10n.txDeleted(txn.category.name, formatMoney(txn.amount)),
       onUndo: () async {
         try {
           await app.saveTransaction(txn);
           if (!mounted) return;
           messenger?.showSnackBar(
-            const SnackBar(content: Text('已恢复这笔记录')),
+            SnackBar(content: Text(l10n.txRestored)),
           );
         } catch (_) {
           if (!mounted) return;
-          AppSnack.error(context, '恢复失败，请重新记一笔');
+          AppSnack.error(context, l10n.txRestoreFailed);
         }
       },
     );
   }
 
   Future<void> _openFilters() async {
+    final l10n = AppLocalizations.of(context);
     await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
@@ -196,36 +199,36 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                       Row(
                         children: [
                           Expanded(
-                            child: Text('筛选', style: theme.textTheme.titleLarge),
+                            child: Text(l10n.txFilter, style: theme.textTheme.titleLarge),
                           ),
                           TextButton(
                             onPressed: () => apply(() {
                               _typeFilter = null;
                               _categoryFilter = null;
                             }),
-                            child: const Text('重置'),
+                            child: Text(l10n.txReset),
                           ),
                         ],
                       ),
                       const SizedBox(height: 8),
-                      Text('类型', style: theme.textTheme.titleSmall),
+                      Text(l10n.txType, style: theme.textTheme.titleSmall),
                       const SizedBox(height: 8),
                       Wrap(
                         spacing: 8,
                         runSpacing: 8,
                         children: [
                           ChoiceChip(
-                            label: const Text('全部'),
+                            label: Text(l10n.txAll),
                             selected: _typeFilter == null,
                             onSelected: (_) => selectType(null),
                           ),
                           ChoiceChip(
-                            label: const Text('支出'),
+                            label: Text(l10n.expense),
                             selected: _typeFilter == false,
                             onSelected: (_) => selectType(false),
                           ),
                           ChoiceChip(
-                            label: const Text('收入'),
+                            label: Text(l10n.income),
                             selected: _typeFilter == true,
                             onSelected: (_) => selectType(true),
                           ),
@@ -236,10 +239,10 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                         children: [
                           Expanded(
                             child:
-                                Text('分类', style: theme.textTheme.titleSmall),
+                                Text(l10n.txCategory, style: theme.textTheme.titleSmall),
                           ),
                           ChoiceChip(
-                            label: const Text('全部分类'),
+                            label: Text(l10n.txAllCategories),
                             selected: _categoryFilter == null,
                             onSelected: (_) =>
                                 apply(() => _categoryFilter = null),
@@ -249,7 +252,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                       const SizedBox(height: 8),
                       if (_typeFilter == null) ...[
                         Text(
-                          '支出分类',
+                          l10n.txExpenseCategories,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
                           ),
@@ -258,7 +261,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                         categoryChips(Category.expenses),
                         const SizedBox(height: 16),
                         Text(
-                          '收入分类',
+                          l10n.txIncomeCategories,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
                           ),
@@ -274,7 +277,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                         width: double.infinity,
                         child: FilledButton(
                           onPressed: () => Navigator.of(sheetContext).pop(),
-                          child: const Text('完成'),
+                          child: Text(l10n.txDone),
                         ),
                       ),
                     ],
@@ -291,6 +294,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
   @override
   Widget build(BuildContext context) {
     final app = AppScope.of(context);
+    final l10n = AppLocalizations.of(context);
     final now = DateTime.now();
     final canNext = _month.isBefore(DateTime(now.year, now.month, 1));
     final items = _visibleTransactions(app);
@@ -299,10 +303,10 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('账单'),
+        title: Text(l10n.txTitle),
         actions: [
           IconButton(
-            tooltip: '筛选',
+            tooltip: l10n.txFilter,
             onPressed: _openFilters,
             icon: Badge(
               isLabelVisible: _filterCount > 0,
@@ -333,11 +337,11 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                     textInputAction: TextInputAction.search,
                     onChanged: (_) => setState(() {}),
                     decoration: InputDecoration(
-                      hintText: '搜索备注、商户、分类或金额',
+                      hintText: l10n.txSearchHint,
                       prefixIcon: const Icon(Icons.search_rounded),
                       suffixIcon: _isSearching
                           ? IconButton(
-                              tooltip: '清除搜索',
+                              tooltip: l10n.txClearSearch,
                               onPressed: () {
                                 _searchController.clear();
                                 setState(() {});
@@ -358,8 +362,8 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                         children: [
                           if (_typeFilter != null)
                             InputChip(
-                              label: Text(_typeFilter! ? '收入' : '支出'),
-                              deleteButtonTooltipMessage: '移除类型筛选',
+                              label: Text(_typeFilter! ? l10n.income : l10n.expense),
+                              deleteButtonTooltipMessage: l10n.txRemoveTypeFilter,
                               onDeleted: () =>
                                   setState(() => _typeFilter = null),
                             ),
@@ -370,14 +374,14 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                               label: Text(
                                 Category.byId(_categoryFilter).name,
                               ),
-                              deleteButtonTooltipMessage: '移除分类筛选',
+                              deleteButtonTooltipMessage: l10n.txRemoveCategoryFilter,
                               onDeleted: () =>
                                   setState(() => _categoryFilter = null),
                             ),
                           const SizedBox(width: 4),
                           TextButton(
                             onPressed: _clearFilters,
-                            child: const Text('清除筛选'),
+                            child: Text(l10n.txClearFilters),
                           ),
                         ],
                       ),
@@ -405,14 +409,15 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
     required List<Txn> monthItems,
     required bool filtering,
   }) {
+    final l10n = AppLocalizations.of(context);
     if (monthItems.isEmpty && !filtering) {
       return Center(
         child: SingleChildScrollView(
           child: EmptyState(
             icon: Icons.receipt_long_rounded,
-            title: '${_month.month}月还没有记录',
-            message: '点中间的「+」，或用拍照、语音快速记一笔。',
-            actionLabel: '记一笔',
+            title: l10n.txMonthEmpty(_month.month),
+            message: l10n.txMonthEmptyHint,
+            actionLabel: l10n.txAddOne,
             actionIcon: Icons.add_rounded,
             onAction: _openAdd,
           ),
@@ -424,9 +429,9 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
         child: SingleChildScrollView(
           child: EmptyState(
             icon: Icons.search_off_rounded,
-            title: '没有符合条件的记录',
-            message: '换个关键词，或清除筛选后再看看。',
-            actionLabel: '清除筛选',
+            title: l10n.txNoMatch,
+            message: l10n.txNoMatchHint,
+            actionLabel: l10n.txClearFilters,
             actionIcon: Icons.filter_alt_off_rounded,
             onAction: _clearAll,
           ),
@@ -475,7 +480,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
             ),
             const SizedBox(width: 6),
             Text(
-              '删除',
+              AppLocalizations.of(context).txDelete,
               style: theme.textTheme.titleSmall?.copyWith(
                 color: theme.colorScheme.onError,
               ),
@@ -551,14 +556,14 @@ class _DayHeader extends StatelessWidget {
           ),
           if (expense > 0)
             Text(
-              '支出 ${formatMoney(expense)}',
+              AppLocalizations.of(context).txExpenseFooter(formatMoney(expense)),
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
             )
           else if (income > 0)
             Text(
-              '收入 ${formatMoney(income)}',
+              AppLocalizations.of(context).txIncomeFooter(formatMoney(income)),
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),

@@ -456,6 +456,154 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get themeFreshForest => 'C 清新森林';
+
+  @override
+  String get txDeleteFailed => '删除失败，请重试';
+
+  @override
+  String txDeleted(String amount, String category) {
+    return '已删除「$category」$amount';
+  }
+
+  @override
+  String get txRestored => '已恢复这笔记录';
+
+  @override
+  String get txRestoreFailed => '恢复失败，请重新记一笔';
+
+  @override
+  String get txFilter => '筛选';
+
+  @override
+  String get txReset => '重置';
+
+  @override
+  String get txType => '类型';
+
+  @override
+  String get txAll => '全部';
+
+  @override
+  String get txCategory => '分类';
+
+  @override
+  String get txAllCategories => '全部分类';
+
+  @override
+  String get txExpenseCategories => '支出分类';
+
+  @override
+  String get txIncomeCategories => '收入分类';
+
+  @override
+  String get txDone => '完成';
+
+  @override
+  String get txTitle => '账单';
+
+  @override
+  String get txSearchHint => '搜索备注、商户、分类或金额';
+
+  @override
+  String get txClearSearch => '清除搜索';
+
+  @override
+  String get txRemoveTypeFilter => '移除类型筛选';
+
+  @override
+  String get txRemoveCategoryFilter => '移除分类筛选';
+
+  @override
+  String get txClearFilter => '清除筛选';
+
+  @override
+  String txMonthEmpty(int month) {
+    return '$month月还没有记录';
+  }
+
+  @override
+  String get txMonthEmptyHint => '点中间的「+」，或用拍照、语音快速记一笔。';
+
+  @override
+  String get txAddOne => '记一笔';
+
+  @override
+  String get txNoMatch => '没有符合条件的记录';
+
+  @override
+  String get txNoMatchHint => '换个关键词，或清除筛选后再看看。';
+
+  @override
+  String get txClearFilters => '清除筛选';
+
+  @override
+  String get txDelete => '删除';
+
+  @override
+  String txExpenseFooter(String amount) {
+    return '支出 $amount';
+  }
+
+  @override
+  String txIncomeFooter(String amount) {
+    return '收入 $amount';
+  }
+
+  @override
+  String get rptTitle => '报表';
+
+  @override
+  String get rptBackMonth => '回到本月';
+
+  @override
+  String get rptEmpty => '这个月还没有账单';
+
+  @override
+  String get rptEmptyHint => '用拍照识别扫一张小票，或按住说一句话，报表会自动汇总。';
+
+  @override
+  String get rptTrend => '近 6 个月趋势';
+
+  @override
+  String get rptTrendSub => '收入与支出按月对比';
+
+  @override
+  String get rptShare => '分类占比';
+
+  @override
+  String get rptBalance => '本月结余';
+
+  @override
+  String rptBalanceSem(String amount) {
+    return '本月结余 $amount 元';
+  }
+
+  @override
+  String rptCount(int count) {
+    return '共 $count 笔记录';
+  }
+
+  @override
+  String rptAmountLabel(String amount, String label) {
+    return '$label $amount 元';
+  }
+
+  @override
+  String get rptTotalIncome => '总收入';
+
+  @override
+  String get rptTotalExpense => '总支出';
+
+  @override
+  String rptCategorySem(String amount, int percent, String category) {
+    return '$category，$amount 元，占 $percent%';
+  }
+
+  @override
+  String get rptInsights => '智能建议';
+
+  @override
+  String get rptLocal => '本机计算';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -910,4 +1058,152 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get themeFreshForest => 'C 清新森林';
+
+  @override
+  String get txDeleteFailed => '刪除失敗，請重試';
+
+  @override
+  String txDeleted(String amount, String category) {
+    return '已刪除「$category」$amount';
+  }
+
+  @override
+  String get txRestored => '已恢復這筆記錄';
+
+  @override
+  String get txRestoreFailed => '恢復失敗，請重新記一筆';
+
+  @override
+  String get txFilter => '篩選';
+
+  @override
+  String get txReset => '重設';
+
+  @override
+  String get txType => '類型';
+
+  @override
+  String get txAll => '全部';
+
+  @override
+  String get txCategory => '分類';
+
+  @override
+  String get txAllCategories => '全部分類';
+
+  @override
+  String get txExpenseCategories => '支出分類';
+
+  @override
+  String get txIncomeCategories => '收入分類';
+
+  @override
+  String get txDone => '完成';
+
+  @override
+  String get txTitle => '帳單';
+
+  @override
+  String get txSearchHint => '搜尋備註、商戶、分類或金額';
+
+  @override
+  String get txClearSearch => '清除搜尋';
+
+  @override
+  String get txRemoveTypeFilter => '移除類型篩選';
+
+  @override
+  String get txRemoveCategoryFilter => '移除分類篩選';
+
+  @override
+  String get txClearFilter => '清除篩選';
+
+  @override
+  String txMonthEmpty(int month) {
+    return '$month月還沒有記錄';
+  }
+
+  @override
+  String get txMonthEmptyHint => '點中間的「+」，或用拍照、語音快速記一筆。';
+
+  @override
+  String get txAddOne => '記一筆';
+
+  @override
+  String get txNoMatch => '沒有符合條件的記錄';
+
+  @override
+  String get txNoMatchHint => '換個關鍵字，或清除篩選後再看看。';
+
+  @override
+  String get txClearFilters => '清除篩選';
+
+  @override
+  String get txDelete => '刪除';
+
+  @override
+  String txExpenseFooter(String amount) {
+    return '支出 $amount';
+  }
+
+  @override
+  String txIncomeFooter(String amount) {
+    return '收入 $amount';
+  }
+
+  @override
+  String get rptTitle => '報表';
+
+  @override
+  String get rptBackMonth => '回到本月';
+
+  @override
+  String get rptEmpty => '這個月還沒有帳單';
+
+  @override
+  String get rptEmptyHint => '用拍照識別掃一張小票，或按住說一句話，報表會自動彙總。';
+
+  @override
+  String get rptTrend => '近 6 個月趨勢';
+
+  @override
+  String get rptTrendSub => '收入與支出按月對比';
+
+  @override
+  String get rptShare => '分類佔比';
+
+  @override
+  String get rptBalance => '本月結餘';
+
+  @override
+  String rptBalanceSem(String amount) {
+    return '本月結餘 $amount 元';
+  }
+
+  @override
+  String rptCount(int count) {
+    return '共 $count 筆記錄';
+  }
+
+  @override
+  String rptAmountLabel(String amount, String label) {
+    return '$label $amount 元';
+  }
+
+  @override
+  String get rptTotalIncome => '總收入';
+
+  @override
+  String get rptTotalExpense => '總支出';
+
+  @override
+  String rptCategorySem(String amount, int percent, String category) {
+    return '$category，$amount 元，佔 $percent%';
+  }
+
+  @override
+  String get rptInsights => '智能建議';
+
+  @override
+  String get rptLocal => '本機計算';
 }

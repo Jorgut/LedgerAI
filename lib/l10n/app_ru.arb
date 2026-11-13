@@ -305,5 +305,117 @@
   },
   "themeFresh": "A Свежая",
   "themeForest": "B Лес",
-  "themeFreshForest": "C Свежий лес"
+  "themeFreshForest": "C Свежий лес",
+  "txDeleteFailed": "Не удалось удалить. Повторите.",
+  "txDeleted": "Удалено «{category}» {amount}",
+  "@txDeleted": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "txRestored": "Запись восстановлена",
+  "txRestoreFailed": "Не удалось восстановить. Добавьте снова.",
+  "txFilter": "Фильтр",
+  "txReset": "Сбросить",
+  "txType": "Тип",
+  "txAll": "Все",
+  "txCategory": "Категория",
+  "txAllCategories": "Все категории",
+  "txExpenseCategories": "Категории расходов",
+  "txIncomeCategories": "Категории доходов",
+  "txDone": "Готово",
+  "txTitle": "Операции",
+  "txSearchHint": "Поиск по заметке, магазину, категории или сумме",
+  "txClearSearch": "Очистить поиск",
+  "txRemoveTypeFilter": "Убрать фильтр типа",
+  "txRemoveCategoryFilter": "Убрать фильтр категории",
+  "txClearFilter": "Сбросить фильтр",
+  "txMonthEmpty": "В {month} нет записей",
+  "@txMonthEmpty": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      }
+    }
+  },
+  "txMonthEmptyHint": "Нажмите «+» или используйте чек/голос.",
+  "txAddOne": "Добавить",
+  "txNoMatch": "Нет подходящих записей",
+  "txNoMatchHint": "Измените запрос или сбросьте фильтры.",
+  "txClearFilters": "Сбросить фильтры",
+  "txDelete": "Удалить",
+  "txExpenseFooter": "Расход {amount}",
+  "@txExpenseFooter": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "txIncomeFooter": "Доход {amount}",
+  "@txIncomeFooter": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "rptTitle": "Отчёты",
+  "rptBackMonth": "К текущему месяцу",
+  "rptEmpty": "В этом месяце нет записей",
+  "rptEmptyHint": "Сканируйте чек или удерживайте для голоса; отчёт соберётся сам.",
+  "rptTrend": "Тренд за 6 месяцев",
+  "rptTrendSub": "Доходы и расходы по месяцам",
+  "rptShare": "Доли категорий",
+  "rptBalance": "Баланс за месяц",
+  "rptBalanceSem": "Баланс за месяц {amount}",
+  "@rptBalanceSem": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "rptCount": "{count} записей",
+  "@rptCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rptAmountLabel": "{label} {amount}",
+  "@rptAmountLabel": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "rptTotalIncome": "Всего доходов",
+  "rptTotalExpense": "Всего расходов",
+  "rptCategorySem": "{category}, {amount}, {percent}%",
+  "@rptCategorySem": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "rptInsights": "Советы",
+  "rptLocal": "Расчёт на устройстве"
 }

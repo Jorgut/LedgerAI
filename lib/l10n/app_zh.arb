@@ -305,5 +305,117 @@
   },
   "themeFresh": "A 清新",
   "themeForest": "B 森林",
-  "themeFreshForest": "C 清新森林"
+  "themeFreshForest": "C 清新森林",
+  "txDeleteFailed": "删除失败，请重试",
+  "txDeleted": "已删除「{category}」{amount}",
+  "@txDeleted": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "txRestored": "已恢复这笔记录",
+  "txRestoreFailed": "恢复失败，请重新记一笔",
+  "txFilter": "筛选",
+  "txReset": "重置",
+  "txType": "类型",
+  "txAll": "全部",
+  "txCategory": "分类",
+  "txAllCategories": "全部分类",
+  "txExpenseCategories": "支出分类",
+  "txIncomeCategories": "收入分类",
+  "txDone": "完成",
+  "txTitle": "账单",
+  "txSearchHint": "搜索备注、商户、分类或金额",
+  "txClearSearch": "清除搜索",
+  "txRemoveTypeFilter": "移除类型筛选",
+  "txRemoveCategoryFilter": "移除分类筛选",
+  "txClearFilter": "清除筛选",
+  "txMonthEmpty": "{month}月还没有记录",
+  "@txMonthEmpty": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      }
+    }
+  },
+  "txMonthEmptyHint": "点中间的「+」，或用拍照、语音快速记一笔。",
+  "txAddOne": "记一笔",
+  "txNoMatch": "没有符合条件的记录",
+  "txNoMatchHint": "换个关键词，或清除筛选后再看看。",
+  "txClearFilters": "清除筛选",
+  "txDelete": "删除",
+  "txExpenseFooter": "支出 {amount}",
+  "@txExpenseFooter": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "txIncomeFooter": "收入 {amount}",
+  "@txIncomeFooter": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "rptTitle": "报表",
+  "rptBackMonth": "回到本月",
+  "rptEmpty": "这个月还没有账单",
+  "rptEmptyHint": "用拍照识别扫一张小票，或按住说一句话，报表会自动汇总。",
+  "rptTrend": "近 6 个月趋势",
+  "rptTrendSub": "收入与支出按月对比",
+  "rptShare": "分类占比",
+  "rptBalance": "本月结余",
+  "rptBalanceSem": "本月结余 {amount} 元",
+  "@rptBalanceSem": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "rptCount": "共 {count} 笔记录",
+  "@rptCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rptAmountLabel": "{label} {amount} 元",
+  "@rptAmountLabel": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "rptTotalIncome": "总收入",
+  "rptTotalExpense": "总支出",
+  "rptCategorySem": "{category}，{amount} 元，占 {percent}%",
+  "@rptCategorySem": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "rptInsights": "智能建议",
+  "rptLocal": "本机计算"
 }
