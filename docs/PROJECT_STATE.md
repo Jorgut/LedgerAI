@@ -251,7 +251,8 @@
 - 无障碍审计板：`accessibility_audit.png`；报告：`docs/ACCESSIBILITY_AUDIT.md`
 - 修复：B/C 浅色 warning 对比度 3.81/4.03 → 5.70/6.02；暗色 SegmentedButton 选中文字对比度；交易行来源标签本地化；图表月份标签按语言。
 - 验证：core 114 + accessibility 4/4 + home 8/8 通过，analyze 干净。
-- TestFlight 1.1.0 (14) 已挂组：英文展示修复 + 对比度修复；1.0 仍 WAITING_FOR_REVIEW。
+- TestFlight 1.1.0 (14) 已挂组：英文展示修复 + 对比度修复。
+- TestFlight 1.1.0 (15) 已挂组：中文排版优化 + D/E/F 女性向主题 + Split 高亮入口；1.0 仍 WAITING_FOR_REVIEW。
 - 注意：B/C Pro 主题目前只是展示分层，StoreKit 解锁尚未实现，三套主题当前都可选。
 
 
