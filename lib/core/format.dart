@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 /// 金额格式：¥1,234.56 / -¥42.00（始终两位小数，千分位；负号在 ¥ 前）。
 String formatMoney(double amount,
@@ -14,6 +15,11 @@ String formatMoney(double amount,
   }
   final sign = negative ? '-' : (signed && amount > 0 ? '+' : '');
   final symbol = withSymbol ? '¥' : '';
+  final locale = (Intl.defaultLocale ?? 'zh').toLowerCase();
+  if (locale.startsWith('ru')) {
+    final grouped = parts[0].replaceAll(',', '\u00A0');
+    return '$sign$symbol$grouped,${parts[1]}';
+  }
   return '$sign$symbol$buffer.${parts[1]}';
 }
 
@@ -21,23 +27,87 @@ String formatMoney(double amount,
 String formatCompactMoney(double amount) {
   final abs = amount.abs();
   final sign = amount < 0 ? '-' : '';
+  final locale = (Intl.defaultLocale ?? 'zh').toLowerCase();
+  final useK = locale.startsWith('en') || locale.startsWith('ru');
   if (abs >= 10000) {
+    if (useK) {
+      final value = abs / 1000;
+      final text =
+          value >= 10 ? value.toStringAsFixed(0) : value.toStringAsFixed(1);
+      return '$sign${text.replaceAll(RegExp(r'\.0$'), '')}K';
+    }
     final value = abs / 10000;
     final text =
         value >= 10 ? value.toStringAsFixed(0) : value.toStringAsFixed(1);
     return '$sign${text.replaceAll(RegExp(r'\.0$'), '')}万';
   }
   if (abs >= 1000) {
+    if (useK) {
+      final text = (abs / 1000).toStringAsFixed(1);
+      return '$sign${text.replaceAll(RegExp(r'\.0$'), '')}K';
+    }
     final text = (abs / 1000).toStringAsFixed(1);
     return '$sign${text.replaceAll(RegExp(r'\.0$'), '')}千';
   }
   return '$sign${abs.toStringAsFixed(0)}';
 }
 
-const _enMonths = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const _enMonthsShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const _ruMonths = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-const _ruMonthsShort = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+const _enMonths = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+const _enMonthsShort = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
+];
+const _ruMonths = [
+  'января',
+  'февраля',
+  'марта',
+  'апреля',
+  'мая',
+  'июня',
+  'июля',
+  'августа',
+  'сентября',
+  'октября',
+  'ноября',
+  'декабря'
+];
+const _ruMonthsShort = [
+  'янв',
+  'фев',
+  'мар',
+  'апр',
+  'мая',
+  'июн',
+  'июл',
+  'авг',
+  'сен',
+  'окт',
+  'ноя',
+  'дек'
+];
 bool _isZh(Locale? l) => l == null || l.languageCode == 'zh';
 bool _isRu(Locale? l) => l?.languageCode == 'ru';
 

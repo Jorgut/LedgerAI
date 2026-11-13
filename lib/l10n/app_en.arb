@@ -43,6 +43,89 @@
   "remainingAmount": "Left {amount}",
   "overspentAmount": "Over by {amount}",
   "monthBudgetSemantic": "Monthly budget {amount}, {percent}% used",
+  "settingsAppearance": "Appearance",
+  "followSystem": "Follow system",
+  "lightMode": "Light",
+  "darkMode": "Dark",
+  "highContrast": "High contrast",
+  "highContrastSubtitle": "Easier to read with low vision or in bright light",
+  "settingsLanguageSection": "Language",
+  "appLanguage": "App language",
+  "languageMigrationNote": "The shell, home, and settings are localized; entry, transactions, and reports are still being translated, so you may see mixed languages after switching.",
+  "chooseThemeColor": "Choose theme color",
+  "themeColorNote": "Defaults to A Fresh; dark mode automatically uses the matching dark version.",
+  "settingsElderSection": "Accessibility",
+  "elderMode": "Parent mode",
+  "elderModeSubtitle": "Larger text, higher contrast, and a simpler layout — easier for elders",
+  "appFontSize": "In-app text size",
+  "fontScaleStandard": "Standard",
+  "fontScaleLarge": "Large",
+  "fontScaleXLarge": "Extra large",
+  "fontScaleXXLarge": "Huge",
+  "fontScaleNote": "Four presets — Standard, Large, Extra large, and Huge — with fine-tuning via the slider below. This only affects HENG and still stacks on your system text size. Parent mode uses Extra large automatically and returns to your chosen size when turned off.",
+  "settingsGeneralSection": "General",
+  "haptics": "Haptic feedback",
+  "hapticsSubtitle": "A light tap when you add or save an entry",
+  "budgetManagement": "Budgets",
+  "monthlyBudgetTotal": "Total monthly budget {amount}",
+  "noMonthlyBudget": "No monthly budget set yet",
+  "icloudSync": "iCloud sync",
+  "icloudWaitingFirstSync": "On — waiting for the first sync",
+  "lastSyncAt": "Last sync: {time}",
+  "icloudSyncOffSubtitle": "Syncs across your devices through your own iCloud; the developer cannot see your data",
+  "syncNow": "Sync now",
+  "syncingNow": "Syncing…",
+  "syncNowSubtitle": "Merge this device's entries with iCloud",
+  "icloudSyncNote": "Data is written only to your own iCloud private database. HENG has no server; free during the 1.1 beta.",
+  "syncComplete": "Sync complete: {downloaded} downloaded, {uploaded} uploaded",
+  "syncCompleteWithDeleted": "Sync complete: {downloaded} downloaded, {uploaded} uploaded, {deleted} deleted",
+  "syncFailed": "Sync failed: {error}",
+  "dataSectionLocalOnly": "Data (stored on this device only)",
+  "exportCsv": "Export CSV sheet",
+  "exportCsvSubtitle": "{count} entries in total, viewable in Excel / Numbers",
+  "exportJsonBackup": "Export JSON backup",
+  "exportJsonBackupSubtitle": "Includes all entries and settings; use it to migrate or recover data",
+  "importWechatAlipay": "Import WeChat/Alipay bill",
+  "importWechatAlipaySubtitle": "CSV file — income, expense, merchant, and category are detected automatically; duplicates are skipped",
+  "importJsonBackup": "Import JSON backup",
+  "importJsonBackupSubtitle": "Merge entries and settings from a HENG backup file",
+  "clearAllTransactions": "Clear all entries",
+  "clearDataSubtitle": "Deletes entries on this device only; budgets and settings stay. Requires two confirmations",
+  "clearAllTransactionsConfirmTitle": "Clear all entries?",
+  "clearDataConfirmContent": "This will delete the {count} entries saved on this device. Budgets and settings will stay. This cannot be undone.",
+  "continueAction": "Continue",
+  "finalConfirmTitle": "Final confirmation",
+  "finalConfirmContent": "Deleted entries cannot be recovered. To keep them, go back and export a JSON backup first.",
+  "backAction": "Back",
+  "confirmClear": "Yes, clear all",
+  "clearedAllTransactions": "All entries cleared",
+  "exportNoData": "No entries yet — add one before exporting",
+  "exportCsvShareSubject": "HENG · Transactions CSV",
+  "exportJsonShareSubject": "HENG · Data backup",
+  "exportCsvTitle": "Export transactions CSV",
+  "exportJsonTitle": "Export JSON backup",
+  "exportFailed": "Export failed. Please try again later.",
+  "billCsvFileType": "Bill CSV",
+  "jsonBackupFileType": "JSON backup",
+  "importEncodingWarning": "The file may not be UTF-8, so some text could be garbled; consider re-exporting from WeChat/Alipay.",
+  "importNoBill": "No entries to import",
+  "importAllDuplicates": "All {count} of these entries are already in this ledger",
+  "importBillTitle": "Import bill",
+  "importBillSummary": "Detected {total} income/expense entries. {duplicates, select, some{{duplicateCount} already exist; } other{}}This import adds {fresh}.\n{skipped, select, some{{skippedCount} rows skipped (not income/expense, failed, or duplicate).\n} other{}}You can adjust categories and notes on the transactions page after importing.",
+  "importButtonCount": "Import {count}",
+  "importAction": "Import",
+  "importedCount": "Imported {count} entries",
+  "importFailed": "Import failed: {error}",
+  "importJsonConfirmContent": "Entries from the backup will be merged into this ledger (records with the same ID will be overwritten), and the budgets and preferences in the backup will be restored. Continue?",
+  "importBackupFailed": "Import failed. Make sure the file is a JSON backup exported from HENG.",
+  "noDataToClear": "There are no entries to clear",
+  "badgeNoLogin": "No sign-in",
+  "badgeNoNetwork": "No network",
+  "badgeNoUpload": "No uploads",
+  "versionBuild": "Version {version} (build {build})",
+  "aboutLocalFirstNote": "HENG is a local-first bookkeeping app: entries, budgets, and settings stay on this iPhone, and photo and voice recognition run on-device. Deleting the app also deletes the data, so export a backup regularly.",
+  "privacyPolicy": "Privacy policy",
+  "userAgreement": "User agreement",
   "@recentCount": {
     "placeholders": {
       "count": {
@@ -101,5 +184,126 @@
         "type": "String"
       }
     }
-  }
+  },
+  "@monthlyBudgetTotal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@lastSyncAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@syncComplete": {
+    "placeholders": {
+      "downloaded": {
+        "type": "int"
+      },
+      "uploaded": {
+        "type": "int"
+      }
+    }
+  },
+  "@syncCompleteWithDeleted": {
+    "placeholders": {
+      "downloaded": {
+        "type": "int"
+      },
+      "uploaded": {
+        "type": "int"
+      },
+      "deleted": {
+        "type": "int"
+      }
+    }
+  },
+  "@syncFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@exportCsvSubtitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@clearDataConfirmContent": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@importAllDuplicates": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@importBillSummary": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      },
+      "duplicates": {
+        "type": "String"
+      },
+      "duplicateCount": {
+        "type": "int"
+      },
+      "fresh": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "String"
+      },
+      "skippedCount": {
+        "type": "int"
+      }
+    }
+  },
+  "@importButtonCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@importedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@importFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@versionBuild": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "build": {
+        "type": "String"
+      }
+    }
+  },
+  "themeFresh": "A Fresh",
+  "themeForest": "B Forest",
+  "themeFreshForest": "C Fresh Forest"
 }

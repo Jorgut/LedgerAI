@@ -43,6 +43,89 @@
   "remainingAmount": "Осталось {amount}",
   "overspentAmount": "Перерасход {amount}",
   "monthBudgetSemantic": "Бюджет {amount}, использовано {percent}%",
+  "settingsAppearance": "Внешний вид",
+  "followSystem": "Как в системе",
+  "lightMode": "Светлая",
+  "darkMode": "Тёмная",
+  "highContrast": "Высокий контраст",
+  "highContrastSubtitle": "Удобнее читать при слабом зрении или ярком свете",
+  "settingsLanguageSection": "Язык",
+  "appLanguage": "Язык приложения",
+  "languageMigrationNote": "Оболочка, главная и настройки переведены; ввод, операции и отчёты ещё переводятся, поэтому после переключения возможна смесь языков.",
+  "chooseThemeColor": "Выберите цвет темы",
+  "themeColorNote": "По умолчанию A Fresh; в тёмной теме автоматически используется тёмный вариант.",
+  "settingsElderSection": "Доступность",
+  "elderMode": "Режим для родителей",
+  "elderModeSubtitle": "Крупнее текст, выше контраст, проще вид — удобно для старших",
+  "appFontSize": "Размер текста в приложении",
+  "fontScaleStandard": "Стандартный",
+  "fontScaleLarge": "Крупный",
+  "fontScaleXLarge": "Очень крупный",
+  "fontScaleXXLarge": "Огромный",
+  "fontScaleNote": "Четыре уровня — стандартный, крупный, очень крупный и огромный — с точной настройкой ползунком ниже. Действует только в HENG и складывается с системным размером. В режиме для родителей автоматически используется очень крупный шрифт, после выключения возвращается ваш выбор.",
+  "settingsGeneralSection": "Общие",
+  "haptics": "Тактильная отдача",
+  "hapticsSubtitle": "Короткая вибрация при записи и сохранении",
+  "budgetManagement": "Бюджеты",
+  "monthlyBudgetTotal": "Общий бюджет на месяц {amount}",
+  "noMonthlyBudget": "Бюджет на месяц не задан",
+  "icloudSync": "Синхронизация iCloud",
+  "icloudWaitingFirstSync": "Включено, ждём первой синхронизации",
+  "lastSyncAt": "Последняя синхронизация: {time}",
+  "icloudSyncOffSubtitle": "Синхронизация между вашими устройствами через ваш iCloud; разработчик не видит данные",
+  "syncNow": "Синхронизировать",
+  "syncingNow": "Синхронизация…",
+  "syncNowSubtitle": "Объединить записи этого устройства с iCloud",
+  "icloudSyncNote": "Данные записываются только в вашу приватную базу iCloud. У HENG нет сервера; бесплатно в бета-версии 1.1.",
+  "syncComplete": "Синхронизация завершена: скачано {downloaded}, загружено {uploaded}",
+  "syncCompleteWithDeleted": "Синхронизация завершена: скачано {downloaded}, загружено {uploaded}, удалено {deleted}",
+  "syncFailed": "Ошибка синхронизации: {error}",
+  "dataSectionLocalOnly": "Данные (только на этом устройстве)",
+  "exportCsv": "Экспорт таблицы CSV",
+  "exportCsvSubtitle": "Всего {count} записей; открывается в Excel / Numbers",
+  "exportJsonBackup": "Экспорт резервной копии JSON",
+  "exportJsonBackupSubtitle": "Включает все записи и настройки; подходит для переноса или восстановления",
+  "importWechatAlipay": "Импорт выписки WeChat/Alipay",
+  "importWechatAlipaySubtitle": "Файл CSV — доход/расход, продавец и категория определяются автоматически; повторы пропускаются",
+  "importJsonBackup": "Импорт резервной копии JSON",
+  "importJsonBackupSubtitle": "Объединить записи и настройки из файла резервной копии HENG",
+  "clearAllTransactions": "Удалить все записи",
+  "clearDataSubtitle": "Удаляет записи только на этом устройстве; бюджеты и настройки сохраняются. Нужно два подтверждения",
+  "clearAllTransactionsConfirmTitle": "Удалить все записи?",
+  "clearDataConfirmContent": "Будут удалены {count} записей, сохранённых на этом устройстве. Бюджеты и настройки сохранятся. Отменить это нельзя.",
+  "continueAction": "Продолжить",
+  "finalConfirmTitle": "Последнее подтверждение",
+  "finalConfirmContent": "Удалённые записи не восстановить. Если они нужны, вернитесь и сначала экспортируйте резервную копию JSON.",
+  "backAction": "Назад",
+  "confirmClear": "Да, удалить",
+  "clearedAllTransactions": "Все записи удалены",
+  "exportNoData": "Записей пока нет — добавьте одну перед экспортом",
+  "exportCsvShareSubject": "HENG · Таблица операций",
+  "exportJsonShareSubject": "HENG · Резервная копия",
+  "exportCsvTitle": "Экспорт операций в CSV",
+  "exportJsonTitle": "Экспорт резервной копии JSON",
+  "exportFailed": "Ошибка экспорта. Повторите позже.",
+  "billCsvFileType": "Выписка CSV",
+  "jsonBackupFileType": "Резервная копия JSON",
+  "importEncodingWarning": "Возможно, файл не в UTF-8, поэтому часть текста может отображаться неверно; лучше выгрузить заново из WeChat/Alipay.",
+  "importNoBill": "Нет записей для импорта",
+  "importAllDuplicates": "Все {count} записей уже есть в этой книге",
+  "importBillTitle": "Импорт выписки",
+  "importBillSummary": "Обнаружено {total} записей доходов/расходов. {duplicates, select, some{Уже есть: {duplicateCount}; } other{}}Будет добавлено: {fresh}.\n{skipped, select, some{Пропущено строк: {skippedCount} (не доход/расход, ошибка или дубль).\n} other{}}После импорта категории и заметки можно изменить на странице операций.",
+  "importButtonCount": "Импортировать {count}",
+  "importAction": "Импортировать",
+  "importedCount": "Импортировано {count} записей",
+  "importFailed": "Ошибка импорта: {error}",
+  "importJsonConfirmContent": "Записи из резервной копии будут объединены с текущей книгой (записи с тем же ID перезапишутся), а бюджеты и настройки из копии будут восстановлены. Продолжить?",
+  "importBackupFailed": "Ошибка импорта. Убедитесь, что файл — резервная копия JSON, экспортированная из HENG.",
+  "noDataToClear": "Записей для удаления нет",
+  "badgeNoLogin": "Без входа",
+  "badgeNoNetwork": "Без сети",
+  "badgeNoUpload": "Без загрузки",
+  "versionBuild": "Версия {version} (сборка {build})",
+  "aboutLocalFirstNote": "HENG — приложение для учёта с локальным хранением: записи, бюджеты и настройки остаются на этом iPhone, а распознавание фото и голоса выполняется на устройстве. При удалении приложения данные тоже удаляются, поэтому регулярно экспортируйте резервную копию.",
+  "privacyPolicy": "Политика конфиденциальности",
+  "userAgreement": "Пользовательское соглашение",
   "@recentCount": {
     "placeholders": {
       "count": {
@@ -101,5 +184,126 @@
         "type": "String"
       }
     }
-  }
+  },
+  "@monthlyBudgetTotal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@lastSyncAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@syncComplete": {
+    "placeholders": {
+      "downloaded": {
+        "type": "int"
+      },
+      "uploaded": {
+        "type": "int"
+      }
+    }
+  },
+  "@syncCompleteWithDeleted": {
+    "placeholders": {
+      "downloaded": {
+        "type": "int"
+      },
+      "uploaded": {
+        "type": "int"
+      },
+      "deleted": {
+        "type": "int"
+      }
+    }
+  },
+  "@syncFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@exportCsvSubtitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@clearDataConfirmContent": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@importAllDuplicates": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@importBillSummary": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      },
+      "duplicates": {
+        "type": "String"
+      },
+      "duplicateCount": {
+        "type": "int"
+      },
+      "fresh": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "String"
+      },
+      "skippedCount": {
+        "type": "int"
+      }
+    }
+  },
+  "@importButtonCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@importedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@importFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@versionBuild": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "build": {
+        "type": "String"
+      }
+    }
+  },
+  "themeFresh": "A Свежая",
+  "themeForest": "B Лес",
+  "themeFreshForest": "C Свежий лес"
 }

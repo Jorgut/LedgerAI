@@ -43,6 +43,89 @@
   "remainingAmount": "剩餘 {amount}",
   "overspentAmount": "已超支 {amount}",
   "monthBudgetSemantic": "本月預算 {amount}，已用 {percent}%",
+  "settingsAppearance": "外觀",
+  "followSystem": "跟隨系統",
+  "lightMode": "淺色",
+  "darkMode": "深色",
+  "highContrast": "高對比度",
+  "highContrastSubtitle": "適合弱視或強光環境，文字更清晰",
+  "settingsLanguageSection": "語言 / Language",
+  "appLanguage": "App 語言",
+  "languageMigrationNote": "殼/首頁/設定已遷移；記帳、帳單、報表等頁面仍在逐批翻譯，切換後可能出現中英混排。",
+  "chooseThemeColor": "選擇主題色",
+  "themeColorNote": "預設 A 清新；深色模式會自動使用對應深色版本。",
+  "settingsElderSection": "適老化",
+  "elderMode": "父母模式",
+  "elderModeSubtitle": "更大字體、更高對比、簡化展示，適合長輩使用",
+  "appFontSize": "應用內字體大小",
+  "fontScaleStandard": "標準",
+  "fontScaleLarge": "大",
+  "fontScaleXLarge": "特大",
+  "fontScaleXXLarge": "超大",
+  "fontScaleNote": "標準 / 大 / 特大 / 超大四檔，下方滑桿可微調；只影響衡賬 App，仍會疊加系統字號。父母模式期間自動使用特大字號，關閉後回到你選擇的字號。",
+  "settingsGeneralSection": "一般",
+  "haptics": "觸覺回饋",
+  "hapticsSubtitle": "記帳、儲存等操作時輕震一下",
+  "budgetManagement": "預算管理",
+  "monthlyBudgetTotal": "本月總預算 {amount}",
+  "noMonthlyBudget": "還沒有設定月度預算",
+  "icloudSync": "iCloud 同步",
+  "icloudWaitingFirstSync": "已開啟，等待首次同步",
+  "lastSyncAt": "上次同步：{time}",
+  "icloudSyncOffSubtitle": "多裝置同步到自己的 iCloud，開發者看不到資料",
+  "syncNow": "立即同步",
+  "syncingNow": "正在同步…",
+  "syncNowSubtitle": "把本機帳單與 iCloud 合併",
+  "icloudSyncNote": "資料只寫入你自己的 iCloud private database，衡賬沒有伺服器；1.1 內測期間免費。",
+  "syncComplete": "同步完成：下載 {downloaded} 筆，上傳 {uploaded} 筆",
+  "syncCompleteWithDeleted": "同步完成：下載 {downloaded} 筆，上傳 {uploaded} 筆，刪除 {deleted} 筆",
+  "syncFailed": "同步失敗：{error}",
+  "dataSectionLocalOnly": "資料（只儲存在本機）",
+  "exportCsv": "匯出 CSV 表格",
+  "exportCsvSubtitle": "共 {count} 筆帳單，可在 Excel / Numbers 中檢視",
+  "exportJsonBackup": "匯出 JSON 備份",
+  "exportJsonBackupSubtitle": "包含全部帳單與設定，可用於遷移或找回資料",
+  "importWechatAlipay": "匯入微信/支付寶帳單",
+  "importWechatAlipaySubtitle": "CSV 檔案，自動識別收支、商家並分類；重複記錄會跳過",
+  "importJsonBackup": "匯入 JSON 備份",
+  "importJsonBackupSubtitle": "從衡賬匯出的備份檔案合併帳單與設定",
+  "clearAllTransactions": "清空全部帳單",
+  "clearDataSubtitle": "僅刪除本機帳單，預算與設定保留；需兩次確認",
+  "clearAllTransactionsConfirmTitle": "清空全部帳單？",
+  "clearDataConfirmContent": "將刪除本機儲存的 {count} 筆帳單記錄，預算與設定會保留。此操作無法復原。",
+  "continueAction": "繼續",
+  "finalConfirmTitle": "最後確認",
+  "finalConfirmContent": "刪除後無法復原。如果還想保留帳單，請先返回並匯出 JSON 備份。",
+  "backAction": "返回",
+  "confirmClear": "確認清空",
+  "clearedAllTransactions": "已清空全部帳單",
+  "exportNoData": "還沒有帳單資料，先記一筆再匯出",
+  "exportCsvShareSubject": "衡賬 · 帳單表格",
+  "exportJsonShareSubject": "衡賬 · 資料備份",
+  "exportCsvTitle": "匯出帳單 CSV",
+  "exportJsonTitle": "匯出 JSON 備份",
+  "exportFailed": "匯出失敗，請稍後重試",
+  "billCsvFileType": "帳單 CSV",
+  "jsonBackupFileType": "JSON 備份",
+  "importEncodingWarning": "檔案編碼可能不是 UTF-8，部分文字可能亂碼；建議在微信/支付寶裡重新匯出",
+  "importNoBill": "沒有可匯入的帳單",
+  "importAllDuplicates": "這 {count} 筆記錄都已經在帳本裡了",
+  "importBillTitle": "匯入帳單",
+  "importBillSummary": "識別到 {total} 筆收支，{duplicates, select, some{其中 {duplicateCount} 筆已存在，} other{}}將新增 {fresh} 筆。\n{skipped, select, some{已跳過 {skippedCount} 行（不計收支/失敗/重複等）。\n} other{}}匯入後可在帳單頁修改分類和備註。",
+  "importButtonCount": "匯入 {count} 筆",
+  "importAction": "匯入",
+  "importedCount": "已匯入 {count} 筆帳單",
+  "importFailed": "匯入失敗：{error}",
+  "importJsonConfirmContent": "將把備份中的帳單合併到目前帳本（同 ID 記錄會覆寫），並還原備份裡的預算與偏好設定。是否繼續？",
+  "importBackupFailed": "匯入失敗，請確認檔案是衡賬匯出的 JSON 備份",
+  "noDataToClear": "目前沒有帳單資料",
+  "badgeNoLogin": "不登入",
+  "badgeNoNetwork": "不連網",
+  "badgeNoUpload": "不上傳",
+  "versionBuild": "版本 {version}（建置 {build}）",
+  "aboutLocalFirstNote": "衡賬是本地優先的記帳 App：帳單、預算和設定只儲存在這台 iPhone 上，拍照與語音辨識都在本機完成。解除安裝 App 會一併刪除資料，建議定期匯出備份。",
+  "privacyPolicy": "隱私政策",
+  "userAgreement": "使用者協議",
   "@recentCount": {
     "placeholders": {
       "count": {
@@ -101,5 +184,126 @@
         "type": "String"
       }
     }
-  }
+  },
+  "@monthlyBudgetTotal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@lastSyncAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@syncComplete": {
+    "placeholders": {
+      "downloaded": {
+        "type": "int"
+      },
+      "uploaded": {
+        "type": "int"
+      }
+    }
+  },
+  "@syncCompleteWithDeleted": {
+    "placeholders": {
+      "downloaded": {
+        "type": "int"
+      },
+      "uploaded": {
+        "type": "int"
+      },
+      "deleted": {
+        "type": "int"
+      }
+    }
+  },
+  "@syncFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@exportCsvSubtitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@clearDataConfirmContent": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@importAllDuplicates": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@importBillSummary": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      },
+      "duplicates": {
+        "type": "String"
+      },
+      "duplicateCount": {
+        "type": "int"
+      },
+      "fresh": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "String"
+      },
+      "skippedCount": {
+        "type": "int"
+      }
+    }
+  },
+  "@importButtonCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@importedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@importFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@versionBuild": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "build": {
+        "type": "String"
+      }
+    }
+  },
+  "themeFresh": "A 清新",
+  "themeForest": "B 森林",
+  "themeFreshForest": "C 清新森林"
 }

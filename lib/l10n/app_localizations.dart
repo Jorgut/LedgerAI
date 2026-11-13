@@ -358,6 +358,523 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'本月预算 {amount}，已用 {percent}%'**
   String monthBudgetSemantic(String amount, String percent);
+
+  /// No description provided for @settingsAppearance.
+  ///
+  /// In zh, this message translates to:
+  /// **'外观'**
+  String get settingsAppearance;
+
+  /// No description provided for @followSystem.
+  ///
+  /// In zh, this message translates to:
+  /// **'跟随系统'**
+  String get followSystem;
+
+  /// No description provided for @lightMode.
+  ///
+  /// In zh, this message translates to:
+  /// **'浅色'**
+  String get lightMode;
+
+  /// No description provided for @darkMode.
+  ///
+  /// In zh, this message translates to:
+  /// **'深色'**
+  String get darkMode;
+
+  /// No description provided for @highContrast.
+  ///
+  /// In zh, this message translates to:
+  /// **'高对比度'**
+  String get highContrast;
+
+  /// No description provided for @highContrastSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'适合弱视或强光环境，文字更清晰'**
+  String get highContrastSubtitle;
+
+  /// No description provided for @settingsLanguageSection.
+  ///
+  /// In zh, this message translates to:
+  /// **'语言 / Language'**
+  String get settingsLanguageSection;
+
+  /// No description provided for @appLanguage.
+  ///
+  /// In zh, this message translates to:
+  /// **'App 语言'**
+  String get appLanguage;
+
+  /// No description provided for @languageMigrationNote.
+  ///
+  /// In zh, this message translates to:
+  /// **'壳/首页/设置已迁移；记账、账单、报表等页面仍在逐批翻译，切换后可能出现中英混排。'**
+  String get languageMigrationNote;
+
+  /// No description provided for @chooseThemeColor.
+  ///
+  /// In zh, this message translates to:
+  /// **'选择主题色'**
+  String get chooseThemeColor;
+
+  /// No description provided for @themeColorNote.
+  ///
+  /// In zh, this message translates to:
+  /// **'默认 A 清新；深色模式会自动使用对应深色版本。'**
+  String get themeColorNote;
+
+  /// No description provided for @settingsElderSection.
+  ///
+  /// In zh, this message translates to:
+  /// **'适老化'**
+  String get settingsElderSection;
+
+  /// No description provided for @elderMode.
+  ///
+  /// In zh, this message translates to:
+  /// **'父母模式'**
+  String get elderMode;
+
+  /// No description provided for @elderModeSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'更大字体、更高对比、简化展示，适合长辈使用'**
+  String get elderModeSubtitle;
+
+  /// No description provided for @appFontSize.
+  ///
+  /// In zh, this message translates to:
+  /// **'应用内字体大小'**
+  String get appFontSize;
+
+  /// No description provided for @fontScaleStandard.
+  ///
+  /// In zh, this message translates to:
+  /// **'标准'**
+  String get fontScaleStandard;
+
+  /// No description provided for @fontScaleLarge.
+  ///
+  /// In zh, this message translates to:
+  /// **'大'**
+  String get fontScaleLarge;
+
+  /// No description provided for @fontScaleXLarge.
+  ///
+  /// In zh, this message translates to:
+  /// **'特大'**
+  String get fontScaleXLarge;
+
+  /// No description provided for @fontScaleXXLarge.
+  ///
+  /// In zh, this message translates to:
+  /// **'超大'**
+  String get fontScaleXXLarge;
+
+  /// No description provided for @fontScaleNote.
+  ///
+  /// In zh, this message translates to:
+  /// **'标准 / 大 / 特大 / 超大四档，下方滑块可微调；只影响衡账 App，仍会叠加系统字号。父母模式期间自动使用特大字号，关闭后回到你选择的字号。'**
+  String get fontScaleNote;
+
+  /// No description provided for @settingsGeneralSection.
+  ///
+  /// In zh, this message translates to:
+  /// **'通用'**
+  String get settingsGeneralSection;
+
+  /// No description provided for @haptics.
+  ///
+  /// In zh, this message translates to:
+  /// **'触觉反馈'**
+  String get haptics;
+
+  /// No description provided for @hapticsSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'记账、保存等操作时轻震一下'**
+  String get hapticsSubtitle;
+
+  /// No description provided for @budgetManagement.
+  ///
+  /// In zh, this message translates to:
+  /// **'预算管理'**
+  String get budgetManagement;
+
+  /// No description provided for @monthlyBudgetTotal.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月总预算 {amount}'**
+  String monthlyBudgetTotal(String amount);
+
+  /// No description provided for @noMonthlyBudget.
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有设置月度预算'**
+  String get noMonthlyBudget;
+
+  /// No description provided for @icloudSync.
+  ///
+  /// In zh, this message translates to:
+  /// **'iCloud 同步'**
+  String get icloudSync;
+
+  /// No description provided for @icloudWaitingFirstSync.
+  ///
+  /// In zh, this message translates to:
+  /// **'已开启，等待首次同步'**
+  String get icloudWaitingFirstSync;
+
+  /// No description provided for @lastSyncAt.
+  ///
+  /// In zh, this message translates to:
+  /// **'上次同步：{time}'**
+  String lastSyncAt(String time);
+
+  /// No description provided for @icloudSyncOffSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'多设备同步到自己的 iCloud，开发者看不到数据'**
+  String get icloudSyncOffSubtitle;
+
+  /// No description provided for @syncNow.
+  ///
+  /// In zh, this message translates to:
+  /// **'立即同步'**
+  String get syncNow;
+
+  /// No description provided for @syncingNow.
+  ///
+  /// In zh, this message translates to:
+  /// **'正在同步…'**
+  String get syncingNow;
+
+  /// No description provided for @syncNowSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'把本机账单与 iCloud 合并'**
+  String get syncNowSubtitle;
+
+  /// No description provided for @icloudSyncNote.
+  ///
+  /// In zh, this message translates to:
+  /// **'数据只写入你自己的 iCloud private database，衡账没有服务器；1.1 内测期间免费。'**
+  String get icloudSyncNote;
+
+  /// No description provided for @syncComplete.
+  ///
+  /// In zh, this message translates to:
+  /// **'同步完成：下载 {downloaded} 笔，上传 {uploaded} 笔'**
+  String syncComplete(int downloaded, int uploaded);
+
+  /// No description provided for @syncCompleteWithDeleted.
+  ///
+  /// In zh, this message translates to:
+  /// **'同步完成：下载 {downloaded} 笔，上传 {uploaded} 笔，删除 {deleted} 笔'**
+  String syncCompleteWithDeleted(int downloaded, int uploaded, int deleted);
+
+  /// No description provided for @syncFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'同步失败：{error}'**
+  String syncFailed(String error);
+
+  /// No description provided for @dataSectionLocalOnly.
+  ///
+  /// In zh, this message translates to:
+  /// **'数据（只保存在本机）'**
+  String get dataSectionLocalOnly;
+
+  /// No description provided for @exportCsv.
+  ///
+  /// In zh, this message translates to:
+  /// **'导出 CSV 表格'**
+  String get exportCsv;
+
+  /// No description provided for @exportCsvSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'共 {count} 笔账单，可在 Excel / Numbers 中查看'**
+  String exportCsvSubtitle(int count);
+
+  /// No description provided for @exportJsonBackup.
+  ///
+  /// In zh, this message translates to:
+  /// **'导出 JSON 备份'**
+  String get exportJsonBackup;
+
+  /// No description provided for @exportJsonBackupSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'包含全部账单与设置，可用于迁移或找回数据'**
+  String get exportJsonBackupSubtitle;
+
+  /// No description provided for @importWechatAlipay.
+  ///
+  /// In zh, this message translates to:
+  /// **'导入微信/支付宝账单'**
+  String get importWechatAlipay;
+
+  /// No description provided for @importWechatAlipaySubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'CSV 文件，自动识别收支、商户并分类；重复记录会跳过'**
+  String get importWechatAlipaySubtitle;
+
+  /// No description provided for @importJsonBackup.
+  ///
+  /// In zh, this message translates to:
+  /// **'导入 JSON 备份'**
+  String get importJsonBackup;
+
+  /// No description provided for @importJsonBackupSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'从衡账导出的备份文件合并账单与设置'**
+  String get importJsonBackupSubtitle;
+
+  /// No description provided for @clearAllTransactions.
+  ///
+  /// In zh, this message translates to:
+  /// **'清空全部账单'**
+  String get clearAllTransactions;
+
+  /// No description provided for @clearDataSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'仅删除本机账单，预算与设置保留；需两次确认'**
+  String get clearDataSubtitle;
+
+  /// No description provided for @clearAllTransactionsConfirmTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'清空全部账单？'**
+  String get clearAllTransactionsConfirmTitle;
+
+  /// No description provided for @clearDataConfirmContent.
+  ///
+  /// In zh, this message translates to:
+  /// **'将删除本机保存的 {count} 笔账单记录，预算与设置会保留。此操作无法撤销。'**
+  String clearDataConfirmContent(int count);
+
+  /// No description provided for @continueAction.
+  ///
+  /// In zh, this message translates to:
+  /// **'继续'**
+  String get continueAction;
+
+  /// No description provided for @finalConfirmTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'最后确认'**
+  String get finalConfirmTitle;
+
+  /// No description provided for @finalConfirmContent.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除后无法恢复。如果还想保留账单，请先返回并导出 JSON 备份。'**
+  String get finalConfirmContent;
+
+  /// No description provided for @backAction.
+  ///
+  /// In zh, this message translates to:
+  /// **'返回'**
+  String get backAction;
+
+  /// No description provided for @confirmClear.
+  ///
+  /// In zh, this message translates to:
+  /// **'确认清空'**
+  String get confirmClear;
+
+  /// No description provided for @clearedAllTransactions.
+  ///
+  /// In zh, this message translates to:
+  /// **'已清空全部账单'**
+  String get clearedAllTransactions;
+
+  /// No description provided for @exportNoData.
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有账单数据，先记一笔再导出'**
+  String get exportNoData;
+
+  /// No description provided for @exportCsvShareSubject.
+  ///
+  /// In zh, this message translates to:
+  /// **'衡账 · 账单表格'**
+  String get exportCsvShareSubject;
+
+  /// No description provided for @exportJsonShareSubject.
+  ///
+  /// In zh, this message translates to:
+  /// **'衡账 · 数据备份'**
+  String get exportJsonShareSubject;
+
+  /// No description provided for @exportCsvTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'导出账单 CSV'**
+  String get exportCsvTitle;
+
+  /// No description provided for @exportJsonTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'导出 JSON 备份'**
+  String get exportJsonTitle;
+
+  /// No description provided for @exportFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'导出失败，请稍后重试'**
+  String get exportFailed;
+
+  /// No description provided for @billCsvFileType.
+  ///
+  /// In zh, this message translates to:
+  /// **'账单 CSV'**
+  String get billCsvFileType;
+
+  /// No description provided for @jsonBackupFileType.
+  ///
+  /// In zh, this message translates to:
+  /// **'JSON 备份'**
+  String get jsonBackupFileType;
+
+  /// No description provided for @importEncodingWarning.
+  ///
+  /// In zh, this message translates to:
+  /// **'文件编码可能不是 UTF-8，部分文字可能乱码；建议在微信/支付宝里重新导出'**
+  String get importEncodingWarning;
+
+  /// No description provided for @importNoBill.
+  ///
+  /// In zh, this message translates to:
+  /// **'没有可导入的账单'**
+  String get importNoBill;
+
+  /// No description provided for @importAllDuplicates.
+  ///
+  /// In zh, this message translates to:
+  /// **'这 {count} 笔记录都已经在账本里了'**
+  String importAllDuplicates(int count);
+
+  /// No description provided for @importBillTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'导入账单'**
+  String get importBillTitle;
+
+  /// No description provided for @importBillSummary.
+  ///
+  /// In zh, this message translates to:
+  /// **'识别到 {total} 笔收支，{duplicates, select, some{其中 {duplicateCount} 笔已存在，} other{}}将新增 {fresh} 笔。\n{skipped, select, some{已跳过 {skippedCount} 行（不计收支/失败/重复等）。\n} other{}}导入后可在账单页修改分类和备注。'**
+  String importBillSummary(int total, String duplicates, int duplicateCount,
+      int fresh, String skipped, int skippedCount);
+
+  /// No description provided for @importButtonCount.
+  ///
+  /// In zh, this message translates to:
+  /// **'导入 {count} 笔'**
+  String importButtonCount(int count);
+
+  /// No description provided for @importAction.
+  ///
+  /// In zh, this message translates to:
+  /// **'导入'**
+  String get importAction;
+
+  /// No description provided for @importedCount.
+  ///
+  /// In zh, this message translates to:
+  /// **'已导入 {count} 笔账单'**
+  String importedCount(int count);
+
+  /// No description provided for @importFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'导入失败：{error}'**
+  String importFailed(String error);
+
+  /// No description provided for @importJsonConfirmContent.
+  ///
+  /// In zh, this message translates to:
+  /// **'将把备份中的账单合并到当前账本（同 ID 记录会覆盖），并恢复备份里的预算与偏好设置。是否继续？'**
+  String get importJsonConfirmContent;
+
+  /// No description provided for @importBackupFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'导入失败，请确认文件是衡账导出的 JSON 备份'**
+  String get importBackupFailed;
+
+  /// No description provided for @noDataToClear.
+  ///
+  /// In zh, this message translates to:
+  /// **'当前没有账单数据'**
+  String get noDataToClear;
+
+  /// No description provided for @badgeNoLogin.
+  ///
+  /// In zh, this message translates to:
+  /// **'不登录'**
+  String get badgeNoLogin;
+
+  /// No description provided for @badgeNoNetwork.
+  ///
+  /// In zh, this message translates to:
+  /// **'不联网'**
+  String get badgeNoNetwork;
+
+  /// No description provided for @badgeNoUpload.
+  ///
+  /// In zh, this message translates to:
+  /// **'不上传'**
+  String get badgeNoUpload;
+
+  /// No description provided for @versionBuild.
+  ///
+  /// In zh, this message translates to:
+  /// **'版本 {version}（构建 {build}）'**
+  String versionBuild(String version, String build);
+
+  /// No description provided for @aboutLocalFirstNote.
+  ///
+  /// In zh, this message translates to:
+  /// **'衡账是本地优先的记账 App：账单、预算和设置只保存在这台 iPhone 上，拍照与语音识别都在本机完成。卸载 App 会一并删除数据，建议定期导出备份。'**
+  String get aboutLocalFirstNote;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In zh, this message translates to:
+  /// **'隐私政策'**
+  String get privacyPolicy;
+
+  /// No description provided for @userAgreement.
+  ///
+  /// In zh, this message translates to:
+  /// **'用户协议'**
+  String get userAgreement;
+
+  /// No description provided for @themeFresh.
+  ///
+  /// In zh, this message translates to:
+  /// **'A 清新'**
+  String get themeFresh;
+
+  /// No description provided for @themeForest.
+  ///
+  /// In zh, this message translates to:
+  /// **'B 森林'**
+  String get themeForest;
+
+  /// No description provided for @themeFreshForest.
+  ///
+  /// In zh, this message translates to:
+  /// **'C 清新森林'**
+  String get themeFreshForest;
 }
 
 class _AppLocalizationsDelegate

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'ai/parsing.dart';
@@ -27,9 +28,12 @@ class LedgerApp extends StatelessWidget {
       animation: state.settings,
       builder: (context, _) {
         final prefs = state.prefs;
+        final effectiveLocale = prefs.language.locale ??
+            WidgetsBinding.instance.platformDispatcher.locale;
+        Intl.defaultLocale = effectiveLocale.toLanguageTag();
         final highContrast = prefs.highContrast || prefs.elderMode;
         return MaterialApp(
-          title: '衡账',
+          title: 'HENG',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.light(
               highContrast: highContrast, colorTheme: prefs.colorTheme),

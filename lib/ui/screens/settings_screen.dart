@@ -11,6 +11,7 @@ import '../../core/app_settings.dart';
 import '../../core/app_state.dart';
 import '../../core/bill_import.dart';
 import '../../core/models.dart';
+import '../../l10n/app_localizations.dart';
 import '../../sync/cloud_sync.dart';
 import '../color_themes.dart';
 import '../../core/format.dart';
@@ -22,7 +23,7 @@ import 'legal_screens.dart';
 
 /// 应用版本号（与 pubspec.yaml 的 `version: 1.0.0+1` 保持一致）。
 const String _kAppVersion = '1.1.0';
-const String _kBuildNumber = '9';
+const String _kBuildNumber = '10';
 
 /// 设置页：外观、触觉反馈、预算入口、数据导出与清空、法务与关于。
 ///
@@ -50,13 +51,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _exporting = false;
   bool _importing = false;
   bool _syncing = false;
-
-  static const List<_FontScaleOption> _fontScaleOptions = [
-    _FontScaleOption('标准', 1.0),
-    _FontScaleOption('大', 1.15),
-    _FontScaleOption('特大', 1.30),
-    _FontScaleOption('超大', 1.50),
-  ];
 
   // ---------------------------------------------------------------------------
   // 偏好设置
@@ -109,25 +103,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _syncNow() async {
     if (_syncing) return;
+    final l10n = AppLocalizations.of(context);
     setState(() => _syncing = true);
     try {
       final report =
           await const CloudSyncService().sync(AppScope.read(context));
       if (!mounted) return;
       _showSnack(
-        '同步完成：下载 ${report.downloaded} 笔，上传 ${report.uploaded} 笔'
-        '${report.deleted > 0 ? '，删除 ${report.deleted} 笔' : ''}',
+        report.deleted > 0
+            ? l10n.syncCompleteWithDeleted(
+                report.downloaded, report.uploaded, report.deleted)
+            : l10n.syncComplete(report.downloaded, report.uploaded),
       );
     } on CloudSyncException catch (e) {
       if (!mounted) return;
       _showSnack(e.message);
     } catch (e) {
       if (!mounted) return;
-      _showSnack('同步失败：$e');
+      _showSnack(l10n.syncFailed('$e'));
     } finally {
       if (mounted) setState(() => _syncing = false);
     }
   }
+
+  String _themeLabel(AppLocalizations l10n, AppColorTheme theme) =>
+      switch (theme) {
+        AppColorTheme.fresh => l10n.themeFresh,
+        AppColorTheme.forest => l10n.themeForest,
+        AppColorTheme.freshForest => l10n.themeFreshForest,
+      };
 
   Future<void> _setLanguage(AppLanguage value) async {
     await AppScope.read(context).updateSettingsWith(
@@ -174,9 +178,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _export({required bool csv}) async {
     if (_exporting) return;
+    final l10n = AppLocalizations.of(context);
     final app = AppScope.read(context);
     if (app.transactions.isEmpty) {
-      _showSnack('还没有账单数据，先记一笔再导出');
+      _showSnack(l10n.exportNoData);
       return;
     }
 
@@ -206,12 +211,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               mimeType: csv ? 'text/csv' : 'application/json',
             ),
           ],
-          subject: csv ? '衡账 · 账单表格' : '衡账 · 数据备份',
-          title: csv ? '导出账单 CSV' : '导出 JSON 备份',
+          subject:
+              csv ? l10n.exportCsvShareSubject : l10n.exportJsonShareSubject,
+          title: csv ? l10n.exportCsvTitle : l10n.exportJsonTitle,
         ),
       );
     } catch (_) {
-      if (mounted) _showSnack('导出失败，请稍后重试');
+      if (mounted) _showSnack(l10n.exportFailed);
     } finally {
       if (mounted) setState(() => _exporting = false);
     }
@@ -219,26 +225,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _importBillCsv() async {
     if (_importing || _exporting) return;
+    final l10n = AppLocalizations.of(context);
     final app = AppScope.read(context);
     try {
-      const typeGroup = XTypeGroup(
-        label: '账单 CSV',
+      final typeGroup = XTypeGroup(
+        label: l10n.billCsvFileType,
         extensions: ['csv'],
         mimeTypes: ['text/csv', 'text/comma-separated-values'],
       );
-      final file = await openFile(acceptedTypeGroups: const [typeGroup]);
+      final file = await openFile(acceptedTypeGroups: [typeGroup]);
       if (file == null) return;
       final bytes = await file.readAsBytes();
       final content = utf8.decode(bytes, allowMalformed: true);
       if (!mounted) return;
       if (content.contains('\uFFFD')) {
-        _showSnack('文件编码可能不是 UTF-8，部分文字可能乱码；建议在微信/支付宝里重新导出');
+        _showSnack(l10n.importEncodingWarning);
       }
       final result =
           const BillCsvImporter().parse(content, fileName: file.name);
       if (result.isEmpty) {
-        _showSnack(
-            result.warnings.isEmpty ? '没有可导入的账单' : result.warnings.first);
+        _showSnack(result.warnings.isEmpty
+            ? l10n.importNoBill
+            : result.warnings.first);
         return;
       }
       final existing = <String>{
@@ -255,28 +263,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
       }
       if (!mounted) return;
       if (fresh.isEmpty) {
-        _showSnack('这 ${result.transactions.length} 笔记录都已经在账本里了');
+        _showSnack(l10n.importAllDuplicates(result.transactions.length));
         return;
       }
       final confirmed = await showDialog<bool>(
         context: context,
         builder: (dialogContext) => AlertDialog(
-          title: const Text('导入账单'),
+          title: Text(l10n.importBillTitle),
           content: Text(
-            '识别到 ${result.transactions.length} 笔收支，'
-            '${duplicates > 0 ? '其中 $duplicates 笔已存在，' : ''}'
-            '将新增 ${fresh.length} 笔。\n'
-            '${result.skipped > 0 ? '已跳过 ${result.skipped} 行（不计收支/失败/重复等）。\n' : ''}'
-            '导入后可在账单页修改分类和备注。',
+            l10n.importBillSummary(
+              result.transactions.length,
+              duplicates > 0 ? 'some' : 'none',
+              duplicates,
+              fresh.length,
+              result.skipped > 0 ? 'some' : 'none',
+              result.skipped,
+            ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: const Text('取消'),
+              child: Text(l10n.commonCancel),
             ),
             FilledButton(
               onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: Text('导入 ${fresh.length} 笔'),
+              child: Text(l10n.importButtonCount(fresh.length)),
             ),
           ],
         ),
@@ -288,11 +299,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       }
       if (!mounted) return;
       setState(() => _importing = false);
-      _showSnack('已导入 ${fresh.length} 笔账单');
+      _showSnack(l10n.importedCount(fresh.length));
     } catch (e) {
       if (!mounted) return;
       setState(() => _importing = false);
-      _showSnack('导入失败：$e');
+      _showSnack(l10n.importFailed('$e'));
     }
   }
 
@@ -304,29 +315,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _importBackup() async {
     if (_importing || _exporting) return;
+    final l10n = AppLocalizations.of(context);
     try {
-      const typeGroup = XTypeGroup(
-          label: 'JSON 备份',
+      final typeGroup = XTypeGroup(
+          label: l10n.jsonBackupFileType,
           extensions: ['json'],
           mimeTypes: ['application/json']);
-      final file = await openFile(acceptedTypeGroups: const [typeGroup]);
+      final file = await openFile(acceptedTypeGroups: [typeGroup]);
       if (file == null) return;
       final content = await file.readAsString();
       if (!mounted) return;
       final confirmed = await showDialog<bool>(
         context: context,
         builder: (dialogContext) => AlertDialog(
-          title: const Text('导入 JSON 备份'),
-          content:
-              const Text('将把备份中的账单合并到当前账本（同 ID 记录会覆盖），并恢复备份里的预算与偏好设置。是否继续？'),
+          title: Text(l10n.importJsonBackup),
+          content: Text(l10n.importJsonConfirmContent),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: const Text('取消'),
+              child: Text(l10n.commonCancel),
             ),
             FilledButton(
               onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: const Text('导入'),
+              child: Text(l10n.importAction),
             ),
           ],
         ),
@@ -336,9 +347,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       final app = AppScope.read(context);
       final count = await app.importBackup(content);
       if (!mounted) return;
-      _showSnack('已导入 $count 笔账单');
+      _showSnack(l10n.importedCount(count));
     } catch (_) {
-      if (mounted) _showSnack('导入失败，请确认文件是衡账导出的 JSON 备份');
+      if (mounted) _showSnack(l10n.importBackupFailed);
     } finally {
       if (mounted) setState(() => _importing = false);
     }
@@ -349,24 +360,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
   // ---------------------------------------------------------------------------
 
   Future<void> _clearData() async {
+    final l10n = AppLocalizations.of(context);
     final app = AppScope.read(context);
     final count = app.transactions.length;
     if (count == 0) {
-      _showSnack('当前没有账单数据');
+      _showSnack(l10n.noDataToClear);
       return;
     }
 
     final first = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('清空全部账单？'),
-        content: Text(
-          '将删除本机保存的 $count 笔账单记录，预算与设置会保留。此操作无法撤销。',
-        ),
+        title: Text(l10n.clearAllTransactionsConfirmTitle),
+        content: Text(l10n.clearDataConfirmContent(count)),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('取消'),
+            child: Text(l10n.commonCancel),
           ),
           FilledButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
@@ -374,7 +384,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               backgroundColor: Theme.of(context).colorScheme.error,
               foregroundColor: Theme.of(context).colorScheme.onError,
             ),
-            child: const Text('继续'),
+            child: Text(l10n.continueAction),
           ),
         ],
       ),
@@ -384,14 +394,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final second = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('最后确认'),
-        content: const Text(
-          '删除后无法恢复。如果还想保留账单，请先返回并导出 JSON 备份。',
-        ),
+        title: Text(l10n.finalConfirmTitle),
+        content: Text(l10n.finalConfirmContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('返回'),
+            child: Text(l10n.backAction),
           ),
           FilledButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
@@ -399,7 +407,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               backgroundColor: Theme.of(context).colorScheme.error,
               foregroundColor: Theme.of(context).colorScheme.onError,
             ),
-            child: const Text('确认清空'),
+            child: Text(l10n.confirmClear),
           ),
         ],
       ),
@@ -409,7 +417,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await app.clearTransactions();
     if (!mounted) return;
     _hapticTick();
-    _showSnack('已清空全部账单');
+    _showSnack(l10n.clearedAllTransactions);
   }
 
   void _openPage(Widget page) {
@@ -425,12 +433,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final app = AppScope.of(context);
     final prefs = app.prefs;
+    final fontScaleOptions = [
+      _FontScaleOption(l10n.fontScaleStandard, 1.0),
+      _FontScaleOption(l10n.fontScaleLarge, 1.15),
+      _FontScaleOption(l10n.fontScaleXLarge, 1.30),
+      _FontScaleOption(l10n.fontScaleXXLarge, 1.50),
+    ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('设置'),
+        title: Text(l10n.settingsTitle),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -438,36 +453,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
           controller: _scrollController,
           padding: AppTheme.pageInsets,
           children: [
-            const SectionHeader(
-                title: '外观', padding: EdgeInsets.fromLTRB(4, 0, 4, 8)),
+            SectionHeader(
+                title: l10n.settingsAppearance,
+                padding: const EdgeInsets.fromLTRB(4, 0, 4, 8)),
             Card(
               child: Column(
                 children: [
                   _ThemeModeTile(
                     icon: Icons.brightness_auto_rounded,
-                    label: '跟随系统',
+                    label: l10n.followSystem,
                     selected: prefs.themeMode == ThemeMode.system,
                     onTap: () => _setThemeMode(ThemeMode.system),
                   ),
                   const Divider(),
                   _ThemeModeTile(
                     icon: Icons.light_mode_rounded,
-                    label: '浅色',
+                    label: l10n.lightMode,
                     selected: prefs.themeMode == ThemeMode.light,
                     onTap: () => _setThemeMode(ThemeMode.light),
                   ),
                   const Divider(),
                   _ThemeModeTile(
                     icon: Icons.dark_mode_rounded,
-                    label: '深色',
+                    label: l10n.darkMode,
                     selected: prefs.themeMode == ThemeMode.dark,
                     onTap: () => _setThemeMode(ThemeMode.dark),
                   ),
                   const Divider(),
                   SwitchListTile(
                     secondary: const Icon(Icons.contrast_rounded),
-                    title: const Text('高对比度'),
-                    subtitle: const Text('适合弱视或强光环境，文字更清晰'),
+                    title: Text(l10n.highContrast),
+                    subtitle: Text(l10n.highContrastSubtitle),
                     value: prefs.highContrast,
                     onChanged: _setHighContrast,
                   ),
@@ -475,9 +491,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            const SectionHeader(
-              title: '语言 / Language',
-              padding: EdgeInsets.fromLTRB(4, 0, 4, 8),
+            SectionHeader(
+              title: l10n.settingsLanguageSection,
+              padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
             ),
             Card(
               child: Column(
@@ -490,7 +506,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Icon(Icons.translate_rounded,
                             color: theme.colorScheme.onSurfaceVariant),
                         const SizedBox(width: 12),
-                        Text('App 语言', style: theme.textTheme.bodyLarge),
+                        Text(l10n.appLanguage,
+                            style: theme.textTheme.bodyLarge),
                       ],
                     ),
                   ),
@@ -512,7 +529,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
                     child: Text(
-                      '壳/首页/设置已迁移；记账、账单、报表等页面仍在逐批翻译，切换后可能出现中英混排。',
+                      l10n.languageMigrationNote,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -522,9 +539,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            const SectionHeader(
-              title: '主题色',
-              padding: EdgeInsets.fromLTRB(4, 0, 4, 8),
+            SectionHeader(
+              title: l10n.theme,
+              padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
             ),
             Card(
               child: Column(
@@ -537,7 +554,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Icon(Icons.palette_outlined,
                             color: theme.colorScheme.onSurfaceVariant),
                         const SizedBox(width: 12),
-                        Text('选择主题色', style: theme.textTheme.bodyLarge),
+                        Text(l10n.chooseThemeColor,
+                            style: theme.textTheme.bodyLarge),
                       ],
                     ),
                   ),
@@ -556,7 +574,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 Theme.of(context).brightness,
                               ).primary,
                             ),
-                            label: Text(option.label),
+                            label: Text(_themeLabel(l10n, option)),
                             selected: prefs.colorTheme == option,
                             onSelected: (_) => _setColorTheme(option),
                           ),
@@ -566,7 +584,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
                     child: Text(
-                      '默认 A 清新；深色模式会自动使用对应深色版本。',
+                      l10n.themeColorNote,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -576,9 +594,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            const SectionHeader(
-              title: '适老化',
-              padding: EdgeInsets.fromLTRB(4, 0, 4, 8),
+            SectionHeader(
+              title: l10n.settingsElderSection,
+              padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
             ),
             Card(
               child: Column(
@@ -586,8 +604,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   SwitchListTile(
                     secondary: const Icon(Icons.elderly_rounded),
-                    title: const Text('父母模式'),
-                    subtitle: const Text('更大字体、更高对比、简化展示，适合长辈使用'),
+                    title: Text(l10n.elderMode),
+                    subtitle: Text(l10n.elderModeSubtitle),
                     value: prefs.elderMode,
                     onChanged: _setElderMode,
                   ),
@@ -600,7 +618,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         const SizedBox(width: 16),
                         Expanded(
                           child: Text(
-                            '应用内字体大小',
+                            l10n.appFontSize,
                             style: theme.textTheme.bodyLarge,
                           ),
                         ),
@@ -613,7 +631,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       spacing: 8,
                       runSpacing: 8,
                       children: [
-                        for (final option in _fontScaleOptions)
+                        for (final option in fontScaleOptions)
                           ChoiceChip(
                             label: Text(option.label),
                             selected:
@@ -651,8 +669,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
                     child: Text(
-                      '标准 / 大 / 特大 / 超大四档，下方滑块可微调；'
-                      '只影响衡账 App，仍会叠加系统字号。父母模式期间自动使用特大字号，关闭后回到你选择的字号。',
+                      l10n.fontScaleNote,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -662,26 +679,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            const SectionHeader(
-                title: '通用', padding: EdgeInsets.fromLTRB(4, 0, 4, 8)),
+            SectionHeader(
+                title: l10n.settingsGeneralSection,
+                padding: const EdgeInsets.fromLTRB(4, 0, 4, 8)),
             Card(
               child: Column(
                 children: [
                   SwitchListTile(
                     secondary: const Icon(Icons.vibration_rounded),
-                    title: const Text('触觉反馈'),
-                    subtitle: const Text('记账、保存等操作时轻震一下'),
+                    title: Text(l10n.haptics),
+                    subtitle: Text(l10n.hapticsSubtitle),
                     value: prefs.hapticsEnabled,
                     onChanged: _setHaptics,
                   ),
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.savings_outlined),
-                    title: const Text('预算管理'),
+                    title: Text(l10n.budgetManagement),
                     subtitle: Text(
                       prefs.monthlyBudget != null
-                          ? '本月总预算 ${formatMoney(prefs.monthlyBudget!)}'
-                          : '还没有设置月度预算',
+                          ? l10n.monthlyBudgetTotal(
+                              formatMoney(prefs.monthlyBudget!))
+                          : l10n.noMonthlyBudget,
                     ),
                     trailing: const Icon(Icons.chevron_right_rounded),
                     onTap: () => _openPage(const BudgetScreen()),
@@ -690,9 +709,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            const SectionHeader(
-              title: 'iCloud 同步',
-              padding: EdgeInsets.fromLTRB(4, 0, 4, 8),
+            SectionHeader(
+              title: l10n.icloudSync,
+              padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
             ),
             Card(
               child: Column(
@@ -700,13 +719,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   SwitchListTile(
                     secondary: const Icon(Icons.cloud_outlined),
-                    title: const Text('iCloud 同步'),
+                    title: Text(l10n.icloudSync),
                     subtitle: Text(
                       prefs.icloudSyncEnabled
                           ? (prefs.lastSyncAt == null
-                              ? '已开启，等待首次同步'
-                              : '上次同步：${_formatSyncTime(prefs.lastSyncAt!)}')
-                          : '多设备同步到自己的 iCloud，开发者看不到数据',
+                              ? l10n.icloudWaitingFirstSync
+                              : l10n.lastSyncAt(
+                                  _formatSyncTime(prefs.lastSyncAt!)))
+                          : l10n.icloudSyncOffSubtitle,
                     ),
                     value: prefs.icloudSyncEnabled,
                     onChanged: _syncing ? null : _setSyncEnabled,
@@ -715,8 +735,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     const Divider(),
                     ListTile(
                       leading: const Icon(Icons.sync_rounded),
-                      title: const Text('立即同步'),
-                      subtitle: Text(_syncing ? '正在同步…' : '把本机账单与 iCloud 合并'),
+                      title: Text(l10n.syncNow),
+                      subtitle: Text(
+                          _syncing ? l10n.syncingNow : l10n.syncNowSubtitle),
                       trailing: _syncing
                           ? const SizedBox(
                               width: 20,
@@ -730,8 +751,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
                     child: Text(
-                      '数据只写入你自己的 iCloud private database，衡账没有服务器；'
-                      '1.1 内测期间免费。',
+                      l10n.icloudSyncNote,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -741,9 +761,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            const SectionHeader(
-              title: '数据（只保存在本机）',
-              padding: EdgeInsets.fromLTRB(4, 0, 4, 8),
+            SectionHeader(
+              title: l10n.dataSectionLocalOnly,
+              padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
             ),
             Card(
               child: Column(
@@ -755,9 +775,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ListTile(
                     leading: const Icon(Icons.table_chart_outlined),
-                    title: const Text('导出 CSV 表格'),
+                    title: Text(l10n.exportCsv),
                     subtitle: Text(
-                      '共 ${app.transactions.length} 笔账单，可在 Excel / Numbers 中查看',
+                      l10n.exportCsvSubtitle(app.transactions.length),
                     ),
                     trailing: const Icon(Icons.chevron_right_rounded),
                     onTap: _exporting || _importing
@@ -767,8 +787,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.backup_outlined),
-                    title: const Text('导出 JSON 备份'),
-                    subtitle: const Text('包含全部账单与设置，可用于迁移或找回数据'),
+                    title: Text(l10n.exportJsonBackup),
+                    subtitle: Text(l10n.exportJsonBackupSubtitle),
                     trailing: const Icon(Icons.chevron_right_rounded),
                     onTap: _exporting || _importing
                         ? null
@@ -777,8 +797,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.file_upload_outlined),
-                    title: const Text('导入微信/支付宝账单'),
-                    subtitle: const Text('CSV 文件，自动识别收支、商户并分类；重复记录会跳过'),
+                    title: Text(l10n.importWechatAlipay),
+                    subtitle: Text(l10n.importWechatAlipaySubtitle),
                     trailing: _importing
                         ? const SizedBox(
                             width: 20,
@@ -791,8 +811,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.restore_page_outlined),
-                    title: const Text('导入 JSON 备份'),
-                    subtitle: const Text('从衡账导出的备份文件合并账单与设置'),
+                    title: Text(l10n.importJsonBackup),
+                    subtitle: Text(l10n.importJsonBackupSubtitle),
                     trailing: _importing
                         ? const SizedBox(
                             width: 20,
@@ -809,18 +829,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       color: theme.colorScheme.error,
                     ),
                     title: Text(
-                      '清空全部账单',
+                      l10n.clearAllTransactions,
                       style: TextStyle(color: theme.colorScheme.error),
                     ),
-                    subtitle: const Text('仅删除本机账单，预算与设置保留；需两次确认'),
+                    subtitle: Text(l10n.clearDataSubtitle),
                     onTap: _clearData,
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 20),
-            const SectionHeader(
-                title: '关于', padding: EdgeInsets.fromLTRB(4, 0, 4, 8)),
+            SectionHeader(
+                title: l10n.about,
+                padding: const EdgeInsets.fromLTRB(4, 0, 4, 8)),
             Card(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -857,7 +878,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                               const SizedBox(height: 2),
                               Text(
-                                '版本 $_kAppVersion（构建 $_kBuildNumber）',
+                                l10n.versionBuild(_kAppVersion, _kBuildNumber),
                                 style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.colorScheme.onSurfaceVariant,
                                 ),
@@ -877,16 +898,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Wrap(
                           spacing: 8,
                           runSpacing: 8,
-                          children: const [
-                            _PrivacyBadge('不登录'),
-                            _PrivacyBadge('不联网'),
-                            _PrivacyBadge('不上传'),
+                          children: [
+                            _PrivacyBadge(l10n.badgeNoLogin),
+                            _PrivacyBadge(l10n.badgeNoNetwork),
+                            _PrivacyBadge(l10n.badgeNoUpload),
                           ],
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          '衡账是本地优先的记账 App：账单、预算和设置只保存在这台 iPhone 上，'
-                          '拍照与语音识别都在本机完成。卸载 App 会一并删除数据，建议定期导出备份。',
+                          l10n.aboutLocalFirstNote,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
                             height: 1.6,
@@ -898,14 +918,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.privacy_tip_outlined),
-                    title: const Text('隐私政策'),
+                    title: Text(l10n.privacyPolicy),
                     trailing: const Icon(Icons.chevron_right_rounded),
                     onTap: () => _openPage(const PrivacyPolicyScreen()),
                   ),
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.description_outlined),
-                    title: const Text('用户协议'),
+                    title: Text(l10n.userAgreement),
                     trailing: const Icon(Icons.chevron_right_rounded),
                     onTap: () => _openPage(const UserAgreementScreen()),
                   ),
