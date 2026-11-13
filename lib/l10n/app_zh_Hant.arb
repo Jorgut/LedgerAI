@@ -1,0 +1,17 @@
+{
+  "@@locale": "zh_Hant",
+  "appTitle": "HENG",
+  "navHome": "首頁",
+  "navTransactions": "帳單",
+  "navReports": "報表",
+  "navSettings": "我的",
+  "settingsTitle": "設定",
+  "language": "語言",
+  "theme": "主題色",
+  "about": "關於",
+  "privacy": "隱私說明",
+  "support": "支援",
+  "commonSave": "儲存",
+  "commonCancel": "取消",
+  "commonDelete": "刪除"
+}

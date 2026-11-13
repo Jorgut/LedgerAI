@@ -1,0 +1,17 @@
+{
+  "@@locale": "ru",
+  "appTitle": "HENG",
+  "navHome": "Главная",
+  "navTransactions": "Операции",
+  "navReports": "Отчёты",
+  "navSettings": "Настройки",
+  "settingsTitle": "Настройки",
+  "language": "Язык",
+  "theme": "Цвет темы",
+  "about": "О приложении",
+  "privacy": "Конфиденциальность",
+  "support": "Поддержка",
+  "commonSave": "Сохранить",
+  "commonCancel": "Отмена",
+  "commonDelete": "Удалить"
+}

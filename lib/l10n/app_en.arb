@@ -1,0 +1,17 @@
+{
+  "@@locale": "en",
+  "appTitle": "HENG",
+  "navHome": "Home",
+  "navTransactions": "Transactions",
+  "navReports": "Reports",
+  "navSettings": "Settings",
+  "settingsTitle": "Settings",
+  "language": "Language",
+  "theme": "Theme color",
+  "about": "About",
+  "privacy": "Privacy",
+  "support": "Support",
+  "commonSave": "Save",
+  "commonCancel": "Cancel",
+  "commonDelete": "Delete"
+}

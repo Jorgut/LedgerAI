@@ -1,0 +1,17 @@
+{
+  "@@locale": "zh",
+  "appTitle": "HENG",
+  "navHome": "首页",
+  "navTransactions": "账单",
+  "navReports": "报表",
+  "navSettings": "我的",
+  "settingsTitle": "设置",
+  "language": "语言",
+  "theme": "主题色",
+  "about": "关于",
+  "privacy": "隐私说明",
+  "support": "支持",
+  "commonSave": "保存",
+  "commonCancel": "取消",
+  "commonDelete": "删除"
+}
