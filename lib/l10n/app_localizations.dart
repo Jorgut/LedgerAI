@@ -2417,7 +2417,7 @@ abstract class AppLocalizations {
   /// No description provided for @splitMode.
   ///
   /// In zh, this message translates to:
-  /// **'分账'**
+  /// **'一起分'**
   String get splitMode;
 
   /// No description provided for @splitModeSubtitle.

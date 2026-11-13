@@ -11,6 +11,7 @@ import '../widgets/common/app_card.dart';
 import '../widgets/common/empty_state.dart';
 import '../widgets/common/quick_action_tile.dart';
 import '../widgets/common/section_header.dart';
+import '../widgets/common/split_mark.dart';
 import '../widgets/common/transaction_tile.dart';
 import 'add_transaction_screen.dart';
 import 'budget_screen.dart';
@@ -108,8 +109,12 @@ class HomeScreen extends StatelessWidget {
                       ),
                       borderRadius: BorderRadius.circular(13),
                     ),
-                    child: Icon(Icons.call_split_rounded,
-                        color: theme.colorScheme.primary),
+                    child: Center(
+                      child: SplitMark(
+                        size: 24,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(

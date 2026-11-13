@@ -1360,7 +1360,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get travelModeSubtitle => 'Split a trip with friends — we do the math';
 
   @override
-  String get splitMode => 'Split';
+  String get splitMode => 'Split & Settle';
 
   @override
   String get splitModeSubtitle =>
