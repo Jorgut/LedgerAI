@@ -656,5 +656,9 @@
   },
   "introStarting": "HENG is starting",
   "introTagline": "A ledger that stays on your phone",
-  "introFooter": "LOCAL FIRST · NO LOGIN · NO NETWORK"
+  "introFooter": "LOCAL FIRST · NO LOGIN · NO NETWORK",
+  "sourceManual": "Manual",
+  "sourceOcr": "Receipt scan",
+  "sourceVoice": "Voice entry",
+  "sourceCsv": "Imported"
 }

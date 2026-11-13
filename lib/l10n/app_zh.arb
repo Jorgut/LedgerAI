@@ -845,5 +845,9 @@
   },
   "introStarting": "HENG，正在启动",
   "introTagline": "把账本留在自己手机里",
-  "introFooter": "本地优先 · 不登录 · 不联网"
+  "introFooter": "本地优先 · 不登录 · 不联网",
+  "sourceManual": "手动",
+  "sourceOcr": "拍照识别",
+  "sourceVoice": "语音记账",
+  "sourceCsv": "导入账单"
 }

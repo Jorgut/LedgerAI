@@ -656,5 +656,9 @@
   },
   "introStarting": "HENG запускается",
   "introTagline": "Учёт, который остаётся в вашем телефоне",
-  "introFooter": "ЛОКАЛЬНО · БЕЗ ВХОДА · БЕЗ СЕТИ"
+  "introFooter": "ЛОКАЛЬНО · БЕЗ ВХОДА · БЕЗ СЕТИ",
+  "sourceManual": "Вручную",
+  "sourceOcr": "Скан чека",
+  "sourceVoice": "Голосом",
+  "sourceCsv": "Импорт"
 }

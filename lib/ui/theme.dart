@@ -454,7 +454,8 @@ class AppTheme {
       onSecondary: isDark ? palette.onPrimary : Colors.white,
       secondaryContainer:
           Color.alphaBlend(palette.accent.withValues(alpha: 0.14), surface),
-      onSecondaryContainer: palette.primaryDark,
+      onSecondaryContainer:
+          isDark ? palette.text : palette.primaryDark,
       tertiary: palette.warning,
       onTertiary: isDark ? palette.onPrimary : Colors.white,
       error: error,

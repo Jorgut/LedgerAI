@@ -5,6 +5,7 @@ import '../../../core/models.dart';
 import '../../theme.dart';
 import '../../../l10n/app_localizations.dart';
 import 'category_localization.dart';
+import 'entry_source_localization.dart';
 import 'amount_text.dart';
 import 'category_icon.dart';
 
@@ -47,7 +48,8 @@ class TransactionTile extends StatelessWidget {
     final subtitleParts = <String>[
       localizedCategoryName(context, category),
       if (showDate) dateLabel,
-      if (showSource && txn.source != EntrySource.manual) txn.source.label,
+      if (showSource && txn.source != EntrySource.manual)
+        localizedSourceLabel(context, txn.source),
     ];
 
     final semantic = StringBuffer()
@@ -69,7 +71,7 @@ class TransactionTile extends StatelessWidget {
     if (showSource && txn.source != EntrySource.manual) {
       semantic
         ..write('，')
-        ..write(txn.source.label);
+        ..write(localizedSourceLabel(context, txn.source));
     }
 
     final row = Row(

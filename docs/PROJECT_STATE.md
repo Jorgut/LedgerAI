@@ -243,6 +243,15 @@
 - TestFlight 1.1.0 (9) 已上传并挂内部组：含新图标、壳/首页四语言、语言选择器；
 - 设置页 97 条、其余页面翻译尚未完成；1.0 仍 WAITING_FOR_REVIEW。
 
+
+## 营销展示与无障碍（2026-11-14）
+
+- 英文关键页面展示：`store/marketing/brand/final/showcase/pages_english.png`
+- 免费/付费主题 + 明亮/暗色：`themes_light_dark.png`（A 免费，B/C 计划 Pro）
+- 无障碍审计板：`accessibility_audit.png`；报告：`docs/ACCESSIBILITY_AUDIT.md`
+- 修复：B/C 浅色 warning 对比度 3.81/4.03 → 5.70/6.02；暗色 SegmentedButton 选中文字对比度；交易行来源标签本地化；图表月份标签按语言。
+- 验证：core 114 + accessibility 4/4 + home 8/8 通过，analyze 干净。
+
 ## 下一步
 
 1. **待用户决定**：1.0 是否撤回并用 build 2 重提（仅 OCR 修复 + 可带新图标），或让 1.0 先过审、修复随 1.1 发布。

@@ -1331,4 +1331,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get introFooter => 'ЛОКАЛЬНО · БЕЗ ВХОДА · БЕЗ СЕТИ';
+
+  @override
+  String get sourceManual => 'Вручную';
+
+  @override
+  String get sourceOcr => 'Скан чека';
+
+  @override
+  String get sourceVoice => 'Голосом';
+
+  @override
+  String get sourceCsv => 'Импорт';
 }

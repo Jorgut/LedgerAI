@@ -2353,6 +2353,30 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'本地优先 · 不登录 · 不联网'**
   String get introFooter;
+
+  /// No description provided for @sourceManual.
+  ///
+  /// In zh, this message translates to:
+  /// **'手动'**
+  String get sourceManual;
+
+  /// No description provided for @sourceOcr.
+  ///
+  /// In zh, this message translates to:
+  /// **'拍照识别'**
+  String get sourceOcr;
+
+  /// No description provided for @sourceVoice.
+  ///
+  /// In zh, this message translates to:
+  /// **'语音记账'**
+  String get sourceVoice;
+
+  /// No description provided for @sourceCsv.
+  ///
+  /// In zh, this message translates to:
+  /// **'导入账单'**
+  String get sourceCsv;
 }
 
 class _AppLocalizationsDelegate

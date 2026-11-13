@@ -197,7 +197,7 @@ class HengPalette extends ThemeExtension<HengPalette> {
                 muted: Color(0xFF5F6E67),
                 income: Color(0xFF0E7C5A),
                 expense: Color(0xFFB42318),
-                warning: Color(0xFFB26A00),
+                warning: Color(0xFF8A5300),
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -245,7 +245,7 @@ class HengPalette extends ThemeExtension<HengPalette> {
                 muted: Color(0xFF5F6E67),
                 income: Color(0xFF0E7C5A),
                 expense: Color(0xFFB42318),
-                warning: Color(0xFFB26A00),
+                warning: Color(0xFF8A5300),
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,

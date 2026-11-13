@@ -104,6 +104,7 @@ class TrendChart extends StatelessWidget {
                     gridColor: gridColor,
                     labelStyle: labelStyle,
                     textScaler: textScaler,
+                    locale: Localizations.localeOf(context),
                     progress: progress,
                   ),
                 ),
@@ -155,6 +156,7 @@ class _TrendChartPainter extends CustomPainter {
     required this.gridColor,
     required this.labelStyle,
     required this.textScaler,
+    required this.locale,
     this.progress = 1,
   });
 
@@ -166,6 +168,7 @@ class _TrendChartPainter extends CustomPainter {
   final Color gridColor;
   final TextStyle labelStyle;
   final TextScaler textScaler;
+  final Locale locale;
 
   /// 0..1，柱状图生长进度（首屏一次入场动画）。
   final double progress;
@@ -270,7 +273,7 @@ class _TrendChartPainter extends CustomPainter {
 
     // 月份标签：空间不足时隔月显示，避免大字号下互相重叠。
     final monthLabels = points.map((point) {
-      final painter = measure(formatMonthShort(point.month));
+      final painter = measure(formatMonthShort(point.month, locale: locale));
       return painter;
     }).toList();
     final labelWidth = monthLabels.fold<double>(

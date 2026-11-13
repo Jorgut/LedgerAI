@@ -1280,6 +1280,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get introFooter => '本地优先 · 不登录 · 不联网';
+
+  @override
+  String get sourceManual => '手动';
+
+  @override
+  String get sourceOcr => '拍照识别';
+
+  @override
+  String get sourceVoice => '语音记账';
+
+  @override
+  String get sourceCsv => '导入账单';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2558,4 +2570,16 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get introFooter => '本地優先 · 不登入 · 不聯網';
+
+  @override
+  String get sourceManual => '手動';
+
+  @override
+  String get sourceOcr => '拍照辨識';
+
+  @override
+  String get sourceVoice => '語音記帳';
+
+  @override
+  String get sourceCsv => '匯入帳單';
 }

@@ -124,13 +124,18 @@ class LedgerApp extends StatelessWidget {
     }
   }
 
-  static const ParsedReceipt _demoReceipt = ParsedReceipt(
-    amount: 42,
-    merchant: '麦当劳',
-    categoryId: 'food',
-    note: '午餐 · 麦当劳',
-    rawText: '麦当劳（万达店）\n2026-11-12 12:30\n巨无霸套餐 ¥32.00\n薯条 ¥10.00\n合计 ¥42.00',
-  );
+  static ParsedReceipt get _demoReceipt {
+    const english = String.fromEnvironment('DEMO_LANGUAGE') == 'en';
+    return ParsedReceipt(
+      amount: 42,
+      merchant: english ? "McDonald's" : '麦当劳',
+      categoryId: 'food',
+      note: english ? 'Lunch · McDonald\'s' : '午餐 · 麦当劳',
+      rawText: english
+          ? 'McDonald\'s (Wanda)\n2026-11-12 12:30\nBig Mac meal ¥32.00\nFries ¥10.00\nTotal ¥42.00'
+          : '麦当劳（万达店）\n2026-11-12 12:30\n巨无霸套餐 ¥32.00\n薯条 ¥10.00\n合计 ¥42.00',
+    );
+  }
 
   static void _noop() {}
 }

@@ -1328,4 +1328,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get introFooter => 'LOCAL FIRST · NO LOGIN · NO NETWORK';
+
+  @override
+  String get sourceManual => 'Manual';
+
+  @override
+  String get sourceOcr => 'Receipt scan';
+
+  @override
+  String get sourceVoice => 'Voice entry';
+
+  @override
+  String get sourceCsv => 'Imported';
 }
