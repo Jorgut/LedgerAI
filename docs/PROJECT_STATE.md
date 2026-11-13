@@ -270,6 +270,15 @@
 - 真实分账/CloudKit/FX/StoreKit 方案：`docs/SPLIT_ARCHITECTURE.md`，尚未实现。
 - TestFlight 1.1.0 (14) 已挂组；1.0 仍 WAITING_FOR_REVIEW。
 
+
+## 中文排版优化（2026-11-14）
+
+- 移除 0.95 小数缩放；改为整数 type scale，避免 CJK 半像素模糊；
+- 标题 w700→w600，正文行高 1.55；
+- 显式 CJK fallback：PingFang SC/TC、Hiragino Sans GB、Noto Sans CJK；
+- 对比板：`store/marketing/brand/final/showcase/typography_before_after.png`；
+- 说明：`docs/TYPOGRAPHY.md`；仍可评估思源黑体/Songti 标题。
+
 ## 下一步
 
 1. **待用户决定**：1.0 是否撤回并用 build 2 重提（仅 OCR 修复 + 可带新图标），或让 1.0 先过审、修复随 1.1 发布。

@@ -489,88 +489,49 @@ class AppTheme {
   }
 
   /// 字阶：正文 16sp、重要信息 18sp+、标题 22sp+；全部启用等宽数字。
+  static const List<String> _cjkFallback = [
+    'PingFang SC',
+    'PingFang TC',
+    'Hiragino Sans GB',
+    'Noto Sans CJK SC',
+  ];
+
+  static TextStyle? _cjk(TextStyle? style) =>
+      style?.copyWith(fontFamilyFallback: _cjkFallback);
+
   static TextTheme _textTheme(TextTheme base, ColorScheme scheme) {
     final text = base
         .copyWith(
-          displayLarge: base.displayLarge?.copyWith(
-            fontSize: 48,
-            fontWeight: FontWeight.w700,
-            letterSpacing: -0.5,
-            height: 1.12,
-          ),
-          displayMedium: base.displayMedium?.copyWith(
-            fontSize: 40,
-            fontWeight: FontWeight.w700,
-            letterSpacing: -0.4,
-            height: 1.14,
-          ),
-          displaySmall: base.displaySmall?.copyWith(
-            fontSize: 34,
-            fontWeight: FontWeight.w700,
-            letterSpacing: -0.3,
-            height: 1.16,
-          ),
-          headlineLarge: base.headlineLarge?.copyWith(
-            fontSize: 30,
-            fontWeight: FontWeight.w700,
-            height: 1.2,
-          ),
-          headlineMedium: base.headlineMedium?.copyWith(
-            fontSize: 28,
-            fontWeight: FontWeight.w700,
-            height: 1.2,
-          ),
-          headlineSmall: base.headlineSmall?.copyWith(
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-            height: 1.24,
-          ),
-          titleLarge: base.titleLarge?.copyWith(
-            fontSize: 22,
-            fontWeight: FontWeight.w700,
-            height: 1.3,
-          ),
-          titleMedium: base.titleMedium?.copyWith(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            height: 1.35,
-          ),
-          titleSmall: base.titleSmall?.copyWith(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            height: 1.4,
-          ),
-          bodyLarge: base.bodyLarge?.copyWith(
-            fontSize: 17,
-            fontWeight: FontWeight.w400,
-            height: 1.5,
-          ),
-          bodyMedium: base.bodyMedium?.copyWith(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            height: 1.5,
-          ),
-          bodySmall: base.bodySmall?.copyWith(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            height: 1.45,
-          ),
-          labelLarge: base.labelLarge?.copyWith(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            height: 1.3,
-          ),
-          labelMedium: base.labelMedium?.copyWith(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            height: 1.3,
-          ),
-          labelSmall: base.labelSmall?.copyWith(
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-            height: 1.3,
-            letterSpacing: 0.2,
-          ),
+          displayLarge: _cjk(base.displayLarge?.copyWith(
+            fontSize: 46, fontWeight: FontWeight.w600, letterSpacing: -0.5, height: 1.12)),
+          displayMedium: _cjk(base.displayMedium?.copyWith(
+            fontSize: 38, fontWeight: FontWeight.w600, letterSpacing: -0.4, height: 1.14)),
+          displaySmall: _cjk(base.displaySmall?.copyWith(
+            fontSize: 32, fontWeight: FontWeight.w600, letterSpacing: -0.3, height: 1.16)),
+          headlineLarge: _cjk(base.headlineLarge?.copyWith(
+            fontSize: 29, fontWeight: FontWeight.w600, height: 1.2)),
+          headlineMedium: _cjk(base.headlineMedium?.copyWith(
+            fontSize: 27, fontWeight: FontWeight.w600, height: 1.2)),
+          headlineSmall: _cjk(base.headlineSmall?.copyWith(
+            fontSize: 23, fontWeight: FontWeight.w600, height: 1.24)),
+          titleLarge: _cjk(base.titleLarge?.copyWith(
+            fontSize: 21, fontWeight: FontWeight.w600, height: 1.3)),
+          titleMedium: _cjk(base.titleMedium?.copyWith(
+            fontSize: 17, fontWeight: FontWeight.w600, height: 1.35)),
+          titleSmall: _cjk(base.titleSmall?.copyWith(
+            fontSize: 15, fontWeight: FontWeight.w500, height: 1.4)),
+          bodyLarge: _cjk(base.bodyLarge?.copyWith(
+            fontSize: 15, fontWeight: FontWeight.w400, height: 1.55)),
+          bodyMedium: _cjk(base.bodyMedium?.copyWith(
+            fontSize: 15, fontWeight: FontWeight.w400, height: 1.55)),
+          bodySmall: _cjk(base.bodySmall?.copyWith(
+            fontSize: 13, fontWeight: FontWeight.w400, height: 1.5)),
+          labelLarge: _cjk(base.labelLarge?.copyWith(
+            fontSize: 15, fontWeight: FontWeight.w600, height: 1.3)),
+          labelMedium: _cjk(base.labelMedium?.copyWith(
+            fontSize: 13, fontWeight: FontWeight.w500, height: 1.3)),
+          labelSmall: _cjk(base.labelSmall?.copyWith(
+            fontSize: 12, fontWeight: FontWeight.w500, height: 1.3, letterSpacing: 0.2)),
         )
         .apply(
           bodyColor: scheme.onSurface,
