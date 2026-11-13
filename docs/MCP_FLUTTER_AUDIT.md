@@ -75,3 +75,31 @@ Reasons not to adopt now:
 - no App Store review automation.
 
 For those, continue native/Flutter implementation plus local Apple release/privacy skills.
+
+
+---
+
+## Trial result (2026-11-14)
+
+Isolated worktree: `/tmp/heng-mcp-trial` (branch `trial/mcp-flutter`, no merge).
+
+Setup:
+
+- added `mcp_toolkit: ^7.1.1` in the trial worktree only;
+- wrapped `main()` with `MCPToolkitBinding.instance.bootstrapFlutter(ensureInitialized: prepare, runApp: ...)`;
+- fixed Flutter "zone mismatch" by moving `WidgetsFlutterBinding.ensureInitialized()` and `AppState.create()` into the bootstrap `ensureInitialized` callback;
+- ran server from source (`dart run bin/flutter_mcp_toolkit.dart`), not `curl | bash`;
+- no `OPENAI_API_KEY`, no external summary.
+
+Results:
+
+- `doctor --json`: **10/10 pass**, 0 fail;
+- discovered the running simulator VM service;
+- `get_view_details`: returned full 1320×2868 view + widget tree;
+- `get_extension_rpcs`: returned the app extension surface;
+- `get_app_errors`: no errors;
+- `capture_ui_snapshot`: **failed** in this environment with `window_not_found` (macOS Simulator desktop-window capture), not an app error. Widget-tree inspection still works.
+
+Verdict: tool is functional for live widget/error inspection, but screenshot capture needs simulator/window setup. Keep it as a dev-only QA option; do not merge the dependency into release. Local `flow-walkthrough` + XCUITest remains the screenshot/flow path.
+
+Trial worktree and temporary clone can be removed after review.
