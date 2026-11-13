@@ -214,6 +214,14 @@
 - App 图标已替换为甲骨文「衡」：`store/marketing/brand/final/icon/app_icon_oracle_1024.png`；构造图已归一到 8px 网格（456×720、x284、y160、安全区104、圆角224），首页头部同步使用小字标。App Store 1.0 仍用旧图标，新图标随 1.1。
 - 1.0 仍在 App Store `WAITING_FOR_REVIEW`。
 
+
+## 小红书预热视觉（2026-11-13）
+
+- App 图标背景换成 **Aurora Halo**：深墨底 + 青绿极光带 + 微光/星点 + 甲骨文「衡」；
+- 1024 源文件与全部 iOS 尺寸已同步；
+- 预热封面：`store/marketing/brand/final/icon/xhs_preheat_cover.png`（1242×1660）；
+- 图标多尺寸预览：`app_icon_aurora_preview.png`。
+
 ## 下一步
 
 1. **待用户决定**：1.0 是否撤回并用 build 2 重提（仅 OCR 修复 + 可带新图标），或让 1.0 先过审、修复随 1.1 发布。
