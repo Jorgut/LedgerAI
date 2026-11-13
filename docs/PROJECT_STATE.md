@@ -211,6 +211,7 @@
 - 本月结余卡去掉 TechBackdrop/SheenSweep 弧线与扫光，改为干净渐变 + 柔和高光；
 - 下一批：设置页（约 97 条文案）与语言选择器；首页头部已改为 HENG。
 - 余额卡极简版截图：`store/marketing/brand/final/home_clean_card.png`。
+- App 图标已替换为甲骨文「衡」：`store/marketing/brand/final/icon/app_icon_oracle_1024.png`；首页头部同步使用小字标。App Store 1.0 仍用旧图标，新图标随 1.1。
 - 1.0 仍在 App Store `WAITING_FOR_REVIEW`。
 
 ## 下一步

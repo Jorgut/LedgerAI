@@ -47,10 +47,14 @@ class HomeScreen extends StatelessWidget {
                 gradient: AppTheme.brandGradientOf(context),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Icon(
-                Icons.account_balance_wallet_rounded,
-                size: 18,
-                color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: Image.asset(
+                  'assets/brand/heng_glyph.png',
+                  fit: BoxFit.contain,
+                  color: Colors.white,
+                  colorBlendMode: BlendMode.srcIn,
+                ),
               ),
             ),
             const SizedBox(width: 10),
