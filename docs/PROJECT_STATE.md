@@ -209,7 +209,8 @@
 - 当前**未暴露语言选择器**：避免只翻译部分屏幕时出现中英混排；
 - 第一批迁移已完成：App 壳/底部导航、首页（含空状态/预算卡/金额语义）使用 `AppLocalizations`；
 - 本月结余卡去掉 TechBackdrop/SheenSweep 弧线与扫光，改为干净渐变 + 柔和高光；
-- 下一批：设置页（约 97 条文案）与语言选择器。
+- 下一批：设置页（约 97 条文案）与语言选择器；首页头部已改为 HENG。
+- 余额卡极简版截图：`store/marketing/brand/final/home_clean_card.png`。
 - 1.0 仍在 App Store `WAITING_FOR_REVIEW`。
 
 ## 下一步
