@@ -13,5 +13,93 @@
   "support": "Support",
   "commonSave": "Save",
   "commonCancel": "Cancel",
-  "commonDelete": "Delete"
+  "commonDelete": "Delete",
+  "fabAdd": "Add",
+  "homeBrand": "HENG",
+  "quickActions": "Quick entry",
+  "quickActionsSubtitle": "Receipt, voice, or manual — a few seconds each",
+  "photoEntry": "Scan receipt",
+  "voiceEntry": "Voice entry",
+  "manualEntry": "Manual entry",
+  "recentRecords": "Recent",
+  "recentCount": "Last {count} entries",
+  "viewAll": "View all",
+  "emptyRecordsTitle": "No entries yet",
+  "emptyRecordsMessage": "Scan a receipt, speak an expense, or add the first one manually.",
+  "recordFirst": "Add first entry",
+  "localOnlyNote": "Your data stays on this device. Back it up in Settings → Data export.",
+  "balanceLabel": "This month",
+  "balanceSemantic": "This month balance {amount}",
+  "income": "Income",
+  "expense": "Expenses",
+  "incomeSemantic": "Income this month {amount}",
+  "expenseSemantic": "Expenses this month {amount}",
+  "emptyMonth": "No entries this month yet. Start with a quick entry below.",
+  "setBudgetTitle": "Set a monthly budget",
+  "setBudgetHint": "See what is left at a glance, and get warned before you overspend.",
+  "setBudgetButton": "Set budget",
+  "budgetTitle": "Monthly budget",
+  "spentAmount": "Spent {amount}",
+  "remainingAmount": "Left {amount}",
+  "overspentAmount": "Over by {amount}",
+  "monthBudgetSemantic": "Monthly budget {amount}, {percent}% used",
+  "@recentCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@balanceSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@incomeSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@expenseSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@remainingAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@overspentAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@monthBudgetSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  }
 }

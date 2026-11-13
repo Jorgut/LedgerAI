@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'package:ledger_ai/l10n/app_localizations.dart';
 import 'package:ledger_ai/core/app_settings.dart';
 import 'package:ledger_ai/core/app_state.dart';
 import 'package:ledger_ai/core/models.dart';
@@ -129,8 +131,9 @@ Widget appShell(
         navigatorKey: navigatorKey,
         theme: theme ?? AppTheme.light(),
         locale: const Locale('zh', 'CN'),
-        supportedLocales: const [Locale('zh', 'CN')],
+        supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: const [
+          AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,

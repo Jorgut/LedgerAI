@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'ai/parsing.dart';
 import 'core/app_state.dart';
+import 'l10n/app_localizations.dart';
 import 'ui/brand_intro.dart';
 import 'ui/screens/add_transaction_screen.dart';
 import 'ui/screens/budget_screen.dart';
@@ -50,8 +51,9 @@ class LedgerApp extends StatelessWidget {
             );
           },
           locale: const Locale('zh', 'CN'),
-          supportedLocales: const [Locale('zh', 'CN')],
+          supportedLocales: AppLocalizations.supportedLocales,
           localizationsDelegates: const [
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,

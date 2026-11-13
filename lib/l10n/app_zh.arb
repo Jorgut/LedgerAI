@@ -13,5 +13,93 @@
   "support": "支持",
   "commonSave": "保存",
   "commonCancel": "取消",
-  "commonDelete": "删除"
+  "commonDelete": "删除",
+  "fabAdd": "记一笔",
+  "homeBrand": "HENG",
+  "quickActions": "快速记账",
+  "quickActionsSubtitle": "拍照、语音或手动，几秒记一笔",
+  "photoEntry": "拍照记账",
+  "voiceEntry": "语音记账",
+  "manualEntry": "手动记账",
+  "recentRecords": "最近记录",
+  "recentCount": "最近 {count} 笔",
+  "viewAll": "查看全部",
+  "emptyRecordsTitle": "还没有记录",
+  "emptyRecordsMessage": "拍一张小票、说一句话，或手动记第一笔。",
+  "recordFirst": "记第一笔",
+  "localOnlyNote": "数据仅保存在本机，可在「我的 → 数据导出」备份。",
+  "balanceLabel": "本月结余",
+  "balanceSemantic": "本月结余 {amount}",
+  "income": "收入",
+  "expense": "支出",
+  "incomeSemantic": "本月收入 {amount}",
+  "expenseSemantic": "本月支出 {amount}",
+  "emptyMonth": "本月还没有记录，从下面快速记第一笔吧。",
+  "setBudgetTitle": "设置本月预算",
+  "setBudgetHint": "设置后随时看到剩余额度，超支会提醒你",
+  "setBudgetButton": "设置预算",
+  "budgetTitle": "本月预算",
+  "spentAmount": "已花 {amount}",
+  "remainingAmount": "剩余 {amount}",
+  "overspentAmount": "已超支 {amount}",
+  "monthBudgetSemantic": "本月预算 {amount}，已用 {percent}%",
+  "@recentCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@balanceSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@incomeSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@expenseSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@remainingAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@overspentAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@monthBudgetSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  }
 }

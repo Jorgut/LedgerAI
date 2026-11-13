@@ -6,6 +6,7 @@ import '../../core/models.dart';
 import '../../core/stats.dart';
 import '../motion/motion.dart';
 import '../theme.dart';
+import '../../l10n/app_localizations.dart';
 import '../widgets/common/app_card.dart';
 import '../widgets/common/empty_state.dart';
 import '../widgets/common/quick_action_tile.dart';
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final app = AppScope.of(context);
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final now = DateTime.now();
     final summary = app.stats.summary(now.year, now.month);
     final budget = app.prefs.monthlyBudget;
@@ -54,7 +56,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(width: 10),
             Flexible(
               child: Text(
-                '衡账',
+                l10n.homeBrand,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -78,9 +80,9 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          const SectionHeader(
-            title: '快速记账',
-            subtitle: '拍照、语音或手动，几秒记一笔',
+          SectionHeader(
+            title: l10n.quickActions,
+            subtitle: l10n.quickActionsSubtitle,
           ),
           FadeSlideIn(
             delayFraction: 0.12,
@@ -91,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: QuickActionTile(
                       icon: Icons.document_scanner_rounded,
-                      label: '拍照记账',
+                      label: l10n.photoEntry,
                       color: AppTheme.brandTextOf(context),
                       onTap: () =>
                           _openAdd(context, AddTransactionMode.receipt),
@@ -101,7 +103,7 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: QuickActionTile(
                       icon: Icons.mic_rounded,
-                      label: '语音记账',
+                      label: l10n.voiceEntry,
                       color: const Color(0xFF5B6C8A),
                       onTap: () => _openAdd(context, AddTransactionMode.voice),
                     ),
@@ -110,7 +112,7 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: QuickActionTile(
                       icon: Icons.edit_note_rounded,
-                      label: '手动记账',
+                      label: l10n.manualEntry,
                       color: const Color(0xFFB4845A),
                       onTap: () => _openAdd(context, AddTransactionMode.manual),
                     ),
@@ -120,11 +122,11 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           SectionHeader(
-            title: '最近记录',
-            subtitle: recent.isEmpty ? null : '最近 ${recent.length} 笔',
+            title: l10n.recentRecords,
+            subtitle: recent.isEmpty ? null : l10n.recentCount(recent.length),
             trailing: TextButton(
               onPressed: onSeeAll ?? () => _openTransactions(context),
-              child: const Text('查看全部'),
+              child: Text(l10n.viewAll),
             ),
           ),
           if (recent.isEmpty)
@@ -133,9 +135,9 @@ class HomeScreen extends StatelessWidget {
               child: EmptyState(
                 compact: true,
                 icon: Icons.receipt_long_rounded,
-                title: '还没有记录',
-                message: '拍一张小票、说一句话，或手动记第一笔。',
-                actionLabel: '记第一笔',
+                title: l10n.emptyRecordsTitle,
+                message: l10n.emptyRecordsMessage,
+                actionLabel: l10n.recordFirst,
                 onAction: () => _openAdd(context, AddTransactionMode.manual),
               ),
             )
@@ -162,7 +164,7 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(
-              '数据仅保存在本机，可在「我的 → 数据导出」备份。',
+              l10n.localOnlyNote,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
@@ -214,6 +216,7 @@ class _BalanceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Semantics(
       container: true,
       child: Container(
@@ -237,8 +240,22 @@ class _BalanceCard extends StatelessWidget {
                       BoxDecoration(gradient: AppTheme.brandGradientOf(context)),
                 ),
               ),
-              const Positioned.fill(child: TechBackdrop()),
-              const Positioned.fill(child: SheenSweep()),
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: RadialGradient(
+                        center: const Alignment(-0.8, -1.1),
+                        radius: 1.35,
+                        colors: [
+                          Colors.white.withValues(alpha: 0.16),
+                          Colors.white.withValues(alpha: 0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 18),
                 child: Column(
@@ -248,7 +265,7 @@ class _BalanceCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            '本月结余',
+                            l10n.balanceLabel,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: theme.textTheme.bodyMedium?.copyWith(
@@ -288,7 +305,7 @@ class _BalanceCard extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                           ),
                           semanticLabel:
-                              '本月结余 ${formatMoney(summary.balance)} 元',
+                              l10n.balanceSemantic(formatMoney(summary.balance)),
                         ),
                       ),
                     ),
@@ -302,10 +319,10 @@ class _BalanceCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: _HeroStat(
-                            label: '收入',
+                            label: l10n.income,
                             amount: summary.income,
                             semanticLabel:
-                                '本月收入 ${formatMoney(summary.income)} 元',
+                                l10n.incomeSemantic(formatMoney(summary.income)),
                           ),
                         ),
                         Container(
@@ -317,10 +334,10 @@ class _BalanceCard extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 16),
                             child: _HeroStat(
-                              label: '支出',
+                              label: l10n.expense,
                               amount: summary.expense,
                               semanticLabel:
-                                  '本月支出 ${formatMoney(summary.expense)} 元',
+                                  l10n.expenseSemantic(formatMoney(summary.expense)),
                             ),
                           ),
                         ),
@@ -329,7 +346,7 @@ class _BalanceCard extends StatelessWidget {
                     if (summary.isEmpty) ...[
                       const SizedBox(height: 14),
                       Text(
-                        '本月还没有记录，从下面快速记第一笔吧。',
+                        l10n.emptyMonth,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: Colors.white.withValues(alpha: 0.92),
                         ),
@@ -408,10 +425,11 @@ class _BudgetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     if (budget == null || budget! <= 0) {
       return AppCard(
         onTap: onOpenBudget,
-        semanticLabel: '设置本月预算',
+        semanticLabel: l10n.setBudgetTitle,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -423,10 +441,10 @@ class _BudgetCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('设置本月预算', style: theme.textTheme.titleSmall),
+                      Text(l10n.setBudgetTitle, style: theme.textTheme.titleSmall),
                       const SizedBox(height: 2),
                       Text(
-                        '设置后随时看到剩余额度，超支会提醒你',
+                        l10n.setBudgetHint,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -442,7 +460,7 @@ class _BudgetCard extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: onOpenBudget,
                 icon: const Icon(Icons.settings_outlined, size: 20),
-                label: const Text('设置预算'),
+                label: Text(l10n.setBudgetButton),
               ),
             ),
           ],
@@ -465,8 +483,8 @@ class _BudgetCard extends StatelessWidget {
 
     return AppCard(
       onTap: onOpenBudget,
-      semanticLabel:
-          '本月预算 ${formatMoney(budget!)}，已用 $percent%${over ? '，已超支' : ''}',
+      semanticLabel: l10n.monthBudgetSemantic(
+          formatMoney(budget!), '$percent${over ? '!' : ''}'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -478,7 +496,7 @@ class _BudgetCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('本月预算', style: theme.textTheme.titleSmall),
+                    Text(l10n.budgetTitle, style: theme.textTheme.titleSmall),
                     const SizedBox(height: 2),
                     Text(
                       formatMonthLabel(now.year, now.month),
@@ -524,15 +542,15 @@ class _BudgetCard extends StatelessWidget {
             runSpacing: 4,
             children: [
               Text(
-                '已花 ${formatMoney(expense)}',
+                l10n.spentAmount(formatMoney(expense)),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
               ),
               Text(
                 over
-                    ? '已超支 ${formatMoney(-remaining)}'
-                    : '剩余 ${formatMoney(remaining)}',
+                    ? l10n.overspentAmount(formatMoney(-remaining))
+                    : l10n.remainingAmount(formatMoney(remaining)),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: progressColor,
                   fontWeight: FontWeight.w600,

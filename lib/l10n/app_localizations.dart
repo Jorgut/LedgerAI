@@ -184,6 +184,180 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'删除'**
   String get commonDelete;
+
+  /// No description provided for @fabAdd.
+  ///
+  /// In zh, this message translates to:
+  /// **'记一笔'**
+  String get fabAdd;
+
+  /// No description provided for @homeBrand.
+  ///
+  /// In zh, this message translates to:
+  /// **'HENG'**
+  String get homeBrand;
+
+  /// No description provided for @quickActions.
+  ///
+  /// In zh, this message translates to:
+  /// **'快速记账'**
+  String get quickActions;
+
+  /// No description provided for @quickActionsSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'拍照、语音或手动，几秒记一笔'**
+  String get quickActionsSubtitle;
+
+  /// No description provided for @photoEntry.
+  ///
+  /// In zh, this message translates to:
+  /// **'拍照记账'**
+  String get photoEntry;
+
+  /// No description provided for @voiceEntry.
+  ///
+  /// In zh, this message translates to:
+  /// **'语音记账'**
+  String get voiceEntry;
+
+  /// No description provided for @manualEntry.
+  ///
+  /// In zh, this message translates to:
+  /// **'手动记账'**
+  String get manualEntry;
+
+  /// No description provided for @recentRecords.
+  ///
+  /// In zh, this message translates to:
+  /// **'最近记录'**
+  String get recentRecords;
+
+  /// No description provided for @recentCount.
+  ///
+  /// In zh, this message translates to:
+  /// **'最近 {count} 笔'**
+  String recentCount(int count);
+
+  /// No description provided for @viewAll.
+  ///
+  /// In zh, this message translates to:
+  /// **'查看全部'**
+  String get viewAll;
+
+  /// No description provided for @emptyRecordsTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有记录'**
+  String get emptyRecordsTitle;
+
+  /// No description provided for @emptyRecordsMessage.
+  ///
+  /// In zh, this message translates to:
+  /// **'拍一张小票、说一句话，或手动记第一笔。'**
+  String get emptyRecordsMessage;
+
+  /// No description provided for @recordFirst.
+  ///
+  /// In zh, this message translates to:
+  /// **'记第一笔'**
+  String get recordFirst;
+
+  /// No description provided for @localOnlyNote.
+  ///
+  /// In zh, this message translates to:
+  /// **'数据仅保存在本机，可在「我的 → 数据导出」备份。'**
+  String get localOnlyNote;
+
+  /// No description provided for @balanceLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月结余'**
+  String get balanceLabel;
+
+  /// No description provided for @balanceSemantic.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月结余 {amount}'**
+  String balanceSemantic(String amount);
+
+  /// No description provided for @income.
+  ///
+  /// In zh, this message translates to:
+  /// **'收入'**
+  String get income;
+
+  /// No description provided for @expense.
+  ///
+  /// In zh, this message translates to:
+  /// **'支出'**
+  String get expense;
+
+  /// No description provided for @incomeSemantic.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月收入 {amount}'**
+  String incomeSemantic(String amount);
+
+  /// No description provided for @expenseSemantic.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月支出 {amount}'**
+  String expenseSemantic(String amount);
+
+  /// No description provided for @emptyMonth.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月还没有记录，从下面快速记第一笔吧。'**
+  String get emptyMonth;
+
+  /// No description provided for @setBudgetTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'设置本月预算'**
+  String get setBudgetTitle;
+
+  /// No description provided for @setBudgetHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'设置后随时看到剩余额度，超支会提醒你'**
+  String get setBudgetHint;
+
+  /// No description provided for @setBudgetButton.
+  ///
+  /// In zh, this message translates to:
+  /// **'设置预算'**
+  String get setBudgetButton;
+
+  /// No description provided for @budgetTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月预算'**
+  String get budgetTitle;
+
+  /// No description provided for @spentAmount.
+  ///
+  /// In zh, this message translates to:
+  /// **'已花 {amount}'**
+  String spentAmount(String amount);
+
+  /// No description provided for @remainingAmount.
+  ///
+  /// In zh, this message translates to:
+  /// **'剩余 {amount}'**
+  String remainingAmount(String amount);
+
+  /// No description provided for @overspentAmount.
+  ///
+  /// In zh, this message translates to:
+  /// **'已超支 {amount}'**
+  String overspentAmount(String amount);
+
+  /// No description provided for @monthBudgetSemantic.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月预算 {amount}，已用 {percent}%'**
+  String monthBudgetSemantic(String amount, String percent);
 }
 
 class _AppLocalizationsDelegate

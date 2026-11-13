@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_localizations.dart';
+
 import '../theme.dart';
 import 'add_transaction_screen.dart';
 import 'home_screen.dart';
@@ -70,6 +72,7 @@ class _RootShellState extends State<RootShell> {
     final theme = Theme.of(context);
     final navBackground =
         theme.navigationBarTheme.backgroundColor ?? theme.colorScheme.surface;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       body: IndexedStack(
@@ -100,30 +103,30 @@ class _RootShellState extends State<RootShell> {
           onDestinationSelected: _selectTab,
           backgroundColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
-          destinations: const [
+          destinations: [
             NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home_rounded),
-              label: '首页',
-              tooltip: '首页',
+              icon: const Icon(Icons.home_outlined),
+              selectedIcon: const Icon(Icons.home_rounded),
+              label: l10n.navHome,
+              tooltip: l10n.navHome,
             ),
             NavigationDestination(
-              icon: Icon(Icons.receipt_long_outlined),
-              selectedIcon: Icon(Icons.receipt_long_rounded),
-              label: '账单',
-              tooltip: '账单',
+              icon: const Icon(Icons.receipt_long_outlined),
+              selectedIcon: const Icon(Icons.receipt_long_rounded),
+              label: l10n.navTransactions,
+              tooltip: l10n.navTransactions,
             ),
             NavigationDestination(
-              icon: Icon(Icons.insights_outlined),
-              selectedIcon: Icon(Icons.insights_rounded),
-              label: '报表',
-              tooltip: '报表',
+              icon: const Icon(Icons.insights_outlined),
+              selectedIcon: const Icon(Icons.insights_rounded),
+              label: l10n.navReports,
+              tooltip: l10n.navReports,
             ),
             NavigationDestination(
-              icon: Icon(Icons.person_outline_rounded),
-              selectedIcon: Icon(Icons.person_rounded),
-              label: '我的',
-              tooltip: '我的',
+              icon: const Icon(Icons.person_outline_rounded),
+              selectedIcon: const Icon(Icons.person_rounded),
+              label: l10n.navSettings,
+              tooltip: l10n.navSettings,
             ),
           ],
         ),
@@ -158,7 +161,7 @@ class _AddButton extends StatelessWidget {
         ],
       ),
       child: FloatingActionButton(
-        tooltip: '记一笔',
+        tooltip: AppLocalizations.of(context).fabAdd,
         onPressed: onPressed,
         shape: const CircleBorder(),
         elevation: 0,
