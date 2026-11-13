@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/format.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// 月份切换器：上个月 / 当前月份 / 下个月。
 class MonthSwitcher extends StatelessWidget {
@@ -27,7 +28,7 @@ class MonthSwitcher extends StatelessWidget {
     return Row(
       children: [
         IconButton(
-          tooltip: '上个月',
+          tooltip: AppLocalizations.of(context).monthPrev,
           onPressed: onPrevious,
           icon: const Icon(Icons.chevron_left_rounded),
         ),
@@ -49,7 +50,9 @@ class MonthSwitcher extends StatelessWidget {
           ),
         ),
         IconButton(
-          tooltip: canNext ? '下个月' : '已经是本月',
+          tooltip: canNext
+              ? AppLocalizations.of(context).monthNext
+              : AppLocalizations.of(context).monthCurrent,
           onPressed: canNext ? onNext : null,
           icon: const Icon(Icons.chevron_right_rounded),
         ),

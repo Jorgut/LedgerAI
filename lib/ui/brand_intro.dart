@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
+import '../l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
 
 /// 冷启动后的品牌开场。
@@ -103,7 +105,7 @@ class _BrandIntroState extends State<BrandIntro>
               final scale = reduceMotion ? 1.0 : 1.04 - 0.04 * glyph;
 
               return Semantics(
-                label: 'HENG，正在启动',
+                label: AppLocalizations.of(context).introStarting,
                 container: true,
                 child: ColoredBox(
                   color: _dark,
@@ -196,7 +198,7 @@ class _BrandIntroState extends State<BrandIntro>
                               child: Column(
                                 children: [
                                   Text(
-                                    '把账本留在自己手机里',
+                                    AppLocalizations.of(context).introTagline,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 28 * s,
@@ -206,7 +208,7 @@ class _BrandIntroState extends State<BrandIntro>
                                   ),
                                   SizedBox(height: 6 * s),
                                   Text(
-                                    '本地优先 · 不登录 · 不联网',
+                                    AppLocalizations.of(context).introFooter,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 18 * s,

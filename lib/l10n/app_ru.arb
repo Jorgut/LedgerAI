@@ -603,5 +603,58 @@
   "catInvestment": "Инвестиции",
   "catParttime": "Подработка",
   "catGift": "Подарок",
-  "catOtherIncome": "Другое"
+  "catOtherIncome": "Другое",
+  "undo": "Отменить",
+  "monthPrev": "Предыдущий месяц",
+  "monthNext": "Следующий месяц",
+  "monthCurrent": "Это текущий месяц",
+  "amountSemantic": "Сумма {amount}",
+  "@amountSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "currencyUnit": "",
+  "chartEmpty": "Недостаточно данных для тренда",
+  "chartSemantic": "Тренд доходов и расходов за {count} мес.",
+  "@chartSemantic": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "donutTotal": "Итого",
+  "donutEmpty": "Нет данных по категориям",
+  "donutNoData": "Нет данных",
+  "donutSemantic": "Круговая диаграмма категорий, {label} {amount}",
+  "@donutSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "donutDesc": "{category} {amount}, {percent}%",
+  "@donutDesc": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "introStarting": "HENG запускается",
+  "introTagline": "Учёт, который остаётся в вашем телефоне",
+  "introFooter": "ЛОКАЛЬНО · БЕЗ ВХОДА · БЕЗ СЕТИ"
 }

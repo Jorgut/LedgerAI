@@ -48,8 +48,8 @@ void main() {
 
     await scrollTo(tester, find.text('用户协议'));
     expect(find.text('关于'), findsOneWidget);
-    expect(find.text('衡账 LedgerAI'), findsOneWidget);
-    expect(find.text('版本 1.0.0（构建 1）'), findsOneWidget);
+    expect(find.text('HENG'), findsOneWidget);
+    expect(find.text('版本 1.1.0（构建 12）'), findsOneWidget);
     expect(find.text('不登录'), findsOneWidget);
     expect(find.text('不联网'), findsOneWidget);
     expect(find.text('不上传'), findsOneWidget);

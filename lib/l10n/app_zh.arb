@@ -29,11 +29,11 @@
   "recordFirst": "记第一笔",
   "localOnlyNote": "数据仅保存在本机，可在「我的 → 数据导出」备份。",
   "balanceLabel": "本月结余",
-  "balanceSemantic": "本月结余 {amount}",
+  "balanceSemantic": "本月结余 {amount} 元",
   "income": "收入",
   "expense": "支出",
-  "incomeSemantic": "本月收入 {amount}",
-  "expenseSemantic": "本月支出 {amount}",
+  "incomeSemantic": "本月收入 {amount} 元",
+  "expenseSemantic": "本月支出 {amount} 元",
   "emptyMonth": "本月还没有记录，从下面快速记第一笔吧。",
   "setBudgetTitle": "设置本月预算",
   "setBudgetHint": "设置后随时看到剩余额度，超支会提醒你",
@@ -792,5 +792,58 @@
   "catInvestment": "理财",
   "catParttime": "兼职",
   "catGift": "红包",
-  "catOtherIncome": "其他"
+  "catOtherIncome": "其他",
+  "undo": "撤销",
+  "monthPrev": "上个月",
+  "monthNext": "下个月",
+  "monthCurrent": "已经是本月",
+  "amountSemantic": "金额 {amount}",
+  "@amountSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "currencyUnit": " 元",
+  "chartEmpty": "还没有足够的数据生成趋势图",
+  "chartSemantic": "近 {count} 个月收支趋势",
+  "@chartSemantic": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "donutTotal": "合计",
+  "donutEmpty": "暂无分类数据",
+  "donutNoData": "暂无数据",
+  "donutSemantic": "分类占比环形图，{label} {amount}",
+  "@donutSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "donutDesc": "{category} {amount}，占 {percent}%",
+  "@donutDesc": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "introStarting": "HENG，正在启动",
+  "introTagline": "把账本留在自己手机里",
+  "introFooter": "本地优先 · 不登录 · 不联网"
 }

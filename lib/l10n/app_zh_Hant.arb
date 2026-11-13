@@ -29,11 +29,11 @@
   "recordFirst": "記第一筆",
   "localOnlyNote": "資料僅保存在本機，可在「我的 → 資料匯出」備份。",
   "balanceLabel": "本月結餘",
-  "balanceSemantic": "本月結餘 {amount}",
+  "balanceSemantic": "本月結餘 {amount} 元",
   "income": "收入",
   "expense": "支出",
-  "incomeSemantic": "本月收入 {amount}",
-  "expenseSemantic": "本月支出 {amount}",
+  "incomeSemantic": "本月收入 {amount} 元",
+  "expenseSemantic": "本月支出 {amount} 元",
   "emptyMonth": "本月還沒有記錄，從下面快速記第一筆吧。",
   "setBudgetTitle": "設定本月預算",
   "setBudgetHint": "設定後隨時看到剩餘額度，超支會提醒你",
@@ -603,5 +603,58 @@
   "catInvestment": "理財",
   "catParttime": "兼職",
   "catGift": "紅包",
-  "catOtherIncome": "其他"
+  "catOtherIncome": "其他",
+  "undo": "復原",
+  "monthPrev": "上個月",
+  "monthNext": "下個月",
+  "monthCurrent": "已經是本月",
+  "amountSemantic": "金額 {amount}",
+  "@amountSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "currencyUnit": " 元",
+  "chartEmpty": "還沒有足夠的資料產生趨勢圖",
+  "chartSemantic": "近 {count} 個月收支趨勢",
+  "@chartSemantic": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "donutTotal": "合計",
+  "donutEmpty": "暫無分類資料",
+  "donutNoData": "暫無資料",
+  "donutSemantic": "分類佔比環形圖，{label} {amount}",
+  "@donutSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "donutDesc": "{category} {amount}，佔 {percent}%",
+  "@donutDesc": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "introStarting": "HENG，正在啟動",
+  "introTagline": "把帳本留在自己手機裡",
+  "introFooter": "本地優先 · 不登入 · 不聯網"
 }

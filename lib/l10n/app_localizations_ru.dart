@@ -1275,4 +1275,60 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get catOtherIncome => 'Другое';
+
+  @override
+  String get undo => 'Отменить';
+
+  @override
+  String get monthPrev => 'Предыдущий месяц';
+
+  @override
+  String get monthNext => 'Следующий месяц';
+
+  @override
+  String get monthCurrent => 'Это текущий месяц';
+
+  @override
+  String amountSemantic(String amount) {
+    return 'Сумма $amount';
+  }
+
+  @override
+  String get currencyUnit => '';
+
+  @override
+  String get chartEmpty => 'Недостаточно данных для тренда';
+
+  @override
+  String chartSemantic(int count) {
+    return 'Тренд доходов и расходов за $count мес.';
+  }
+
+  @override
+  String get donutTotal => 'Итого';
+
+  @override
+  String get donutEmpty => 'Нет данных по категориям';
+
+  @override
+  String get donutNoData => 'Нет данных';
+
+  @override
+  String donutSemantic(String amount, String label) {
+    return 'Круговая диаграмма категорий, $label $amount';
+  }
+
+  @override
+  String donutDesc(String percent, String amount, String category) {
+    return '$category $amount, $percent%';
+  }
+
+  @override
+  String get introStarting => 'HENG запускается';
+
+  @override
+  String get introTagline => 'Учёт, который остаётся в вашем телефоне';
+
+  @override
+  String get introFooter => 'ЛОКАЛЬНО · БЕЗ ВХОДА · БЕЗ СЕТИ';
 }

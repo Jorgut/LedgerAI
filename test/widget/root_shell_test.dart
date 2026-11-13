@@ -13,7 +13,10 @@ import 'test_support.dart';
 void main() {
   late TestHarness harness;
 
-  setUp(() async => harness = await TestHarness.open());
+  setUp(() async {
+    harness = await TestHarness.open();
+    await harness.setPrefs(const AppSettings(language: AppLanguage.zhHans));
+  });
   tearDown(() async => harness.dispose());
 
   /// 启动完整 App（LedgerApp 自带 MaterialApp，因此只在外层包 AppScope）。
@@ -47,7 +50,7 @@ void main() {
 
   testWidgets('四个 Tab 可切换且显示各自页面', (tester) async {
     await tester.runAsync(
-      () => harness.setPrefs(const AppSettings(onboardingDone: true)),
+      () => harness.setPrefs(const AppSettings(onboardingDone: true, language: AppLanguage.zhHans)),
     );
     await pumpApp(tester);
 
@@ -79,7 +82,7 @@ void main() {
 
   testWidgets('FAB 记一笔：保存后首页最近记录与账单列表都出现', (tester) async {
     await tester.runAsync(
-      () => harness.setPrefs(const AppSettings(onboardingDone: true)),
+      () => harness.setPrefs(const AppSettings(onboardingDone: true, language: AppLanguage.zhHans)),
     );
     await pumpApp(tester);
 
@@ -118,7 +121,7 @@ void main() {
 
   testWidgets('200% 大字号下四个 Tab 均不溢出', (tester) async {
     await tester.runAsync(
-      () => harness.setPrefs(const AppSettings(onboardingDone: true)),
+      () => harness.setPrefs(const AppSettings(onboardingDone: true, language: AppLanguage.zhHans)),
     );
     useTextScale(tester, scale: 2.0);
     await pumpApp(tester);

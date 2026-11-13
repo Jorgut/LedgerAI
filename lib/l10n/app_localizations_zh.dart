@@ -99,7 +99,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String balanceSemantic(String amount) {
-    return '本月结余 $amount';
+    return '本月结余 $amount 元';
   }
 
   @override
@@ -110,12 +110,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String incomeSemantic(String amount) {
-    return '本月收入 $amount';
+    return '本月收入 $amount 元';
   }
 
   @override
   String expenseSemantic(String amount) {
-    return '本月支出 $amount';
+    return '本月支出 $amount 元';
   }
 
   @override
@@ -1224,6 +1224,62 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get catOtherIncome => '其他';
+
+  @override
+  String get undo => '撤销';
+
+  @override
+  String get monthPrev => '上个月';
+
+  @override
+  String get monthNext => '下个月';
+
+  @override
+  String get monthCurrent => '已经是本月';
+
+  @override
+  String amountSemantic(String amount) {
+    return '金额 $amount';
+  }
+
+  @override
+  String get currencyUnit => ' 元';
+
+  @override
+  String get chartEmpty => '还没有足够的数据生成趋势图';
+
+  @override
+  String chartSemantic(int count) {
+    return '近 $count 个月收支趋势';
+  }
+
+  @override
+  String get donutTotal => '合计';
+
+  @override
+  String get donutEmpty => '暂无分类数据';
+
+  @override
+  String get donutNoData => '暂无数据';
+
+  @override
+  String donutSemantic(String amount, String label) {
+    return '分类占比环形图，$label $amount';
+  }
+
+  @override
+  String donutDesc(String percent, String amount, String category) {
+    return '$category $amount，占 $percent%';
+  }
+
+  @override
+  String get introStarting => 'HENG，正在启动';
+
+  @override
+  String get introTagline => '把账本留在自己手机里';
+
+  @override
+  String get introFooter => '本地优先 · 不登录 · 不联网';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -1321,7 +1377,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String balanceSemantic(String amount) {
-    return '本月結餘 $amount';
+    return '本月結餘 $amount 元';
   }
 
   @override
@@ -1332,12 +1388,12 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String incomeSemantic(String amount) {
-    return '本月收入 $amount';
+    return '本月收入 $amount 元';
   }
 
   @override
   String expenseSemantic(String amount) {
-    return '本月支出 $amount';
+    return '本月支出 $amount 元';
   }
 
   @override
@@ -2446,4 +2502,60 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get catOtherIncome => '其他';
+
+  @override
+  String get undo => '復原';
+
+  @override
+  String get monthPrev => '上個月';
+
+  @override
+  String get monthNext => '下個月';
+
+  @override
+  String get monthCurrent => '已經是本月';
+
+  @override
+  String amountSemantic(String amount) {
+    return '金額 $amount';
+  }
+
+  @override
+  String get currencyUnit => ' 元';
+
+  @override
+  String get chartEmpty => '還沒有足夠的資料產生趨勢圖';
+
+  @override
+  String chartSemantic(int count) {
+    return '近 $count 個月收支趨勢';
+  }
+
+  @override
+  String get donutTotal => '合計';
+
+  @override
+  String get donutEmpty => '暫無分類資料';
+
+  @override
+  String get donutNoData => '暫無資料';
+
+  @override
+  String donutSemantic(String amount, String label) {
+    return '分類佔比環形圖，$label $amount';
+  }
+
+  @override
+  String donutDesc(String percent, String amount, String category) {
+    return '$category $amount，佔 $percent%';
+  }
+
+  @override
+  String get introStarting => 'HENG，正在啟動';
+
+  @override
+  String get introTagline => '把帳本留在自己手機裡';
+
+  @override
+  String get introFooter => '本地優先 · 不登入 · 不聯網';
 }

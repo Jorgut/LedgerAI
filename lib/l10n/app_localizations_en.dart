@@ -1272,4 +1272,60 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get catOtherIncome => 'Other';
+
+  @override
+  String get undo => 'Undo';
+
+  @override
+  String get monthPrev => 'Previous month';
+
+  @override
+  String get monthNext => 'Next month';
+
+  @override
+  String get monthCurrent => 'This is the current month';
+
+  @override
+  String amountSemantic(String amount) {
+    return 'Amount $amount';
+  }
+
+  @override
+  String get currencyUnit => '';
+
+  @override
+  String get chartEmpty => 'Not enough data for a trend yet';
+
+  @override
+  String chartSemantic(int count) {
+    return 'Income and expense trend for $count months';
+  }
+
+  @override
+  String get donutTotal => 'Total';
+
+  @override
+  String get donutEmpty => 'No category data';
+
+  @override
+  String get donutNoData => 'No data';
+
+  @override
+  String donutSemantic(String amount, String label) {
+    return 'Category share donut, $label $amount';
+  }
+
+  @override
+  String donutDesc(String percent, String amount, String category) {
+    return '$category $amount, $percent%';
+  }
+
+  @override
+  String get introStarting => 'HENG is starting';
+
+  @override
+  String get introTagline => 'A ledger that stays on your phone';
+
+  @override
+  String get introFooter => 'LOCAL FIRST · NO LOGIN · NO NETWORK';
 }

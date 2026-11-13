@@ -278,7 +278,7 @@ abstract class AppLocalizations {
   /// No description provided for @balanceSemantic.
   ///
   /// In zh, this message translates to:
-  /// **'本月结余 {amount}'**
+  /// **'本月结余 {amount} 元'**
   String balanceSemantic(String amount);
 
   /// No description provided for @income.
@@ -296,13 +296,13 @@ abstract class AppLocalizations {
   /// No description provided for @incomeSemantic.
   ///
   /// In zh, this message translates to:
-  /// **'本月收入 {amount}'**
+  /// **'本月收入 {amount} 元'**
   String incomeSemantic(String amount);
 
   /// No description provided for @expenseSemantic.
   ///
   /// In zh, this message translates to:
-  /// **'本月支出 {amount}'**
+  /// **'本月支出 {amount} 元'**
   String expenseSemantic(String amount);
 
   /// No description provided for @emptyMonth.
@@ -2257,6 +2257,102 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'其他'**
   String get catOtherIncome;
+
+  /// No description provided for @undo.
+  ///
+  /// In zh, this message translates to:
+  /// **'撤销'**
+  String get undo;
+
+  /// No description provided for @monthPrev.
+  ///
+  /// In zh, this message translates to:
+  /// **'上个月'**
+  String get monthPrev;
+
+  /// No description provided for @monthNext.
+  ///
+  /// In zh, this message translates to:
+  /// **'下个月'**
+  String get monthNext;
+
+  /// No description provided for @monthCurrent.
+  ///
+  /// In zh, this message translates to:
+  /// **'已经是本月'**
+  String get monthCurrent;
+
+  /// No description provided for @amountSemantic.
+  ///
+  /// In zh, this message translates to:
+  /// **'金额 {amount}'**
+  String amountSemantic(String amount);
+
+  /// No description provided for @currencyUnit.
+  ///
+  /// In zh, this message translates to:
+  /// **' 元'**
+  String get currencyUnit;
+
+  /// No description provided for @chartEmpty.
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有足够的数据生成趋势图'**
+  String get chartEmpty;
+
+  /// No description provided for @chartSemantic.
+  ///
+  /// In zh, this message translates to:
+  /// **'近 {count} 个月收支趋势'**
+  String chartSemantic(int count);
+
+  /// No description provided for @donutTotal.
+  ///
+  /// In zh, this message translates to:
+  /// **'合计'**
+  String get donutTotal;
+
+  /// No description provided for @donutEmpty.
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无分类数据'**
+  String get donutEmpty;
+
+  /// No description provided for @donutNoData.
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无数据'**
+  String get donutNoData;
+
+  /// No description provided for @donutSemantic.
+  ///
+  /// In zh, this message translates to:
+  /// **'分类占比环形图，{label} {amount}'**
+  String donutSemantic(String amount, String label);
+
+  /// No description provided for @donutDesc.
+  ///
+  /// In zh, this message translates to:
+  /// **'{category} {amount}，占 {percent}%'**
+  String donutDesc(String percent, String amount, String category);
+
+  /// No description provided for @introStarting.
+  ///
+  /// In zh, this message translates to:
+  /// **'HENG，正在启动'**
+  String get introStarting;
+
+  /// No description provided for @introTagline.
+  ///
+  /// In zh, this message translates to:
+  /// **'把账本留在自己手机里'**
+  String get introTagline;
+
+  /// No description provided for @introFooter.
+  ///
+  /// In zh, this message translates to:
+  /// **'本地优先 · 不登录 · 不联网'**
+  String get introFooter;
 }
 
 class _AppLocalizationsDelegate

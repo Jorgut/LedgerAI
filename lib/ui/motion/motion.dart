@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import '../../core/format.dart';
 import '../theme.dart';
+import '../../l10n/app_localizations.dart';
 
 /// 系统是否要求减少动态效果（无障碍设置）。所有动效都必须尊重它。
 bool reduceMotionOf(BuildContext context) =>
@@ -148,7 +149,8 @@ class AnimatedAmount extends StatelessWidget {
       duration: effectiveDuration,
       curve: Curves.easeOutCubic,
       builder: (context, value, _) => Semantics(
-        label: semanticLabel ?? '金额 ${formatMoney(amount)}',
+        label: semanticLabel ??
+            AppLocalizations.of(context).amountSemantic(formatMoney(amount)),
         excludeSemantics: true,
         child: Text(
           formatMoney(value, signed: signed),

@@ -6,6 +6,7 @@ import '../../../core/format.dart';
 import '../../../core/stats.dart';
 import '../../motion/motion.dart';
 import '../../theme.dart';
+import '../../../l10n/app_localizations.dart';
 import 'chart_placeholder.dart';
 
 /// 近几个月「收入 / 支出」柱状趋势图。
@@ -31,6 +32,7 @@ class TrendChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final hasData = points.any(
       (point) =>
           (showIncome && point.income > 0) ||
@@ -38,7 +40,7 @@ class TrendChart extends StatelessWidget {
     );
     if (points.isEmpty || !hasData) {
       return ChartPlaceholder(
-        message: '还没有足够的数据生成趋势图',
+        message: l10n.chartEmpty,
         icon: Icons.bar_chart_rounded,
         height: height,
       );
@@ -59,16 +61,16 @@ class TrendChart extends StatelessWidget {
     final description = points
         .map(
           (point) => '${formatMonthShort(point.month)}：'
-              '${showIncome ? '收入 ${formatMoney(point.income)}' : ''}'
-              '${showIncome && showExpense ? '，' : ''}'
-              '${showExpense ? '支出 ${formatMoney(point.expense)}' : ''}',
+              '${showIncome ? l10n.txIncomeFooter(formatMoney(point.income)) : ''}'
+              '${showIncome && showExpense ? ', ' : ''}'
+              '${showExpense ? l10n.txExpenseFooter(formatMoney(point.expense)) : ''}',
         )
         .join('；');
 
     return Semantics(
       container: true,
       excludeSemantics: true,
-      label: '近 ${points.length} 个月收支趋势',
+      label: l10n.chartSemantic(points.length),
       value: description,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,8 +79,8 @@ class TrendChart extends StatelessWidget {
             spacing: 16,
             runSpacing: 4,
             children: [
-              if (showIncome) _LegendDot(color: incomeColor, label: '收入'),
-              if (showExpense) _LegendDot(color: expenseColor, label: '支出'),
+              if (showIncome) _LegendDot(color: incomeColor, label: l10n.income),
+              if (showExpense) _LegendDot(color: expenseColor, label: l10n.expense),
             ],
           ),
           const SizedBox(height: 8),
@@ -293,7 +295,7 @@ class _TrendChartPainter extends CustomPainter {
 
   double _labelHeight() {
     final painter = TextPainter(
-      text: TextSpan(text: '11月', style: labelStyle),
+      text: TextSpan(text: '00', style: labelStyle),
       textDirection: TextDirection.ltr,
       textScaler: textScaler,
       maxLines: 1,

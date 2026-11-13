@@ -6,6 +6,7 @@ import '../../../core/format.dart';
 import '../../../core/stats.dart';
 import '../../motion/motion.dart';
 import '../../theme.dart';
+import '../../../l10n/app_localizations.dart';
 import '../common/category_localization.dart';
 
 /// 分类占比环形图（自绘），中心显示当期总额。
@@ -19,28 +20,30 @@ class CategoryDonut extends StatelessWidget {
     required this.total,
     this.size = 168,
     this.strokeWidth = 22,
-    this.centerLabel = '合计',
+    this.centerLabel,
   });
 
   final List<CategorySlice> slices;
   final double total;
   final double size;
   final double strokeWidth;
-  final String centerLabel;
+  final String? centerLabel;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
+    final center = centerLabel ?? l10n.donutTotal;
     final hasData = total > 0 && slices.isNotEmpty;
     final trackColor = theme.colorScheme.surfaceContainerHighest;
     final description = hasData
         ? slices
             .map(
               (slice) =>
-                  '${localizedCategoryName(context, slice.category)} ${formatMoney(slice.amount)}，占 ${(slice.ratio * 100).toStringAsFixed(0)}%',
+                  l10n.donutDesc(localizedCategoryName(context, slice.category), formatMoney(slice.amount), (slice.ratio * 100).toStringAsFixed(0)),
             )
             .join('；')
-        : '暂无分类数据';
+        : l10n.donutEmpty;
     final categoryColors = {
       for (final slice in slices)
         slice.category.id: AppTheme.categoryColorOf(context, slice.category),
@@ -49,7 +52,7 @@ class CategoryDonut extends StatelessWidget {
     return Semantics(
       container: true,
       excludeSemantics: true,
-      label: '分类占比环形图，$centerLabel ${formatMoney(total)}',
+      label: l10n.donutSemantic(formatMoney(total), center),
       value: description,
       child: SizedBox(
         width: size,
@@ -83,7 +86,7 @@ class CategoryDonut extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      centerLabel,
+                      center,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: theme.textTheme.bodySmall?.copyWith(
@@ -107,7 +110,7 @@ class CategoryDonut extends StatelessWidget {
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
-                          '暂无数据',
+                          l10n.donutNoData,
                           maxLines: 1,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,

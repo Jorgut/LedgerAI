@@ -22,7 +22,7 @@ void main() {
     usePhoneSurface(tester);
     await pumpScoped(tester, harness.state, const HomeScreen());
 
-    expect(find.text('衡账'), findsOneWidget);
+    expect(find.text('HENG'), findsOneWidget);
     expect(find.text('本月结余'), findsOneWidget);
     expect(find.text('¥0.00'), findsNWidgets(3)); // 结余 / 收入 / 支出
     expect(find.text('快速记账'), findsOneWidget);

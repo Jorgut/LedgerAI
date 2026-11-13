@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../l10n/app_localizations.dart';
+
 /// SnackBar 统一封装：中文提示、浮动样式、支持「撤销」。
 class AppSnack {
   AppSnack._();
@@ -37,12 +39,15 @@ class AppSnack {
     BuildContext context, {
     required String message,
     required VoidCallback onUndo,
-    String actionLabel = '撤销',
+    String? actionLabel,
   }) {
     show(
       context,
       message,
-      action: SnackBarAction(label: actionLabel, onPressed: onUndo),
+      action: SnackBarAction(
+        label: actionLabel ?? AppLocalizations.of(context).undo,
+        onPressed: onUndo,
+      ),
       duration: const Duration(seconds: 5),
     );
   }

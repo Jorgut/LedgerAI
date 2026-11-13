@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/format.dart';
 import '../../theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// 金额文本：等宽数字（tabular figures）+ 屏幕阅读器语义。
 ///
@@ -45,7 +46,8 @@ class AmountText extends StatelessWidget {
         (style ?? Theme.of(context).textTheme.bodyMedium)?.copyWith(
       fontFeatures: AppTheme.tabularFigures,
     );
-    final label = semanticLabel ?? '金额 ${formatMoney(amount)}';
+    final label = semanticLabel ??
+        AppLocalizations.of(context).amountSemantic(formatMoney(amount));
     return Semantics(
       label: label,
       excludeSemantics: true,

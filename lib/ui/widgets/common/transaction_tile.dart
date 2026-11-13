@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/format.dart';
 import '../../../core/models.dart';
 import '../../theme.dart';
+import '../../../l10n/app_localizations.dart';
 import 'category_localization.dart';
 import 'amount_text.dart';
 import 'category_icon.dart';
@@ -50,14 +51,16 @@ class TransactionTile extends StatelessWidget {
     ];
 
     final semantic = StringBuffer()
-      ..write(_title)
+      ..write(_title(context))
       ..write('，')
       ..write(localizedCategoryName(context, category))
       ..write('，')
-      ..write(isIncome ? '收入' : '支出')
+      ..write(isIncome
+          ? AppLocalizations.of(context).income
+          : AppLocalizations.of(context).expense)
       ..write(' ')
       ..write(formatMoney(txn.amount, withSymbol: false))
-      ..write(' 元');
+      ..write(AppLocalizations.of(context).currencyUnit);
     if (showDate) {
       semantic
         ..write('，')
@@ -98,11 +101,11 @@ class TransactionTile extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 12),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AmountText(
+        Flexible(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerRight,
+            child: AmountText(
               isIncome ? txn.amount : -txn.amount,
               signed: true,
               style: theme.textTheme.titleMedium?.copyWith(
@@ -110,7 +113,7 @@ class TransactionTile extends StatelessWidget {
                 color: amountColor,
               ),
             ),
-          ],
+          ),
         ),
       ],
     );
@@ -119,7 +122,7 @@ class TransactionTile extends StatelessWidget {
       container: true,
       button: onTap != null,
       label: semantic.toString(),
-      hint: onTap != null ? '双击编辑' : null,
+      hint: onTap != null ? null : null,
       onTap: onTap,
       excludeSemantics: true,
       child: InkWell(

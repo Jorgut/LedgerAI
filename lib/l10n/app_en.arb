@@ -603,5 +603,58 @@
   "catInvestment": "Investment",
   "catParttime": "Part-time",
   "catGift": "Gift",
-  "catOtherIncome": "Other"
+  "catOtherIncome": "Other",
+  "undo": "Undo",
+  "monthPrev": "Previous month",
+  "monthNext": "Next month",
+  "monthCurrent": "This is the current month",
+  "amountSemantic": "Amount {amount}",
+  "@amountSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "currencyUnit": "",
+  "chartEmpty": "Not enough data for a trend yet",
+  "chartSemantic": "Income and expense trend for {count} months",
+  "@chartSemantic": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "donutTotal": "Total",
+  "donutEmpty": "No category data",
+  "donutNoData": "No data",
+  "donutSemantic": "Category share donut, {label} {amount}",
+  "@donutSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "donutDesc": "{category} {amount}, {percent}%",
+  "@donutDesc": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "introStarting": "HENG is starting",
+  "introTagline": "A ledger that stays on your phone",
+  "introFooter": "LOCAL FIRST · NO LOGIN · NO NETWORK"
 }
