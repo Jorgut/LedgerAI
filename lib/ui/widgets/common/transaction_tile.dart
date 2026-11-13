@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/format.dart';
 import '../../../core/models.dart';
 import '../../theme.dart';
+import 'category_localization.dart';
 import 'amount_text.dart';
 import 'category_icon.dart';
 
@@ -25,12 +26,12 @@ class TransactionTile extends StatelessWidget {
   final bool showSource;
   final bool dense;
 
-  String get _title {
+  String _title(BuildContext context) {
     final note = txn.note.trim();
     if (note.isNotEmpty) return note;
     final merchant = txn.merchant?.trim();
     if (merchant != null && merchant.isNotEmpty) return merchant;
-    return txn.category.name;
+    return localizedCategoryName(context, txn.category);
   }
 
   @override
@@ -43,7 +44,7 @@ class TransactionTile extends StatelessWidget {
     final dateLabel = formatDateLabel(txn.date, locale: Localizations.localeOf(context));
 
     final subtitleParts = <String>[
-      category.name,
+      localizedCategoryName(context, category),
       if (showDate) dateLabel,
       if (showSource && txn.source != EntrySource.manual) txn.source.label,
     ];
@@ -51,7 +52,7 @@ class TransactionTile extends StatelessWidget {
     final semantic = StringBuffer()
       ..write(_title)
       ..write('，')
-      ..write(category.name)
+      ..write(localizedCategoryName(context, category))
       ..write('，')
       ..write(isIncome ? '收入' : '支出')
       ..write(' ')
@@ -77,7 +78,7 @@ class TransactionTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                _title,
+                _title(context),
                 style: theme.textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),

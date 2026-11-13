@@ -185,7 +185,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get languageMigrationNote =>
-      'The shell, home, and settings are localized; entry, transactions, and reports are still being translated, so you may see mixed languages after switching.';
+      'Simplified Chinese, Traditional Chinese, English, and Russian are supported. Changes apply immediately.';
 
   @override
   String get chooseThemeColor => 'Choose theme color';
@@ -623,4 +623,653 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rptLocal => 'Computed on device';
+
+  @override
+  String get commonConfirm => 'OK';
+
+  @override
+  String get addTitle => 'Add entry';
+
+  @override
+  String get addEditTitle => 'Edit entry';
+
+  @override
+  String get addDeleteTooltip => 'Delete this entry';
+
+  @override
+  String get addDeleteDialogTitle => 'Delete this entry?';
+
+  @override
+  String get addDeleteDialogContent => 'This can\'t be undone. Delete it?';
+
+  @override
+  String get addDeleted => 'Deleted';
+
+  @override
+  String get addSaveRecord => 'Save entry';
+
+  @override
+  String get addSaveChanges => 'Save changes';
+
+  @override
+  String get addSaved => 'Entry added';
+
+  @override
+  String get addUpdated => 'Entry updated';
+
+  @override
+  String get addSaveFailed => 'Couldn\'t save. Please try again.';
+
+  @override
+  String get addAmountRequired => 'Enter an amount greater than 0';
+
+  @override
+  String get addAmountLabel => 'Amount';
+
+  @override
+  String get addNoteLabel => 'Note';
+
+  @override
+  String get addNoteHint => 'e.g. lunch, subway, groceries';
+
+  @override
+  String addMerchantChip(String merchant) {
+    return 'Merchant: $merchant';
+  }
+
+  @override
+  String get addClearMerchant => 'Remove merchant';
+
+  @override
+  String get addDateLabel => 'Date';
+
+  @override
+  String get addSelectDate => 'Select date';
+
+  @override
+  String addDateSemantic(String label) {
+    return 'Date, $label, select date';
+  }
+
+  @override
+  String get addDatePickerFailed =>
+      'Couldn\'t open the date picker. Please try again.';
+
+  @override
+  String get addFooterSaveHint => 'Check the details, then tap save below';
+
+  @override
+  String get addRawTextTitle => 'Scanned text';
+
+  @override
+  String get addCollapseRawText => 'Collapse scanned text';
+
+  @override
+  String get addExpandRawText => 'Expand scanned text';
+
+  @override
+  String get addReceiptFilledBanner =>
+      'Filled in from the receipt. Check the amount, category, and date before saving.';
+
+  @override
+  String get addVoiceFilledBanner =>
+      'Filled in from voice. Check the amount, category, and date before saving.';
+
+  @override
+  String get addReceiptTitle => 'Scan a receipt';
+
+  @override
+  String get addReceiptBody =>
+      'Point at a receipt or bill screenshot; the amount, merchant, and date are recognized on this device. Photos are never uploaded or saved to your library.';
+
+  @override
+  String get addReceiptCamera => 'Scan with camera';
+
+  @override
+  String get addReceiptGallery => 'Choose from library';
+
+  @override
+  String get addReceiptRecognizing => 'Recognizing on this device…';
+
+  @override
+  String get addSwitchToManual => 'Switch to manual entry';
+
+  @override
+  String get addVoiceTitle => 'Voice entry';
+
+  @override
+  String get addVoiceBody =>
+      'Hold the button below and say something like “I spent 42 on lunch today.” Speech is recognized on this device; audio is never uploaded or saved.';
+
+  @override
+  String get addVoiceListening => 'Listening — tap to stop';
+
+  @override
+  String get addVoiceHoldToTalk => 'Hold to talk';
+
+  @override
+  String get addVoiceToggleHint => 'Double tap to start or stop voice input';
+
+  @override
+  String get addVoiceTapOrHold => 'Tap or hold to talk';
+
+  @override
+  String get addVoiceLivePlaceholder => 'Recognized text appears here';
+
+  @override
+  String get addVoiceExamplesTitle => 'Try saying';
+
+  @override
+  String addVoiceExample(String example) {
+    return '“$example”';
+  }
+
+  @override
+  String get addVoiceChecking => 'Checking voice recognition availability…';
+
+  @override
+  String get addVoiceSwitchToManual => 'Can\'t speak? Switch to manual entry';
+
+  @override
+  String get addVoiceUnavailableTitle =>
+      'Voice recognition isn\'t available on this device right now';
+
+  @override
+  String get addVoiceUnavailableBody =>
+      'It may not support Chinese dictation, voice/microphone permission may be denied, or the app may be running in a simulator. Manual entry still works fully.';
+
+  @override
+  String get addVoiceUseManual => 'Use manual entry';
+
+  @override
+  String get addVoiceNotSupported =>
+      'Voice recognition isn\'t supported on this device. Please enter manually.';
+
+  @override
+  String get addVoiceStartFailed =>
+      'Couldn\'t start voice recognition. Please use manual entry.';
+
+  @override
+  String get addVoiceNoSpeech =>
+      'Didn\'t catch that — please say it again or enter manually';
+
+  @override
+  String get addVoiceNoAmount =>
+      'Couldn\'t catch the amount — say it again or enter manually';
+
+  @override
+  String get addVoiceRecognized => 'Recognized — check it, then save';
+
+  @override
+  String get addVoiceFallbackError =>
+      'Voice recognition is unavailable. Please enter manually.';
+
+  @override
+  String get addOcrNoTextError =>
+      'No text recognized. Try a clearer receipt or enter manually.';
+
+  @override
+  String get addOcrNoText => 'No text recognized. Try again or enter manually.';
+
+  @override
+  String get addOcrNoAmountError =>
+      'Text was recognized but no amount was found. Expand the scanned text and add it manually.';
+
+  @override
+  String get addOcrNoAmount => 'No amount recognized — please add it manually';
+
+  @override
+  String get addOcrRecognized => 'Recognized — check the amount and category';
+
+  @override
+  String get addOcrFailedError =>
+      'Recognition failed. Try again or enter manually.';
+
+  @override
+  String get addOcrFailed => 'Recognition failed. Try again or enter manually.';
+
+  @override
+  String get addCameraPermission =>
+      'Camera unavailable. Allow HENG to access the camera in system settings.';
+
+  @override
+  String get addPhotoPermission =>
+      'Photo library unavailable. Allow HENG to access photos in system settings.';
+
+  @override
+  String get addCameraOpenFailed =>
+      'Couldn\'t open the camera. Choose from the library instead.';
+
+  @override
+  String get addPhotoReadFailed =>
+      'Couldn\'t read this photo. Try again or enter manually.';
+
+  @override
+  String get addModeManual => 'Manual';
+
+  @override
+  String get addModeReceipt => 'Scan';
+
+  @override
+  String get addModeVoice => 'Voice';
+
+  @override
+  String addModeSemantic(String label) {
+    return '$label entry';
+  }
+
+  @override
+  String get budgetScreenTitle => 'Budget';
+
+  @override
+  String get budgetEmptyMessage =>
+      'Set a monthly spending limit and the home and reports screens will show progress and warn you when you overspend.';
+
+  @override
+  String get budgetSetAction => 'Set monthly budget';
+
+  @override
+  String get budgetCategorySection => 'Category budgets';
+
+  @override
+  String get budgetTapCategoryHint => 'Tap a category to set';
+
+  @override
+  String get budgetLocalNote =>
+      'Budgets are only reminders on this device and never block spending. Category budgets can add up to more than the total.';
+
+  @override
+  String get budgetTotalLabel => 'Total budget this month';
+
+  @override
+  String budgetTotalSemantic(String amount) {
+    return 'Total budget this month $amount';
+  }
+
+  @override
+  String budgetSpentSummary(String amount, int count) {
+    return 'Spent this month $amount across $count entries';
+  }
+
+  @override
+  String get budgetEditAction => 'Edit budget';
+
+  @override
+  String get budgetClearAction => 'Clear budget';
+
+  @override
+  String get budgetOverBadge => 'Over';
+
+  @override
+  String get budgetSetCategoryHint => 'Tap to set a category budget';
+
+  @override
+  String budgetRowNone(String amount) {
+    return 'Spent this month $amount';
+  }
+
+  @override
+  String budgetRowDetail(String budget, String spent, String percent) {
+    return 'Budget $budget · spent $spent ($percent%)';
+  }
+
+  @override
+  String budgetRowDetailOver(
+      String budget, String spent, String percent, String over) {
+    return 'Budget $budget · spent $spent ($percent%), over by $over';
+  }
+
+  @override
+  String budgetCategorySemantic(String category, String spent, String budget) {
+    return '$category budget, spent $spent, budget $budget';
+  }
+
+  @override
+  String budgetCategorySemanticOver(
+      String category, String spent, String budget, String over) {
+    return '$category budget, spent $spent, budget $budget, over by $over';
+  }
+
+  @override
+  String budgetCategorySemanticNone(String category) {
+    return '$category, no budget set, tap to set';
+  }
+
+  @override
+  String get budgetTotalDialogTitle => 'Set total monthly budget';
+
+  @override
+  String get budgetTotalDialogTitleEdit => 'Edit total monthly budget';
+
+  @override
+  String get budgetTotalDialogSubtitle =>
+      'The monthly spending limit used for budget progress on the home and reports screens.';
+
+  @override
+  String get budgetTotalCleared => 'Monthly budget cleared';
+
+  @override
+  String get budgetTotalUpdated => 'Monthly budget updated';
+
+  @override
+  String budgetCategoryDialogTitle(String category) {
+    return 'Set a budget for “$category”';
+  }
+
+  @override
+  String get budgetCategoryDialogSubtitle =>
+      'The monthly spending limit for this category. You can change it anytime.';
+
+  @override
+  String budgetCategoryCleared(String category) {
+    return 'Cleared the budget for “$category”';
+  }
+
+  @override
+  String budgetCategoryUpdated(String category) {
+    return 'Budget for “$category” updated';
+  }
+
+  @override
+  String get budgetClearConfirmTitle => 'Clear the monthly budget?';
+
+  @override
+  String get budgetClearConfirmContent =>
+      'Clearing it turns off budget progress and overspend reminders. Your entries are not affected.';
+
+  @override
+  String get budgetClearDialogAction => 'Clear';
+
+  @override
+  String get budgetAmountError =>
+      'Enter an amount greater than 0, for example 3000';
+
+  @override
+  String get budgetAmountLabel => 'Amount (yuan)';
+
+  @override
+  String get budgetDeleteAction => 'Delete this budget';
+
+  @override
+  String get onboardTitle1 => 'Your ledger,\nonly on your phone';
+
+  @override
+  String get onboardBody1 =>
+      'HENG requires no login, no network, and never uploads. All entries and settings stay on this device and can be exported anytime.';
+
+  @override
+  String get onboardPoint1a => 'Fully offline';
+
+  @override
+  String get onboardPoint1b => 'No personal data collected';
+
+  @override
+  String get onboardPoint1c => 'Export your data anytime';
+
+  @override
+  String get onboardTitle2 => 'Snap a receipt,\ndone';
+
+  @override
+  String get onboardBody2 =>
+      'Point at a receipt or bill screenshot: the amount, merchant, and date are recognized on device. Just confirm and save.';
+
+  @override
+  String get onboardPoint2a => 'On-device text recognition';
+
+  @override
+  String get onboardPoint2b => 'Automatic category matching';
+
+  @override
+  String get onboardPoint2c => 'View the scanned text';
+
+  @override
+  String get onboardTitle3 => 'Say it out loud,\nlogged in 3 seconds';
+
+  @override
+  String get onboardBody3 =>
+      'Say “I spent 42 on lunch today” and the amount and category are filled in. Great when typing isn\'t convenient.';
+
+  @override
+  String get onboardPoint3a => 'On-device voice recognition';
+
+  @override
+  String get onboardPoint3b => 'One sentence is enough';
+
+  @override
+  String get onboardPoint3c => 'Enter manually if unclear';
+
+  @override
+  String get onboardSaveFailed => 'Couldn\'t save settings. Please try again.';
+
+  @override
+  String get onboardPrevious => 'Previous page';
+
+  @override
+  String get onboardSkip => 'Skip';
+
+  @override
+  String onboardPageSemantic(int current, int total) {
+    return 'Page $current of $total';
+  }
+
+  @override
+  String get onboardStart => 'Start tracking';
+
+  @override
+  String get onboardNext => 'Next';
+
+  @override
+  String get legalLastUpdated => 'Last updated: November 2026';
+
+  @override
+  String get privacyOneLineTitle => 'In one sentence';
+
+  @override
+  String get privacyOneLineBody =>
+      'HENG is a local-first finance app: no sign-in, no network, and none of your ledger data is uploaded. Text recognition, voice recognition, and insights all run on your iPhone.';
+
+  @override
+  String get privacyNotCollectedTitle => 'What we don\'t collect';
+
+  @override
+  String get privacyNotCollectedBody =>
+      'The developer does not collect, store, or transmit any of your personal information or ledger data. The app has no accounts and includes no third-party analytics, advertising, push, or social login SDKs. That is why the App Store privacy label says “Data Not Collected.”';
+
+  @override
+  String get privacyStorageTitle => 'Where your data lives';
+
+  @override
+  String get privacyStorageBody =>
+      'Entries, budgets, and preferences are stored only in the app\'s sandboxed database on this device. Unless you explicitly export and share them from Settings → Data, this data never leaves your device.';
+
+  @override
+  String get privacyCameraTitle => 'Camera and photos';
+
+  @override
+  String get privacyCameraBody =>
+      'When you scan a receipt, the app takes one image via the system camera or photo library and extracts text on-device using iOS Vision. The original image is never saved to your library or uploaded, and is released from memory once recognition finishes.';
+
+  @override
+  String get privacyMicTitle => 'Microphone and speech';
+
+  @override
+  String get privacyMicBody =>
+      'Voice entry uses iOS speech recognition and requires on-device recognition. Audio is never written to disk or uploaded. If the system can\'t recognize speech on-device, the feature reports that it is temporarily unavailable rather than falling back to the cloud.';
+
+  @override
+  String get privacyExportDeleteTitle => 'Export and deletion';
+
+  @override
+  String get privacyExportDeleteBody =>
+      'You can export a CSV sheet or JSON backup from Settings → Data and keep or share the file yourself; you can also delete all entries at once with Settings → Clear all entries. Uninstalling the app deletes all data stored on this device, so export a backup first.';
+
+  @override
+  String get privacyPermissionsTitle => 'Permissions';
+
+  @override
+  String get privacyPermissionsBody =>
+      'Camera, photos, microphone, and speech recognition permissions are all optional and requested only when the matching feature is used. If you decline them, manual entry, reports, budgets, and export still work normally.';
+
+  @override
+  String get privacyChildrenTitle => 'Children\'s privacy';
+
+  @override
+  String get privacyChildrenBody =>
+      'The app collects no user data and contains no ads or third-party tracking, so it is suitable for all users, including minors; we do not target children with tailored content.';
+
+  @override
+  String get privacyUpdatesTitle => 'Policy updates';
+
+  @override
+  String get privacyUpdatesBody =>
+      'If a future version changes how data is handled, we will update this page in the app and adjust the App Store privacy label accordingly.';
+
+  @override
+  String get privacyContactTitle => 'Contact us';
+
+  @override
+  String get privacyContactBody =>
+      'If you have questions about this policy, contact us through the “App Support” link on the App Store product page.';
+
+  @override
+  String get termsServiceTitle => 'About the service';
+
+  @override
+  String get termsServiceBody =>
+      'HENG is a free, local-first personal finance tool offering manual entry, receipt scanning, voice entry, income and expense reports, budget reminders, and data export. All features run on this device.';
+
+  @override
+  String get termsNoticeTitle => 'Using the app';
+
+  @override
+  String get termsNoticeBody =>
+      'You are responsible for the accuracy of what you enter. Receipt and voice recognition may make mistakes due to blurry receipts, accents, or background noise, so check before saving. We recommend exporting a JSON backup regularly.';
+
+  @override
+  String get termsFreeTitle => 'Free, no in-app purchases';
+
+  @override
+  String get termsFreeBody =>
+      'The current version is free: no subscriptions, no in-app purchases, no ads. If pricing changes in the future, we will explain it in the app in advance and it will not affect data already stored on your device.';
+
+  @override
+  String get termsBackupTitle => 'Data and backups';
+
+  @override
+  String get termsBackupBody =>
+      'Your data is stored only on this device; the developer cannot access it or restore it for you. To the extent permitted by applicable law, you are responsible for data loss caused by a lost device, system failure, uninstalling the app, or clearing data yourself. You can export a backup from Settings at any time.';
+
+  @override
+  String get termsDisclaimerTitle => 'Disclaimer';
+
+  @override
+  String get termsDisclaimerBody =>
+      'Statistics, budget reminders, and “Insights” in the app are generated from on-device data using fixed rules. They are for personal record-keeping reference only and are not investment, financial, tax, legal, or medical advice. You bear the risk of any decision you make based on the app\'s content.';
+
+  @override
+  String get termsIpTitle => 'Intellectual property';
+
+  @override
+  String get termsIpBody =>
+      'The app\'s interface, icons, copy, and code belong to the developer. You may use exported personal ledger data for personal purposes, but not in ways that infringe the rights of others.';
+
+  @override
+  String get termsChangesTitle => 'Changes and termination';
+
+  @override
+  String get termsChangesBody =>
+      'We may adjust or improve features with system updates. If maintenance ends in the future, we will announce it in the app in advance; you can still use your local data and export a backup at any time.';
+
+  @override
+  String get termsLawTitle => 'Governing law';
+
+  @override
+  String get termsLawBody =>
+      'This agreement is governed by the laws of the People\'s Republic of China. Any dispute arising from it should first be resolved through friendly negotiation.';
+
+  @override
+  String get termsContactTitle => 'Contact us';
+
+  @override
+  String get termsContactBody =>
+      'If you have questions about this agreement, contact us through the “App Support” link on the App Store product page.';
+
+  @override
+  String get budgetBarNotSet => 'No budget set';
+
+  @override
+  String budgetBarNearLimit(String percent) {
+    return 'Almost at your budget — $percent% used';
+  }
+
+  @override
+  String budgetBarUsed(String percent) {
+    return '$percent% used';
+  }
+
+  @override
+  String get budgetBarSemantic => 'Budget progress';
+
+  @override
+  String budgetBarSemanticWith(String label) {
+    return 'Budget progress ($label)';
+  }
+
+  @override
+  String budgetBarValue(String status, String spent, String budget) {
+    return '$status, spent $spent, budget $budget';
+  }
+
+  @override
+  String budgetBarOver(String amount) {
+    return 'Over by $amount';
+  }
+
+  @override
+  String get catFood => 'Food';
+
+  @override
+  String get catTransport => 'Transport';
+
+  @override
+  String get catShopping => 'Shopping';
+
+  @override
+  String get catHome => 'Home';
+
+  @override
+  String get catEntertainment => 'Entertainment';
+
+  @override
+  String get catMedical => 'Health';
+
+  @override
+  String get catEducation => 'Education';
+
+  @override
+  String get catCommunication => 'Communication';
+
+  @override
+  String get catSocial => 'Social';
+
+  @override
+  String get catOtherExpense => 'Other';
+
+  @override
+  String get catSalary => 'Salary';
+
+  @override
+  String get catBonus => 'Bonus';
+
+  @override
+  String get catInvestment => 'Investment';
+
+  @override
+  String get catParttime => 'Part-time';
+
+  @override
+  String get catGift => 'Gift';
+
+  @override
+  String get catOtherIncome => 'Other';
 }

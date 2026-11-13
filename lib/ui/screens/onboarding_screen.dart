@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_state.dart';
+import '../../l10n/app_localizations.dart';
 import '../motion/motion.dart';
 import '../theme.dart';
 import '../widgets/common/app_snack.dart';
@@ -18,26 +19,40 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  static const List<_OnboardingPage> _pages = [
-    _OnboardingPage(
-      icon: Icons.lock_rounded,
-      title: '你的账本，\n只在你手机里',
-      body: '衡账不登录、不联网、不上传。所有账单和设置都保存在本机，随时可以导出备份。',
-      points: ['完全离线运行', '不收集任何个人信息', '数据可随时导出'],
-    ),
-    _OnboardingPage(
-      icon: Icons.document_scanner_rounded,
-      title: '拍一张小票，\n就记好了',
-      body: '对准小票或账单截图拍照，本机自动识别金额、商户和日期，确认一下就能保存。',
-      points: ['设备端文字识别', '自动匹配分类', '识别原文可展开查看'],
-    ),
-    _OnboardingPage(
-      icon: Icons.mic_rounded,
-      title: '按住说一句，\n3 秒记一笔',
-      body: '说「今天午餐花了 42 块」，自动填好金额和分类。不方便打字时尤其好用。',
-      points: ['本机语音识别', '支持中文一句话', '听不清时可手动输入'],
-    ),
-  ];
+  static const int _pageCount = 3;
+
+  List<_OnboardingPage> _pages(AppLocalizations l10n) => [
+        _OnboardingPage(
+          icon: Icons.lock_rounded,
+          title: l10n.onboardTitle1,
+          body: l10n.onboardBody1,
+          points: [
+            l10n.onboardPoint1a,
+            l10n.onboardPoint1b,
+            l10n.onboardPoint1c
+          ],
+        ),
+        _OnboardingPage(
+          icon: Icons.document_scanner_rounded,
+          title: l10n.onboardTitle2,
+          body: l10n.onboardBody2,
+          points: [
+            l10n.onboardPoint2a,
+            l10n.onboardPoint2b,
+            l10n.onboardPoint2c
+          ],
+        ),
+        _OnboardingPage(
+          icon: Icons.mic_rounded,
+          title: l10n.onboardTitle3,
+          body: l10n.onboardBody3,
+          points: [
+            l10n.onboardPoint3a,
+            l10n.onboardPoint3b,
+            l10n.onboardPoint3c
+          ],
+        ),
+      ];
 
   final PageController _controller = PageController();
   int _page = 0;
@@ -60,7 +75,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       // 写入失败时留在引导页并提示，用户可重试；绝不崩溃。
       if (!mounted) return;
       setState(() => _finishing = false);
-      AppSnack.error(context, '保存设置失败，请重试');
+      AppSnack.error(context, AppLocalizations.of(context).onboardSaveFailed);
       return;
     }
     if (!mounted) return;
@@ -68,7 +83,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Future<void> _next() async {
-    if (_page >= _pages.length - 1) {
+    if (_page >= _pageCount - 1) {
       await _finish();
       return;
     }
@@ -89,7 +104,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isLast = _page == _pages.length - 1;
+    final l10n = AppLocalizations.of(context);
+    final pages = _pages(l10n);
+    final isLast = _page == _pageCount - 1;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -100,7 +117,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   if (_page > 0)
                     IconButton(
-                      tooltip: '上一页',
+                      tooltip: l10n.onboardPrevious,
                       onPressed: _previous,
                       icon: const Icon(Icons.arrow_back_rounded),
                     )
@@ -110,7 +127,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   if (!isLast)
                     TextButton(
                       onPressed: _finishing ? null : _finish,
-                      child: const Text('跳过'),
+                      child: Text(l10n.onboardSkip),
                     )
                   else
                     const SizedBox(width: 48),
@@ -120,13 +137,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Expanded(
               child: PageView.builder(
                 controller: _controller,
-                itemCount: _pages.length,
+                itemCount: _pageCount,
                 onPageChanged: (index) => setState(() => _page = index),
                 itemBuilder: (context, index) => FadeSlideIn(
                   key: ValueKey(index),
                   duration: const Duration(milliseconds: 420),
                   child: _PageContent(
-                    page: _pages[index],
+                    page: pages[index],
                     textTheme: theme.textTheme,
                   ),
                 ),
@@ -137,11 +154,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: Column(
                 children: [
                   Semantics(
-                    label: '第 ${_page + 1} 页，共 ${_pages.length} 页',
+                    label: l10n.onboardPageSemantic(_page + 1, _pageCount),
                     child: ExcludeSemantics(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(_pages.length, (index) {
+                        children: List.generate(_pageCount, (index) {
                           final selected = index == _page;
                           return AnimatedContainer(
                             duration: const Duration(milliseconds: 220),
@@ -173,7 +190,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               child:
                                   CircularProgressIndicator(strokeWidth: 2.4),
                             )
-                          : Text(isLast ? '开始记账' : '下一步'),
+                          : Text(isLast ? l10n.onboardStart : l10n.onboardNext),
                     ),
                   ),
                 ],

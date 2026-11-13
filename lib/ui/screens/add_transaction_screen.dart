@@ -11,11 +11,13 @@ import '../../ai/speech_service.dart';
 import '../../core/app_state.dart';
 import '../../core/format.dart';
 import '../../core/models.dart';
+import '../../l10n/app_localizations.dart';
 import '../motion/motion.dart';
 import '../theme.dart';
 import '../widgets/common/app_card.dart';
 import '../widgets/common/app_snack.dart';
 import '../widgets/common/category_icon.dart';
+import '../widgets/common/category_localization.dart';
 
 /// 记账入口的初始模式。
 enum AddTransactionMode { manual, receipt, voice }
@@ -48,6 +50,7 @@ class AddTransactionScreen extends StatefulWidget {
 }
 
 class _AddTransactionScreenState extends State<AddTransactionScreen> {
+  // 语音示例保持中文：语音识别固定使用 zh-CN，示例同时也是解析器可识别的数据。
   static const List<String> _voiceExamples = [
     '今天午餐花了 42 块',
     '昨天打车 35',
@@ -291,7 +294,10 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     if (result.hasError) {
       if (!_listening) return;
       setState(() => _listening = false);
-      AppSnack.error(context, result.error ?? '语音识别暂不可用，请手动输入');
+      AppSnack.error(
+        context,
+        result.error ?? AppLocalizations.of(context).addVoiceFallbackError,
+      );
       return;
     }
     if (result.isFinal) {
@@ -314,11 +320,12 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   Future<void> _startVoice() async {
     if (_listening) return;
     final app = AppScope.read(context);
+    final l10n = AppLocalizations.of(context);
     final available = await _speech.isAvailable();
     if (!mounted) return;
     if (!available) {
       setState(() => _speechAvailable = false);
-      AppSnack.error(context, '此设备暂不支持本机语音识别，请手动输入');
+      AppSnack.error(context, l10n.addVoiceNotSupported);
       return;
     }
     setState(() {
@@ -331,7 +338,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     if (!mounted) return;
     if (!started) {
       setState(() => _listening = false);
-      AppSnack.error(context, '语音识别启动失败，请改用手动输入');
+      AppSnack.error(context, l10n.addVoiceStartFailed);
       return;
     }
     if (app.prefs.hapticsEnabled) {
@@ -346,7 +353,10 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     setState(() => _listening = false);
     final text = _liveText.trim();
     if (text.isEmpty) {
-      AppSnack.error(context, '没有听清，请再说一次或手动输入');
+      AppSnack.error(
+        context,
+        AppLocalizations.of(context).addVoiceNoSpeech,
+      );
       return;
     }
     _handleSpokenText(text);
@@ -364,15 +374,16 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   void _handleSpokenText(String text) {
     final trimmed = text.trim();
     if (trimmed.isEmpty || _voiceHandled) return;
+    final l10n = AppLocalizations.of(context);
     _voiceHandled = true;
     final parsed = const VoiceEntryParser().parse(trimmed);
     if (parsed.amount == null) {
       if (!mounted) return;
-      AppSnack.error(context, '没有听清金额，请再说一次，或手动输入');
+      AppSnack.error(context, l10n.addVoiceNoAmount);
       return;
     }
     _applyParsed(parsed, source: EntrySource.voice, raw: trimmed);
-    AppSnack.success(context, '已识别，请核对后保存');
+    AppSnack.success(context, l10n.addVoiceRecognized);
   }
 
   // ---------------------------------------------------------------------------
@@ -381,6 +392,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   Future<void> _pickReceipt(ImageSource source) async {
     if (_ocrBusy) return;
+    final l10n = AppLocalizations.of(context);
     setState(() {
       _ocrBusy = true;
       _ocrError = null;
@@ -400,9 +412,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       if (result == null || result.isEmpty) {
         setState(() {
           _ocrBusy = false;
-          _ocrError = '没有识别到文字，请换一张清晰的小票，或手动输入。';
+          _ocrError = l10n.addOcrNoTextError;
         });
-        AppSnack.error(context, '没有识别到文字，请重试或手动输入');
+        AppSnack.error(context, l10n.addOcrNoText);
         return;
       }
       final parsed = const ReceiptParser().parse(result.text);
@@ -413,13 +425,13 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       if (!parsed.hasUsefulData) {
         setState(() {
           _showRawText = true;
-          _ocrError = '识别到了文字，但没有找到金额，请展开原文手动补充。';
+          _ocrError = l10n.addOcrNoAmountError;
         });
-        AppSnack.error(context, '没有识别到金额，请手动补充');
+        AppSnack.error(context, l10n.addOcrNoAmount);
         return;
       }
       _applyParsed(parsed, source: EntrySource.ocr, raw: result.text);
-      AppSnack.success(context, '已识别，请核对金额和分类');
+      AppSnack.success(context, l10n.addOcrRecognized);
     } on PlatformException catch (error) {
       if (!mounted) return;
       final message = _imageErrorMessage(error, source);
@@ -432,23 +444,24 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       if (!mounted) return;
       setState(() {
         _ocrBusy = false;
-        _ocrError = '识别失败，请重试或手动输入。';
+        _ocrError = l10n.addOcrFailedError;
       });
-      AppSnack.error(context, '识别失败，请重试或手动输入');
+      AppSnack.error(context, l10n.addOcrFailed);
     }
   }
 
   String _imageErrorMessage(PlatformException error, ImageSource source) {
+    final l10n = AppLocalizations.of(context);
     final code = error.code.toLowerCase();
     if (code.contains('camera')) {
-      return '无法使用相机，请在系统设置中允许「衡账」访问相机。';
+      return l10n.addCameraPermission;
     }
     if (code.contains('photo')) {
-      return '无法访问相册，请在系统设置中允许「衡账」访问照片。';
+      return l10n.addPhotoPermission;
     }
     return source == ImageSource.camera
-        ? '无法打开相机，请改用相册选择。'
-        : '无法读取这张照片，请重试或手动输入。';
+        ? l10n.addCameraOpenFailed
+        : l10n.addPhotoReadFailed;
   }
 
   // ---------------------------------------------------------------------------
@@ -456,6 +469,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   // ---------------------------------------------------------------------------
 
   Future<void> _pickDate() async {
+    final l10n = AppLocalizations.of(context);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final first = _date.isBefore(DateTime(2000)) ? _date : DateTime(2000);
@@ -466,9 +480,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
         initialDate: _date,
         firstDate: first,
         lastDate: last,
-        helpText: '选择日期',
-        cancelText: '取消',
-        confirmText: '确定',
+        helpText: l10n.addSelectDate,
+        cancelText: l10n.commonCancel,
+        confirmText: l10n.commonConfirm,
       );
       if (picked == null || !mounted) return;
       setState(() {
@@ -482,17 +496,18 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       });
     } catch (_) {
       if (!mounted) return;
-      AppSnack.error(context, '无法打开日期选择器，请重试');
+      AppSnack.error(context, l10n.addDatePickerFailed);
     }
   }
 
   Future<void> _save() async {
     if (_saving) return;
+    final l10n = AppLocalizations.of(context);
     final amount = _parsedAmount();
     if (amount == null) {
-      setState(() => _amountError = '请输入大于 0 的金额');
+      setState(() => _amountError = l10n.addAmountRequired);
       _amountFocus.requestFocus();
-      AppSnack.error(context, '请输入大于 0 的金额');
+      AppSnack.error(context, l10n.addAmountRequired);
       return;
     }
     setState(() {
@@ -519,7 +534,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     } catch (_) {
       if (!mounted) return;
       setState(() => _saving = false);
-      AppSnack.error(context, '保存失败，请重试');
+      AppSnack.error(context, l10n.addSaveFailed);
       return;
     }
 
@@ -533,7 +548,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       }
     }
     if (!mounted) return;
-    AppSnack.success(context, existing == null ? '已记一笔' : '已更新记录');
+    AppSnack.success(
+        context, existing == null ? l10n.addSaved : l10n.addUpdated);
     Navigator.of(context).pop(true);
   }
 
@@ -541,15 +557,16 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     final existing = widget.transaction;
     if (existing == null) return;
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('删除这笔记录？'),
-        content: const Text('删除后无法恢复，确定要删除吗？'),
+        title: Text(l10n.addDeleteDialogTitle),
+        content: Text(l10n.addDeleteDialogContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('取消'),
+            child: Text(l10n.commonCancel),
           ),
           FilledButton(
             style: FilledButton.styleFrom(
@@ -557,7 +574,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               foregroundColor: theme.colorScheme.onError,
             ),
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('删除'),
+            child: Text(l10n.commonDelete),
           ),
         ],
       ),
@@ -567,11 +584,11 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     try {
       await app.deleteTransaction(existing.id);
       if (!mounted) return;
-      AppSnack.success(context, '已删除');
+      AppSnack.success(context, l10n.addDeleted);
       Navigator.of(context).pop(true);
     } catch (_) {
       if (!mounted) return;
-      AppSnack.error(context, '删除失败，请重试');
+      AppSnack.error(context, l10n.txDeleteFailed);
     }
   }
 
@@ -582,13 +599,14 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isEditing ? '编辑记录' : '记一笔'),
+        title: Text(_isEditing ? l10n.addEditTitle : l10n.addTitle),
         actions: [
           if (_isEditing)
             IconButton(
-              tooltip: '删除这笔记录',
+              tooltip: l10n.addDeleteTooltip,
               onPressed: _saving ? null : _confirmDelete,
               icon: const Icon(Icons.delete_outline_rounded),
             ),
@@ -630,7 +648,11 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                             height: 22,
                             child: CircularProgressIndicator(strokeWidth: 2.4),
                           )
-                        : Text(_isEditing ? '保存修改' : '保存记录'),
+                        : Text(
+                            _isEditing
+                                ? l10n.addSaveChanges
+                                : l10n.addSaveRecord,
+                          ),
                   ),
                 ),
               ),
@@ -659,7 +681,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
         const SizedBox(height: 8),
         Center(
           child: Text(
-            '确认无误后点下方按钮保存',
+            AppLocalizations.of(context).addFooterSaveHint,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -669,11 +691,13 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     );
   }
 
-  Color _accent(ThemeData theme) =>
-      AppTheme.isDark(context) ? theme.colorScheme.primary : AppTheme.brandTextOf(context);
+  Color _accent(ThemeData theme) => AppTheme.isDark(context)
+      ? theme.colorScheme.primary
+      : AppTheme.brandTextOf(context);
 
   Widget _buildSourceBanner(ThemeData theme) {
     if (!_justParsed) return const SizedBox.shrink();
+    final l10n = AppLocalizations.of(context);
     final isOcr = _source == EntrySource.ocr;
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -694,7 +718,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                isOcr ? '已从小票识别填入，请核对金额、分类和日期后保存。' : '已从语音识别填入，请核对金额、分类和日期后保存。',
+                isOcr ? l10n.addReceiptFilledBanner : l10n.addVoiceFilledBanner,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurface,
                 ),
@@ -707,6 +731,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   Widget _buildAmountCard(ThemeData theme) {
+    final l10n = AppLocalizations.of(context);
     final accent = _accent(theme);
     return AppCard(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 14),
@@ -714,7 +739,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '金额',
+            l10n.addAmountLabel,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -780,9 +805,10 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   Widget _buildTypeToggle(ThemeData theme) {
+    final l10n = AppLocalizations.of(context);
     final options = <({bool isIncome, String label, IconData icon})>[
-      (isIncome: false, label: '支出', icon: Icons.arrow_upward_rounded),
-      (isIncome: true, label: '收入', icon: Icons.arrow_downward_rounded),
+      (isIncome: false, label: l10n.expense, icon: Icons.arrow_upward_rounded),
+      (isIncome: true, label: l10n.income, icon: Icons.arrow_downward_rounded),
     ];
     return Container(
       padding: const EdgeInsets.all(4),
@@ -865,7 +891,10 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Text('分类', style: theme.textTheme.titleSmall),
+          child: Text(
+            AppLocalizations.of(context).txCategory,
+            style: theme.textTheme.titleSmall,
+          ),
         ),
         const SizedBox(height: 8),
         AppCard(
@@ -882,20 +911,20 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
             ),
             itemCount: categories.length,
             itemBuilder: (context, index) =>
-                _buildCategoryCell(theme, categories[index]),
+                _buildCategoryCell(context, theme, categories[index]),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildCategoryCell(ThemeData theme, Category category) {
+  Widget _buildCategoryCell(BuildContext context, ThemeData theme, Category category) {
     final selected = _categoryId == category.id;
     final accent = _accent(theme);
     return Semantics(
       button: true,
       selected: selected,
-      label: category.name,
+      label: localizedCategoryName(context, category),
       onTap: () => _selectCategory(category),
       excludeSemantics: true,
       child: InkWell(
@@ -920,7 +949,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               CategoryIcon(category: category, size: 36),
               const SizedBox(height: 4),
               Text(
-                category.name,
+                localizedCategoryName(context, category),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -936,6 +965,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   Widget _buildDetailsCard(ThemeData theme) {
+    final l10n = AppLocalizations.of(context);
     final merchant = _merchant?.trim();
     return AppCard(
       padding: const EdgeInsets.fromLTRB(12, 12, 12, 4),
@@ -944,10 +974,10 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           TextField(
             controller: _noteController,
             textInputAction: TextInputAction.done,
-            decoration: const InputDecoration(
-              labelText: '备注',
-              hintText: '例如：午餐、地铁、超市',
-              prefixIcon: Icon(Icons.edit_note_rounded),
+            decoration: InputDecoration(
+              labelText: l10n.addNoteLabel,
+              hintText: l10n.addNoteHint,
+              prefixIcon: const Icon(Icons.edit_note_rounded),
             ),
           ),
           if (merchant != null && merchant.isNotEmpty)
@@ -956,8 +986,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 8, left: 4),
                 child: InputChip(
-                  label: Text('商户：$merchant'),
-                  deleteButtonTooltipMessage: '清除商户',
+                  label: Text(l10n.addMerchantChip(merchant)),
+                  deleteButtonTooltipMessage: l10n.addClearMerchant,
                   onDeleted: () => setState(() => _merchant = null),
                 ),
               ),
@@ -970,10 +1000,12 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   Widget _buildDateRow(ThemeData theme) {
-    final label = '${formatDateLabel(_date, locale: Localizations.localeOf(context))} ${formatWeekday(_date, locale: Localizations.localeOf(context))}';
+    final l10n = AppLocalizations.of(context);
+    final label =
+        '${formatDateLabel(_date, locale: Localizations.localeOf(context))} ${formatWeekday(_date, locale: Localizations.localeOf(context))}';
     return Semantics(
       button: true,
-      label: '日期，$label，选择日期',
+      label: l10n.addDateSemantic(label),
       onTap: _pickDate,
       excludeSemantics: true,
       child: InkWell(
@@ -991,7 +1023,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
                 const SizedBox(width: 12),
-                Text('日期', style: theme.textTheme.bodyLarge),
+                Text(l10n.addDateLabel, style: theme.textTheme.bodyLarge),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
@@ -1020,13 +1052,15 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   Widget _buildRawTextCard(ThemeData theme) {
     final raw = _rawText?.trim() ?? '';
     if (raw.isEmpty) return const SizedBox.shrink();
+    final l10n = AppLocalizations.of(context);
     return AppCard(
       padding: EdgeInsets.zero,
       child: Column(
         children: [
           Semantics(
             button: true,
-            label: _showRawText ? '收起识别原文' : '展开识别原文',
+            label:
+                _showRawText ? l10n.addCollapseRawText : l10n.addExpandRawText,
             onTap: () => setState(() => _showRawText = !_showRawText),
             excludeSemantics: true,
             child: InkWell(
@@ -1042,7 +1076,10 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                     ),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: Text('识别原文', style: theme.textTheme.titleSmall),
+                      child: Text(
+                        l10n.addRawTextTitle,
+                        style: theme.textTheme.titleSmall,
+                      ),
                     ),
                     Icon(
                       _showRawText
@@ -1075,6 +1112,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   Widget _buildReceiptPanel(ThemeData theme) {
+    final l10n = AppLocalizations.of(context);
     final accent = _accent(theme);
     return Stack(
       children: [
@@ -1099,13 +1137,13 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    '拍照识别小票',
+                    l10n.addReceiptTitle,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '对准小票或账单截图，本机自动识别金额、商户和日期。照片不会上传，也不会保存到相册。',
+                    l10n.addReceiptBody,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
@@ -1119,7 +1157,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           ? null
                           : () => _pickReceipt(ImageSource.camera),
                       icon: const Icon(Icons.photo_camera_rounded),
-                      label: const Text('拍照识别'),
+                      label: Text(l10n.addReceiptCamera),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -1130,7 +1168,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           ? null
                           : () => _pickReceipt(ImageSource.gallery),
                       icon: const Icon(Icons.photo_library_rounded),
-                      label: const Text('从相册选择'),
+                      label: Text(l10n.addReceiptGallery),
                     ),
                   ),
                   if (_ocrBusy) ...[
@@ -1146,7 +1184,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         const SizedBox(width: 10),
                         Flexible(
                           child: Text(
-                            '正在本机识别…',
+                            l10n.addReceiptRecognizing,
                             style: theme.textTheme.bodyMedium,
                           ),
                         ),
@@ -1195,7 +1233,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               child: TextButton.icon(
                 onPressed: () => _switchMode(AddTransactionMode.manual),
                 icon: const Icon(Icons.edit_note_rounded),
-                label: const Text('改为手动输入'),
+                label: Text(l10n.addSwitchToManual),
               ),
             ),
           ],
@@ -1206,6 +1244,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   Widget _buildVoicePanel(ThemeData theme) {
+    final l10n = AppLocalizations.of(context);
     final available = _speechAvailable;
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
@@ -1214,13 +1253,13 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           child: Column(
             children: [
               Text(
-                '语音记账',
+                l10n.addVoiceTitle,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
               Text(
-                '按住下方按钮说一句话，例如「今天午餐花了 42 块」。语音只在本机识别，不会上传或保存音频。',
+                l10n.addVoiceBody,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
@@ -1232,8 +1271,10 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               else ...[
                 Semantics(
                   button: true,
-                  label: _listening ? '正在聆听，轻点结束' : '按住说话',
-                  hint: '双击开始或结束语音输入',
+                  label: _listening
+                      ? l10n.addVoiceListening
+                      : l10n.addVoiceHoldToTalk,
+                  hint: l10n.addVoiceToggleHint,
                   onTap: _toggleVoice,
                   excludeSemantics: true,
                   child: GestureDetector(
@@ -1254,7 +1295,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           gradient: AppTheme.brandGradientOf(context),
                           boxShadow: [
                             BoxShadow(
-                              color: AppTheme.brandOf(context).withValues(alpha: 0.30),
+                              color: AppTheme.brandOf(context)
+                                  .withValues(alpha: 0.30),
                               blurRadius: _listening ? 28 : 14,
                               spreadRadius: _listening ? 6 : 0,
                             ),
@@ -1273,7 +1315,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  _listening ? '正在聆听，轻点结束' : '轻点或按住说话',
+                  _listening ? l10n.addVoiceListening : l10n.addVoiceTapOrHold,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.titleSmall,
                 ),
@@ -1288,7 +1330,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Text(
-                    _liveText.trim().isEmpty ? '实时识别文字会显示在这里' : _liveText,
+                    _liveText.trim().isEmpty
+                        ? l10n.addVoiceLivePlaceholder
+                        : _liveText,
                     textAlign: TextAlign.center,
                     style: _liveText.trim().isEmpty
                         ? theme.textTheme.bodyMedium?.copyWith(
@@ -1306,7 +1350,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('可以这样说', style: theme.textTheme.titleSmall),
+              Text(l10n.addVoiceExamplesTitle,
+                  style: theme.textTheme.titleSmall),
               const SizedBox(height: 10),
               for (final example in _voiceExamples)
                 Padding(
@@ -1321,7 +1366,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          '「$example」',
+                          l10n.addVoiceExample(example),
                           style: theme.textTheme.bodyMedium,
                         ),
                       ),
@@ -1336,14 +1381,14 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           child: TextButton.icon(
             onPressed: () => _switchMode(AddTransactionMode.manual),
             icon: const Icon(Icons.edit_note_rounded),
-            label: const Text('不方便说？改为手动输入'),
+            label: Text(l10n.addVoiceSwitchToManual),
           ),
         ),
         if (available == null) ...[
           const SizedBox(height: 8),
           Center(
             child: Text(
-              '正在检查语音识别可用性…',
+              l10n.addVoiceChecking,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -1355,6 +1400,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   Widget _buildVoiceUnavailable(ThemeData theme) {
+    final l10n = AppLocalizations.of(context);
     return Column(
       children: [
         Icon(
@@ -1364,13 +1410,13 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
         ),
         const SizedBox(height: 12),
         Text(
-          '此设备暂时无法使用本机语音识别',
+          l10n.addVoiceUnavailableTitle,
           textAlign: TextAlign.center,
           style: theme.textTheme.titleSmall,
         ),
         const SizedBox(height: 6),
         Text(
-          '可能是不支持中文听写、未授予语音/麦克风权限，或正在模拟器运行。手动记账功能完全不受影响。',
+          l10n.addVoiceUnavailableBody,
           textAlign: TextAlign.center,
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
@@ -1382,7 +1428,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           child: FilledButton.icon(
             onPressed: () => _switchMode(AddTransactionMode.manual),
             icon: const Icon(Icons.edit_note_rounded),
-            label: const Text('改用手动输入'),
+            label: Text(l10n.addVoiceUseManual),
           ),
         ),
       ],
@@ -1400,18 +1446,23 @@ class _ModeBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final options = <({AddTransactionMode mode, IconData icon, String label})>[
       (
         mode: AddTransactionMode.manual,
         icon: Icons.edit_note_rounded,
-        label: '手动'
+        label: l10n.addModeManual
       ),
       (
         mode: AddTransactionMode.receipt,
         icon: Icons.document_scanner_rounded,
-        label: '拍照'
+        label: l10n.addModeReceipt
       ),
-      (mode: AddTransactionMode.voice, icon: Icons.mic_rounded, label: '语音'),
+      (
+        mode: AddTransactionMode.voice,
+        icon: Icons.mic_rounded,
+        label: l10n.addModeVoice
+      ),
     ];
     return Container(
       padding: const EdgeInsets.all(4),
@@ -1426,7 +1477,7 @@ class _ModeBar extends StatelessWidget {
               child: Semantics(
                 button: true,
                 selected: mode == option.mode,
-                label: '${option.label}记账',
+                label: l10n.addModeSemantic(option.label),
                 onTap: () => onChanged(option.mode),
                 excludeSemantics: true,
                 child: Material(

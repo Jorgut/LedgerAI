@@ -7,6 +7,7 @@ import '../../core/stats.dart';
 import '../theme.dart';
 import '../widgets/charts/category_donut.dart';
 import '../../l10n/app_localizations.dart';
+import '../widgets/common/category_localization.dart';
 import '../widgets/charts/chart_placeholder.dart';
 import '../widgets/charts/trend_chart.dart';
 import '../widgets/common/amount_text.dart';
@@ -402,7 +403,7 @@ class _CategoryRow extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    category.name,
+                    localizedCategoryName(context, category),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.bodyMedium,

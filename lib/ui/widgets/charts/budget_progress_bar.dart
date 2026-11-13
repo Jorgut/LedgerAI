@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/format.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../motion/motion.dart';
 import '../../theme.dart';
 
@@ -36,6 +37,7 @@ class BudgetProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final hasBudget = budget > 0;
     final ratio = hasBudget ? spent / budget : 0.0;
     final percent = (ratio * 100).clamp(0, 999).toDouble();
@@ -53,11 +55,12 @@ class BudgetProgressBar extends StatelessWidget {
       barColor = AppTheme.incomeColorOf(context);
     }
 
+    final percentText = percent.toStringAsFixed(0);
     final statusText = !hasBudget
-        ? '未设置预算'
+        ? l10n.budgetBarNotSet
         : isNear && !isOver
-            ? '预算快用完了，已用 ${percent.toStringAsFixed(0)}%'
-            : '已用 ${percent.toStringAsFixed(0)}%';
+            ? l10n.budgetBarNearLimit(percentText)
+            : l10n.budgetBarUsed(percentText);
 
     final trackColor = theme.colorScheme.surfaceContainerHighest;
     final baseStyle = theme.textTheme.bodyMedium;
@@ -65,8 +68,14 @@ class BudgetProgressBar extends StatelessWidget {
     return Semantics(
       container: true,
       excludeSemantics: true,
-      label: '预算进度${label == null ? '' : '（$label）'}',
-      value: '$statusText，已花费 ${formatMoney(spent)}，预算 ${formatMoney(budget)}',
+      label: label == null
+          ? l10n.budgetBarSemantic
+          : l10n.budgetBarSemanticWith(label!),
+      value: l10n.budgetBarValue(
+        statusText,
+        formatMoney(spent),
+        formatMoney(budget),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -93,7 +102,7 @@ class BudgetProgressBar extends StatelessWidget {
                     child: Text(
                       hasBudget
                           ? '${formatMoney(spent)} / ${formatMoney(budget)}'
-                          : '未设置预算',
+                          : l10n.budgetBarNotSet,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.end,
@@ -152,7 +161,7 @@ class BudgetProgressBar extends StatelessWidget {
                 ),
                 if (isOver)
                   Text(
-                    '超支 ${formatMoney(spent - budget)}',
+                    l10n.budgetBarOver(formatMoney(spent - budget)),
                     style: baseStyle?.copyWith(
                       color: theme.colorScheme.error,
                       fontWeight: FontWeight.w600,

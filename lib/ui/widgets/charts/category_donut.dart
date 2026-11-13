@@ -6,6 +6,7 @@ import '../../../core/format.dart';
 import '../../../core/stats.dart';
 import '../../motion/motion.dart';
 import '../../theme.dart';
+import '../common/category_localization.dart';
 
 /// 分类占比环形图（自绘），中心显示当期总额。
 ///
@@ -36,7 +37,7 @@ class CategoryDonut extends StatelessWidget {
         ? slices
             .map(
               (slice) =>
-                  '${slice.category.name} ${formatMoney(slice.amount)}，占 ${(slice.ratio * 100).toStringAsFixed(0)}%',
+                  '${localizedCategoryName(context, slice.category)} ${formatMoney(slice.amount)}，占 ${(slice.ratio * 100).toStringAsFixed(0)}%',
             )
             .join('；')
         : '暂无分类数据';

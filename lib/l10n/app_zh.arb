@@ -51,7 +51,7 @@
   "highContrastSubtitle": "适合弱视或强光环境，文字更清晰",
   "settingsLanguageSection": "语言 / Language",
   "appLanguage": "App 语言",
-  "languageMigrationNote": "壳/首页/设置已迁移；记账、账单、报表等页面仍在逐批翻译，切换后可能出现中英混排。",
+  "languageMigrationNote": "已支持简体中文 / 繁體中文 / English / Русский；切换后立即生效。",
   "chooseThemeColor": "选择主题色",
   "themeColorNote": "默认 A 清新；深色模式会自动使用对应深色版本。",
   "settingsElderSection": "适老化",
@@ -417,5 +417,380 @@
     }
   },
   "rptInsights": "智能建议",
-  "rptLocal": "本机计算"
+  "rptLocal": "本机计算",
+  "commonConfirm": "确定",
+  "addTitle": "记一笔",
+  "addEditTitle": "编辑记录",
+  "addDeleteTooltip": "删除这笔记录",
+  "addDeleteDialogTitle": "删除这笔记录？",
+  "addDeleteDialogContent": "删除后无法恢复，确定要删除吗？",
+  "addDeleted": "已删除",
+  "addSaveRecord": "保存记录",
+  "addSaveChanges": "保存修改",
+  "addSaved": "已记一笔",
+  "addUpdated": "已更新记录",
+  "addSaveFailed": "保存失败，请重试",
+  "addAmountRequired": "请输入大于 0 的金额",
+  "addAmountLabel": "金额",
+  "addNoteLabel": "备注",
+  "addNoteHint": "例如：午餐、地铁、超市",
+  "addMerchantChip": "商户：{merchant}",
+  "@addMerchantChip": {
+    "placeholders": {
+      "merchant": {
+        "type": "String"
+      }
+    }
+  },
+  "addClearMerchant": "清除商户",
+  "addDateLabel": "日期",
+  "addSelectDate": "选择日期",
+  "addDateSemantic": "日期，{label}，选择日期",
+  "@addDateSemantic": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "addDatePickerFailed": "无法打开日期选择器，请重试",
+  "addFooterSaveHint": "确认无误后点下方按钮保存",
+  "addRawTextTitle": "识别原文",
+  "addCollapseRawText": "收起识别原文",
+  "addExpandRawText": "展开识别原文",
+  "addReceiptFilledBanner": "已从小票识别填入，请核对金额、分类和日期后保存。",
+  "addVoiceFilledBanner": "已从语音识别填入，请核对金额、分类和日期后保存。",
+  "addReceiptTitle": "拍照识别小票",
+  "addReceiptBody": "对准小票或账单截图，本机自动识别金额、商户和日期。照片不会上传，也不会保存到相册。",
+  "addReceiptCamera": "拍照识别",
+  "addReceiptGallery": "从相册选择",
+  "addReceiptRecognizing": "正在本机识别…",
+  "addSwitchToManual": "改为手动输入",
+  "addVoiceTitle": "语音记账",
+  "addVoiceBody": "按住下方按钮说一句话，例如「今天午餐花了 42 块」。语音只在本机识别，不会上传或保存音频。",
+  "addVoiceListening": "正在聆听，轻点结束",
+  "addVoiceHoldToTalk": "按住说话",
+  "addVoiceToggleHint": "双击开始或结束语音输入",
+  "addVoiceTapOrHold": "轻点或按住说话",
+  "addVoiceLivePlaceholder": "实时识别文字会显示在这里",
+  "addVoiceExamplesTitle": "可以这样说",
+  "addVoiceExample": "「{example}」",
+  "@addVoiceExample": {
+    "placeholders": {
+      "example": {
+        "type": "String"
+      }
+    }
+  },
+  "addVoiceChecking": "正在检查语音识别可用性…",
+  "addVoiceSwitchToManual": "不方便说？改为手动输入",
+  "addVoiceUnavailableTitle": "此设备暂时无法使用本机语音识别",
+  "addVoiceUnavailableBody": "可能是不支持中文听写、未授予语音/麦克风权限，或正在模拟器运行。手动记账功能完全不受影响。",
+  "addVoiceUseManual": "改用手动输入",
+  "addVoiceNotSupported": "此设备暂不支持本机语音识别，请手动输入",
+  "addVoiceStartFailed": "语音识别启动失败，请改用手动输入",
+  "addVoiceNoSpeech": "没有听清，请再说一次或手动输入",
+  "addVoiceNoAmount": "没有听清金额，请再说一次，或手动输入",
+  "addVoiceRecognized": "已识别，请核对后保存",
+  "addVoiceFallbackError": "语音识别暂不可用，请手动输入",
+  "addOcrNoTextError": "没有识别到文字，请换一张清晰的小票，或手动输入。",
+  "addOcrNoText": "没有识别到文字，请重试或手动输入",
+  "addOcrNoAmountError": "识别到了文字，但没有找到金额，请展开原文手动补充。",
+  "addOcrNoAmount": "没有识别到金额，请手动补充",
+  "addOcrRecognized": "已识别，请核对金额和分类",
+  "addOcrFailedError": "识别失败，请重试或手动输入。",
+  "addOcrFailed": "识别失败，请重试或手动输入",
+  "addCameraPermission": "无法使用相机，请在系统设置中允许「衡账」访问相机。",
+  "addPhotoPermission": "无法访问相册，请在系统设置中允许「衡账」访问照片。",
+  "addCameraOpenFailed": "无法打开相机，请改用相册选择。",
+  "addPhotoReadFailed": "无法读取这张照片，请重试或手动输入。",
+  "addModeManual": "手动",
+  "addModeReceipt": "拍照",
+  "addModeVoice": "语音",
+  "addModeSemantic": "{label}记账",
+  "@addModeSemantic": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetScreenTitle": "预算",
+  "budgetEmptyMessage": "设置每月支出上限后，首页和报表会显示预算进度，花超了会提醒你。",
+  "budgetSetAction": "设置月度预算",
+  "budgetCategorySection": "分类预算",
+  "budgetTapCategoryHint": "点击分类设置",
+  "budgetLocalNote": "预算只用于本机提醒，不会限制消费；分类预算之和可以超过总预算。",
+  "budgetTotalLabel": "本月总预算",
+  "budgetTotalSemantic": "本月总预算 {amount} 元",
+  "@budgetTotalSemantic": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetSpentSummary": "本月已支出 {amount}，共 {count} 笔",
+  "@budgetSpentSummary": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "budgetEditAction": "编辑预算",
+  "budgetClearAction": "清除预算",
+  "budgetOverBadge": "超支",
+  "budgetSetCategoryHint": "点击设置分类预算",
+  "budgetRowNone": "本月已支出 {amount}",
+  "@budgetRowNone": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetRowDetail": "预算 {budget} · 已支出 {spent}（{percent}%）",
+  "@budgetRowDetail": {
+    "placeholders": {
+      "budget": {
+        "type": "String"
+      },
+      "spent": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetRowDetailOver": "预算 {budget} · 已支出 {spent}（{percent}%），超支 {over}",
+  "@budgetRowDetailOver": {
+    "placeholders": {
+      "budget": {
+        "type": "String"
+      },
+      "spent": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      },
+      "over": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetCategorySemantic": "{category}预算，已支出 {spent} 元，预算 {budget} 元",
+  "@budgetCategorySemantic": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "spent": {
+        "type": "String"
+      },
+      "budget": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetCategorySemanticOver": "{category}预算，已支出 {spent} 元，预算 {budget} 元，已超支 {over} 元",
+  "@budgetCategorySemanticOver": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "spent": {
+        "type": "String"
+      },
+      "budget": {
+        "type": "String"
+      },
+      "over": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetCategorySemanticNone": "{category}，未设置预算，点按设置",
+  "@budgetCategorySemanticNone": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetTotalDialogTitle": "设置月度总预算",
+  "budgetTotalDialogTitleEdit": "修改月度总预算",
+  "budgetTotalDialogSubtitle": "每月支出的上限，用于首页和报表的预算进度提醒。",
+  "budgetTotalCleared": "已清除月度预算",
+  "budgetTotalUpdated": "月度预算已更新",
+  "budgetCategoryDialogTitle": "设置「{category}」预算",
+  "@budgetCategoryDialogTitle": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetCategoryDialogSubtitle": "这个分类每月的支出上限，可随时修改。",
+  "budgetCategoryCleared": "已清除「{category}」预算",
+  "@budgetCategoryCleared": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetCategoryUpdated": "「{category}」预算已更新",
+  "@budgetCategoryUpdated": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetClearConfirmTitle": "清除月度预算？",
+  "budgetClearConfirmContent": "清除后预算进度与超支提醒会关闭，账单记录不会受影响。",
+  "budgetClearDialogAction": "清除",
+  "budgetAmountError": "请输入大于 0 的金额，例如 3000",
+  "budgetAmountLabel": "金额（元）",
+  "budgetDeleteAction": "删除该预算",
+  "onboardTitle1": "你的账本，\n只在你手机里",
+  "onboardBody1": "衡账不登录、不联网、不上传。所有账单和设置都保存在本机，随时可以导出备份。",
+  "onboardPoint1a": "完全离线运行",
+  "onboardPoint1b": "不收集任何个人信息",
+  "onboardPoint1c": "数据可随时导出",
+  "onboardTitle2": "拍一张小票，\n就记好了",
+  "onboardBody2": "对准小票或账单截图拍照，本机自动识别金额、商户和日期，确认一下就能保存。",
+  "onboardPoint2a": "设备端文字识别",
+  "onboardPoint2b": "自动匹配分类",
+  "onboardPoint2c": "识别原文可展开查看",
+  "onboardTitle3": "按住说一句，\n3 秒记一笔",
+  "onboardBody3": "说「今天午餐花了 42 块」，自动填好金额和分类。不方便打字时尤其好用。",
+  "onboardPoint3a": "本机语音识别",
+  "onboardPoint3b": "支持中文一句话",
+  "onboardPoint3c": "听不清时可手动输入",
+  "onboardSaveFailed": "保存设置失败，请重试",
+  "onboardPrevious": "上一页",
+  "onboardSkip": "跳过",
+  "onboardPageSemantic": "第 {current} 页，共 {total} 页",
+  "@onboardPageSemantic": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardStart": "开始记账",
+  "onboardNext": "下一步",
+  "legalLastUpdated": "最后更新：2026 年 11 月",
+  "privacyOneLineTitle": "一句话说明",
+  "privacyOneLineBody": "衡账是一款本地优先的记账 App：不登录、不联网、不上传你的任何账单数据。文字识别、语音识别与统计建议全部在你的 iPhone 上完成。",
+  "privacyNotCollectedTitle": "我们不收集什么",
+  "privacyNotCollectedBody": "开发者不收集、不存储、不传输你的任何个人信息或记账数据。App 没有账号体系，也不包含第三方统计、广告、推送或社交登录 SDK。因此 App Store 的隐私标签为「Data Not Collected」（不收集数据）。",
+  "privacyStorageTitle": "数据保存在哪里",
+  "privacyStorageBody": "账单记录、预算和偏好设置只写入 App 在本机的沙盒数据库。除非你主动在「设置 → 数据」中导出并分享，这些数据不会离开你的设备。",
+  "privacyCameraTitle": "相机与照片",
+  "privacyCameraBody": "使用拍照识别小票时，App 通过系统相机或相册获取一张图片，并使用 iOS 内置的 Vision 文字识别功能在本机提取文字。原始图片不会被保存到相册，也不会被上传；识别完成后即从内存释放。",
+  "privacyMicTitle": "麦克风与语音",
+  "privacyMicBody": "语音记账使用 iOS 系统语音识别，并强制要求设备端识别。音频不会被写入磁盘，也不会被上传。若系统无法在本机完成识别，该功能会提示暂不可用，而不会改用云端识别。",
+  "privacyExportDeleteTitle": "数据导出与删除",
+  "privacyExportDeleteBody": "你可以在「设置 → 数据」导出 CSV 表格或 JSON 备份，文件由你自己保存与分享；也可以在「设置 → 清空全部账单」一键删除全部账单记录。卸载 App 会删除本机保存的全部数据，请提前导出备份。",
+  "privacyPermissionsTitle": "权限说明",
+  "privacyPermissionsBody": "相机、照片、麦克风与语音识别权限都是可选的，只在对应功能中按需申请。即使拒绝这些权限，手动记账、报表、预算与导出等功能仍可正常使用。",
+  "privacyChildrenTitle": "儿童隐私",
+  "privacyChildrenBody": "本 App 不收集任何用户的数据，也不含广告或第三方追踪，适用于包括未成年人在内的所有用户；我们不会针对儿童推送定向内容。",
+  "privacyUpdatesTitle": "政策更新",
+  "privacyUpdatesBody": "如果未来的版本改变了数据处理方式，我们会在 App 内更新本页面，并同步调整 App Store 的隐私标签。",
+  "privacyContactTitle": "联系我们",
+  "privacyContactBody": "如对本政策有疑问，可以通过 App Store 商品页上的「App 支持」链接联系我们。",
+  "termsServiceTitle": "服务说明",
+  "termsServiceBody": "衡账是一款免费、本地优先的个人记账工具，提供手动记账、拍照识别、语音记账、收支统计报表、预算提醒与数据导出等功能。App 的全部功能都在这台设备上运行。",
+  "termsNoticeTitle": "使用须知",
+  "termsNoticeBody": "你需要对录入信息的准确性负责。拍照识别与语音识别的结果可能因为小票模糊、口音或环境噪音出现误差，请在保存前核对。建议定期导出 JSON 备份。",
+  "termsFreeTitle": "免费与内购",
+  "termsFreeBody": "当前版本免费提供，没有订阅、没有内购、没有广告。若未来调整收费方式，我们会提前在 App 内说明，不会影响你已保存在本机的数据。",
+  "termsBackupTitle": "数据与备份",
+  "termsBackupBody": "你的数据只保存在本机，开发者无法访问，也无法替你恢复。因设备丢失、系统故障、卸载 App 或主动清空数据造成的数据丢失，在适用法律允许的范围内由你自行承担。你可以随时在设置中导出备份。",
+  "termsDisclaimerTitle": "免责声明",
+  "termsDisclaimerBody": "App 中的统计、预算提醒与「智能建议」均基于本机数据和固定规则生成，仅作为个人记账参考，不构成投资、理财、税务、法律或医疗建议。你依据本 App 内容做出的任何决定，风险由你自行承担。",
+  "termsIpTitle": "知识产权",
+  "termsIpBody": "App 的界面、图标、文案与代码归开发者所有。你可以将导出的个人账单数据用于个人用途，但不得将其用于侵犯他人权益的用途。",
+  "termsChangesTitle": "服务变更与终止",
+  "termsChangesBody": "我们可能随系统版本更新调整或改进功能。若未来停止维护，会在 App 内提前告知；你仍然可以继续使用本地数据，并随时导出备份。",
+  "termsLawTitle": "适用法律",
+  "termsLawBody": "本协议适用中华人民共和国法律。因本协议产生的争议，双方应先友好协商解决。",
+  "termsContactTitle": "联系我们",
+  "termsContactBody": "如对本协议有疑问，可以通过 App Store 商品页上的「App 支持」链接联系我们。",
+  "budgetBarNotSet": "未设置预算",
+  "budgetBarNearLimit": "预算快用完了，已用 {percent}%",
+  "@budgetBarNearLimit": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetBarUsed": "已用 {percent}%",
+  "@budgetBarUsed": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetBarSemantic": "预算进度",
+  "budgetBarSemanticWith": "预算进度（{label}）",
+  "@budgetBarSemanticWith": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetBarValue": "{status}，已花费 {spent}，预算 {budget}",
+  "@budgetBarValue": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      },
+      "spent": {
+        "type": "String"
+      },
+      "budget": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetBarOver": "超支 {amount}",
+  "@budgetBarOver": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "catFood": "餐饮",
+  "catTransport": "交通",
+  "catShopping": "购物",
+  "catHome": "居家",
+  "catEntertainment": "娱乐",
+  "catMedical": "医疗",
+  "catEducation": "学习",
+  "catCommunication": "通讯",
+  "catSocial": "人情",
+  "catOtherExpense": "其他",
+  "catSalary": "工资",
+  "catBonus": "奖金",
+  "catInvestment": "理财",
+  "catParttime": "兼职",
+  "catGift": "红包",
+  "catOtherIncome": "其他"
 }

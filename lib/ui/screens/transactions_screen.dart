@@ -9,6 +9,7 @@ import '../widgets/common/app_snack.dart';
 import '../widgets/common/empty_state.dart';
 import '../widgets/common/month_switcher.dart';
 import '../widgets/common/transaction_tile.dart';
+import '../widgets/common/category_localization.dart';
 import '../../l10n/app_localizations.dart';
 import 'add_transaction_screen.dart';
 
@@ -125,7 +126,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
     if (!mounted) return;
     AppSnack.undo(
       context,
-      message: l10n.txDeleted(txn.category.name, formatMoney(txn.amount)),
+      message: l10n.txDeleted(localizedCategoryName(context, txn.category), formatMoney(txn.amount)),
       onUndo: () async {
         try {
           await app.saveTransaction(txn);
@@ -173,7 +174,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                 children: [
                   for (final category in categories)
                     ChoiceChip(
-                      label: Text(category.name),
+                      label: Text(localizedCategoryName(context, category)),
                       selected: _categoryFilter == category.id,
                       onSelected: (_) => apply(() {
                         _categoryFilter =
@@ -372,7 +373,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                           if (_categoryFilter != null)
                             InputChip(
                               label: Text(
-                                Category.byId(_categoryFilter).name,
+                                localizedCategoryName(context, Category.byId(_categoryFilter)),
                               ),
                               deleteButtonTooltipMessage: l10n.txRemoveCategoryFilter,
                               onDeleted: () =>

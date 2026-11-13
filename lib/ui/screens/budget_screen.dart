@@ -4,10 +4,12 @@ import 'package:flutter/services.dart';
 import '../../core/app_state.dart';
 import '../../core/format.dart';
 import '../../core/models.dart';
+import '../../l10n/app_localizations.dart';
 import '../theme.dart';
 import '../widgets/charts/budget_progress_bar.dart';
 import '../widgets/common/amount_text.dart';
 import '../widgets/common/app_card.dart';
+import '../widgets/common/category_localization.dart';
 import '../widgets/common/app_snack.dart';
 import '../widgets/common/empty_state.dart';
 
@@ -37,10 +39,13 @@ class _BudgetScreenState extends State<BudgetScreen> {
 
   Future<void> _editTotalBudget() async {
     final app = AppScope.read(context);
+    final l10n = AppLocalizations.of(context);
     final current = app.prefs.monthlyBudget;
     final result = await _showAmountSheet(
-      title: current == null ? '设置月度总预算' : '修改月度总预算',
-      subtitle: '每月支出的上限，用于首页和报表的预算进度提醒。',
+      title: current == null
+          ? l10n.budgetTotalDialogTitle
+          : l10n.budgetTotalDialogTitleEdit,
+      subtitle: l10n.budgetTotalDialogSubtitle,
       current: current,
       allowClear: current != null,
     );
@@ -54,7 +59,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
       );
       if (!mounted) return;
       _haptic();
-      _snack(result.clear ? '已清除月度预算' : '月度预算已更新');
+      _snack(result.clear ? l10n.budgetTotalCleared : l10n.budgetTotalUpdated);
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -62,10 +67,11 @@ class _BudgetScreenState extends State<BudgetScreen> {
 
   Future<void> _editCategoryBudget(Category category) async {
     final app = AppScope.read(context);
+    final l10n = AppLocalizations.of(context);
     final current = app.prefs.categoryBudgets[category.id];
     final result = await _showAmountSheet(
-      title: '设置「${category.name}」预算',
-      subtitle: '这个分类每月的支出上限，可随时修改。',
+      title: l10n.budgetCategoryDialogTitle(localizedCategoryName(context, category)),
+      subtitle: l10n.budgetCategoryDialogSubtitle,
       current: current,
       allowClear: current != null,
     );
@@ -84,7 +90,9 @@ class _BudgetScreenState extends State<BudgetScreen> {
       if (!mounted) return;
       _haptic();
       _snack(
-        result.clear ? '已清除「${category.name}」预算' : '「${category.name}」预算已更新',
+        result.clear
+            ? l10n.budgetCategoryCleared(localizedCategoryName(context, category))
+            : l10n.budgetCategoryUpdated(localizedCategoryName(context, category)),
       );
     } finally {
       if (mounted) setState(() => _busy = false);
@@ -92,19 +100,20 @@ class _BudgetScreenState extends State<BudgetScreen> {
   }
 
   Future<bool> _confirmClearTotal() async {
+    final l10n = AppLocalizations.of(context);
     final result = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('清除月度预算？'),
-        content: const Text('清除后预算进度与超支提醒会关闭，账单记录不会受影响。'),
+        title: Text(l10n.budgetClearConfirmTitle),
+        content: Text(l10n.budgetClearConfirmContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('取消'),
+            child: Text(l10n.commonCancel),
           ),
           FilledButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('清除'),
+            child: Text(l10n.budgetClearDialogAction),
           ),
         ],
       ),
@@ -114,6 +123,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
 
   Future<void> _clearTotalBudget() async {
     final app = AppScope.read(context);
+    final l10n = AppLocalizations.of(context);
     if (!await _confirmClearTotal()) return;
     if (!mounted) return;
     setState(() => _busy = true);
@@ -123,7 +133,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
       );
       if (!mounted) return;
       _haptic();
-      _snack('已清除月度预算');
+      _snack(l10n.budgetTotalCleared);
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -152,6 +162,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final app = AppScope.of(context);
     final prefs = app.prefs;
     final now = DateTime.now();
@@ -171,7 +182,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('预算'),
+        title: Text(l10n.budgetScreenTitle),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -184,9 +195,9 @@ class _BudgetScreenState extends State<BudgetScreen> {
                 padding: EdgeInsets.zero,
                 child: EmptyState(
                   icon: Icons.savings_outlined,
-                  title: '还没有设置月度预算',
-                  message: '设置每月支出上限后，首页和报表会显示预算进度，花超了会提醒你。',
-                  actionLabel: '设置月度预算',
+                  title: l10n.noMonthlyBudget,
+                  message: l10n.budgetEmptyMessage,
+                  actionLabel: l10n.budgetSetAction,
                   actionIcon: Icons.edit_rounded,
                   onAction: _editTotalBudget,
                 ),
@@ -196,7 +207,8 @@ class _BudgetScreenState extends State<BudgetScreen> {
                 budget: totalBudget,
                 spent: summary.expense,
                 count: summary.count,
-                monthLabel: formatMonthLabel(now.year, now.month, locale: Localizations.localeOf(context)),
+                monthLabel: formatMonthLabel(now.year, now.month,
+                    locale: Localizations.localeOf(context)),
                 onEdit: _editTotalBudget,
                 onClear: _clearTotalBudget,
               ),
@@ -212,7 +224,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            '分类预算',
+                            l10n.budgetCategorySection,
                             style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
@@ -220,7 +232,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                         ),
                         Flexible(
                           child: Text(
-                            '点击分类设置',
+                            l10n.budgetTapCategoryHint,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.end,
@@ -255,7 +267,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      '预算只用于本机提醒，不会限制消费；分类预算之和可以超过总预算。',
+                      l10n.budgetLocalNote,
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                         height: 1.5,
@@ -293,6 +305,7 @@ class _TotalBudgetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -301,7 +314,7 @@ class _TotalBudgetCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  '本月总预算',
+                  l10n.budgetTotalLabel,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -322,7 +335,9 @@ class _TotalBudgetCard extends StatelessWidget {
             child: AmountText(
               budget,
               style: theme.textTheme.headlineSmall,
-              semanticLabel: '本月总预算 ${budget.toStringAsFixed(2)} 元',
+              semanticLabel: l10n.budgetTotalSemantic(
+                budget.toStringAsFixed(2),
+              ),
             ),
           ),
           const SizedBox(height: 12),
@@ -334,7 +349,7 @@ class _TotalBudgetCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            '本月已支出 ${formatMoney(spent)}，共 $count 笔',
+            l10n.budgetSpentSummary(formatMoney(spent), count),
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -347,7 +362,7 @@ class _TotalBudgetCard extends StatelessWidget {
               OutlinedButton.icon(
                 onPressed: onEdit,
                 icon: const Icon(Icons.edit_rounded, size: 18),
-                label: const Text('编辑预算'),
+                label: Text(l10n.budgetEditAction),
               ),
               TextButton.icon(
                 onPressed: onClear,
@@ -355,7 +370,7 @@ class _TotalBudgetCard extends StatelessWidget {
                   foregroundColor: theme.colorScheme.error,
                 ),
                 icon: const Icon(Icons.delete_outline_rounded, size: 18),
-                label: const Text('清除预算'),
+                label: Text(l10n.budgetClearAction),
               ),
             ],
           ),
@@ -382,6 +397,7 @@ class _CategoryBudgetRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final hasBudget = budget != null && budget! > 0;
     final effectiveBudget = hasBudget ? budget! : 0.0;
     final isOver = hasBudget && spent > effectiveBudget;
@@ -390,10 +406,19 @@ class _CategoryBudgetRow extends StatelessWidget {
         : '';
 
     final semanticsLabel = hasBudget
-        ? '${category.name}预算，已支出 ${spent.toStringAsFixed(2)} 元，'
-            '预算 ${effectiveBudget.toStringAsFixed(2)} 元'
-            '${isOver ? '，已超支 ${(spent - effectiveBudget).toStringAsFixed(2)} 元' : ''}'
-        : '${category.name}，未设置预算，点按设置';
+        ? (isOver
+            ? l10n.budgetCategorySemanticOver(
+                localizedCategoryName(context, category),
+                spent.toStringAsFixed(2),
+                effectiveBudget.toStringAsFixed(2),
+                (spent - effectiveBudget).toStringAsFixed(2),
+              )
+            : l10n.budgetCategorySemantic(
+                localizedCategoryName(context, category),
+                spent.toStringAsFixed(2),
+                effectiveBudget.toStringAsFixed(2),
+              ))
+        : l10n.budgetCategorySemanticNone(localizedCategoryName(context, category));
 
     return Semantics(
       button: true,
@@ -410,10 +435,13 @@ class _CategoryBudgetRow extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: AppTheme.categoryColorOf(context, category).withValues(alpha: 0.16),
+                  color: AppTheme.categoryColorOf(context, category)
+                      .withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(category.icon, size: 22, color: AppTheme.categoryColorOf(context, category)),
+                child: Icon(category.icon,
+                    size: 22,
+                    color: AppTheme.categoryColorOf(context, category)),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -424,7 +452,7 @@ class _CategoryBudgetRow extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            category.name,
+                            localizedCategoryName(context, category),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: theme.textTheme.bodyLarge?.copyWith(
@@ -444,7 +472,7 @@ class _CategoryBudgetRow extends StatelessWidget {
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Text(
-                              '超支',
+                              l10n.budgetOverBadge,
                               style: theme.textTheme.labelSmall?.copyWith(
                                 color: theme.colorScheme.onErrorContainer,
                                 fontWeight: FontWeight.w600,
@@ -465,7 +493,7 @@ class _CategoryBudgetRow extends StatelessWidget {
                       )
                     else
                       Text(
-                        '点击设置分类预算',
+                        l10n.budgetSetCategoryHint,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -474,12 +502,18 @@ class _CategoryBudgetRow extends StatelessWidget {
                     Text(
                       hasBudget
                           ? (isOver
-                              ? '预算 ${formatMoney(effectiveBudget)} · '
-                                  '已支出 ${formatMoney(spent)}（$percent%），'
-                                  '超支 ${formatMoney(spent - effectiveBudget)}'
-                              : '预算 ${formatMoney(effectiveBudget)} · '
-                                  '已支出 ${formatMoney(spent)}（$percent%）')
-                          : '本月已支出 ${formatMoney(spent)}',
+                              ? l10n.budgetRowDetailOver(
+                                  formatMoney(effectiveBudget),
+                                  formatMoney(spent),
+                                  percent,
+                                  formatMoney(spent - effectiveBudget),
+                                )
+                              : l10n.budgetRowDetail(
+                                  formatMoney(effectiveBudget),
+                                  formatMoney(spent),
+                                  percent,
+                                ))
+                          : l10n.budgetRowNone(formatMoney(spent)),
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: isOver
                             ? theme.colorScheme.error
@@ -556,7 +590,9 @@ class _AmountSheetState extends State<_AmountSheet> {
   void _submit() {
     final amount = parseAmount(_controller.text);
     if (amount == null || amount <= 0) {
-      setState(() => _error = '请输入大于 0 的金额，例如 3000');
+      setState(
+        () => _error = AppLocalizations.of(context).budgetAmountError,
+      );
       return;
     }
     Navigator.of(context).pop(_AmountResult.value(amount));
@@ -565,6 +601,7 @@ class _AmountSheetState extends State<_AmountSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
     return SingleChildScrollView(
       padding: EdgeInsets.fromLTRB(20, 0, 20, bottomInset + 20),
@@ -595,7 +632,7 @@ class _AmountSheetState extends State<_AmountSheet> {
             onSubmitted: (_) => _submit(),
             style: theme.textTheme.headlineSmall,
             decoration: InputDecoration(
-              labelText: '金额（元）',
+              labelText: l10n.budgetAmountLabel,
               prefixText: '¥ ',
               errorText: _error,
               border: const OutlineInputBorder(),
@@ -607,14 +644,14 @@ class _AmountSheetState extends State<_AmountSheet> {
               Expanded(
                 child: OutlinedButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('取消'),
+                  child: Text(l10n.commonCancel),
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: FilledButton(
                   onPressed: _submit,
-                  child: const Text('保存'),
+                  child: Text(l10n.commonSave),
                 ),
               ),
             ],
@@ -629,7 +666,7 @@ class _AmountSheetState extends State<_AmountSheet> {
                 foregroundColor: theme.colorScheme.error,
               ),
               icon: const Icon(Icons.delete_outline_rounded, size: 18),
-              label: const Text('删除该预算'),
+              label: Text(l10n.budgetDeleteAction),
             ),
           ],
         ],

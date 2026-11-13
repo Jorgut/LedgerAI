@@ -185,7 +185,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get languageMigrationNote =>
-      'Оболочка, главная и настройки переведены; ввод, операции и отчёты ещё переводятся, поэтому после переключения возможна смесь языков.';
+      'Поддерживаются упрощённый и традиционный китайский, английский и русский. Изменения применяются сразу.';
 
   @override
   String get chooseThemeColor => 'Выберите цвет темы';
@@ -622,4 +622,657 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get rptLocal => 'Расчёт на устройстве';
+
+  @override
+  String get commonConfirm => 'ОК';
+
+  @override
+  String get addTitle => 'Новая запись';
+
+  @override
+  String get addEditTitle => 'Редактировать запись';
+
+  @override
+  String get addDeleteTooltip => 'Удалить эту запись';
+
+  @override
+  String get addDeleteDialogTitle => 'Удалить эту запись?';
+
+  @override
+  String get addDeleteDialogContent =>
+      'Действие нельзя отменить. Удалить запись?';
+
+  @override
+  String get addDeleted => 'Удалено';
+
+  @override
+  String get addSaveRecord => 'Сохранить запись';
+
+  @override
+  String get addSaveChanges => 'Сохранить изменения';
+
+  @override
+  String get addSaved => 'Запись добавлена';
+
+  @override
+  String get addUpdated => 'Запись обновлена';
+
+  @override
+  String get addSaveFailed => 'Не удалось сохранить. Повторите попытку.';
+
+  @override
+  String get addAmountRequired => 'Введите сумму больше 0';
+
+  @override
+  String get addAmountLabel => 'Сумма';
+
+  @override
+  String get addNoteLabel => 'Заметка';
+
+  @override
+  String get addNoteHint => 'Например: обед, метро, супермаркет';
+
+  @override
+  String addMerchantChip(String merchant) {
+    return 'Магазин: $merchant';
+  }
+
+  @override
+  String get addClearMerchant => 'Удалить магазин';
+
+  @override
+  String get addDateLabel => 'Дата';
+
+  @override
+  String get addSelectDate => 'Выберите дату';
+
+  @override
+  String addDateSemantic(String label) {
+    return 'Дата, $label, выбрать дату';
+  }
+
+  @override
+  String get addDatePickerFailed =>
+      'Не удалось открыть выбор даты. Повторите попытку.';
+
+  @override
+  String get addFooterSaveHint => 'Проверьте данные и нажмите «Сохранить» ниже';
+
+  @override
+  String get addRawTextTitle => 'Распознанный текст';
+
+  @override
+  String get addCollapseRawText => 'Свернуть распознанный текст';
+
+  @override
+  String get addExpandRawText => 'Развернуть распознанный текст';
+
+  @override
+  String get addReceiptFilledBanner =>
+      'Заполнено по чеку. Проверьте сумму, категорию и дату перед сохранением.';
+
+  @override
+  String get addVoiceFilledBanner =>
+      'Заполнено голосом. Проверьте сумму, категорию и дату перед сохранением.';
+
+  @override
+  String get addReceiptTitle => 'Сканировать чек';
+
+  @override
+  String get addReceiptBody =>
+      'Наведите на чек или скриншот счёта — сумма, магазин и дата распознаются на этом устройстве. Фото не загружаются и не сохраняются в галерею.';
+
+  @override
+  String get addReceiptCamera => 'Сканировать камерой';
+
+  @override
+  String get addReceiptGallery => 'Выбрать из галереи';
+
+  @override
+  String get addReceiptRecognizing => 'Распознавание на устройстве…';
+
+  @override
+  String get addSwitchToManual => 'Перейти к ручному вводу';
+
+  @override
+  String get addVoiceTitle => 'Голосовой ввод';
+
+  @override
+  String get addVoiceBody =>
+      'Удерживайте кнопку ниже и скажите, например: «Сегодня обед стоил 42». Речь распознаётся на этом устройстве, аудио не загружается и не сохраняется.';
+
+  @override
+  String get addVoiceListening => 'Слушаю — нажмите, чтобы остановить';
+
+  @override
+  String get addVoiceHoldToTalk => 'Удерживайте, чтобы говорить';
+
+  @override
+  String get addVoiceToggleHint =>
+      'Дважды коснитесь, чтобы начать или остановить голосовой ввод';
+
+  @override
+  String get addVoiceTapOrHold => 'Коснитесь или удерживайте, чтобы говорить';
+
+  @override
+  String get addVoiceLivePlaceholder => 'Распознанный текст появится здесь';
+
+  @override
+  String get addVoiceExamplesTitle => 'Попробуйте сказать';
+
+  @override
+  String addVoiceExample(String example) {
+    return '«$example»';
+  }
+
+  @override
+  String get addVoiceChecking => 'Проверяем доступность распознавания речи…';
+
+  @override
+  String get addVoiceSwitchToManual =>
+      'Неудобно говорить? Перейдите к ручному вводу';
+
+  @override
+  String get addVoiceUnavailableTitle =>
+      'Распознавание речи сейчас недоступно на этом устройстве';
+
+  @override
+  String get addVoiceUnavailableBody =>
+      'Возможно, устройство не поддерживает диктовку на китайском, нет разрешения на микрофон или приложение запущено в симуляторе. Ручной ввод работает полностью.';
+
+  @override
+  String get addVoiceUseManual => 'Использовать ручной ввод';
+
+  @override
+  String get addVoiceNotSupported =>
+      'Это устройство не поддерживает распознавание речи. Введите вручную.';
+
+  @override
+  String get addVoiceStartFailed =>
+      'Не удалось запустить распознавание речи. Используйте ручной ввод.';
+
+  @override
+  String get addVoiceNoSpeech => 'Не расслышал. Повторите или введите вручную.';
+
+  @override
+  String get addVoiceNoAmount =>
+      'Не удалось распознать сумму. Повторите или введите вручную.';
+
+  @override
+  String get addVoiceRecognized => 'Распознано — проверьте и сохраните';
+
+  @override
+  String get addVoiceFallbackError =>
+      'Распознавание речи недоступно. Введите вручную.';
+
+  @override
+  String get addOcrNoTextError =>
+      'Текст не распознан. Попробуйте более чёткий чек или введите вручную.';
+
+  @override
+  String get addOcrNoText =>
+      'Текст не распознан. Повторите или введите вручную.';
+
+  @override
+  String get addOcrNoAmountError =>
+      'Текст распознан, но сумма не найдена. Разверните текст и добавьте её вручную.';
+
+  @override
+  String get addOcrNoAmount => 'Сумма не распознана. Введите её вручную.';
+
+  @override
+  String get addOcrRecognized => 'Распознано — проверьте сумму и категорию';
+
+  @override
+  String get addOcrFailedError =>
+      'Не удалось распознать. Повторите или введите вручную.';
+
+  @override
+  String get addOcrFailed =>
+      'Не удалось распознать. Повторите или введите вручную.';
+
+  @override
+  String get addCameraPermission =>
+      'Камера недоступна. Разрешите HENG доступ к камере в настройках системы.';
+
+  @override
+  String get addPhotoPermission =>
+      'Галерея недоступна. Разрешите HENG доступ к фото в настройках системы.';
+
+  @override
+  String get addCameraOpenFailed =>
+      'Не удалось открыть камеру. Выберите из галереи.';
+
+  @override
+  String get addPhotoReadFailed =>
+      'Не удалось прочитать фото. Повторите или введите вручную.';
+
+  @override
+  String get addModeManual => 'Вручную';
+
+  @override
+  String get addModeReceipt => 'Скан';
+
+  @override
+  String get addModeVoice => 'Голос';
+
+  @override
+  String addModeSemantic(String label) {
+    return 'Ввод: $label';
+  }
+
+  @override
+  String get budgetScreenTitle => 'Бюджет';
+
+  @override
+  String get budgetEmptyMessage =>
+      'Задайте месячный лимит расходов — на главном экране и в отчётах появится прогресс, а при перерасходе придёт предупреждение.';
+
+  @override
+  String get budgetSetAction => 'Задать месячный бюджет';
+
+  @override
+  String get budgetCategorySection => 'Бюджеты по категориям';
+
+  @override
+  String get budgetTapCategoryHint => 'Коснитесь категории';
+
+  @override
+  String get budgetLocalNote =>
+      'Бюджеты — только напоминания на этом устройстве, они не ограничивают траты. Сумма бюджетов по категориям может превышать общий.';
+
+  @override
+  String get budgetTotalLabel => 'Общий бюджет на месяц';
+
+  @override
+  String budgetTotalSemantic(String amount) {
+    return 'Общий бюджет на месяц: $amount';
+  }
+
+  @override
+  String budgetSpentSummary(String amount, int count) {
+    return 'Потрачено в этом месяце: $amount, записей: $count';
+  }
+
+  @override
+  String get budgetEditAction => 'Изменить бюджет';
+
+  @override
+  String get budgetClearAction => 'Сбросить бюджет';
+
+  @override
+  String get budgetOverBadge => 'Перерасход';
+
+  @override
+  String get budgetSetCategoryHint => 'Коснитесь, чтобы задать бюджет';
+
+  @override
+  String budgetRowNone(String amount) {
+    return 'Потрачено в этом месяце: $amount';
+  }
+
+  @override
+  String budgetRowDetail(String budget, String spent, String percent) {
+    return 'Бюджет $budget · потрачено $spent ($percent%)';
+  }
+
+  @override
+  String budgetRowDetailOver(
+      String budget, String spent, String percent, String over) {
+    return 'Бюджет $budget · потрачено $spent ($percent%), перерасход $over';
+  }
+
+  @override
+  String budgetCategorySemantic(String category, String spent, String budget) {
+    return 'Бюджет «$category»: потрачено $spent, бюджет $budget';
+  }
+
+  @override
+  String budgetCategorySemanticOver(
+      String category, String spent, String budget, String over) {
+    return 'Бюджет «$category»: потрачено $spent, бюджет $budget, перерасход $over';
+  }
+
+  @override
+  String budgetCategorySemanticNone(String category) {
+    return '«$category»: бюджет не задан, коснитесь, чтобы задать';
+  }
+
+  @override
+  String get budgetTotalDialogTitle => 'Задать общий месячный бюджет';
+
+  @override
+  String get budgetTotalDialogTitleEdit => 'Изменить общий месячный бюджет';
+
+  @override
+  String get budgetTotalDialogSubtitle =>
+      'Месячный лимит расходов для прогресса бюджета на главном экране и в отчётах.';
+
+  @override
+  String get budgetTotalCleared => 'Месячный бюджет сброшен';
+
+  @override
+  String get budgetTotalUpdated => 'Месячный бюджет обновлён';
+
+  @override
+  String budgetCategoryDialogTitle(String category) {
+    return 'Задать бюджет для категории «$category»';
+  }
+
+  @override
+  String get budgetCategoryDialogSubtitle =>
+      'Месячный лимит расходов по этой категории. Его можно изменить в любой момент.';
+
+  @override
+  String budgetCategoryCleared(String category) {
+    return 'Бюджет категории «$category» сброшен';
+  }
+
+  @override
+  String budgetCategoryUpdated(String category) {
+    return 'Бюджет категории «$category» обновлён';
+  }
+
+  @override
+  String get budgetClearConfirmTitle => 'Сбросить месячный бюджет?';
+
+  @override
+  String get budgetClearConfirmContent =>
+      'Прогресс бюджета и напоминания о перерасходе отключатся. Записи останутся без изменений.';
+
+  @override
+  String get budgetClearDialogAction => 'Сбросить';
+
+  @override
+  String get budgetAmountError => 'Введите сумму больше 0, например 3000';
+
+  @override
+  String get budgetAmountLabel => 'Сумма (юани)';
+
+  @override
+  String get budgetDeleteAction => 'Удалить этот бюджет';
+
+  @override
+  String get onboardTitle1 => 'Ваш журнал —\nтолько на телефоне';
+
+  @override
+  String get onboardBody1 =>
+      'HENG не требует входа, не подключается к сети и ничего не загружает. Все записи и настройки хранятся на устройстве, их можно экспортировать в любой момент.';
+
+  @override
+  String get onboardPoint1a => 'Полностью офлайн';
+
+  @override
+  String get onboardPoint1b => 'Личные данные не собираются';
+
+  @override
+  String get onboardPoint1c => 'Экспорт данных в любой момент';
+
+  @override
+  String get onboardTitle2 => 'Сфотографируйте чек —\nи готово';
+
+  @override
+  String get onboardBody2 =>
+      'Наведите на чек или скриншот счёта: сумма, магазин и дата распознаются на устройстве. Осталось проверить и сохранить.';
+
+  @override
+  String get onboardPoint2a => 'Распознавание текста на устройстве';
+
+  @override
+  String get onboardPoint2b => 'Автоподбор категории';
+
+  @override
+  String get onboardPoint2c => 'Просмотр распознанного текста';
+
+  @override
+  String get onboardTitle3 => 'Скажите вслух —\nзапись за 3 секунды';
+
+  @override
+  String get onboardBody3 =>
+      'Скажите «Сегодня обед стоил 42» — сумма и категория заполнятся сами. Удобно, когда печатать неудобно.';
+
+  @override
+  String get onboardPoint3a => 'Распознавание речи на устройстве';
+
+  @override
+  String get onboardPoint3b => 'Достаточно одной фразы';
+
+  @override
+  String get onboardPoint3c => 'Ручной ввод, если не расслышали';
+
+  @override
+  String get onboardSaveFailed =>
+      'Не удалось сохранить настройки. Повторите попытку.';
+
+  @override
+  String get onboardPrevious => 'Предыдущая страница';
+
+  @override
+  String get onboardSkip => 'Пропустить';
+
+  @override
+  String onboardPageSemantic(int current, int total) {
+    return 'Страница $current из $total';
+  }
+
+  @override
+  String get onboardStart => 'Начать учёт';
+
+  @override
+  String get onboardNext => 'Далее';
+
+  @override
+  String get legalLastUpdated => 'Обновлено: ноябрь 2026 г.';
+
+  @override
+  String get privacyOneLineTitle => 'В двух словах';
+
+  @override
+  String get privacyOneLineBody =>
+      'HENG — приложение для учёта с приоритетом локальной работы: без входа, без сети, ваши данные не загружаются. Распознавание текста и речи, а также аналитика выполняются на вашем iPhone.';
+
+  @override
+  String get privacyNotCollectedTitle => 'Что мы не собираем';
+
+  @override
+  String get privacyNotCollectedBody =>
+      'Разработчик не собирает, не хранит и не передаёт ваши личные данные или записи. В приложении нет учётных записей и сторонних SDK аналитики, рекламы, push-уведомлений или соцвхода. Поэтому в App Store указано «Data Not Collected» (данные не собираются).';
+
+  @override
+  String get privacyStorageTitle => 'Где хранятся данные';
+
+  @override
+  String get privacyStorageBody =>
+      'Записи, бюджеты и настройки хранятся только в локальной песочнице приложения на устройстве. Данные не покидают устройство, если вы сами не экспортируете и не отправите их через «Настройки → Данные».';
+
+  @override
+  String get privacyCameraTitle => 'Камера и фото';
+
+  @override
+  String get privacyCameraBody =>
+      'При сканировании чека приложение получает изображение через системную камеру или галерею и извлекает текст на устройстве с помощью iOS Vision. Оригинал не сохраняется в галерею и не загружается, а после распознавания удаляется из памяти.';
+
+  @override
+  String get privacyMicTitle => 'Микрофон и речь';
+
+  @override
+  String get privacyMicBody =>
+      'Голосовой ввод использует распознавание речи iOS с обязательной обработкой на устройстве. Аудио не записывается на диск и не загружается. Если система не может распознать речь на устройстве, функция сообщит о недоступности, а не переключится на облако.';
+
+  @override
+  String get privacyExportDeleteTitle => 'Экспорт и удаление';
+
+  @override
+  String get privacyExportDeleteBody =>
+      'В разделе «Настройки → Данные» можно экспортировать CSV или JSON-резервную копию и распоряжаться файлом самостоятельно, а также удалить все записи через «Настройки → Удалить все записи». Удаление приложения стирает все данные на устройстве, поэтому заранее сделайте резервную копию.';
+
+  @override
+  String get privacyPermissionsTitle => 'Разрешения';
+
+  @override
+  String get privacyPermissionsBody =>
+      'Разрешения на камеру, фото, микрофон и распознавание речи не обязательны и запрашиваются только при использовании соответствующей функции. Даже если отказать, ручной ввод, отчёты, бюджеты и экспорт продолжат работать.';
+
+  @override
+  String get privacyChildrenTitle => 'Конфиденциальность детей';
+
+  @override
+  String get privacyChildrenBody =>
+      'Приложение не собирает данные пользователей и не содержит рекламы или стороннего трекинга, поэтому подходит всем, включая несовершеннолетних; мы не показываем детям таргетированный контент.';
+
+  @override
+  String get privacyUpdatesTitle => 'Обновления политики';
+
+  @override
+  String get privacyUpdatesBody =>
+      'Если в будущих версиях изменится обработка данных, мы обновим эту страницу в приложении и соответствующим образом изменим ярлык конфиденциальности в App Store.';
+
+  @override
+  String get privacyContactTitle => 'Связаться с нами';
+
+  @override
+  String get privacyContactBody =>
+      'Если у вас есть вопросы об этой политике, свяжитесь с нами по ссылке «Поддержка приложения» на странице App Store.';
+
+  @override
+  String get termsServiceTitle => 'О сервисе';
+
+  @override
+  String get termsServiceBody =>
+      'HENG — бесплатный инструмент для личного учёта с приоритетом локальной работы: ручной ввод, сканирование чеков, голосовой ввод, отчёты о доходах и расходах, напоминания о бюджете и экспорт данных. Все функции работают на этом устройстве.';
+
+  @override
+  String get termsNoticeTitle => 'Правила использования';
+
+  @override
+  String get termsNoticeBody =>
+      'Вы отвечаете за точность введённых данных. Распознавание чеков и речи может ошибаться из-за размытого чека, акцента или шума — проверяйте перед сохранением. Рекомендуем регулярно экспортировать JSON-резервную копию.';
+
+  @override
+  String get termsFreeTitle => 'Бесплатно, без покупок в приложении';
+
+  @override
+  String get termsFreeBody =>
+      'Текущая версия бесплатна: без подписок, встроенных покупок и рекламы. Если в будущем условия изменятся, мы заранее сообщим об этом в приложении, и это не затронет данные, уже сохранённые на устройстве.';
+
+  @override
+  String get termsBackupTitle => 'Данные и резервные копии';
+
+  @override
+  String get termsBackupBody =>
+      'Данные хранятся только на устройстве; разработчик не имеет к ним доступа и не может их восстановить. В пределах, допускаемых применимым правом, риск потери данных из-за утраты устройства, сбоя системы, удаления приложения или самостоятельной очистки лежит на вас. Резервную копию можно экспортировать в настройках в любой момент.';
+
+  @override
+  String get termsDisclaimerTitle => 'Отказ от ответственности';
+
+  @override
+  String get termsDisclaimerBody =>
+      'Статистика, напоминания о бюджете и «Советы» формируются на устройстве по фиксированным правилам. Они служат только справочной информацией для личного учёта и не являются инвестиционной, финансовой, налоговой, юридической или медицинской рекомендацией. Ответственность за решения, принятые на основе материалов приложения, лежит на вас.';
+
+  @override
+  String get termsIpTitle => 'Интеллектуальная собственность';
+
+  @override
+  String get termsIpBody =>
+      'Интерфейс, значки, тексты и код приложения принадлежат разработчику. Экспортированные личные данные можно использовать в личных целях, но не для нарушения прав других лиц.';
+
+  @override
+  String get termsChangesTitle => 'Изменение и прекращение работы';
+
+  @override
+  String get termsChangesBody =>
+      'Мы можем корректировать или улучшать функции вместе с обновлениями системы. Если поддержка прекратится, мы заранее сообщим об этом в приложении; вы по-прежнему сможете пользоваться локальными данными и экспортировать резервную копию в любой момент.';
+
+  @override
+  String get termsLawTitle => 'Применимое право';
+
+  @override
+  String get termsLawBody =>
+      'К настоящему соглашению применяется законодательство Китайской Народной Республики. Споры, возникающие из него, стороны сначала решают путём дружественных переговоров.';
+
+  @override
+  String get termsContactTitle => 'Связаться с нами';
+
+  @override
+  String get termsContactBody =>
+      'Если у вас есть вопросы по этому соглашению, свяжитесь с нами по ссылке «Поддержка приложения» на странице App Store.';
+
+  @override
+  String get budgetBarNotSet => 'Бюджет не задан';
+
+  @override
+  String budgetBarNearLimit(String percent) {
+    return 'Бюджет почти исчерпан — использовано $percent%';
+  }
+
+  @override
+  String budgetBarUsed(String percent) {
+    return 'Использовано $percent%';
+  }
+
+  @override
+  String get budgetBarSemantic => 'Прогресс бюджета';
+
+  @override
+  String budgetBarSemanticWith(String label) {
+    return 'Прогресс бюджета ($label)';
+  }
+
+  @override
+  String budgetBarValue(String status, String spent, String budget) {
+    return '$status, потрачено $spent, бюджет $budget';
+  }
+
+  @override
+  String budgetBarOver(String amount) {
+    return 'Перерасход $amount';
+  }
+
+  @override
+  String get catFood => 'Еда';
+
+  @override
+  String get catTransport => 'Транспорт';
+
+  @override
+  String get catShopping => 'Покупки';
+
+  @override
+  String get catHome => 'Дом';
+
+  @override
+  String get catEntertainment => 'Развлечения';
+
+  @override
+  String get catMedical => 'Здоровье';
+
+  @override
+  String get catEducation => 'Образование';
+
+  @override
+  String get catCommunication => 'Связь';
+
+  @override
+  String get catSocial => 'Общение';
+
+  @override
+  String get catOtherExpense => 'Другое';
+
+  @override
+  String get catSalary => 'Зарплата';
+
+  @override
+  String get catBonus => 'Премия';
+
+  @override
+  String get catInvestment => 'Инвестиции';
+
+  @override
+  String get catParttime => 'Подработка';
+
+  @override
+  String get catGift => 'Подарок';
+
+  @override
+  String get catOtherIncome => 'Другое';
 }
