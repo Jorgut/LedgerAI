@@ -1365,4 +1365,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get splitModeSubtitle =>
       'Dinner, rent, trips — settle up automatically';
+
+  @override
+  String get splitBadge => 'NEW';
 }

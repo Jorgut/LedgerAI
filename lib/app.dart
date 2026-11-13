@@ -111,7 +111,7 @@ class LedgerApp extends StatelessWidget {
       case 'trip':
         return const SplitDemoScreen();
       case 'home_split':
-        return const RootShell(splitPreview: true, showFab: false);
+        return const RootShell(splitPreview: true);
       case 'add':
         return const AddTransactionScreen();
       case 'add_receipt':

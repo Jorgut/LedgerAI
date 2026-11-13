@@ -1367,4 +1367,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get splitModeSubtitle => 'Ужин, аренда, поездки — расчёты за вас';
+
+  @override
+  String get splitBadge => 'НОВОЕ';
 }

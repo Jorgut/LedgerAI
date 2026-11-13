@@ -668,5 +668,6 @@
   "travelMode": "旅行分帳",
   "travelModeSubtitle": "和朋友一起記旅行帳，自動算誰欠誰",
   "splitMode": "分帳",
-  "splitModeSubtitle": "聚餐、房租、旅行，自動算清誰欠誰"
+  "splitModeSubtitle": "聚餐、房租、旅行，自動算清誰欠誰",
+  "splitBadge": "新"
 }

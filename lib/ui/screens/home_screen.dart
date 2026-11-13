@@ -90,13 +90,22 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 10),
             AppCard(
               onTap: onOpenSplit,
+              color: theme.colorScheme.primary.withValues(alpha: 0.07),
+              borderColor: theme.colorScheme.primary.withValues(alpha: 0.30),
               child: Row(
                 children: [
                   Container(
                     width: 42,
                     height: 42,
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.primary.withValues(alpha: 0.10),
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          theme.colorScheme.primary.withValues(alpha: 0.22),
+                          theme.colorScheme.primary.withValues(alpha: 0.08),
+                        ],
+                      ),
                       borderRadius: BorderRadius.circular(13),
                     ),
                     child: Icon(Icons.call_split_rounded,
@@ -123,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(999),
                               ),
                               child: Text(
-                                'PREVIEW',
+                                l10n.splitBadge,
                                 style: theme.textTheme.labelSmall?.copyWith(
                                   color: theme.colorScheme.primary,
                                   fontWeight: FontWeight.w700,
@@ -147,7 +156,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Icon(Icons.chevron_right_rounded,
-                      color: theme.colorScheme.onSurfaceVariant),
+                      color: theme.colorScheme.primary),
                 ],
               ),
             ),

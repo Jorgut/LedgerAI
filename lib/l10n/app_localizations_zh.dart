@@ -1316,6 +1316,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get splitModeSubtitle => '聚餐、房租、旅行，自动算清谁欠谁';
+
+  @override
+  String get splitBadge => '新';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2630,4 +2633,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get splitModeSubtitle => '聚餐、房租、旅行，自動算清誰欠誰';
+
+  @override
+  String get splitBadge => '新';
 }

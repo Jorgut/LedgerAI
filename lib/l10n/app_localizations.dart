@@ -2425,6 +2425,12 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'聚餐、房租、旅行，自动算清谁欠谁'**
   String get splitModeSubtitle;
+
+  /// No description provided for @splitBadge.
+  ///
+  /// In zh, this message translates to:
+  /// **'新'**
+  String get splitBadge;
 }
 
 class _AppLocalizationsDelegate

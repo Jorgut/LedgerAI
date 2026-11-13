@@ -264,7 +264,8 @@
 - 无障碍：`showcase/accessibility_audit.png` + `docs/ACCESSIBILITY_AUDIT.md`
 - 主题研究：`docs/THEME_STRATEGY.md`（女性向 D/E/F；建议上架 3 套：D 免费 + E/F Pro；A/B/C 可作 Classic）
 - 旅行分账概念页：`lib/ui/screens/trip_demo_screen.dart` + `DEMO_SCREEN=trip`（1.2 才接数据/CloudKit）。
-- 入口已修正：首页 **Split 卡片**，不是底部 Tab；详情页全屏 push、返回记账。
+- 入口已修正并高亮：首页 Split 卡片（tinted + NEW 徽标 + primary chevron），不是底部 Tab；详情页全屏 push、返回记账。
+- 预览截图恢复底部中央「+」FAB；之前 5-tab 方案下临时隐藏，已废弃。
 - 展示图 `showcase/travel_split.png`；正式用户暂不可见，1.2 接真实数据后开启。
 - 真实分账/CloudKit/FX/StoreKit 方案：`docs/SPLIT_ARCHITECTURE.md`，尚未实现。
 - TestFlight 1.1.0 (14) 已挂组；1.0 仍 WAITING_FOR_REVIEW。
