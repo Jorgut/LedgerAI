@@ -34,28 +34,60 @@ String formatCompactMoney(double amount) {
   return '$sign${abs.toStringAsFixed(0)}';
 }
 
+const _enMonths = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const _enMonthsShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const _ruMonths = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const _ruMonthsShort = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+bool _isZh(Locale? l) => l == null || l.languageCode == 'zh';
+bool _isRu(Locale? l) => l?.languageCode == 'ru';
+
 /// 日期标签：今天 / 昨天 / M月d日 / yyyy年M月d日。
-String formatDateLabel(DateTime date, {DateTime? now}) {
+String formatDateLabel(DateTime date, {DateTime? now, Locale? locale}) {
   final today = now ?? DateTime.now();
   final todayDate = DateTime(today.year, today.month, today.day);
   final target = DateTime(date.year, date.month, date.day);
   final diff = todayDate.difference(target).inDays;
-  if (diff == 0) return '今天';
-  if (diff == 1) return '昨天';
-  if (diff == 2) return '前天';
-  if (date.year == today.year) return '${date.month}月${date.day}日';
-  return '${date.year}年${date.month}月${date.day}日';
+  if (_isZh(locale)) {
+    if (diff == 0) return '今天';
+    if (diff == 1) return '昨天';
+    if (diff == 2) return '前天';
+    if (date.year == today.year) return '${date.month}月${date.day}日';
+    return '${date.year}年${date.month}月${date.day}日';
+  }
+  if (diff == 0) return _isRu(locale) ? 'Сегодня' : 'Today';
+  if (diff == 1) return _isRu(locale) ? 'Вчера' : 'Yesterday';
+  if (diff == 2) return _isRu(locale) ? 'Позавчера' : '2 days ago';
+  if (_isRu(locale)) {
+    return '${date.day} ${_ruMonths[date.month - 1]}${date.year == today.year ? '' : ' ${date.year}'}';
+  }
+  return '${_enMonthsShort[date.month - 1]} ${date.day}${date.year == today.year ? '' : ', ${date.year}'}';
 }
 
-/// 月份标签：2026年11月。
-String formatMonthLabel(int year, int month) => '$year年$month月';
+/// 月份标签：2026年11月 / November 2026 / Ноябрь 2026。
+String formatMonthLabel(int year, int month, {Locale? locale}) {
+  if (_isZh(locale)) return '$year年$month月';
+  if (_isRu(locale)) return '${_ruMonths[month - 1]} $year';
+  return '${_enMonths[month - 1]} $year';
+}
 
-/// 月份短标签：11月。
-String formatMonthShort(int month) => '$month月';
+/// 月份短标签：11月 / Nov / ноя。
+String formatMonthShort(int month, {Locale? locale}) {
+  if (_isZh(locale)) return '$month月';
+  if (_isRu(locale)) return _ruMonthsShort[month - 1];
+  return _enMonthsShort[month - 1];
+}
 
-/// 星期标签：周一。
-String formatWeekday(DateTime date) {
-  const labels = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+/// 星期标签：周一 / Mon / Пн。
+String formatWeekday(DateTime date, {Locale? locale}) {
+  if (_isZh(locale)) {
+    const labels = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+    return labels[date.weekday - 1];
+  }
+  if (_isRu(locale)) {
+    const labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+    return labels[date.weekday - 1];
+  }
+  const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   return labels[date.weekday - 1];
 }
 

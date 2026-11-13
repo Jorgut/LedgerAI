@@ -34,13 +34,13 @@ class MonthSwitcher extends StatelessWidget {
         Expanded(
           child: Semantics(
             liveRegion: true,
-            label: formatMonthLabel(year, month),
+            label: formatMonthLabel(year, month, locale: Localizations.localeOf(context)),
             child: ExcludeSemantics(
               child: Center(
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    formatMonthLabel(year, month),
+                    formatMonthLabel(year, month, locale: Localizations.localeOf(context)),
                     style: theme.textTheme.titleMedium,
                   ),
                 ),

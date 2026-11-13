@@ -50,7 +50,7 @@ class LedgerApp extends StatelessWidget {
               child: child!,
             );
           },
-          locale: const Locale('zh', 'CN'),
+          locale: prefs.language.locale,
           supportedLocales: AppLocalizations.supportedLocales,
           localizationsDelegates: const [
             AppLocalizations.delegate,

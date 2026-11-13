@@ -27,7 +27,8 @@ void main() {
 
   testWidgets('关键按钮 / 入口点击区 ≥ 48dp', (tester) async {
     await tester.runAsync(
-      () => harness.setPrefs(const AppSettings(onboardingDone: true)),
+      () => harness.setPrefs(const AppSettings(
+          onboardingDone: true, language: AppLanguage.zhHans)),
     );
     usePhoneSurface(tester);
     await tester.pumpWidget(
@@ -79,6 +80,7 @@ void main() {
     await tester.runAsync(
       () => harness.setPrefs(const AppSettings(
         onboardingDone: true,
+        language: AppLanguage.zhHans,
         highContrast: true,
         themeMode: ThemeMode.dark,
       )),
@@ -101,6 +103,7 @@ void main() {
     await tester.runAsync(
       () => harness.setPrefs(const AppSettings(
         onboardingDone: true,
+        language: AppLanguage.zhHans,
         highContrast: true,
         themeMode: ThemeMode.light,
       )),

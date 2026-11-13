@@ -196,7 +196,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                 budget: totalBudget,
                 spent: summary.expense,
                 count: summary.count,
-                monthLabel: formatMonthLabel(now.year, now.month),
+                monthLabel: formatMonthLabel(now.year, now.month, locale: Localizations.localeOf(context)),
                 onEdit: _editTotalBudget,
                 onClear: _clearTotalBudget,
               ),

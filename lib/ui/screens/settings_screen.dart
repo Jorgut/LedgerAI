@@ -22,7 +22,7 @@ import 'legal_screens.dart';
 
 /// 应用版本号（与 pubspec.yaml 的 `version: 1.0.0+1` 保持一致）。
 const String _kAppVersion = '1.1.0';
-const String _kBuildNumber = '8';
+const String _kBuildNumber = '9';
 
 /// 设置页：外观、触觉反馈、预算入口、数据导出与清空、法务与关于。
 ///
@@ -127,6 +127,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     } finally {
       if (mounted) setState(() => _syncing = false);
     }
+  }
+
+  Future<void> _setLanguage(AppLanguage value) async {
+    await AppScope.read(context).updateSettingsWith(
+      (settings) => settings.copyWith(language: value),
+    );
+    if (!mounted) return;
+    _hapticTick();
   }
 
   Future<void> _setColorTheme(AppColorTheme value) async {
@@ -462,6 +470,53 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     subtitle: const Text('适合弱视或强光环境，文字更清晰'),
                     value: prefs.highContrast,
                     onChanged: _setHighContrast,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            const SectionHeader(
+              title: '语言 / Language',
+              padding: EdgeInsets.fromLTRB(4, 0, 4, 8),
+            ),
+            Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
+                    child: Row(
+                      children: [
+                        Icon(Icons.translate_rounded,
+                            color: theme.colorScheme.onSurfaceVariant),
+                        const SizedBox(width: 12),
+                        Text('App 语言', style: theme.textTheme.bodyLarge),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (final lang in AppLanguage.values)
+                          ChoiceChip(
+                            label: Text(lang.nativeLabel),
+                            selected: prefs.language == lang,
+                            onSelected: (_) => _setLanguage(lang),
+                          ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
+                    child: Text(
+                      '壳/首页/设置已迁移；记账、账单、报表等页面仍在逐批翻译，切换后可能出现中英混排。',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
                   ),
                 ],
               ),

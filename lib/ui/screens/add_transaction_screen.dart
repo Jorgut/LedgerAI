@@ -970,7 +970,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   Widget _buildDateRow(ThemeData theme) {
-    final label = '${formatDateLabel(_date)} ${formatWeekday(_date)}';
+    final label = '${formatDateLabel(_date, locale: Localizations.localeOf(context))} ${formatWeekday(_date, locale: Localizations.localeOf(context))}';
     return Semantics(
       button: true,
       label: '日期，$label，选择日期',

@@ -1,5 +1,27 @@
 import 'package:flutter/material.dart';
 
+/// App 语言。默认跟随系统；当前 i18n 迁移未完成时由设置页显式选择。
+enum AppLanguage {
+  system('跟随系统', 'System'),
+  zhHans('简体中文', '简体中文'),
+  zhHant('繁體中文', '繁體中文'),
+  en('English', 'English'),
+  ru('Русский', 'Русский');
+
+  const AppLanguage(this.label, this.nativeLabel);
+
+  final String label;
+  final String nativeLabel;
+
+  Locale? get locale => switch (this) {
+        AppLanguage.system => null,
+        AppLanguage.zhHans => const Locale('zh', 'CN'),
+        AppLanguage.zhHant => const Locale('zh', 'TW'),
+        AppLanguage.en => const Locale('en'),
+        AppLanguage.ru => const Locale('ru'),
+      };
+}
+
 /// 三套主题色。默认 [fresh]（A 清新）。
 enum AppColorTheme {
   fresh('A 清新', '高明度、冷背景、明快绿'),
@@ -28,6 +50,7 @@ class AppSettings {
     this.icloudSyncEnabled = false,
     this.lastSyncAt,
     this.colorTheme = AppColorTheme.fresh,
+    this.language = AppLanguage.system,
   });
 
   /// 是否已完成首次引导。
@@ -67,6 +90,9 @@ class AppSettings {
   /// 主题色；默认 A 清新。
   final AppColorTheme colorTheme;
 
+  /// App 语言；默认跟随系统。
+  final AppLanguage language;
+
   static const AppSettings defaults = AppSettings();
 
   AppSettings copyWith({
@@ -84,6 +110,7 @@ class AppSettings {
     DateTime? lastSyncAt,
     bool clearLastSyncAt = false,
     AppColorTheme? colorTheme,
+    AppLanguage? language,
   }) {
     return AppSettings(
       onboardingDone: onboardingDone ?? this.onboardingDone,
@@ -99,6 +126,7 @@ class AppSettings {
       icloudSyncEnabled: icloudSyncEnabled ?? this.icloudSyncEnabled,
       lastSyncAt: clearLastSyncAt ? null : (lastSyncAt ?? this.lastSyncAt),
       colorTheme: colorTheme ?? this.colorTheme,
+      language: language ?? this.language,
     );
   }
 
@@ -115,6 +143,7 @@ class AppSettings {
         'icloudSyncEnabled': icloudSyncEnabled,
         'lastSyncAt': lastSyncAt?.toIso8601String(),
         'colorTheme': colorTheme.name,
+        'language': language.name,
       };
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
@@ -144,6 +173,10 @@ class AppSettings {
       colorTheme: AppColorTheme.values.firstWhere(
         (theme) => theme.name == json['colorTheme'],
         orElse: () => AppColorTheme.fresh,
+      ),
+      language: AppLanguage.values.firstWhere(
+        (lang) => lang.name == json['language'],
+        orElse: () => AppLanguage.system,
       ),
     );
   }

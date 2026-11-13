@@ -537,11 +537,11 @@ class _DayHeader extends StatelessWidget {
               runSpacing: 2,
               children: [
                 Text(
-                  formatDateLabel(group.day),
+                  formatDateLabel(group.day, locale: Localizations.localeOf(context)),
                   style: theme.textTheme.titleSmall,
                 ),
                 Text(
-                  formatWeekday(group.day),
+                  formatWeekday(group.day, locale: Localizations.localeOf(context)),
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),

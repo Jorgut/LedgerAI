@@ -40,7 +40,7 @@ class TransactionTile extends StatelessWidget {
     final isIncome = txn.isIncome;
     final amountColor =
         AppTheme.amountColor(theme.brightness, isIncome: isIncome);
-    final dateLabel = formatDateLabel(txn.date);
+    final dateLabel = formatDateLabel(txn.date, locale: Localizations.localeOf(context));
 
     final subtitleParts = <String>[
       category.name,

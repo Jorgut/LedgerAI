@@ -286,7 +286,7 @@ class _BalanceCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(999),
                           ),
                           child: Text(
-                            formatMonthLabel(now.year, now.month),
+                            formatMonthLabel(now.year, now.month, locale: Localizations.localeOf(context)),
                             style: theme.textTheme.labelSmall?.copyWith(
                               color: Colors.white,
                               fontSize: 13,
@@ -503,7 +503,7 @@ class _BudgetCard extends StatelessWidget {
                     Text(l10n.budgetTitle, style: theme.textTheme.titleSmall),
                     const SizedBox(height: 2),
                     Text(
-                      formatMonthLabel(now.year, now.month),
+                      formatMonthLabel(now.year, now.month, locale: Localizations.localeOf(context)),
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),

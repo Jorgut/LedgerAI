@@ -222,6 +222,14 @@
 - 预热封面：`store/marketing/brand/final/icon/xhs_preheat_cover.png`（1242×1660）；
 - 图标多尺寸预览：`app_icon_aurora_preview.png`。
 
+## 四语言/语言选择器进度（2026-11-13）
+
+- 已加入 `AppLanguage`（跟随系统/简中/繁中/英文/俄文）并持久化；
+- 设置页已有语言选择器；壳/首页已迁移，设置页正文仍为中文（标注为迁移中，避免误以为完成）；
+- 日期标签 `formatMonthLabel/formatDateLabel/formatWeekday/formatMonthShort` 已按 locale 输出中/英/俄；
+- TestFlight 1.1.0 (9) 已上传并挂内部组：含新图标、壳/首页四语言、语言选择器；
+- 设置页 97 条、其余页面翻译尚未完成；1.0 仍 WAITING_FOR_REVIEW。
+
 ## 下一步
 
 1. **待用户决定**：1.0 是否撤回并用 build 2 重提（仅 OCR 修复 + 可带新图标），或让 1.0 先过审、修复随 1.1 发布。
