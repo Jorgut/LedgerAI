@@ -296,6 +296,8 @@
 - 真机反馈（build 20）：OCR/语音通过；iCloud 立即同步报错；账单搜索键盘无法收起/返回。
 - build 21：修复搜索键盘收起、iCloud 错误分类；CloudKit 生产 schema 需在 CloudKit Console 部署。
 - build 22（仅 TestFlight 内测）：重新打开 Split 预览入口（SHOW_SPLIT_PREVIEW=true）；正式 App Store 构建仍需不带该参数。
+- iCloud 同步真机验证通过：CloudKit Development/Production schema + Txn.recordName QUERYABLE 索引；build 22 调试版同步 9 条成功。
+- build 23：正式候选，不带 Split 预览；友善 iCloud 错误文案。
 
 ## 下一步
 
