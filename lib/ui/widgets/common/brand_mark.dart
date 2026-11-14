@@ -16,6 +16,7 @@ class BrandMark extends StatelessWidget {
     this.wordSize = 42,
     this.sealSize,
     this.matchCapHeight = false,
+    this.sealDilation = 0.25,
     this.color,
   });
 
@@ -25,6 +26,9 @@ class BrandMark extends StatelessWidget {
   /// When true the seal is exactly the height of the HENG capital letters and
   /// aligned top-to-top and bottom-to-bottom with them.
   final bool matchCapHeight;
+
+  /// Dilation of the white oracle glyph inside the seal.
+  final double sealDilation;
   final Color? color;
 
   @override
@@ -83,7 +87,7 @@ class BrandMark extends StatelessWidget {
           Positioned(
             left: wordWidth + gap,
             top: sealTop,
-            child: OracleSeal(size: seal),
+            child: OracleSeal(size: seal, dilation: sealDilation),
           ),
         ],
       ),
