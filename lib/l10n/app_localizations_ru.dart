@@ -1132,7 +1132,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get privacyContactBody =>
-      'Если у вас есть вопросы об этой политике, свяжитесь с нами по ссылке «Поддержка приложения» на странице App Store.';
+      'Вопросы по политике: privacy@altn.vision. Обратная связь: feedback@altn.vision.';
 
   @override
   String get termsServiceTitle => 'О сервисе';
@@ -1549,7 +1549,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Сообщение создаётся на этом устройстве и покинет его только после выбора способа отправки.';
 
   @override
-  String get feedbackSend => 'Отправить';
+  String get feedbackSend => 'Отправить письмо';
 
   @override
   String get feedbackCopy => 'Копировать';
@@ -1569,5 +1569,5 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get feedbackShareHint =>
-      'Откроется системное меню, где вы выберете приложение для отправки.';
+      'Откроет Mail с готовым получателем; если Mail недоступен, откроется меню отправки.';
 }

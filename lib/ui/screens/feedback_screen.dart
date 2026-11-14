@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/app_info.dart';
 import '../../core/app_state.dart';
@@ -60,6 +61,23 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
       _snack(l10n.feedbackEmpty);
       return;
     }
+    final uri = Uri(
+      scheme: 'mailto',
+      path: kFeedbackEmail,
+      queryParameters: {
+        'subject': l10n.feedbackReportSubject,
+        'body': _buildReport(l10n),
+      },
+    );
+    try {
+      final opened = await launchUrl(uri, mode: LaunchMode.externalApplication);
+      if (!opened) await _share(l10n);
+    } catch (_) {
+      await _share(l10n);
+    }
+  }
+
+  Future<void> _share(AppLocalizations l10n) async {
     try {
       await SharePlus.instance.share(
         ShareParams(
@@ -181,7 +199,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             const SizedBox(height: 20),
             FilledButton.icon(
               onPressed: _send,
-              icon: const Icon(Icons.ios_share_rounded),
+              icon: const Icon(Icons.mail_outline_rounded),
               label: Text(l10n.feedbackSend),
             ),
             const SizedBox(height: 8),

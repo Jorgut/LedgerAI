@@ -562,7 +562,7 @@
   "privacyUpdatesTitle": "政策更新",
   "privacyUpdatesBody": "如果未來的版本改變了資料處理方式，我們會在 App 內更新本頁面，並同步調整 App Store 的隱私標籤。",
   "privacyContactTitle": "聯絡我們",
-  "privacyContactBody": "如對本政策有疑問，可以透過 App Store 商品頁上的「App 支援」連結聯絡我們。",
+  "privacyContactBody": "如對本政策有疑問，請聯絡 privacy@altn.vision；回饋問題請寄 feedback@altn.vision。",
   "termsServiceTitle": "服務說明",
   "termsServiceBody": "衡記是一款免費、本地優先的個人記帳工具，提供手動記帳、拍照辨識、語音記帳、收支統計報表、預算提醒與資料匯出等功能。App 的全部功能都在這台裝置上執行。",
   "termsNoticeTitle": "使用須知",
@@ -714,11 +714,11 @@
   "feedbackIncludeInfo": "附上版本與裝置資訊",
   "feedbackIncludeInfoSub": "僅包含 App 版本、iOS、語言與主題；不包含帳本資料。",
   "feedbackPrivacyNote": "回饋在本機產生，只有你選擇傳送方式後才會離開裝置。",
-  "feedbackSend": "傳送回饋",
+  "feedbackSend": "傳送郵件回饋",
   "feedbackCopy": "複製回饋",
   "feedbackEmpty": "請先寫一點內容。",
   "feedbackCopied": "已複製，可貼到郵件或訊息中。",
   "feedbackThanks": "已開啟傳送面板，請選擇郵件、訊息或其他 App。",
   "feedbackReportSubject": "HENG 衡記 · App 回饋",
-  "feedbackShareHint": "會開啟系統分享面板，由你選擇傳送到哪個 App。"
+  "feedbackShareHint": "將開啟郵件 App，收件人已填好；沒有郵件 App 時會退回系統分享。"
 }

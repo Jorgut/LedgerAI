@@ -1129,7 +1129,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyContactBody =>
-      'If you have questions about this policy, contact us through the “App Support” link on the App Store product page.';
+      'Questions about this policy: privacy@altn.vision. Feedback: feedback@altn.vision.';
 
   @override
   String get termsServiceTitle => 'About the service';
@@ -1544,7 +1544,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Feedback is composed on this device. Nothing leaves it until you choose how to send.';
 
   @override
-  String get feedbackSend => 'Send feedback';
+  String get feedbackSend => 'Send email';
 
   @override
   String get feedbackCopy => 'Copy feedback';
@@ -1564,5 +1564,5 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get feedbackShareHint =>
-      'Opens the system share sheet so you can choose where to send it.';
+      'Opens Mail with the recipient pre-filled; falls back to the share sheet if Mail is unavailable.';
 }

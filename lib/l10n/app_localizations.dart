@@ -2009,7 +2009,7 @@ abstract class AppLocalizations {
   /// No description provided for @privacyContactBody.
   ///
   /// In zh, this message translates to:
-  /// **'如对本政策有疑问，可以通过 App Store 商品页上的「App 支持」链接联系我们。'**
+  /// **'如对本政策有疑问，请联系 privacy@altn.vision；反馈问题请发 feedback@altn.vision。'**
   String get privacyContactBody;
 
   /// No description provided for @termsServiceTitle.
@@ -2699,7 +2699,7 @@ abstract class AppLocalizations {
   /// No description provided for @feedbackSend.
   ///
   /// In zh, this message translates to:
-  /// **'发送反馈'**
+  /// **'发送邮件反馈'**
   String get feedbackSend;
 
   /// No description provided for @feedbackCopy.
@@ -2735,7 +2735,7 @@ abstract class AppLocalizations {
   /// No description provided for @feedbackShareHint.
   ///
   /// In zh, this message translates to:
-  /// **'会打开系统分享面板，由你选择发送到哪个 App。'**
+  /// **'将打开邮件 App，收件人已填好；没有邮件 App 时会退回到系统分享。'**
   String get feedbackShareHint;
 }
 

@@ -8,7 +8,8 @@
 
 ## 一、联系我们
 
-- **反馈与问题**：<https://github.com/Jorgut/LedgerAI/issues>（推荐，问题可跟踪、可公开检索）
+- **反馈与问题**：<feedback@altn.vision>（也可在 App 内「我的 ▸ 支持 ▸ 反馈」发送）
+- **GitHub Issues**：<https://github.com/Jorgut/LedgerAI/issues>（适合可公开跟踪的问题）
 - **功能建议 / 讨论**：<https://github.com/Jorgut/LedgerAI/discussions>
 - **隐私政策**：[PRIVACY.md](PRIVACY.md)
 - 响应时间：通常 7 个工作日内（独立开发者维护，请见谅）。

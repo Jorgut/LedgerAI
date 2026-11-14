@@ -562,7 +562,7 @@
   "privacyUpdatesTitle": "Policy updates",
   "privacyUpdatesBody": "If a future version changes how data is handled, we will update this page in the app and adjust the App Store privacy label accordingly.",
   "privacyContactTitle": "Contact us",
-  "privacyContactBody": "If you have questions about this policy, contact us through the “App Support” link on the App Store product page.",
+  "privacyContactBody": "Questions about this policy: privacy@altn.vision. Feedback: feedback@altn.vision.",
   "termsServiceTitle": "About the service",
   "termsServiceBody": "HENG is a free, local-first personal finance tool offering manual entry, receipt scanning, voice entry, income and expense reports, budget reminders, and data export. All features run on this device.",
   "termsNoticeTitle": "Using the app",
@@ -714,11 +714,11 @@
   "feedbackIncludeInfo": "Include version and device info",
   "feedbackIncludeInfoSub": "Only app version, iOS, language, and theme; no ledger data.",
   "feedbackPrivacyNote": "Feedback is composed on this device. Nothing leaves it until you choose how to send.",
-  "feedbackSend": "Send feedback",
+  "feedbackSend": "Send email",
   "feedbackCopy": "Copy feedback",
   "feedbackEmpty": "Please write a little first.",
   "feedbackCopied": "Copied. Paste it into Mail or Messages.",
   "feedbackThanks": "Share sheet opened. Choose Mail, Messages, or another app.",
   "feedbackReportSubject": "HENG · App feedback",
-  "feedbackShareHint": "Opens the system share sheet so you can choose where to send it."
+  "feedbackShareHint": "Opens Mail with the recipient pre-filled; falls back to the share sheet if Mail is unavailable."
 }

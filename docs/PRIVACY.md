@@ -111,7 +111,8 @@ App 内不包含网页视图、不加载第三方内容、不接入任何远程�
 
 ## 十、联系我们
 
-- 支持与反馈：<https://github.com/Jorgut/LedgerAI/issues>
+- 隐私相关：<privacy@altn.vision>
+- 支持与反馈：<feedback@altn.vision>
 - 仓库地址：<https://github.com/Jorgut/LedgerAI>
 - 我们通常在 7 个工作日内回复；涉及隐私的反馈会优先处理。
 

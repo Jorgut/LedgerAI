@@ -710,7 +710,7 @@
   "privacyUpdatesTitle": "政策更新",
   "privacyUpdatesBody": "如果未来的版本改变了数据处理方式，我们会在 App 内更新本页面，并同步调整 App Store 的隐私标签。",
   "privacyContactTitle": "联系我们",
-  "privacyContactBody": "如对本政策有疑问，可以通过 App Store 商品页上的「App 支持」链接联系我们。",
+  "privacyContactBody": "如对本政策有疑问，请联系 privacy@altn.vision；反馈问题请发 feedback@altn.vision。",
   "termsServiceTitle": "服务说明",
   "termsServiceBody": "衡记是一款免费、本地优先的个人记账工具，提供手动记账、拍照识别、语音记账、收支统计报表、预算提醒与数据导出等功能。App 的全部功能都在这台设备上运行。",
   "termsNoticeTitle": "使用须知",
@@ -921,11 +921,11 @@
   "feedbackIncludeInfo": "附上版本与设备信息",
   "feedbackIncludeInfoSub": "仅包含 App 版本、iOS、语言与主题；不包含账本数据。",
   "feedbackPrivacyNote": "反馈在本机生成，只有你选择发送方式后才会离开设备。",
-  "feedbackSend": "发送反馈",
+  "feedbackSend": "发送邮件反馈",
   "feedbackCopy": "复制反馈",
   "feedbackEmpty": "请先写一点内容。",
   "feedbackCopied": "已复制，可粘贴到邮件或消息中。",
   "feedbackThanks": "已打开发送面板，请选择邮件、信息或其他 App。",
   "feedbackReportSubject": "HENG 衡记 · App 反馈",
-  "feedbackShareHint": "会打开系统分享面板，由你选择发送到哪个 App。"
+  "feedbackShareHint": "将打开邮件 App，收件人已填好；没有邮件 App 时会退回到系统分享。"
 }

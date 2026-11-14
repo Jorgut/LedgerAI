@@ -1083,7 +1083,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get privacyContactBody =>
-      '如对本政策有疑问，可以通过 App Store 商品页上的「App 支持」链接联系我们。';
+      '如对本政策有疑问，请联系 privacy@altn.vision；反馈问题请发 feedback@altn.vision。';
 
   @override
   String get termsServiceTitle => '服务说明';
@@ -1490,7 +1490,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get feedbackPrivacyNote => '反馈在本机生成，只有你选择发送方式后才会离开设备。';
 
   @override
-  String get feedbackSend => '发送反馈';
+  String get feedbackSend => '发送邮件反馈';
 
   @override
   String get feedbackCopy => '复制反馈';
@@ -1508,7 +1508,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get feedbackReportSubject => 'HENG 衡记 · App 反馈';
 
   @override
-  String get feedbackShareHint => '会打开系统分享面板，由你选择发送到哪个 App。';
+  String get feedbackShareHint => '将打开邮件 App，收件人已填好；没有邮件 App 时会退回到系统分享。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2590,7 +2590,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get privacyContactBody =>
-      '如對本政策有疑問，可以透過 App Store 商品頁上的「App 支援」連結聯絡我們。';
+      '如對本政策有疑問，請聯絡 privacy@altn.vision；回饋問題請寄 feedback@altn.vision。';
 
   @override
   String get termsServiceTitle => '服務說明';
@@ -2997,7 +2997,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get feedbackPrivacyNote => '回饋在本機產生，只有你選擇傳送方式後才會離開裝置。';
 
   @override
-  String get feedbackSend => '傳送回饋';
+  String get feedbackSend => '傳送郵件回饋';
 
   @override
   String get feedbackCopy => '複製回饋';
@@ -3015,5 +3015,5 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get feedbackReportSubject => 'HENG 衡記 · App 回饋';
 
   @override
-  String get feedbackShareHint => '會開啟系統分享面板，由你選擇傳送到哪個 App。';
+  String get feedbackShareHint => '將開啟郵件 App，收件人已填好；沒有郵件 App 時會退回系統分享。';
 }
