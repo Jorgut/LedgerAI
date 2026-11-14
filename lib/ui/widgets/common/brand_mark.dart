@@ -11,17 +11,19 @@ class BrandMark extends StatelessWidget {
   const BrandMark({
     super.key,
     this.wordSize = 42,
-    this.sealSize = 18,
+    this.sealSize,
     this.color,
   });
 
   final double wordSize;
-  final double sealSize;
+  final double? sealSize;
   final Color? color;
 
   @override
   Widget build(BuildContext context) {
     final ink = color ?? Theme.of(context).colorScheme.onSurface;
+    // HENG 的 cap height 约为字号的 0.72；默认让印章与字母视觉高度一致。
+    final effectiveSealSize = sealSize ?? wordSize * 0.74;
     return MediaQuery.withClampedTextScaling(
       maxScaleFactor: 1.15,
       child: Row(
@@ -43,8 +45,8 @@ class BrandMark extends StatelessWidget {
           Transform.translate(
             offset: const Offset(0, 2),
             child: Container(
-              width: sealSize,
-              height: sealSize,
+              width: effectiveSealSize,
+              height: effectiveSealSize,
               decoration: BoxDecoration(
                 gradient: AppTheme.brandGradientOf(context),
                 borderRadius: BorderRadius.circular(2.5),
@@ -54,7 +56,7 @@ class BrandMark extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(sealSize * 0.11),
+                padding: EdgeInsets.all(effectiveSealSize * 0.11),
                 child: Image.asset(
                   'assets/brand/heng_glyph.png',
                   fit: BoxFit.contain,
