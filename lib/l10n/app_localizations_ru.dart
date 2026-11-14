@@ -1506,4 +1506,68 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get rptNoExpense => 'В этом месяце нет расходов';
+
+  @override
+  String get feedback => 'Обратная связь';
+
+  @override
+  String get feedbackSettingsSubtitle =>
+      'Сообщить о проблеме или предложить идею';
+
+  @override
+  String get feedbackTitle => 'Обратная связь';
+
+  @override
+  String get feedbackSubtitle =>
+      'Расскажите, что произошло или что стоит улучшить в HENG.';
+
+  @override
+  String get feedbackTypeBug => 'Проблема';
+
+  @override
+  String get feedbackTypeFeature => 'Предложение';
+
+  @override
+  String get feedbackTypeOther => 'Другое';
+
+  @override
+  String get feedbackMessageLabel => 'Сообщение';
+
+  @override
+  String get feedbackMessageHint =>
+      'Что произошло и как это повторить? Не указывайте реальные суммы, имена и магазины.';
+
+  @override
+  String get feedbackIncludeInfo => 'Добавить версию и данные устройства';
+
+  @override
+  String get feedbackIncludeInfoSub =>
+      'Только версия приложения, iOS, язык и тема; без данных журнала.';
+
+  @override
+  String get feedbackPrivacyNote =>
+      'Сообщение создаётся на этом устройстве и покинет его только после выбора способа отправки.';
+
+  @override
+  String get feedbackSend => 'Отправить';
+
+  @override
+  String get feedbackCopy => 'Копировать';
+
+  @override
+  String get feedbackEmpty => 'Сначала напишите сообщение.';
+
+  @override
+  String get feedbackCopied => 'Скопировано. Вставьте в Mail или Сообщения.';
+
+  @override
+  String get feedbackThanks =>
+      'Открыто меню отправки. Выберите Mail, Сообщения или другое приложение.';
+
+  @override
+  String get feedbackReportSubject => 'HENG · Обратная связь';
+
+  @override
+  String get feedbackShareHint =>
+      'Откроется системное меню, где вы выберете приложение для отправки.';
 }

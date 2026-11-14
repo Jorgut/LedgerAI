@@ -1452,6 +1452,63 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get rptNoExpense => '本月还没有支出记录';
+
+  @override
+  String get feedback => '反馈';
+
+  @override
+  String get feedbackSettingsSubtitle => '报告问题或建议功能';
+
+  @override
+  String get feedbackTitle => '反馈';
+
+  @override
+  String get feedbackSubtitle => '告诉我们发生了什么，或你希望 HENG 改进什么。';
+
+  @override
+  String get feedbackTypeBug => '问题';
+
+  @override
+  String get feedbackTypeFeature => '功能建议';
+
+  @override
+  String get feedbackTypeOther => '其他';
+
+  @override
+  String get feedbackMessageLabel => '问题 / 建议';
+
+  @override
+  String get feedbackMessageHint => '描述发生了什么、如何复现；不要填写真实金额、姓名或商户。';
+
+  @override
+  String get feedbackIncludeInfo => '附上版本与设备信息';
+
+  @override
+  String get feedbackIncludeInfoSub => '仅包含 App 版本、iOS、语言与主题；不包含账本数据。';
+
+  @override
+  String get feedbackPrivacyNote => '反馈在本机生成，只有你选择发送方式后才会离开设备。';
+
+  @override
+  String get feedbackSend => '发送反馈';
+
+  @override
+  String get feedbackCopy => '复制反馈';
+
+  @override
+  String get feedbackEmpty => '请先写一点内容。';
+
+  @override
+  String get feedbackCopied => '已复制，可粘贴到邮件或消息中。';
+
+  @override
+  String get feedbackThanks => '已打开发送面板，请选择邮件、信息或其他 App。';
+
+  @override
+  String get feedbackReportSubject => 'HENG 衡记 · App 反馈';
+
+  @override
+  String get feedbackShareHint => '会打开系统分享面板，由你选择发送到哪个 App。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2902,4 +2959,61 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get rptNoExpense => '本月還沒有支出記錄';
+
+  @override
+  String get feedback => '回饋';
+
+  @override
+  String get feedbackSettingsSubtitle => '回報問題或建議功能';
+
+  @override
+  String get feedbackTitle => '回饋';
+
+  @override
+  String get feedbackSubtitle => '告訴我們發生了什麼，或你希望 HENG 改進什麼。';
+
+  @override
+  String get feedbackTypeBug => '問題';
+
+  @override
+  String get feedbackTypeFeature => '功能建議';
+
+  @override
+  String get feedbackTypeOther => '其他';
+
+  @override
+  String get feedbackMessageLabel => '問題 / 建議';
+
+  @override
+  String get feedbackMessageHint => '描述發生了什麼、如何重現；不要填寫真實金額、姓名或商戶。';
+
+  @override
+  String get feedbackIncludeInfo => '附上版本與裝置資訊';
+
+  @override
+  String get feedbackIncludeInfoSub => '僅包含 App 版本、iOS、語言與主題；不包含帳本資料。';
+
+  @override
+  String get feedbackPrivacyNote => '回饋在本機產生，只有你選擇傳送方式後才會離開裝置。';
+
+  @override
+  String get feedbackSend => '傳送回饋';
+
+  @override
+  String get feedbackCopy => '複製回饋';
+
+  @override
+  String get feedbackEmpty => '請先寫一點內容。';
+
+  @override
+  String get feedbackCopied => '已複製，可貼到郵件或訊息中。';
+
+  @override
+  String get feedbackThanks => '已開啟傳送面板，請選擇郵件、訊息或其他 App。';
+
+  @override
+  String get feedbackReportSubject => 'HENG 衡記 · App 回饋';
+
+  @override
+  String get feedbackShareHint => '會開啟系統分享面板，由你選擇傳送到哪個 App。';
 }

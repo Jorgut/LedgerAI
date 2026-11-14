@@ -1502,4 +1502,67 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rptNoExpense => 'No spending this month';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String get feedbackSettingsSubtitle => 'Report a problem or suggest an idea';
+
+  @override
+  String get feedbackTitle => 'Feedback';
+
+  @override
+  String get feedbackSubtitle =>
+      'Tell us what happened, or what you would like HENG to improve.';
+
+  @override
+  String get feedbackTypeBug => 'Problem';
+
+  @override
+  String get feedbackTypeFeature => 'Feature request';
+
+  @override
+  String get feedbackTypeOther => 'Other';
+
+  @override
+  String get feedbackMessageLabel => 'Message';
+
+  @override
+  String get feedbackMessageHint =>
+      'What happened, and how can we reproduce it? Do not include real amounts, names, or merchants.';
+
+  @override
+  String get feedbackIncludeInfo => 'Include version and device info';
+
+  @override
+  String get feedbackIncludeInfoSub =>
+      'Only app version, iOS, language, and theme; no ledger data.';
+
+  @override
+  String get feedbackPrivacyNote =>
+      'Feedback is composed on this device. Nothing leaves it until you choose how to send.';
+
+  @override
+  String get feedbackSend => 'Send feedback';
+
+  @override
+  String get feedbackCopy => 'Copy feedback';
+
+  @override
+  String get feedbackEmpty => 'Please write a little first.';
+
+  @override
+  String get feedbackCopied => 'Copied. Paste it into Mail or Messages.';
+
+  @override
+  String get feedbackThanks =>
+      'Share sheet opened. Choose Mail, Messages, or another app.';
+
+  @override
+  String get feedbackReportSubject => 'HENG · App feedback';
+
+  @override
+  String get feedbackShareHint =>
+      'Opens the system share sheet so you can choose where to send it.';
 }

@@ -2623,6 +2623,120 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'本月还没有支出记录'**
   String get rptNoExpense;
+
+  /// No description provided for @feedback.
+  ///
+  /// In zh, this message translates to:
+  /// **'反馈'**
+  String get feedback;
+
+  /// No description provided for @feedbackSettingsSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'报告问题或建议功能'**
+  String get feedbackSettingsSubtitle;
+
+  /// No description provided for @feedbackTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'反馈'**
+  String get feedbackTitle;
+
+  /// No description provided for @feedbackSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'告诉我们发生了什么，或你希望 HENG 改进什么。'**
+  String get feedbackSubtitle;
+
+  /// No description provided for @feedbackTypeBug.
+  ///
+  /// In zh, this message translates to:
+  /// **'问题'**
+  String get feedbackTypeBug;
+
+  /// No description provided for @feedbackTypeFeature.
+  ///
+  /// In zh, this message translates to:
+  /// **'功能建议'**
+  String get feedbackTypeFeature;
+
+  /// No description provided for @feedbackTypeOther.
+  ///
+  /// In zh, this message translates to:
+  /// **'其他'**
+  String get feedbackTypeOther;
+
+  /// No description provided for @feedbackMessageLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'问题 / 建议'**
+  String get feedbackMessageLabel;
+
+  /// No description provided for @feedbackMessageHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'描述发生了什么、如何复现；不要填写真实金额、姓名或商户。'**
+  String get feedbackMessageHint;
+
+  /// No description provided for @feedbackIncludeInfo.
+  ///
+  /// In zh, this message translates to:
+  /// **'附上版本与设备信息'**
+  String get feedbackIncludeInfo;
+
+  /// No description provided for @feedbackIncludeInfoSub.
+  ///
+  /// In zh, this message translates to:
+  /// **'仅包含 App 版本、iOS、语言与主题；不包含账本数据。'**
+  String get feedbackIncludeInfoSub;
+
+  /// No description provided for @feedbackPrivacyNote.
+  ///
+  /// In zh, this message translates to:
+  /// **'反馈在本机生成，只有你选择发送方式后才会离开设备。'**
+  String get feedbackPrivacyNote;
+
+  /// No description provided for @feedbackSend.
+  ///
+  /// In zh, this message translates to:
+  /// **'发送反馈'**
+  String get feedbackSend;
+
+  /// No description provided for @feedbackCopy.
+  ///
+  /// In zh, this message translates to:
+  /// **'复制反馈'**
+  String get feedbackCopy;
+
+  /// No description provided for @feedbackEmpty.
+  ///
+  /// In zh, this message translates to:
+  /// **'请先写一点内容。'**
+  String get feedbackEmpty;
+
+  /// No description provided for @feedbackCopied.
+  ///
+  /// In zh, this message translates to:
+  /// **'已复制，可粘贴到邮件或消息中。'**
+  String get feedbackCopied;
+
+  /// No description provided for @feedbackThanks.
+  ///
+  /// In zh, this message translates to:
+  /// **'已打开发送面板，请选择邮件、信息或其他 App。'**
+  String get feedbackThanks;
+
+  /// No description provided for @feedbackReportSubject.
+  ///
+  /// In zh, this message translates to:
+  /// **'HENG 衡记 · App 反馈'**
+  String get feedbackReportSubject;
+
+  /// No description provided for @feedbackShareHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'会打开系统分享面板，由你选择发送到哪个 App。'**
+  String get feedbackShareHint;
 }
 
 class _AppLocalizationsDelegate

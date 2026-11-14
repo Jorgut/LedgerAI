@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../core/app_info.dart';
 import '../../core/app_settings.dart';
 import '../../core/app_state.dart';
 import '../../core/bill_import.dart';
@@ -21,11 +22,10 @@ import '../widgets/common/theme_label.dart';
 import 'budget_screen.dart';
 import 'language_screen.dart';
 import 'theme_color_screen.dart';
+import 'feedback_screen.dart';
 import 'legal_screens.dart';
 
 /// 应用版本号（与 pubspec.yaml 的 `version: 1.0.0+1` 保持一致）。
-const String _kAppVersion = '1.1.0';
-const String _kBuildNumber = '19';
 
 /// 设置页：外观、触觉反馈、预算入口、数据导出与清空、法务与关于。
 ///
@@ -754,6 +754,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             const SizedBox(height: 20),
             SectionHeader(
+                title: l10n.support,
+                padding: const EdgeInsets.fromLTRB(4, 0, 4, 8)),
+            Card(
+              child: ListTile(
+                onTap: () => _openPage(const FeedbackScreen()),
+                leading: Icon(
+                  Icons.feedback_outlined,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+                title: Text(l10n.feedback),
+                subtitle: Text(l10n.feedbackSettingsSubtitle),
+                trailing: const Icon(Icons.chevron_right_rounded),
+              ),
+            ),
+            const SizedBox(height: 20),
+            SectionHeader(
                 title: l10n.about,
                 padding: const EdgeInsets.fromLTRB(4, 0, 4, 8)),
             Card(
@@ -796,7 +812,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                               const SizedBox(height: 2),
                               Text(
-                                l10n.versionBuild(_kAppVersion, _kBuildNumber),
+                                l10n.versionBuild(kAppVersion, kBuildNumber),
                                 style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.colorScheme.onSurfaceVariant,
                                 ),

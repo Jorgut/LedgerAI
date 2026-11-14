@@ -10,6 +10,7 @@ import 'ui/screens/add_transaction_screen.dart';
 import 'ui/screens/budget_screen.dart';
 import 'ui/screens/language_screen.dart';
 import 'ui/screens/theme_color_screen.dart';
+import 'ui/screens/feedback_screen.dart';
 import 'ui/screens/brand_lockup_demo.dart';
 import 'ui/screens/brand_dilation_demo.dart';
 import 'ui/screens/split_demo_screen.dart';
@@ -121,6 +122,8 @@ class LedgerApp extends StatelessWidget {
         return const LanguageScreen();
       case 'theme':
         return const ThemeColorScreen();
+      case 'feedback':
+        return const FeedbackScreen();
       case 'brand_lockup':
         return const BrandLockupDemo();
       case 'brand_dilation':
