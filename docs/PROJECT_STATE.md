@@ -298,6 +298,7 @@
 - build 22（仅 TestFlight 内测）：重新打开 Split 预览入口（SHOW_SPLIT_PREVIEW=true）；正式 App Store 构建仍需不带该参数。
 - iCloud 同步真机验证通过：CloudKit Development/Production schema + Txn.recordName QUERYABLE 索引；build 22 调试版同步 9 条成功。
 - build 23：正式候选，不带 Split 预览；友善 iCloud 错误文案。
+- build 24：更新 iCloud 隐私说明（可选同步/开发者无服务器），商店物料截图完成；正式候选。
 
 ## 下一步
 
