@@ -10,6 +10,7 @@ import '../../l10n/app_localizations.dart';
 import '../widgets/common/app_card.dart';
 import '../widgets/common/empty_state.dart';
 import '../widgets/common/quick_action_tile.dart';
+import '../widgets/common/brand_mark.dart';
 import '../widgets/common/section_header.dart';
 import '../widgets/common/split_mark.dart';
 import '../widgets/common/transaction_tile.dart';
@@ -41,39 +42,8 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: AppTheme.pagePadding,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: Text(
-                l10n.homeBrand,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            const SizedBox(width: 9),
-            Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                gradient: AppTheme.brandGradientOf(context),
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.22),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(4),
-                child: Image.asset(
-                  'assets/brand/heng_glyph.png',
-                  fit: BoxFit.contain,
-                  color: Colors.white,
-                  colorBlendMode: BlendMode.srcIn,
-                ),
-              ),
-            ),
-          ],
-        ),
+        title: const BrandMark(wordSize: 42, sealSize: 18),
+        toolbarHeight: 78,
       ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 120),
