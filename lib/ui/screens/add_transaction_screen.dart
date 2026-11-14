@@ -294,10 +294,14 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     if (result.hasError) {
       if (!_listening) return;
       setState(() => _listening = false);
-      AppSnack.error(
-        context,
-        result.error ?? AppLocalizations.of(context).addVoiceFallbackError,
-      );
+      final l10n = AppLocalizations.of(context);
+      final raw = result.error ?? '';
+      final message = raw.contains('权限')
+          ? l10n.addVoicePermissionError
+          : raw.contains('不支持') || raw.contains('模型')
+              ? l10n.addVoiceNotSupported
+              : l10n.addVoiceFallbackError;
+      AppSnack.error(context, message);
       return;
     }
     if (result.isFinal) {

@@ -1509,6 +1509,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get feedbackShareHint => '将打开邮件 App，收件人已填好；没有邮件 App 时会退回到系统分享。';
+
+  @override
+  String get importFileEmpty => '文件是空的。';
+
+  @override
+  String get importNoHeader => '没有找到账单表头（需要「交易时间」和「金额」列）。';
+
+  @override
+  String get importSkippedRows => '部分行缺少金额或时间，已跳过。';
+
+  @override
+  String get importNoRecords => '没有可导入的收支记录。';
+
+  @override
+  String get icloudUnavailable => 'iCloud 暂时不可用，请检查登录状态后重试。';
+
+  @override
+  String get addVoicePermissionError => '没有麦克风或语音识别权限，请在系统设置中允许后重试。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3016,4 +3034,22 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get feedbackShareHint => '將開啟郵件 App，收件人已填好；沒有郵件 App 時會退回系統分享。';
+
+  @override
+  String get importFileEmpty => '檔案是空的。';
+
+  @override
+  String get importNoHeader => '找不到帳單表頭（需要「交易時間」和「金額」欄）。';
+
+  @override
+  String get importSkippedRows => '部分列缺少金額或時間，已跳過。';
+
+  @override
+  String get importNoRecords => '沒有可匯入的收支記錄。';
+
+  @override
+  String get icloudUnavailable => 'iCloud 暫時無法使用，請檢查登入狀態後重試。';
+
+  @override
+  String get addVoicePermissionError => '沒有麥克風或語音辨識權限，請在系統設定中允許後重試。';
 }

@@ -720,5 +720,11 @@
   "feedbackCopied": "Copied. Paste it into Mail or Messages.",
   "feedbackThanks": "Share sheet opened. Choose Mail, Messages, or another app.",
   "feedbackReportSubject": "HENG · App feedback",
-  "feedbackShareHint": "Opens Mail with the recipient pre-filled; falls back to the share sheet if Mail is unavailable."
+  "feedbackShareHint": "Opens Mail with the recipient pre-filled; falls back to the share sheet if Mail is unavailable.",
+  "importFileEmpty": "The file is empty.",
+  "importNoHeader": "No bill header found. The file needs Time and Amount columns.",
+  "importSkippedRows": "Some rows were skipped because they lacked a date or amount.",
+  "importNoRecords": "No income or expense records to import.",
+  "icloudUnavailable": "iCloud is unavailable right now. Check your sign-in and try again.",
+  "addVoicePermissionError": "Microphone or speech recognition permission is missing. Allow it in Settings and try again."
 }

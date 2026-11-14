@@ -2737,6 +2737,42 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'将打开邮件 App，收件人已填好；没有邮件 App 时会退回到系统分享。'**
   String get feedbackShareHint;
+
+  /// No description provided for @importFileEmpty.
+  ///
+  /// In zh, this message translates to:
+  /// **'文件是空的。'**
+  String get importFileEmpty;
+
+  /// No description provided for @importNoHeader.
+  ///
+  /// In zh, this message translates to:
+  /// **'没有找到账单表头（需要「交易时间」和「金额」列）。'**
+  String get importNoHeader;
+
+  /// No description provided for @importSkippedRows.
+  ///
+  /// In zh, this message translates to:
+  /// **'部分行缺少金额或时间，已跳过。'**
+  String get importSkippedRows;
+
+  /// No description provided for @importNoRecords.
+  ///
+  /// In zh, this message translates to:
+  /// **'没有可导入的收支记录。'**
+  String get importNoRecords;
+
+  /// No description provided for @icloudUnavailable.
+  ///
+  /// In zh, this message translates to:
+  /// **'iCloud 暂时不可用，请检查登录状态后重试。'**
+  String get icloudUnavailable;
+
+  /// No description provided for @addVoicePermissionError.
+  ///
+  /// In zh, this message translates to:
+  /// **'没有麦克风或语音识别权限，请在系统设置中允许后重试。'**
+  String get addVoicePermissionError;
 }
 
 class _AppLocalizationsDelegate

@@ -1570,4 +1570,26 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get feedbackShareHint =>
       'Откроет Mail с готовым получателем; если Mail недоступен, откроется меню отправки.';
+
+  @override
+  String get importFileEmpty => 'Файл пуст.';
+
+  @override
+  String get importNoHeader =>
+      'Не найдена шапка выписки. Нужны столбцы «Время» и «Сумма».';
+
+  @override
+  String get importSkippedRows => 'Часть строк пропущена: нет даты или суммы.';
+
+  @override
+  String get importNoRecords =>
+      'Нет записей о доходах или расходах для импорта.';
+
+  @override
+  String get icloudUnavailable =>
+      'iCloud сейчас недоступен. Проверьте вход и повторите.';
+
+  @override
+  String get addVoicePermissionError =>
+      'Нет разрешения на микрофон или распознавание речи. Разрешите в Настройках и повторите.';
 }

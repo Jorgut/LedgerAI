@@ -720,5 +720,11 @@
   "feedbackCopied": "已複製，可貼到郵件或訊息中。",
   "feedbackThanks": "已開啟傳送面板，請選擇郵件、訊息或其他 App。",
   "feedbackReportSubject": "HENG 衡記 · App 回饋",
-  "feedbackShareHint": "將開啟郵件 App，收件人已填好；沒有郵件 App 時會退回系統分享。"
+  "feedbackShareHint": "將開啟郵件 App，收件人已填好；沒有郵件 App 時會退回系統分享。",
+  "importFileEmpty": "檔案是空的。",
+  "importNoHeader": "找不到帳單表頭（需要「交易時間」和「金額」欄）。",
+  "importSkippedRows": "部分列缺少金額或時間，已跳過。",
+  "importNoRecords": "沒有可匯入的收支記錄。",
+  "icloudUnavailable": "iCloud 暫時無法使用，請檢查登入狀態後重試。",
+  "addVoicePermissionError": "沒有麥克風或語音辨識權限，請在系統設定中允許後重試。"
 }

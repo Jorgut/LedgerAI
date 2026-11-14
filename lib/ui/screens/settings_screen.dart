@@ -117,9 +117,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 report.downloaded, report.uploaded, report.deleted)
             : l10n.syncComplete(report.downloaded, report.uploaded),
       );
-    } on CloudSyncException catch (e) {
+    } on CloudSyncException catch (_) {
       if (!mounted) return;
-      _showSnack(e.message);
+      _showSnack(l10n.syncFailed(l10n.icloudUnavailable));
     } catch (e) {
       if (!mounted) return;
       _showSnack(l10n.syncFailed('$e'));
@@ -202,6 +202,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  String _localizedImportWarning(AppLocalizations l10n, String raw) {
+    if (raw == '文件是空的') return l10n.importFileEmpty;
+    if (raw.startsWith('没有找到账单表头')) return l10n.importNoHeader;
+    if (raw.startsWith('第 ')) return l10n.importSkippedRows;
+    if (raw.startsWith('没有可导入')) return l10n.importNoRecords;
+    return l10n.importNoBill;
+  }
+
   Future<void> _importBillCsv() async {
     if (_importing || _exporting) return;
     final l10n = AppLocalizations.of(context);
@@ -225,7 +233,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       if (result.isEmpty) {
         _showSnack(result.warnings.isEmpty
             ? l10n.importNoBill
-            : result.warnings.first);
+            : _localizedImportWarning(l10n, result.warnings.first));
         return;
       }
       final existing = <String>{

@@ -1565,4 +1565,26 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get feedbackShareHint =>
       'Opens Mail with the recipient pre-filled; falls back to the share sheet if Mail is unavailable.';
+
+  @override
+  String get importFileEmpty => 'The file is empty.';
+
+  @override
+  String get importNoHeader =>
+      'No bill header found. The file needs Time and Amount columns.';
+
+  @override
+  String get importSkippedRows =>
+      'Some rows were skipped because they lacked a date or amount.';
+
+  @override
+  String get importNoRecords => 'No income or expense records to import.';
+
+  @override
+  String get icloudUnavailable =>
+      'iCloud is unavailable right now. Check your sign-in and try again.';
+
+  @override
+  String get addVoicePermissionError =>
+      'Microphone or speech recognition permission is missing. Allow it in Settings and try again.';
 }
