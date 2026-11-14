@@ -13,13 +13,14 @@ import '../../core/bill_import.dart';
 import '../../core/models.dart';
 import '../../l10n/app_localizations.dart';
 import '../../sync/cloud_sync.dart';
-import '../color_themes.dart';
 import '../../core/format.dart';
 import '../theme.dart';
 import '../widgets/common/app_snack.dart';
 import '../widgets/common/section_header.dart';
+import '../widgets/common/theme_label.dart';
 import 'budget_screen.dart';
 import 'language_screen.dart';
+import 'theme_color_screen.dart';
 import 'legal_screens.dart';
 
 /// 应用版本号（与 pubspec.yaml 的 `version: 1.0.0+1` 保持一致）。
@@ -125,24 +126,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     } finally {
       if (mounted) setState(() => _syncing = false);
     }
-  }
-
-  String _themeLabel(AppLocalizations l10n, AppColorTheme theme) =>
-      switch (theme) {
-        AppColorTheme.fresh => l10n.themeFresh,
-        AppColorTheme.forest => l10n.themeForest,
-        AppColorTheme.freshForest => l10n.themeFreshForest,
-        AppColorTheme.blush => l10n.themeBlush,
-        AppColorTheme.peach => l10n.themePeach,
-        AppColorTheme.lavender => l10n.themeLavender,
-      };
-
-  Future<void> _setColorTheme(AppColorTheme value) async {
-    await AppScope.read(context).updateSettingsWith(
-      (settings) => settings.copyWith(colorTheme: value),
-    );
-    if (!mounted) return;
-    _hapticTick();
   }
 
   Future<void> _setFontScale(double value) async {
@@ -513,53 +496,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
             ),
             Card(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
-                    child: Row(
-                      children: [
-                        Icon(Icons.palette_outlined,
-                            color: theme.colorScheme.onSurfaceVariant),
-                        const SizedBox(width: 12),
-                        Text(l10n.chooseThemeColor,
-                            style: theme.textTheme.bodyLarge),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
-                    child: Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final option in AppColorTheme.values)
-                          ChoiceChip(
-                            avatar: CircleAvatar(
-                              radius: 8,
-                              backgroundColor: HengPalette.forTheme(
-                                option,
-                                Theme.of(context).brightness,
-                              ).primary,
-                            ),
-                            label: Text(_themeLabel(l10n, option)),
-                            selected: prefs.colorTheme == option,
-                            onSelected: (_) => _setColorTheme(option),
-                          ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
-                    child: Text(
-                      l10n.themeColorNote,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ),
-                ],
+              child: ListTile(
+                onTap: () => _openPage(const ThemeColorScreen()),
+                leading: Icon(
+                  Icons.palette_outlined,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+                title: Text(l10n.theme),
+                subtitle: Text(localizedThemeLabel(l10n, prefs.colorTheme)),
+                trailing: const Icon(Icons.chevron_right_rounded),
               ),
             ),
             const SizedBox(height: 20),
