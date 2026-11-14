@@ -700,5 +700,6 @@
   "insightSmallFrequentBody": "本月共 {count} 筆支出，平均每筆 {average}。零散小支出累計起來也不少，可以合併記錄或設定分類預算。",
   "insightSmallFrequentMetric": "{count} 筆",
   "insightHabitTitle": "記帳習慣正在建立",
-  "insightHabitBody": "保持每筆都記，月底的報表和建議會更準確。"
+  "insightHabitBody": "保持每筆都記，月底的報表和建議會更準確。",
+  "rptNoExpense": "本月還沒有支出記錄"
 }

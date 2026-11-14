@@ -700,5 +700,6 @@
   "insightSmallFrequentBody": "{count} покупок, в среднем {average}. Мелочи накапливаются.",
   "insightSmallFrequentMetric": "{count} покупок",
   "insightHabitTitle": "Привычка формируется",
-  "insightHabitBody": "Продолжайте записывать — отчёты станут точнее."
+  "insightHabitBody": "Продолжайте записывать — отчёты станут точнее.",
+  "rptNoExpense": "В этом месяце нет расходов"
 }

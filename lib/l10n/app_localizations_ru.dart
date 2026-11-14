@@ -1503,4 +1503,7 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get insightHabitBody =>
       'Продолжайте записывать — отчёты станут точнее.';
+
+  @override
+  String get rptNoExpense => 'В этом месяце нет расходов';
 }

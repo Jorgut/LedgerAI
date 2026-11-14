@@ -1449,6 +1449,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get insightHabitBody => '保持每笔都记，月底的报表和建议会更准确。';
+
+  @override
+  String get rptNoExpense => '本月还没有支出记录';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2896,4 +2899,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get insightHabitBody => '保持每筆都記，月底的報表和建議會更準確。';
+
+  @override
+  String get rptNoExpense => '本月還沒有支出記錄';
 }

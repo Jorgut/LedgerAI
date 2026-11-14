@@ -907,5 +907,6 @@
   "@insightSavingBody": {"placeholders": {"saving": {"type": "String"}, "percent": {"type": "String"}}},
   "@insightSavingMetric": {"placeholders": {"percent": {"type": "String"}}},
   "@insightSmallFrequentBody": {"placeholders": {"count": {"type": "String"}, "average": {"type": "String"}}},
-  "@insightSmallFrequentMetric": {"placeholders": {"count": {"type": "String"}}}
+  "@insightSmallFrequentMetric": {"placeholders": {"count": {"type": "String"}}},
+  "rptNoExpense": "本月还没有支出记录"
 }

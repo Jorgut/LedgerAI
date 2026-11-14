@@ -2617,6 +2617,12 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'保持每笔都记，月底的报表和建议会更准确。'**
   String get insightHabitBody;
+
+  /// No description provided for @rptNoExpense.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月还没有支出记录'**
+  String get rptNoExpense;
 }
 
 class _AppLocalizationsDelegate

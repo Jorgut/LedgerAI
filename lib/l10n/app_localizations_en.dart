@@ -1499,4 +1499,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get insightHabitBody =>
       'Keep logging every entry — next month\'s reports and insights get sharper.';
+
+  @override
+  String get rptNoExpense => 'No spending this month';
 }

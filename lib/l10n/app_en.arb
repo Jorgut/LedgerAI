@@ -700,5 +700,6 @@
   "insightSmallFrequentBody": "{count} purchases this month, averaging {average}. Small amounts add up.",
   "insightSmallFrequentMetric": "{count} purchases",
   "insightHabitTitle": "A habit is forming",
-  "insightHabitBody": "Keep logging every entry — next month's reports and insights get sharper."
+  "insightHabitBody": "Keep logging every entry — next month's reports and insights get sharper.",
+  "rptNoExpense": "No spending this month"
 }

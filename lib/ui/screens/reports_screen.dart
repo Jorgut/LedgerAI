@@ -264,7 +264,7 @@ class _StatCell extends StatelessWidget {
             style: theme.textTheme.titleLarge?.copyWith(color: color),
             semanticLabel:
                 AppLocalizations.of(context).rptAmountLabel(
-                    label, amount.toStringAsFixed(2)),
+                    amount.toStringAsFixed(2), label),
           ),
         ),
       ],
@@ -312,7 +312,7 @@ class _CategoryBreakdown extends StatelessWidget {
   Widget build(BuildContext context) {
     if (slices.isEmpty || total <= 0) {
       return ChartPlaceholder(
-        message: AppLocalizations.of(context).rptEmpty,
+        message: AppLocalizations.of(context).rptNoExpense,
         icon: Icons.pie_chart_outline_rounded,
         height: 160,
       );
@@ -402,32 +402,36 @@ class _CategoryRow extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(
-                    localizedCategoryName(context, category),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  formatMoney(amount),
-                  maxLines: 1,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                SizedBox(
-                  width: 48,
-                  child: Text(
-                    '$percent%',
-                    textAlign: TextAlign.end,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        localizedCategoryName(context, category),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                      const SizedBox(height: 2),
+                      Row(
+                        children: [
+                          Text(
+                            formatMoney(amount),
+                            maxLines: 1,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            '$percent%',
+                            maxLines: 1,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
