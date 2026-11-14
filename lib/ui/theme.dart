@@ -84,7 +84,8 @@ class AppTheme {
 
   static Color brandTextOf(BuildContext context) => paletteOf(context).primary;
 
-  static Color brandDarkOf(BuildContext context) => paletteOf(context).primaryDark;
+  static Color brandDarkOf(BuildContext context) =>
+      paletteOf(context).primaryDark;
 
   static LinearGradient brandGradientOf(BuildContext context) =>
       paletteOf(context).gradient;
@@ -96,10 +97,12 @@ class AppTheme {
   static Color incomeColorOf(BuildContext context) => paletteOf(context).income;
 
   /// 支出文字色。
-  static Color expenseColorOf(BuildContext context) => paletteOf(context).expense;
+  static Color expenseColorOf(BuildContext context) =>
+      paletteOf(context).expense;
 
   /// 提醒文字色。
-  static Color warningColorOf(BuildContext context) => paletteOf(context).warning;
+  static Color warningColorOf(BuildContext context) =>
+      paletteOf(context).warning;
 
   /// 按元素主题取收入 / 支出色（不依赖 BuildContext 的场景）。
   static Color amountColor(Brightness brightness, {required bool isIncome}) {
@@ -290,7 +293,7 @@ class AppTheme {
         ),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: isDark ? scheme.primary : brandDark,
+        backgroundColor: isDark ? palette.primary : palette.primaryDark,
         foregroundColor: isDark ? scheme.onPrimary : Colors.white,
         elevation: 3,
         focusElevation: 3,
@@ -314,18 +317,14 @@ class AppTheme {
           return textTheme.labelSmall?.copyWith(
             fontSize: 14,
             fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-            color: selected
-                ? (isDark ? scheme.primary : brandText)
-                : scheme.onSurfaceVariant,
+            color: selected ? palette.primary : scheme.onSurfaceVariant,
           );
         }),
         iconTheme: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
           return IconThemeData(
             size: 24,
-            color: selected
-                ? (isDark ? scheme.primary : brandText)
-                : scheme.onSurfaceVariant,
+            color: selected ? palette.primary : scheme.onSurfaceVariant,
           );
         }),
       ),
@@ -334,7 +333,7 @@ class AppTheme {
         backgroundColor: scheme.inverseSurface,
         contentTextStyle: textTheme.bodyMedium
             ?.copyWith(color: scheme.onInverseSurface, fontSize: 16),
-        actionTextColor: isDark ? brandText : const Color(0xFF6EE7B7),
+        actionTextColor: isDark ? palette.primary : palette.primary,
         elevation: 3,
         insetPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
         shape: RoundedRectangleBorder(
@@ -454,14 +453,12 @@ class AppTheme {
       onSecondary: isDark ? palette.onPrimary : Colors.white,
       secondaryContainer:
           Color.alphaBlend(palette.accent.withValues(alpha: 0.14), surface),
-      onSecondaryContainer:
-          isDark ? palette.text : palette.primaryDark,
+      onSecondaryContainer: isDark ? palette.text : palette.primaryDark,
       tertiary: palette.warning,
       onTertiary: isDark ? palette.onPrimary : Colors.white,
       error: error,
       onError: Colors.white,
-      errorContainer:
-          Color.alphaBlend(error.withValues(alpha: 0.12), surface),
+      errorContainer: Color.alphaBlend(error.withValues(alpha: 0.12), surface),
       onErrorContainer: error,
       surface: surface,
       onSurface: palette.text,
@@ -503,35 +500,47 @@ class AppTheme {
     final text = base
         .copyWith(
           displayLarge: _cjk(base.displayLarge?.copyWith(
-            fontSize: 46, fontWeight: FontWeight.w600, letterSpacing: -0.5, height: 1.12)),
+              fontSize: 46,
+              fontWeight: FontWeight.w600,
+              letterSpacing: -0.5,
+              height: 1.12)),
           displayMedium: _cjk(base.displayMedium?.copyWith(
-            fontSize: 38, fontWeight: FontWeight.w600, letterSpacing: -0.4, height: 1.14)),
+              fontSize: 38,
+              fontWeight: FontWeight.w600,
+              letterSpacing: -0.4,
+              height: 1.14)),
           displaySmall: _cjk(base.displaySmall?.copyWith(
-            fontSize: 32, fontWeight: FontWeight.w600, letterSpacing: -0.3, height: 1.16)),
+              fontSize: 32,
+              fontWeight: FontWeight.w600,
+              letterSpacing: -0.3,
+              height: 1.16)),
           headlineLarge: _cjk(base.headlineLarge?.copyWith(
-            fontSize: 29, fontWeight: FontWeight.w600, height: 1.2)),
+              fontSize: 29, fontWeight: FontWeight.w600, height: 1.2)),
           headlineMedium: _cjk(base.headlineMedium?.copyWith(
-            fontSize: 27, fontWeight: FontWeight.w600, height: 1.2)),
+              fontSize: 27, fontWeight: FontWeight.w600, height: 1.2)),
           headlineSmall: _cjk(base.headlineSmall?.copyWith(
-            fontSize: 23, fontWeight: FontWeight.w600, height: 1.24)),
+              fontSize: 23, fontWeight: FontWeight.w600, height: 1.24)),
           titleLarge: _cjk(base.titleLarge?.copyWith(
-            fontSize: 21, fontWeight: FontWeight.w600, height: 1.3)),
+              fontSize: 21, fontWeight: FontWeight.w600, height: 1.3)),
           titleMedium: _cjk(base.titleMedium?.copyWith(
-            fontSize: 17, fontWeight: FontWeight.w600, height: 1.35)),
+              fontSize: 17, fontWeight: FontWeight.w600, height: 1.35)),
           titleSmall: _cjk(base.titleSmall?.copyWith(
-            fontSize: 15, fontWeight: FontWeight.w500, height: 1.4)),
+              fontSize: 15, fontWeight: FontWeight.w500, height: 1.4)),
           bodyLarge: _cjk(base.bodyLarge?.copyWith(
-            fontSize: 15, fontWeight: FontWeight.w400, height: 1.55)),
+              fontSize: 15, fontWeight: FontWeight.w400, height: 1.55)),
           bodyMedium: _cjk(base.bodyMedium?.copyWith(
-            fontSize: 15, fontWeight: FontWeight.w400, height: 1.55)),
+              fontSize: 15, fontWeight: FontWeight.w400, height: 1.55)),
           bodySmall: _cjk(base.bodySmall?.copyWith(
-            fontSize: 13, fontWeight: FontWeight.w400, height: 1.5)),
+              fontSize: 13, fontWeight: FontWeight.w400, height: 1.5)),
           labelLarge: _cjk(base.labelLarge?.copyWith(
-            fontSize: 15, fontWeight: FontWeight.w600, height: 1.3)),
+              fontSize: 15, fontWeight: FontWeight.w600, height: 1.3)),
           labelMedium: _cjk(base.labelMedium?.copyWith(
-            fontSize: 13, fontWeight: FontWeight.w500, height: 1.3)),
+              fontSize: 13, fontWeight: FontWeight.w500, height: 1.3)),
           labelSmall: _cjk(base.labelSmall?.copyWith(
-            fontSize: 12, fontWeight: FontWeight.w500, height: 1.3, letterSpacing: 0.2)),
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              height: 1.3,
+              letterSpacing: 0.2)),
         )
         .apply(
           bodyColor: scheme.onSurface,

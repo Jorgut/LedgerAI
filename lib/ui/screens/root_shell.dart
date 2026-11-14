@@ -20,7 +20,7 @@ class RootShell extends StatefulWidget {
     this.showFab = true,
     this.reportsInitialScrollOffset = 0,
     this.settingsInitialScrollOffset = 0,
-    this.splitPreview = false,
+    this.splitPreview = const bool.fromEnvironment('SHOW_SPLIT_PREVIEW'),
   });
 
   /// 启动时选中的 Tab（0 首页 / 1 账单 / 2 报表 / 3 我的）。

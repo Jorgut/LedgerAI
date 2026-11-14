@@ -16,7 +16,7 @@ enum AppLanguage {
   Locale? get locale => switch (this) {
         AppLanguage.system => null,
         AppLanguage.zhHans => const Locale('zh', 'CN'),
-        AppLanguage.zhHant => const Locale('zh', 'TW'),
+        AppLanguage.zhHant => const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
         AppLanguage.en => const Locale('en'),
         AppLanguage.ru => const Locale('ru'),
       };

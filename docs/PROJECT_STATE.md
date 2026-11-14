@@ -280,6 +280,15 @@
 - 对比板：`store/marketing/brand/final/showcase/typography_before_after.png`；
 - 说明：`docs/TYPOGRAPHY.md`；仍可评估思源黑体/Songti 标题。
 
+
+## 1.1 反馈修复（build 16）
+
+- 字体缩放：移除 0.95 基准倍率；验证 100% / 150% 实际生效；整数 type scale。
+- 主题联动：底部导航选中态、FAB、SnackBar action 改为读取当前 palette，不再用静态绿色。
+- 繁体：`zhHant` locale 改为 `zh-Hant`，修复 zh_TW 回落到简体。
+- Split Preview：build 16 用 `SHOW_SPLIT_PREVIEW=true` 打开首页入口；默认生产构建仍隐藏，等真实数据。
+- TestFlight 1.1.0 (16) 已上传并挂内部组。
+
 ## 下一步
 
 1. **待用户决定**：1.0 是否撤回并用 build 2 重提（仅 OCR 修复 + 可带新图标），或让 1.0 先过审、修复随 1.1 发布。

@@ -22,6 +22,15 @@ Future<void> main() async {
       await state.settings
           .update(state.settings.value.copyWith(language: language));
     }
+    const demoFontScale = String.fromEnvironment('DEMO_FONT_SCALE');
+    if (demoFontScale.isNotEmpty) {
+      final scale = double.tryParse(demoFontScale);
+      if (scale != null) {
+        await state.settings.update(
+          state.settings.value.copyWith(fontScale: scale),
+        );
+      }
+    }
     const demoTheme = String.fromEnvironment('DEMO_THEME');
     const demoColorTheme = String.fromEnvironment('DEMO_COLOR_THEME');
     if (demoTheme.isNotEmpty || demoColorTheme.isNotEmpty) {
