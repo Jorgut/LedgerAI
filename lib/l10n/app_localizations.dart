@@ -476,7 +476,7 @@ abstract class AppLocalizations {
   /// No description provided for @fontScaleNote.
   ///
   /// In zh, this message translates to:
-  /// **'标准 / 大 / 特大 / 超大四档，下方滑块可微调；只影响衡账 App，仍会叠加系统字号。父母模式期间自动使用特大字号，关闭后回到你选择的字号。'**
+  /// **'标准 / 大 / 特大 / 超大四档，下方滑块可微调；只影响衡记 App，仍会叠加系统字号。父母模式期间自动使用特大字号，关闭后回到你选择的字号。'**
   String get fontScaleNote;
 
   /// No description provided for @settingsGeneralSection.
@@ -560,7 +560,7 @@ abstract class AppLocalizations {
   /// No description provided for @icloudSyncNote.
   ///
   /// In zh, this message translates to:
-  /// **'数据只写入你自己的 iCloud private database，衡账没有服务器；1.1 内测期间免费。'**
+  /// **'数据只写入你自己的 iCloud private database，衡记没有服务器；1.1 内测期间免费。'**
   String get icloudSyncNote;
 
   /// No description provided for @syncComplete.
@@ -632,7 +632,7 @@ abstract class AppLocalizations {
   /// No description provided for @importJsonBackupSubtitle.
   ///
   /// In zh, this message translates to:
-  /// **'从衡账导出的备份文件合并账单与设置'**
+  /// **'从衡记导出的备份文件合并账单与设置'**
   String get importJsonBackupSubtitle;
 
   /// No description provided for @clearAllTransactions.
@@ -704,13 +704,13 @@ abstract class AppLocalizations {
   /// No description provided for @exportCsvShareSubject.
   ///
   /// In zh, this message translates to:
-  /// **'衡账 · 账单表格'**
+  /// **'衡记 · 账单表格'**
   String get exportCsvShareSubject;
 
   /// No description provided for @exportJsonShareSubject.
   ///
   /// In zh, this message translates to:
-  /// **'衡账 · 数据备份'**
+  /// **'衡记 · 数据备份'**
   String get exportJsonShareSubject;
 
   /// No description provided for @exportCsvTitle.
@@ -807,7 +807,7 @@ abstract class AppLocalizations {
   /// No description provided for @importBackupFailed.
   ///
   /// In zh, this message translates to:
-  /// **'导入失败，请确认文件是衡账导出的 JSON 备份'**
+  /// **'导入失败，请确认文件是衡记导出的 JSON 备份'**
   String get importBackupFailed;
 
   /// No description provided for @noDataToClear.
@@ -843,7 +843,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutLocalFirstNote.
   ///
   /// In zh, this message translates to:
-  /// **'衡账是本地优先的记账 App：账单、预算和设置只保存在这台 iPhone 上，拍照与语音识别都在本机完成。卸载 App 会一并删除数据，建议定期导出备份。'**
+  /// **'衡记是本地优先的记账 App：账单、预算和设置只保存在这台 iPhone 上，拍照与语音识别都在本机完成。卸载 App 会一并删除数据，建议定期导出备份。'**
   String get aboutLocalFirstNote;
 
   /// No description provided for @privacyPolicy.
@@ -1509,13 +1509,13 @@ abstract class AppLocalizations {
   /// No description provided for @addCameraPermission.
   ///
   /// In zh, this message translates to:
-  /// **'无法使用相机，请在系统设置中允许「衡账」访问相机。'**
+  /// **'无法使用相机，请在系统设置中允许「衡记」访问相机。'**
   String get addCameraPermission;
 
   /// No description provided for @addPhotoPermission.
   ///
   /// In zh, this message translates to:
-  /// **'无法访问相册，请在系统设置中允许「衡账」访问照片。'**
+  /// **'无法访问相册，请在系统设置中允许「衡记」访问照片。'**
   String get addPhotoPermission;
 
   /// No description provided for @addCameraOpenFailed.
@@ -1769,7 +1769,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardBody1.
   ///
   /// In zh, this message translates to:
-  /// **'衡账不登录、不联网、不上传。所有账单和设置都保存在本机，随时可以导出备份。'**
+  /// **'衡记不登录、不联网、不上传。所有账单和设置都保存在本机，随时可以导出备份。'**
   String get onboardBody1;
 
   /// No description provided for @onboardPoint1a.
@@ -1901,7 +1901,7 @@ abstract class AppLocalizations {
   /// No description provided for @privacyOneLineBody.
   ///
   /// In zh, this message translates to:
-  /// **'衡账是一款本地优先的记账 App：不登录、不联网、不上传你的任何账单数据。文字识别、语音识别与统计建议全部在你的 iPhone 上完成。'**
+  /// **'衡记是一款本地优先的记账 App：不登录、不联网、不上传你的任何账单数据。文字识别、语音识别与统计建议全部在你的 iPhone 上完成。'**
   String get privacyOneLineBody;
 
   /// No description provided for @privacyNotCollectedTitle.
@@ -2021,7 +2021,7 @@ abstract class AppLocalizations {
   /// No description provided for @termsServiceBody.
   ///
   /// In zh, this message translates to:
-  /// **'衡账是一款免费、本地优先的个人记账工具，提供手动记账、拍照识别、语音记账、收支统计报表、预算提醒与数据导出等功能。App 的全部功能都在这台设备上运行。'**
+  /// **'衡记是一款免费、本地优先的个人记账工具，提供手动记账、拍照识别、语音记账、收支统计报表、预算提醒与数据导出等功能。App 的全部功能都在这台设备上运行。'**
   String get termsServiceBody;
 
   /// No description provided for @termsNoticeTitle.

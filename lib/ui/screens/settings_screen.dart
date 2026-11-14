@@ -23,7 +23,7 @@ import 'legal_screens.dart';
 
 /// 应用版本号（与 pubspec.yaml 的 `version: 1.0.0+1` 保持一致）。
 const String _kAppVersion = '1.1.0';
-const String _kBuildNumber = '17';
+const String _kBuildNumber = '18';
 
 /// 设置页：外观、触觉反馈、预算入口、数据导出与清空、法务与关于。
 ///

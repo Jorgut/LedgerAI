@@ -213,7 +213,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get fontScaleNote =>
-      '标准 / 大 / 特大 / 超大四档，下方滑块可微调；只影响衡账 App，仍会叠加系统字号。父母模式期间自动使用特大字号，关闭后回到你选择的字号。';
+      '标准 / 大 / 特大 / 超大四档，下方滑块可微调；只影响衡记 App，仍会叠加系统字号。父母模式期间自动使用特大字号，关闭后回到你选择的字号。';
 
   @override
   String get settingsGeneralSection => '通用';
@@ -260,7 +260,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get icloudSyncNote =>
-      '数据只写入你自己的 iCloud private database，衡账没有服务器；1.1 内测期间免费。';
+      '数据只写入你自己的 iCloud private database，衡记没有服务器；1.1 内测期间免费。';
 
   @override
   String syncComplete(int downloaded, int uploaded) {
@@ -304,7 +304,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get importJsonBackup => '导入 JSON 备份';
 
   @override
-  String get importJsonBackupSubtitle => '从衡账导出的备份文件合并账单与设置';
+  String get importJsonBackupSubtitle => '从衡记导出的备份文件合并账单与设置';
 
   @override
   String get clearAllTransactions => '清空全部账单';
@@ -342,10 +342,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get exportNoData => '还没有账单数据，先记一笔再导出';
 
   @override
-  String get exportCsvShareSubject => '衡账 · 账单表格';
+  String get exportCsvShareSubject => '衡记 · 账单表格';
 
   @override
-  String get exportJsonShareSubject => '衡账 · 数据备份';
+  String get exportJsonShareSubject => '衡记 · 数据备份';
 
   @override
   String get exportCsvTitle => '导出账单 CSV';
@@ -419,7 +419,7 @@ class AppLocalizationsZh extends AppLocalizations {
       '将把备份中的账单合并到当前账本（同 ID 记录会覆盖），并恢复备份里的预算与偏好设置。是否继续？';
 
   @override
-  String get importBackupFailed => '导入失败，请确认文件是衡账导出的 JSON 备份';
+  String get importBackupFailed => '导入失败，请确认文件是衡记导出的 JSON 备份';
 
   @override
   String get noDataToClear => '当前没有账单数据';
@@ -440,7 +440,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get aboutLocalFirstNote =>
-      '衡账是本地优先的记账 App：账单、预算和设置只保存在这台 iPhone 上，拍照与语音识别都在本机完成。卸载 App 会一并删除数据，建议定期导出备份。';
+      '衡记是本地优先的记账 App：账单、预算和设置只保存在这台 iPhone 上，拍照与语音识别都在本机完成。卸载 App 会一并删除数据，建议定期导出备份。';
 
   @override
   String get privacyPolicy => '隐私政策';
@@ -796,10 +796,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get addOcrFailed => '识别失败，请重试或手动输入';
 
   @override
-  String get addCameraPermission => '无法使用相机，请在系统设置中允许「衡账」访问相机。';
+  String get addCameraPermission => '无法使用相机，请在系统设置中允许「衡记」访问相机。';
 
   @override
-  String get addPhotoPermission => '无法访问相册，请在系统设置中允许「衡账」访问照片。';
+  String get addPhotoPermission => '无法访问相册，请在系统设置中允许「衡记」访问照片。';
 
   @override
   String get addCameraOpenFailed => '无法打开相机，请改用相册选择。';
@@ -951,7 +951,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardTitle1 => '你的账本，\n只在你手机里';
 
   @override
-  String get onboardBody1 => '衡账不登录、不联网、不上传。所有账单和设置都保存在本机，随时可以导出备份。';
+  String get onboardBody1 => '衡记不登录、不联网、不上传。所有账单和设置都保存在本机，随时可以导出备份。';
 
   @override
   String get onboardPoint1a => '完全离线运行';
@@ -1020,7 +1020,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get privacyOneLineBody =>
-      '衡账是一款本地优先的记账 App：不登录、不联网、不上传你的任何账单数据。文字识别、语音识别与统计建议全部在你的 iPhone 上完成。';
+      '衡记是一款本地优先的记账 App：不登录、不联网、不上传你的任何账单数据。文字识别、语音识别与统计建议全部在你的 iPhone 上完成。';
 
   @override
   String get privacyNotCollectedTitle => '我们不收集什么';
@@ -1090,7 +1090,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get termsServiceBody =>
-      '衡账是一款免费、本地优先的个人记账工具，提供手动记账、拍照识别、语音记账、收支统计报表、预算提醒与数据导出等功能。App 的全部功能都在这台设备上运行。';
+      '衡记是一款免费、本地优先的个人记账工具，提供手动记账、拍照识别、语音记账、收支统计报表、预算提醒与数据导出等功能。App 的全部功能都在这台设备上运行。';
 
   @override
   String get termsNoticeTitle => '使用须知';
@@ -1533,7 +1533,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get fontScaleNote =>
-      '標準 / 大 / 特大 / 超大四檔，下方滑桿可微調；只影響衡賬 App，仍會疊加系統字號。父母模式期間自動使用特大字號，關閉後回到你選擇的字號。';
+      '標準 / 大 / 特大 / 超大四檔，下方滑桿可微調；只影響衡記 App，仍會疊加系統字號。父母模式期間自動使用特大字號，關閉後回到你選擇的字號。';
 
   @override
   String get settingsGeneralSection => '一般';
@@ -1580,7 +1580,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get icloudSyncNote =>
-      '資料只寫入你自己的 iCloud private database，衡賬沒有伺服器；1.1 內測期間免費。';
+      '資料只寫入你自己的 iCloud private database，衡記沒有伺服器；1.1 內測期間免費。';
 
   @override
   String syncComplete(int downloaded, int uploaded) {
@@ -1624,7 +1624,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get importJsonBackup => '匯入 JSON 備份';
 
   @override
-  String get importJsonBackupSubtitle => '從衡賬匯出的備份檔案合併帳單與設定';
+  String get importJsonBackupSubtitle => '從衡記匯出的備份檔案合併帳單與設定';
 
   @override
   String get clearAllTransactions => '清空全部帳單';
@@ -1662,10 +1662,10 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get exportNoData => '還沒有帳單資料，先記一筆再匯出';
 
   @override
-  String get exportCsvShareSubject => '衡賬 · 帳單表格';
+  String get exportCsvShareSubject => '衡記 · 帳單表格';
 
   @override
-  String get exportJsonShareSubject => '衡賬 · 資料備份';
+  String get exportJsonShareSubject => '衡記 · 資料備份';
 
   @override
   String get exportCsvTitle => '匯出帳單 CSV';
@@ -1739,7 +1739,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
       '將把備份中的帳單合併到目前帳本（同 ID 記錄會覆寫），並還原備份裡的預算與偏好設定。是否繼續？';
 
   @override
-  String get importBackupFailed => '匯入失敗，請確認檔案是衡賬匯出的 JSON 備份';
+  String get importBackupFailed => '匯入失敗，請確認檔案是衡記匯出的 JSON 備份';
 
   @override
   String get noDataToClear => '目前沒有帳單資料';
@@ -1760,7 +1760,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get aboutLocalFirstNote =>
-      '衡賬是本地優先的記帳 App：帳單、預算和設定只儲存在這台 iPhone 上，拍照與語音辨識都在本機完成。解除安裝 App 會一併刪除資料，建議定期匯出備份。';
+      '衡記是本地優先的記帳 App：帳單、預算和設定只儲存在這台 iPhone 上，拍照與語音辨識都在本機完成。解除安裝 App 會一併刪除資料，建議定期匯出備份。';
 
   @override
   String get privacyPolicy => '隱私政策';
@@ -2116,10 +2116,10 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get addOcrFailed => '辨識失敗，請重試或手動輸入';
 
   @override
-  String get addCameraPermission => '無法使用相機，請在系統設定中允許「衡賬」存取相機。';
+  String get addCameraPermission => '無法使用相機，請在系統設定中允許「衡記」存取相機。';
 
   @override
-  String get addPhotoPermission => '無法存取相簿，請在系統設定中允許「衡賬」存取照片。';
+  String get addPhotoPermission => '無法存取相簿，請在系統設定中允許「衡記」存取照片。';
 
   @override
   String get addCameraOpenFailed => '無法開啟相機，請改用相簿選擇。';
@@ -2271,7 +2271,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get onboardTitle1 => '你的帳本，\n只在你手機裡';
 
   @override
-  String get onboardBody1 => '衡賬不登入、不連網、不上傳。所有帳單和設定都儲存在本機，隨時可以匯出備份。';
+  String get onboardBody1 => '衡記不登入、不連網、不上傳。所有帳單和設定都儲存在本機，隨時可以匯出備份。';
 
   @override
   String get onboardPoint1a => '完全離線運行';
@@ -2340,7 +2340,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get privacyOneLineBody =>
-      '衡賬是一款本地優先的記帳 App：不登入、不連網、不上傳你的任何帳單資料。文字辨識、語音辨識與統計建議全部在你的 iPhone 上完成。';
+      '衡記是一款本地優先的記帳 App：不登入、不連網、不上傳你的任何帳單資料。文字辨識、語音辨識與統計建議全部在你的 iPhone 上完成。';
 
   @override
   String get privacyNotCollectedTitle => '我們不收集什麼';
@@ -2410,7 +2410,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get termsServiceBody =>
-      '衡賬是一款免費、本地優先的個人記帳工具，提供手動記帳、拍照辨識、語音記帳、收支統計報表、預算提醒與資料匯出等功能。App 的全部功能都在這台裝置上執行。';
+      '衡記是一款免費、本地優先的個人記帳工具，提供手動記帳、拍照辨識、語音記帳、收支統計報表、預算提醒與資料匯出等功能。App 的全部功能都在這台裝置上執行。';
 
   @override
   String get termsNoticeTitle => '使用須知';

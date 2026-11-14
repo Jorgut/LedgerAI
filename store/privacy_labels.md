@@ -1,8 +1,8 @@
-# 衡账 LedgerAI · App Store 隐私标签逐项依据
+# 衡记 LedgerAI · App Store 隐私标签逐项依据
 
 > 结论：App Store Connect 隐私问卷中，**所有数据类型均选择「不收集」**，**Tracking 选择「否」**。
 > 依据：Apple 对「收集（Collect）」的定义是「把数据从设备传输出去，使开发者或第三方能够访问」。
-> 衡账的数据只写入本机 App 沙盒（Hive 数据库），不存在服务器、账号、同步、分析 SDK 或广告 SDK，
+> 衡记的数据只写入本机 App 沙盒（Hive 数据库），不存在服务器、账号、同步、分析 SDK 或广告 SDK，
 > 因此不构成「收集」，标签为 **Data Not Collected**。
 >
 > 本文件同时给出每项判断的证据与提审前的复核方法，请与 `PRIVACY.md`、App 内隐私政策页保持一致。

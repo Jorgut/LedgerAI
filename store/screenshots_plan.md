@@ -1,4 +1,4 @@
-# 衡账 LedgerAI · App Store 截图方案（6.9" iPhone）
+# 衡记 LedgerAI · App Store 截图方案（6.9" iPhone）
 
 > 版本：`1.0.0+1`　语言：简体中文（可后续补英文）　设备：iPhone 竖屏
 > 目标：6–8 张截图讲清「离线隐私 + 拍照/语音记账 + 报表预算 + 适老化」，前 3 张承担主要转化。
@@ -134,7 +134,7 @@ flutter run -d "iPhone 18 Pro Max" --dart-define=DEMO=true
 
 ## 6. 上传与验收
 
-1. App Store Connect ▸ 我的 App ▸ 衡账 ▸ 版本 1.0.0 ▸「预览与截屏」▸ iPhone 6.9" 显示。
+1. App Store Connect ▸ 我的 App ▸ 衡记 ▸ 版本 1.0.0 ▸「预览与截屏」▸ iPhone 6.9" 显示。
 2. 按 01→08 顺序上传 PNG，第一张为主图；逐张确认无裁切、无黑边、无 alpha。
 3. 在 Connect 预览中检查：竖屏、文字清晰、状态栏完整。
 4. 提交前与 `store/metadata_zh.md` 的截图清单、`store/privacy_labels.md` 的隐私口径做一次交叉核对。

@@ -6,7 +6,7 @@ import Speech
 import UIKit
 import Vision
 
-/// 衡账 LedgerAI 的 iOS 原生入口。
+/// 衡记 LedgerAI 的 iOS 原生入口。
 ///
 /// 所有原生通道都写在本文档内（不新增 Swift 文件，避免修改 pbxproj）。
 /// 实现约束：
@@ -338,7 +338,7 @@ private final class LedgerAISpeechHandler: NSObject, FlutterStreamHandler {
   private func requestPermissions(completion: @escaping (Bool, String?) -> Void) {
     requestMicrophonePermission { microphoneGranted in
       guard microphoneGranted else {
-        completion(false, "没有麦克风权限，请在系统设置中允许「衡账」使用麦克风。")
+        completion(false, "没有麦克风权限，请在系统设置中允许「衡记」使用麦克风。")
         return
       }
       SFSpeechRecognizer.requestAuthorization { status in
