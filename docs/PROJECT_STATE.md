@@ -298,3 +298,12 @@
 2. 等审核结果；被拒则修 → 重传（build 号 +1）→ 重新提交。
 2. 真机 TestFlight 验收（相机/语音/权限/导出）。
 3. 通过后确认自动上架，记录版本与审核结论；后续再做 Android（需安装 Android SDK）与英文/俄文本地化。
+
+
+## 1.2 决策（2026-11-14）
+
+- 一个 App / 一个 Bundle ID，地区能力用 storefront 运行时 gate。
+- 免费主题 A+D；Pro B/C/E/F；Pro 一次性买断。
+- 早期测试者永久 Pro 兑换码；Beta 全功能免费。
+- 全球含欧盟，需 DSA trader；中国区先手动汇率，申请 ICP 例外，之后仅中国以外加实时汇率。
+- 详见 `docs/ROADMAP_1.2.md`。
