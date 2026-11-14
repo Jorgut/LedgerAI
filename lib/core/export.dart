@@ -76,9 +76,15 @@ class ExportService {
       '${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
 
   String _escapeCsv(String value) {
-    if (value.contains(',') || value.contains('"') || value.contains('\n')) {
-      return '"${value.replaceAll('"', '""')}"';
+    // Neutralise spreadsheet formula injection (CSV injection). Excel/Numbers
+    // treat a leading = + - @ or control character as a formula/command.
+    var safe = value;
+    if (safe.isNotEmpty && '=+-@\t\r'.contains(safe[0])) {
+      safe = "'$safe";
     }
-    return value;
+    if (safe.contains(',') || safe.contains('"') || safe.contains('\n')) {
+      return '"${safe.replaceAll('"', '""')}"';
+    }
+    return safe;
   }
 }

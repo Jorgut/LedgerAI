@@ -36,6 +36,14 @@ void main() {
   const exporter = ExportService();
 
   group('buildCsv', () {
+    test('中和 CSV 公式注入', () {
+      const exporter = ExportService();
+      final csv = exporter.buildCsv([
+        buildTxn(id: 'a', note: '=HYPERLINK("https://evil.example")'),
+      ]);
+      expect(csv, contains("'=HYPERLINK"));
+    });
+
     test('表头固定且带换行', () {
       final csv = exporter.buildCsv(const []);
       expect(csv, '${ExportService.csvHeader}\n');
