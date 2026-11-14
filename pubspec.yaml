@@ -1,5 +1,5 @@
 name: ledger_ai
-description: 衡账 - 本地优先的 AI 记账 App（拍照识别 / 语音记账 / 智能分类）
+description: 衡记 HENG - 本地优先的私密记账 App（拍照识别 / 语音记账 / 智能分类）
 publish_to: 'none'
 version: 1.1.0+19
 

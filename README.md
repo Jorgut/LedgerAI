@@ -1,4 +1,4 @@
-# 衡账 LedgerAI
+# 衡记 HENG
 
 **本地优先的个人记账 App**：拍一张小票、说一句话，就能记好一笔账。
 全程离线，不登录、不联网、不上传数据，账本只留在你的 iPhone 上。
@@ -119,7 +119,7 @@ python3 scripts/make_launch_images.py     # 生成 LaunchImage 1x/2x/3x
 ```
 
 - 图标：品牌绿渐变 `#10B981 → #059669` + 白色几何 ¥ + 小票卡片意象，`Contents.json` 中列的尺寸全部覆盖并校验「尺寸正确 + 无 alpha」。
-- 启动图：168×185pt 品牌徽标 + 「衡账」字标（对应 `LaunchScreen.storyboard` 的居中视图尺寸）。
+- 启动图：168×185pt 品牌徽标 + 「衡记」字标（对应 `LaunchScreen.storyboard` 的居中视图尺寸）。
 - 商店物料：[store/metadata_zh.md](store/metadata_zh.md)（名称/副标题/关键词/描述/审核备注）、[store/screenshots_plan.md](store/screenshots_plan.md)（6.9" 截图清单与文案）。
 
 ---
