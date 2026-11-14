@@ -545,11 +545,10 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     // 保存已经成功：反馈与返回不能影响结果，更不能被误报为「保存失败」。
     if (!mounted) return;
     if (app.prefs.hapticsEnabled) {
-      try {
-        await HapticFeedback.lightImpact();
-      } catch (_) {
-        // 触觉反馈失败不影响已保存的数据。
-      }
+      // Never let the haptic channel block the route pop in tests or on devices.
+      unawaited(
+        HapticFeedback.lightImpact().catchError((_) {}),
+      );
     }
     if (!mounted) return;
     AppSnack.success(
