@@ -83,7 +83,7 @@ class BrandMark extends StatelessWidget {
           Positioned(
             left: wordWidth + gap,
             top: sealTop,
-            child: _Seal(size: seal),
+            child: OracleSeal(size: seal),
           ),
         ],
       ),
@@ -91,10 +91,12 @@ class BrandMark extends StatelessWidget {
   }
 }
 
-class _Seal extends StatelessWidget {
-  const _Seal({required this.size});
+/// Public seal widget so design reviews can compare glyph dilation.
+class OracleSeal extends StatelessWidget {
+  const OracleSeal({super.key, required this.size, this.dilation = 0.35});
 
   final double size;
+  final double dilation;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +114,7 @@ class _Seal extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(size * 0.08),
         child: ImageFiltered(
-          imageFilter: ui.ImageFilter.dilate(radiusX: 0.35, radiusY: 0.35),
+          imageFilter: ui.ImageFilter.dilate(radiusX: dilation, radiusY: dilation),
           child: Image.asset(
             'assets/brand/heng_glyph.png',
             fit: BoxFit.contain,
