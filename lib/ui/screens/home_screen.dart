@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: AppTheme.pagePadding,
-        title: const BrandMark(wordSize: 42, sealSize: 18),
+        title: const BrandMark(wordSize: 42, sealSize: 40),
         toolbarHeight: 78,
       ),
       body: ListView(
