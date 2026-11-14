@@ -11,7 +11,7 @@ class BrandDilationDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    const dilations = [0.15, 0.25, 0.35];
+    const dilations = [0.0, 0.15, 0.25, 0.35];
     return Scaffold(
       appBar: AppBar(title: const Text('Seal dilation'), centerTitle: true),
       body: ListView(
@@ -20,7 +20,7 @@ class BrandDilationDemo extends StatelessWidget {
           Text('Glyph dilation', style: theme.textTheme.headlineSmall),
           const SizedBox(height: 4),
           Text(
-            'Same oracle glyph. Only the white-line dilation changes: 0.15 / 0.25 / 0.35 px.',
+            'Same oracle glyph. Original vs 0.15 / 0.25 / 0.35 px dilation.',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -60,11 +60,13 @@ class BrandDilationDemo extends StatelessWidget {
                       ],
                       const Spacer(),
                       Text(
-                        d == 0.15
-                            ? 'thinnest / elegant, risks fading'
-                            : d == 0.25
-                                ? 'balanced / best for 22–24'
-                                : 'boldest / risk of filling',
+                        d == 0.0
+                            ? 'original / true line art, fades small'
+                            : d == 0.15
+                                ? 'thinnest / elegant, risks fading'
+                                : d == 0.25
+                                    ? 'balanced / best for 22–24'
+                                    : 'boldest / risk of filling',
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -78,7 +80,7 @@ class BrandDilationDemo extends StatelessWidget {
           ],
           const SizedBox(height: 8),
           Text(
-            'Recommended: 0.25 for 22–24 px signatures; 0.35 if the seal is 30 px or larger.',
+            'Recommended: 0.25 for 22–24 px signatures; 0.35 for 30 px or larger. Original 0.0 only for large exhibition use.',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
