@@ -862,10 +862,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               AppTheme.controlRadius,
                             ),
                           ),
-                          child: const Icon(
-                            Icons.account_balance_wallet_rounded,
-                            color: Colors.white,
-                            size: 28,
+                          child: Padding(
+                            padding: const EdgeInsets.all(9),
+                            child: Image.asset(
+                              'assets/brand/heng_glyph.png',
+                              fit: BoxFit.contain,
+                              color: Colors.white,
+                              colorBlendMode: BlendMode.srcIn,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 14),
@@ -938,9 +942,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             const SizedBox(height: 24),
             Center(
               child: Text(
-                'HENG PRIVATE LEDGER\nDESIGNED BY ARCHINTERA',
+                'HENG PRIVATE LEDGER\nDESIGNED BY ARCHINTERA · © 2026',
+                textAlign: TextAlign.center,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
+                  height: 1.5,
+                  letterSpacing: 0.8,
                 ),
               ),
             ),

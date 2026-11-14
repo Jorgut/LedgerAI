@@ -70,7 +70,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
       _month.month,
       isIncome: _showIncome,
     );
-    final insights = app.insights.forMonth(_month, settings: app.prefs);
+    final insights = app.insights.forMonth(_month, settings: app.prefs, l10n: l10n);
 
     return Scaffold(
       appBar: AppBar(

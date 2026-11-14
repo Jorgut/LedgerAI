@@ -2437,6 +2437,186 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'结算'**
   String get splitSettleUp;
+
+  /// No description provided for @insightEmptyTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月还没有记录'**
+  String get insightEmptyTitle;
+
+  /// No description provided for @insightEmptyBody.
+  ///
+  /// In zh, this message translates to:
+  /// **'用「拍照识别」扫一张小票，或者按住说一句话，3 秒记住一笔。'**
+  String get insightEmptyBody;
+
+  /// No description provided for @insightOverBudgetTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月已超出预算'**
+  String get insightOverBudgetTitle;
+
+  /// No description provided for @insightOverBudgetBody.
+  ///
+  /// In zh, this message translates to:
+  /// **'支出 {expense}，比预算多出 {over}。接下来可以优先记录，减少非必要开支。'**
+  String insightOverBudgetBody(String expense, String over);
+
+  /// No description provided for @insightOverBudgetMetric.
+  ///
+  /// In zh, this message translates to:
+  /// **'超支 {amount}'**
+  String insightOverBudgetMetric(String amount);
+
+  /// No description provided for @insightBudgetNearTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'预算快用完了'**
+  String get insightBudgetNearTitle;
+
+  /// No description provided for @insightBudgetNearBody.
+  ///
+  /// In zh, this message translates to:
+  /// **'已使用 {percent}% 的月度预算，剩余 {remaining}。'**
+  String insightBudgetNearBody(String percent, String remaining);
+
+  /// No description provided for @insightBudgetNearMetric.
+  ///
+  /// In zh, this message translates to:
+  /// **'剩余 {amount}'**
+  String insightBudgetNearMetric(String amount);
+
+  /// No description provided for @insightBudgetHealthyTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'预算节奏健康'**
+  String get insightBudgetHealthyTitle;
+
+  /// No description provided for @insightBudgetHealthyBody.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月支出占预算的 {percent}%，还有 {remaining} 可用。'**
+  String insightBudgetHealthyBody(String percent, String remaining);
+
+  /// No description provided for @insightBudgetHealthyMetric.
+  ///
+  /// In zh, this message translates to:
+  /// **'可用 {amount}'**
+  String insightBudgetHealthyMetric(String amount);
+
+  /// No description provided for @insightTopCategoryTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'「{category}」占比偏高'**
+  String insightTopCategoryTitle(String category);
+
+  /// No description provided for @insightTopCategoryBody.
+  ///
+  /// In zh, this message translates to:
+  /// **'「{category}」花了 {amount}，占本月支出的 {percent}%。如果适当控制，每月可省下一笔。'**
+  String insightTopCategoryBody(String category, String amount, String percent);
+
+  /// No description provided for @insightTopCategoryMetric.
+  ///
+  /// In zh, this message translates to:
+  /// **'占 {percent}%'**
+  String insightTopCategoryMetric(String percent);
+
+  /// No description provided for @insightSpendUpTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'支出比上月高'**
+  String get insightSpendUpTitle;
+
+  /// No description provided for @insightSpendUpBody.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月支出 {expense}，比上月多 {delta}（+{percent}%）。'**
+  String insightSpendUpBody(String expense, String delta, String percent);
+
+  /// No description provided for @insightSpendUpMetric.
+  ///
+  /// In zh, this message translates to:
+  /// **'+{percent}%'**
+  String insightSpendUpMetric(String percent);
+
+  /// No description provided for @insightSpendDownTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'支出比上月下降'**
+  String get insightSpendDownTitle;
+
+  /// No description provided for @insightSpendDownBody.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月支出比上月少了 {amount}，继续保持记账习惯。'**
+  String insightSpendDownBody(String amount);
+
+  /// No description provided for @insightSpendDownMetric.
+  ///
+  /// In zh, this message translates to:
+  /// **'{percent}%'**
+  String insightSpendDownMetric(String percent);
+
+  /// No description provided for @insightSpendOverIncomeTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月支出大于收入'**
+  String get insightSpendOverIncomeTitle;
+
+  /// No description provided for @insightSpendOverIncomeBody.
+  ///
+  /// In zh, this message translates to:
+  /// **'收入 {income}，支出 {expense}，建议核对是否有大额非必要支出。'**
+  String insightSpendOverIncomeBody(String income, String expense);
+
+  /// No description provided for @insightSavingTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'储蓄率不错'**
+  String get insightSavingTitle;
+
+  /// No description provided for @insightSavingBody.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月结余 {saving}，储蓄率 {percent}%，高于 30% 的健康线。'**
+  String insightSavingBody(String saving, String percent);
+
+  /// No description provided for @insightSavingMetric.
+  ///
+  /// In zh, this message translates to:
+  /// **'储蓄率 {percent}%'**
+  String insightSavingMetric(String percent);
+
+  /// No description provided for @insightSmallFrequentTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'小额支出比较频繁'**
+  String get insightSmallFrequentTitle;
+
+  /// No description provided for @insightSmallFrequentBody.
+  ///
+  /// In zh, this message translates to:
+  /// **'本月共 {count} 笔支出，平均每笔 {average}。零散小支出累计起来也不少，可以合并记录或设置分类预算。'**
+  String insightSmallFrequentBody(String count, String average);
+
+  /// No description provided for @insightSmallFrequentMetric.
+  ///
+  /// In zh, this message translates to:
+  /// **'{count} 笔'**
+  String insightSmallFrequentMetric(String count);
+
+  /// No description provided for @insightHabitTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'记账习惯正在建立'**
+  String get insightHabitTitle;
+
+  /// No description provided for @insightHabitBody.
+  ///
+  /// In zh, this message translates to:
+  /// **'保持每笔都记，月底的报表和建议会更准确。'**
+  String get insightHabitBody;
 }
 
 class _AppLocalizationsDelegate

@@ -107,6 +107,12 @@ class LedgerApp extends StatelessWidget {
           showFab: false,
           settingsInitialScrollOffset: 260,
         );
+      case 'settings3':
+        return const RootShell(
+          initialIndex: 3,
+          showFab: false,
+          settingsInitialScrollOffset: 2400,
+        );
       case 'budget':
         return const BudgetScreen();
       case 'brand_lockup':

@@ -1322,6 +1322,133 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get splitSettleUp => '结算';
+
+  @override
+  String get insightEmptyTitle => '本月还没有记录';
+
+  @override
+  String get insightEmptyBody => '用「拍照识别」扫一张小票，或者按住说一句话，3 秒记住一笔。';
+
+  @override
+  String get insightOverBudgetTitle => '本月已超出预算';
+
+  @override
+  String insightOverBudgetBody(String expense, String over) {
+    return '支出 $expense，比预算多出 $over。接下来可以优先记录，减少非必要开支。';
+  }
+
+  @override
+  String insightOverBudgetMetric(String amount) {
+    return '超支 $amount';
+  }
+
+  @override
+  String get insightBudgetNearTitle => '预算快用完了';
+
+  @override
+  String insightBudgetNearBody(String percent, String remaining) {
+    return '已使用 $percent% 的月度预算，剩余 $remaining。';
+  }
+
+  @override
+  String insightBudgetNearMetric(String amount) {
+    return '剩余 $amount';
+  }
+
+  @override
+  String get insightBudgetHealthyTitle => '预算节奏健康';
+
+  @override
+  String insightBudgetHealthyBody(String percent, String remaining) {
+    return '本月支出占预算的 $percent%，还有 $remaining 可用。';
+  }
+
+  @override
+  String insightBudgetHealthyMetric(String amount) {
+    return '可用 $amount';
+  }
+
+  @override
+  String insightTopCategoryTitle(String category) {
+    return '「$category」占比偏高';
+  }
+
+  @override
+  String insightTopCategoryBody(
+      String category, String amount, String percent) {
+    return '「$category」花了 $amount，占本月支出的 $percent%。如果适当控制，每月可省下一笔。';
+  }
+
+  @override
+  String insightTopCategoryMetric(String percent) {
+    return '占 $percent%';
+  }
+
+  @override
+  String get insightSpendUpTitle => '支出比上月高';
+
+  @override
+  String insightSpendUpBody(String expense, String delta, String percent) {
+    return '本月支出 $expense，比上月多 $delta（+$percent%）。';
+  }
+
+  @override
+  String insightSpendUpMetric(String percent) {
+    return '+$percent%';
+  }
+
+  @override
+  String get insightSpendDownTitle => '支出比上月下降';
+
+  @override
+  String insightSpendDownBody(String amount) {
+    return '本月支出比上月少了 $amount，继续保持记账习惯。';
+  }
+
+  @override
+  String insightSpendDownMetric(String percent) {
+    return '$percent%';
+  }
+
+  @override
+  String get insightSpendOverIncomeTitle => '本月支出大于收入';
+
+  @override
+  String insightSpendOverIncomeBody(String income, String expense) {
+    return '收入 $income，支出 $expense，建议核对是否有大额非必要支出。';
+  }
+
+  @override
+  String get insightSavingTitle => '储蓄率不错';
+
+  @override
+  String insightSavingBody(String saving, String percent) {
+    return '本月结余 $saving，储蓄率 $percent%，高于 30% 的健康线。';
+  }
+
+  @override
+  String insightSavingMetric(String percent) {
+    return '储蓄率 $percent%';
+  }
+
+  @override
+  String get insightSmallFrequentTitle => '小额支出比较频繁';
+
+  @override
+  String insightSmallFrequentBody(String count, String average) {
+    return '本月共 $count 笔支出，平均每笔 $average。零散小支出累计起来也不少，可以合并记录或设置分类预算。';
+  }
+
+  @override
+  String insightSmallFrequentMetric(String count) {
+    return '$count 笔';
+  }
+
+  @override
+  String get insightHabitTitle => '记账习惯正在建立';
+
+  @override
+  String get insightHabitBody => '保持每笔都记，月底的报表和建议会更准确。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2642,4 +2769,131 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get splitSettleUp => '結清';
+
+  @override
+  String get insightEmptyTitle => '本月還沒有記錄';
+
+  @override
+  String get insightEmptyBody => '用「拍照辨識」掃一張收據，或按住說一句話，3 秒記住一筆。';
+
+  @override
+  String get insightOverBudgetTitle => '本月已超出預算';
+
+  @override
+  String insightOverBudgetBody(String expense, String over) {
+    return '支出 $expense，比預算多出 $over。接下來可以優先記錄，減少非必要開支。';
+  }
+
+  @override
+  String insightOverBudgetMetric(String amount) {
+    return '超支 $amount';
+  }
+
+  @override
+  String get insightBudgetNearTitle => '預算快用完了';
+
+  @override
+  String insightBudgetNearBody(String percent, String remaining) {
+    return '已使用 $percent% 的月度預算，剩餘 $remaining。';
+  }
+
+  @override
+  String insightBudgetNearMetric(String amount) {
+    return '剩餘 $amount';
+  }
+
+  @override
+  String get insightBudgetHealthyTitle => '預算節奏健康';
+
+  @override
+  String insightBudgetHealthyBody(String percent, String remaining) {
+    return '本月支出占預算的 $percent%，還有 $remaining 可用。';
+  }
+
+  @override
+  String insightBudgetHealthyMetric(String amount) {
+    return '可用 $amount';
+  }
+
+  @override
+  String insightTopCategoryTitle(String category) {
+    return '「$category」占比偏高';
+  }
+
+  @override
+  String insightTopCategoryBody(
+      String category, String amount, String percent) {
+    return '「$category」花了 $amount，占本月支出的 $percent%。如果適當控制，每月可省下一筆。';
+  }
+
+  @override
+  String insightTopCategoryMetric(String percent) {
+    return '占 $percent%';
+  }
+
+  @override
+  String get insightSpendUpTitle => '支出比上月高';
+
+  @override
+  String insightSpendUpBody(String expense, String delta, String percent) {
+    return '本月支出 $expense，比上月多 $delta（+$percent%）。';
+  }
+
+  @override
+  String insightSpendUpMetric(String percent) {
+    return '+$percent%';
+  }
+
+  @override
+  String get insightSpendDownTitle => '支出比上月下降';
+
+  @override
+  String insightSpendDownBody(String amount) {
+    return '本月支出比上月少了 $amount，繼續保持記帳習慣。';
+  }
+
+  @override
+  String insightSpendDownMetric(String percent) {
+    return '$percent%';
+  }
+
+  @override
+  String get insightSpendOverIncomeTitle => '本月支出大於收入';
+
+  @override
+  String insightSpendOverIncomeBody(String income, String expense) {
+    return '收入 $income，支出 $expense，建議核對是否有大額非必要支出。';
+  }
+
+  @override
+  String get insightSavingTitle => '儲蓄率不錯';
+
+  @override
+  String insightSavingBody(String saving, String percent) {
+    return '本月結餘 $saving，儲蓄率 $percent%，高於 30% 的健康線。';
+  }
+
+  @override
+  String insightSavingMetric(String percent) {
+    return '儲蓄率 $percent%';
+  }
+
+  @override
+  String get insightSmallFrequentTitle => '小額支出比較頻繁';
+
+  @override
+  String insightSmallFrequentBody(String count, String average) {
+    return '本月共 $count 筆支出，平均每筆 $average。零散小支出累計起來也不少，可以合併記錄或設定分類預算。';
+  }
+
+  @override
+  String insightSmallFrequentMetric(String count) {
+    return '$count 筆';
+  }
+
+  @override
+  String get insightHabitTitle => '記帳習慣正在建立';
+
+  @override
+  String get insightHabitBody => '保持每筆都記，月底的報表和建議會更準確。';
 }

@@ -1370,4 +1370,133 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get splitSettleUp => 'Settle up';
+
+  @override
+  String get insightEmptyTitle => 'No entries this month';
+
+  @override
+  String get insightEmptyBody =>
+      'Scan a receipt or hold to speak — a few seconds per entry.';
+
+  @override
+  String get insightOverBudgetTitle => 'Over budget this month';
+
+  @override
+  String insightOverBudgetBody(String expense, String over) {
+    return 'Spent $expense; $over over budget. Log first, then trim non-essential spending.';
+  }
+
+  @override
+  String insightOverBudgetMetric(String amount) {
+    return '$amount over';
+  }
+
+  @override
+  String get insightBudgetNearTitle => 'Budget almost used up';
+
+  @override
+  String insightBudgetNearBody(String percent, String remaining) {
+    return 'Used $percent% of the monthly budget; $remaining left.';
+  }
+
+  @override
+  String insightBudgetNearMetric(String amount) {
+    return '$amount left';
+  }
+
+  @override
+  String get insightBudgetHealthyTitle => 'Budget on track';
+
+  @override
+  String insightBudgetHealthyBody(String percent, String remaining) {
+    return 'Spending is $percent% of budget; $remaining available.';
+  }
+
+  @override
+  String insightBudgetHealthyMetric(String amount) {
+    return '$amount available';
+  }
+
+  @override
+  String insightTopCategoryTitle(String category) {
+    return '\"$category\" is high';
+  }
+
+  @override
+  String insightTopCategoryBody(
+      String category, String amount, String percent) {
+    return '\"$category\" cost $amount, $percent% of spending. Trimming it could save each month.';
+  }
+
+  @override
+  String insightTopCategoryMetric(String percent) {
+    return '$percent% of spending';
+  }
+
+  @override
+  String get insightSpendUpTitle => 'Spending is up';
+
+  @override
+  String insightSpendUpBody(String expense, String delta, String percent) {
+    return 'Spent $expense this month, $delta more than last month (+$percent%).';
+  }
+
+  @override
+  String insightSpendUpMetric(String percent) {
+    return '+$percent%';
+  }
+
+  @override
+  String get insightSpendDownTitle => 'Spending is down';
+
+  @override
+  String insightSpendDownBody(String amount) {
+    return 'Spent $amount less than last month. Keep logging.';
+  }
+
+  @override
+  String insightSpendDownMetric(String percent) {
+    return '$percent%';
+  }
+
+  @override
+  String get insightSpendOverIncomeTitle => 'Spending exceeds income';
+
+  @override
+  String insightSpendOverIncomeBody(String income, String expense) {
+    return 'Income $income, spending $expense. Check for large non-essential purchases.';
+  }
+
+  @override
+  String get insightSavingTitle => 'Healthy savings rate';
+
+  @override
+  String insightSavingBody(String saving, String percent) {
+    return 'Saved $saving this month, a $percent% savings rate — above the 30% line.';
+  }
+
+  @override
+  String insightSavingMetric(String percent) {
+    return '$percent% savings rate';
+  }
+
+  @override
+  String get insightSmallFrequentTitle => 'Many small purchases';
+
+  @override
+  String insightSmallFrequentBody(String count, String average) {
+    return '$count purchases this month, averaging $average. Small amounts add up.';
+  }
+
+  @override
+  String insightSmallFrequentMetric(String count) {
+    return '$count purchases';
+  }
+
+  @override
+  String get insightHabitTitle => 'A habit is forming';
+
+  @override
+  String get insightHabitBody =>
+      'Keep logging every entry — next month\'s reports and insights get sharper.';
 }

@@ -1374,4 +1374,133 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get splitSettleUp => 'Рассчитаться';
+
+  @override
+  String get insightEmptyTitle => 'В этом месяце пока нет записей';
+
+  @override
+  String get insightEmptyBody =>
+      'Отсканируйте чек или удерживайте кнопку голоса — пара секунд на запись.';
+
+  @override
+  String get insightOverBudgetTitle => 'Бюджет превышен';
+
+  @override
+  String insightOverBudgetBody(String expense, String over) {
+    return 'Потрачено $expense; на $over больше бюджета. Сначала фиксируйте, затем сокращайте необязательные траты.';
+  }
+
+  @override
+  String insightOverBudgetMetric(String amount) {
+    return '$amount сверх бюджета';
+  }
+
+  @override
+  String get insightBudgetNearTitle => 'Бюджет почти исчерпан';
+
+  @override
+  String insightBudgetNearBody(String percent, String remaining) {
+    return 'Использовано $percent% месячного бюджета, осталось $remaining.';
+  }
+
+  @override
+  String insightBudgetNearMetric(String amount) {
+    return 'Осталось $amount';
+  }
+
+  @override
+  String get insightBudgetHealthyTitle => 'Бюджет в норме';
+
+  @override
+  String insightBudgetHealthyBody(String percent, String remaining) {
+    return 'Расходы — $percent% бюджета, доступно $remaining.';
+  }
+
+  @override
+  String insightBudgetHealthyMetric(String amount) {
+    return 'Доступно $amount';
+  }
+
+  @override
+  String insightTopCategoryTitle(String category) {
+    return '«$category» занимает много';
+  }
+
+  @override
+  String insightTopCategoryBody(
+      String category, String amount, String percent) {
+    return '«$category» — $amount, $percent% расходов. Сократив её, можно сэкономить.';
+  }
+
+  @override
+  String insightTopCategoryMetric(String percent) {
+    return '$percent% расходов';
+  }
+
+  @override
+  String get insightSpendUpTitle => 'Расходы выросли';
+
+  @override
+  String insightSpendUpBody(String expense, String delta, String percent) {
+    return 'В этом месяце потрачено $expense, на $delta больше (+$percent%).';
+  }
+
+  @override
+  String insightSpendUpMetric(String percent) {
+    return '+$percent%';
+  }
+
+  @override
+  String get insightSpendDownTitle => 'Расходы снизились';
+
+  @override
+  String insightSpendDownBody(String amount) {
+    return 'Потрачено на $amount меньше, чем в прошлом месяце. Продолжайте вести учёт.';
+  }
+
+  @override
+  String insightSpendDownMetric(String percent) {
+    return '$percent%';
+  }
+
+  @override
+  String get insightSpendOverIncomeTitle => 'Расходы больше доходов';
+
+  @override
+  String insightSpendOverIncomeBody(String income, String expense) {
+    return 'Доход $income, расходы $expense. Проверьте крупные необязательные траты.';
+  }
+
+  @override
+  String get insightSavingTitle => 'Хорошая норма сбережений';
+
+  @override
+  String insightSavingBody(String saving, String percent) {
+    return 'Сэкономлено $saving, норма $percent% — выше 30%.';
+  }
+
+  @override
+  String insightSavingMetric(String percent) {
+    return 'Норма $percent%';
+  }
+
+  @override
+  String get insightSmallFrequentTitle => 'Много мелких трат';
+
+  @override
+  String insightSmallFrequentBody(String count, String average) {
+    return '$count покупок, в среднем $average. Мелочи накапливаются.';
+  }
+
+  @override
+  String insightSmallFrequentMetric(String count) {
+    return '$count покупок';
+  }
+
+  @override
+  String get insightHabitTitle => 'Привычка формируется';
+
+  @override
+  String get insightHabitBody =>
+      'Продолжайте записывать — отчёты станут точнее.';
 }
