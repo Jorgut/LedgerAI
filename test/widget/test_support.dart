@@ -43,12 +43,18 @@ class TestHarness {
   /// 注入 AppScope 的应用状态。
   final AppState state;
 
+  static int _sequence = 0;
+
   static Future<TestHarness> open() async {
     // 测试环境不播冷启动品牌动效，避免 2.6s 计时器干扰组件测试。
     BrandIntroGate.forceDisabled = true;
     installPlatformMocks();
     final tempDir = Directory.systemTemp.createTempSync('ledger_ai_widget_');
-    final store = await LocalStore.openForTest(tempDir.path);
+    // Hive box names are unique per harness. Widget tests run in fake async and
+    // cannot reliably await Hive's real file close; unique names prevent state
+    // leaking between tests without blocking teardown.
+    final suffix = '_${DateTime.now().microsecondsSinceEpoch}_${_sequence++}';
+    final store = await LocalStore.openForTest(tempDir.path, suffix: suffix);
     return TestHarness._(tempDir, store, AppState.forStore(store));
   }
 
@@ -60,10 +66,10 @@ class TestHarness {
   /// 关闭 box、释放状态并删除临时目录；每个用例结束时调用一次。
   Future<void> dispose() async {
     state.dispose();
-    await store.close();
-    if (_tempDir.existsSync()) {
-      _tempDir.deleteSync(recursive: true);
-    }
+    // Do not await Hive close in widget-test fake async; it can hang forever.
+    // Keep the temp directory until the process exits: deleting it while Hive
+    // closes causes PathNotFoundException in the test's async zone.
+    unawaited(store.close());
   }
 }
 
@@ -221,6 +227,16 @@ Future<void> pumpFrames(
   for (var i = 0; i < frames; i++) {
     await tester.pump(step);
   }
+}
+
+/// Tap an action that starts real Hive I/O, then allow that I/O to complete.
+Future<void> tapWithIo(WidgetTester tester, Finder finder) async {
+  await tester.tap(finder);
+  await tester.pump();
+  await tester.runAsync(
+    () => Future<void>.delayed(const Duration(milliseconds: 150)),
+  );
+  await tester.pump();
 }
 
 /// 断言存在指定的屏幕阅读器标签（比对 Semantics widget 的 label 属性）。

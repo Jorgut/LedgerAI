@@ -32,11 +32,11 @@ class LocalStore {
   }
 
   /// 仅测试使用：用已初始化的 Hive 打开独立箱。
-  static Future<LocalStore> openForTest(String path) async {
+  static Future<LocalStore> openForTest(String path, {String suffix = ''}) async {
     Hive.init(path);
-    final txnBox = await Hive.openBox<String>('txns_v2');
-    final settingsBox = await Hive.openBox<String>('settings_v1');
-    final deletionBox = await Hive.openBox<int>('deletions_v1');
+    final txnBox = await Hive.openBox<String>('txns_v2$suffix');
+    final settingsBox = await Hive.openBox<String>('settings_v1$suffix');
+    final deletionBox = await Hive.openBox<int>('deletions_v1$suffix');
     return LocalStore._(txnBox, settingsBox, deletionBox);
   }
 

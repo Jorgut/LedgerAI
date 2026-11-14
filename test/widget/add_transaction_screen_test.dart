@@ -24,7 +24,7 @@ void main() {
     expect(find.text('支出'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField).first, '42.5');
-    await tester.tap(find.text('保存记录'));
+    await tapWithIo(tester, find.text('保存记录'));
     await waitUntil(
       tester,
       () => harness.state.transactions.isNotEmpty,
@@ -44,7 +44,7 @@ void main() {
   testWidgets('金额为空或 0 时拒绝保存并提示', (tester) async {
     await pumpPushed(tester, harness.state, const AddTransactionScreen());
 
-    await tester.tap(find.text('保存记录'));
+    await tapWithIo(tester, find.text('保存记录'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
@@ -52,7 +52,7 @@ void main() {
     expect(harness.state.transactions, isEmpty);
 
     await tester.enterText(find.byType(TextField).first, '0');
-    await tester.tap(find.text('保存记录'));
+    await tapWithIo(tester, find.text('保存记录'));
     await tester.pump();
     expect(harness.state.transactions, isEmpty);
   });
@@ -68,7 +68,7 @@ void main() {
     await tester.tap(find.text('工资'));
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextField).first, '8000');
-    await tester.tap(find.text('保存记录'));
+    await tapWithIo(tester, find.text('保存记录'));
 
     await waitUntil(
       tester,
@@ -86,7 +86,7 @@ void main() {
 
     await tester.enterText(find.byType(TextField).first, '12');
     await tester.enterText(find.widgetWithText(TextField, '备注'), '地铁通勤');
-    await tester.tap(find.text('保存记录'));
+    await tapWithIo(tester, find.text('保存记录'));
 
     await waitUntil(
       tester,
@@ -119,7 +119,7 @@ void main() {
     expect(find.text('42.50'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField).first, '66');
-    await tester.tap(find.text('保存修改'));
+    await tapWithIo(tester, find.text('保存修改'));
 
     await waitUntil(
       tester,

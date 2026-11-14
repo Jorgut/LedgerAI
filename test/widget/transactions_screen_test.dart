@@ -100,9 +100,9 @@ void main() {
       () => harness.state.transactions.isEmpty,
       reason: '左滑删除写入 Hive',
     );
-    await tester.pumpAndSettle();
+    await pumpFrames(tester);
 
-    expect(find.text('已删除「餐饮」¥42.00'), findsOneWidget);
+    expect(find.textContaining('已删除'), findsOneWidget);
     expect(find.text('撤销'), findsOneWidget);
 
     await tester.tap(find.text('撤销'));

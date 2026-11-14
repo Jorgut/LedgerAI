@@ -35,12 +35,15 @@ void main() {
     expect(find.text('浅色'), findsOneWidget);
     expect(find.text('深色'), findsOneWidget);
     expect(find.text('高对比度'), findsOneWidget);
-    expect(find.text('触觉反馈'), findsOneWidget);
-    expect(find.text('预算管理'), findsOneWidget);
-    expect(find.text('数据（只保存在本机）'), findsOneWidget);
     expectNoLayoutOverflow(tester);
 
     // 数据区在首屏下方。
+    await scrollTo(tester, find.text('触觉反馈'));
+    expect(find.text('触觉反馈'), findsOneWidget);
+    await scrollTo(tester, find.text('预算管理'));
+    expect(find.text('预算管理'), findsOneWidget);
+    await scrollTo(tester, find.text('数据（只保存在本机）'));
+    expect(find.text('数据（只保存在本机）'), findsOneWidget);
     await scrollTo(tester, find.text('清空全部账单'));
     expect(find.text('导出 CSV 表格'), findsOneWidget);
     expect(find.text('导出 JSON 备份'), findsOneWidget);
@@ -83,6 +86,7 @@ void main() {
     await pumpScoped(tester, harness.state, const SettingsScreen());
     expect(harness.state.prefs.hapticsEnabled, isTrue);
 
+    await scrollTo(tester, find.text('触觉反馈'));
     await tester.tap(find.text('触觉反馈'));
     await tester.pumpAndSettle();
 
@@ -128,6 +132,12 @@ void main() {
     await pumpScoped(tester, harness.state, const SettingsScreen());
     expect(harness.state.transactions, hasLength(1));
 
+    await scrollTo(tester, find.text('触觉反馈'));
+    expect(find.text('触觉反馈'), findsOneWidget);
+    await scrollTo(tester, find.text('预算管理'));
+    expect(find.text('预算管理'), findsOneWidget);
+    await scrollTo(tester, find.text('数据（只保存在本机）'));
+    expect(find.text('数据（只保存在本机）'), findsOneWidget);
     await scrollTo(tester, find.text('清空全部账单'));
     await tester.tap(find.text('清空全部账单'));
     await tester.pumpAndSettle();
@@ -156,6 +166,12 @@ void main() {
     await seedAsync(tester, harness, [testTxn(id: 'a', date: todayAt())]);
     await pumpScoped(tester, harness.state, const SettingsScreen());
 
+    await scrollTo(tester, find.text('触觉反馈'));
+    expect(find.text('触觉反馈'), findsOneWidget);
+    await scrollTo(tester, find.text('预算管理'));
+    expect(find.text('预算管理'), findsOneWidget);
+    await scrollTo(tester, find.text('数据（只保存在本机）'));
+    expect(find.text('数据（只保存在本机）'), findsOneWidget);
     await scrollTo(tester, find.text('清空全部账单'));
     await tester.tap(find.text('清空全部账单'));
     await tester.pumpAndSettle();
@@ -194,6 +210,7 @@ void main() {
       find.widgetWithText(SwitchListTile, '高对比度'),
       label: '高对比度开关',
     );
+    await scrollTo(tester, find.text('触觉反馈'));
     expectMinTapTarget(
       tester,
       find.widgetWithText(SwitchListTile, '触觉反馈'),

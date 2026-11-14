@@ -41,8 +41,7 @@ void main() {
     expect(find.text('设置月度总预算'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField), '3000');
-    await tester.tap(find.text('保存'));
-    await pumpFrames(tester);
+    await tapWithIo(tester, find.text('保存'));
 
     await waitUntil(
       tester,
@@ -62,8 +61,7 @@ void main() {
     await tester.tap(find.text('设置月度预算'));
     await pumpFrames(tester);
     await tester.enterText(find.byType(TextField), '0');
-    await tester.tap(find.text('保存'));
-    await pumpFrames(tester);
+    await tapWithIo(tester, find.text('保存'));
 
     expect(find.text('请输入大于 0 的金额，例如 3000'), findsOneWidget);
     expect(harness.state.prefs.monthlyBudget, isNull);
@@ -100,8 +98,7 @@ void main() {
     await pumpFrames(tester);
     expect(find.text('清除月度预算？'), findsOneWidget);
 
-    await tester.tap(find.text('清除'));
-    await pumpFrames(tester);
+    await tapWithIo(tester, find.text('清除'));
     await waitUntil(
       tester,
       () => harness.state.prefs.monthlyBudget == null,
@@ -121,8 +118,7 @@ void main() {
     expect(find.text('设置「餐饮」预算'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField), '2000');
-    await tester.tap(find.text('保存'));
-    await pumpFrames(tester);
+    await tapWithIo(tester, find.text('保存'));
 
     await waitUntil(
       tester,
