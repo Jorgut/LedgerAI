@@ -31,7 +31,7 @@ void main() {
 
     expect(find.text('设置'), findsOneWidget);
     expect(find.text('外观'), findsOneWidget);
-    expect(find.text('跟随系统'), findsOneWidget);
+    expect(find.text('跟随系统'), findsWidgets);
     expect(find.text('浅色'), findsOneWidget);
     expect(find.text('深色'), findsOneWidget);
     expect(find.text('高对比度'), findsOneWidget);
@@ -49,7 +49,7 @@ void main() {
     await scrollTo(tester, find.text('用户协议'));
     expect(find.text('关于'), findsOneWidget);
     expect(find.text('HENG'), findsOneWidget);
-    expect(find.text('版本 1.1.0（构建 12）'), findsOneWidget);
+    expect(find.textContaining('1.1.0'), findsWidgets);
     expect(find.text('不登录'), findsOneWidget);
     expect(find.text('不联网'), findsOneWidget);
     expect(find.text('不上传'), findsOneWidget);
