@@ -44,12 +44,23 @@ class HomeScreen extends StatelessWidget {
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Flexible(
+              child: Text(
+                l10n.homeBrand,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const SizedBox(width: 9),
             Container(
-              width: 32,
-              height: 32,
+              width: 36,
+              height: 36,
               decoration: BoxDecoration(
                 gradient: AppTheme.brandGradientOf(context),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.22),
+                ),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(4),
@@ -59,14 +70,6 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.white,
                   colorBlendMode: BlendMode.srcIn,
                 ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Flexible(
-              child: Text(
-                l10n.homeBrand,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
