@@ -1527,6 +1527,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get addVoicePermissionError => '没有麦克风或语音识别权限，请在系统设置中允许后重试。';
+
+  @override
+  String get syncNoAccount => '请先在系统设置中登录 iCloud，再试一次。';
+
+  @override
+  String get syncNoSpace => 'iCloud 空间不足，请清理空间后重试。';
+
+  @override
+  String get syncRestricted => 'iCloud 被系统限制，暂时无法同步。';
+
+  @override
+  String get syncNetwork => '网络不可用，请联网后重试；账本仍保存在本机。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3052,4 +3064,16 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get addVoicePermissionError => '沒有麥克風或語音辨識權限，請在系統設定中允許後重試。';
+
+  @override
+  String get syncNoAccount => '請先在系統設定中登入 iCloud，再試一次。';
+
+  @override
+  String get syncNoSpace => 'iCloud 空間不足，請清理空間後重試。';
+
+  @override
+  String get syncRestricted => 'iCloud 被系統限制，暫時無法同步。';
+
+  @override
+  String get syncNetwork => '網路無法使用，請連線後重試；帳本仍保存在本機。';
 }

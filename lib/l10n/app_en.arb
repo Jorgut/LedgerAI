@@ -726,5 +726,9 @@
   "importSkippedRows": "Some rows were skipped because they lacked a date or amount.",
   "importNoRecords": "No income or expense records to import.",
   "icloudUnavailable": "iCloud is unavailable right now. Check your sign-in and try again.",
-  "addVoicePermissionError": "Microphone or speech recognition permission is missing. Allow it in Settings and try again."
+  "addVoicePermissionError": "Microphone or speech recognition permission is missing. Allow it in Settings and try again.",
+  "syncNoAccount": "Sign in to iCloud in Settings, then try again.",
+  "syncNoSpace": "iCloud storage is full. Free some space and try again.",
+  "syncRestricted": "iCloud is restricted on this device, so sync is unavailable.",
+  "syncNetwork": "No network. Try again when online; your ledger stays on this device."
 }

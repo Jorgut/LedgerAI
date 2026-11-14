@@ -1587,4 +1587,19 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get addVoicePermissionError =>
       'Microphone or speech recognition permission is missing. Allow it in Settings and try again.';
+
+  @override
+  String get syncNoAccount => 'Sign in to iCloud in Settings, then try again.';
+
+  @override
+  String get syncNoSpace =>
+      'iCloud storage is full. Free some space and try again.';
+
+  @override
+  String get syncRestricted =>
+      'iCloud is restricted on this device, so sync is unavailable.';
+
+  @override
+  String get syncNetwork =>
+      'No network. Try again when online; your ledger stays on this device.';
 }

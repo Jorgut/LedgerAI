@@ -293,6 +293,8 @@
 - TestFlight 1.1.0 (19) 已挂组：图标 C（字形 0.645 + 加粗一步），无额外膨胀。
 - 全量 Flutter 测试 **225/225 通过**（2026-11-14）。
 - TestFlight 1.1.0 (20)：测试修复 + 安全加固（CSV 注入/数据保护），生产构建隐藏 Split 预览。
+- 真机反馈（build 20）：OCR/语音通过；iCloud 立即同步报错；账单搜索键盘无法收起/返回。
+- build 21：修复搜索键盘收起、iCloud 错误分类；CloudKit 生产 schema 需在 CloudKit Console 部署。
 
 ## 下一步
 

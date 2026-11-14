@@ -117,9 +117,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 report.downloaded, report.uploaded, report.deleted)
             : l10n.syncComplete(report.downloaded, report.uploaded),
       );
-    } on CloudSyncException catch (_) {
+    } on CloudSyncException catch (e) {
       if (!mounted) return;
-      _showSnack(l10n.syncFailed(l10n.icloudUnavailable));
+      final raw = e.message;
+      final message = raw.contains('登录')
+          ? l10n.syncNoAccount
+          : raw.contains('空间')
+              ? l10n.syncNoSpace
+              : raw.contains('限制')
+                  ? l10n.syncRestricted
+                  : raw.contains('联网') || raw.contains('网络')
+                      ? l10n.syncNetwork
+                      : l10n.syncFailed(l10n.icloudUnavailable);
+      _showSnack(message);
     } catch (e) {
       if (!mounted) return;
       _showSnack(l10n.syncFailed('$e'));

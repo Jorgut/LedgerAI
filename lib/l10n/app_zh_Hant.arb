@@ -726,5 +726,9 @@
   "importSkippedRows": "部分列缺少金額或時間，已跳過。",
   "importNoRecords": "沒有可匯入的收支記錄。",
   "icloudUnavailable": "iCloud 暫時無法使用，請檢查登入狀態後重試。",
-  "addVoicePermissionError": "沒有麥克風或語音辨識權限，請在系統設定中允許後重試。"
+  "addVoicePermissionError": "沒有麥克風或語音辨識權限，請在系統設定中允許後重試。",
+  "syncNoAccount": "請先在系統設定中登入 iCloud，再試一次。",
+  "syncNoSpace": "iCloud 空間不足，請清理空間後重試。",
+  "syncRestricted": "iCloud 被系統限制，暫時無法同步。",
+  "syncNetwork": "網路無法使用，請連線後重試；帳本仍保存在本機。"
 }

@@ -933,5 +933,9 @@
   "importSkippedRows": "部分行缺少金额或时间，已跳过。",
   "importNoRecords": "没有可导入的收支记录。",
   "icloudUnavailable": "iCloud 暂时不可用，请检查登录状态后重试。",
-  "addVoicePermissionError": "没有麦克风或语音识别权限，请在系统设置中允许后重试。"
+  "addVoicePermissionError": "没有麦克风或语音识别权限，请在系统设置中允许后重试。",
+  "syncNoAccount": "请先在系统设置中登录 iCloud，再试一次。",
+  "syncNoSpace": "iCloud 空间不足，请清理空间后重试。",
+  "syncRestricted": "iCloud 被系统限制，暂时无法同步。",
+  "syncNetwork": "网络不可用，请联网后重试；账本仍保存在本机。"
 }

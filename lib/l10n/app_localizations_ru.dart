@@ -1592,4 +1592,18 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get addVoicePermissionError =>
       'Нет разрешения на микрофон или распознавание речи. Разрешите в Настройках и повторите.';
+
+  @override
+  String get syncNoAccount => 'Войдите в iCloud в Настройках и повторите.';
+
+  @override
+  String get syncNoSpace =>
+      'Хранилище iCloud заполнено. Освободите место и повторите.';
+
+  @override
+  String get syncRestricted => 'iCloud ограничен на этом устройстве.';
+
+  @override
+  String get syncNetwork =>
+      'Нет сети. Повторите позже; журнал остаётся на устройстве.';
 }

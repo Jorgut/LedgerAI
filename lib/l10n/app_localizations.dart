@@ -2773,6 +2773,30 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'没有麦克风或语音识别权限，请在系统设置中允许后重试。'**
   String get addVoicePermissionError;
+
+  /// No description provided for @syncNoAccount.
+  ///
+  /// In zh, this message translates to:
+  /// **'请先在系统设置中登录 iCloud，再试一次。'**
+  String get syncNoAccount;
+
+  /// No description provided for @syncNoSpace.
+  ///
+  /// In zh, this message translates to:
+  /// **'iCloud 空间不足，请清理空间后重试。'**
+  String get syncNoSpace;
+
+  /// No description provided for @syncRestricted.
+  ///
+  /// In zh, this message translates to:
+  /// **'iCloud 被系统限制，暂时无法同步。'**
+  String get syncRestricted;
+
+  /// No description provided for @syncNetwork.
+  ///
+  /// In zh, this message translates to:
+  /// **'网络不可用，请联网后重试；账本仍保存在本机。'**
+  String get syncNetwork;
 }
 
 class _AppLocalizationsDelegate

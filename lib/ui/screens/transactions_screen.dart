@@ -23,6 +23,7 @@ class TransactionsScreen extends StatefulWidget {
 
 class _TransactionsScreenState extends State<TransactionsScreen> {
   final TextEditingController _searchController = TextEditingController();
+  final FocusNode _searchFocus = FocusNode();
   DateTime _month = DateTime(DateTime.now().year, DateTime.now().month, 1);
   bool? _typeFilter;
   String? _categoryFilter;
@@ -37,6 +38,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
   @override
   void dispose() {
     _searchController.dispose();
+    _searchFocus.dispose();
     super.dispose();
   }
 
@@ -335,8 +337,11 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                   child: TextField(
                     controller: _searchController,
+                    focusNode: _searchFocus,
                     textInputAction: TextInputAction.search,
                     onChanged: (_) => setState(() {}),
+                    onSubmitted: (_) => _searchFocus.unfocus(),
+                    onTapOutside: (_) => _searchFocus.unfocus(),
                     decoration: InputDecoration(
                       hintText: l10n.txSearchHint,
                       prefixIcon: const Icon(Icons.search_rounded),
@@ -345,6 +350,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                               tooltip: l10n.txClearSearch,
                               onPressed: () {
                                 _searchController.clear();
+                                _searchFocus.unfocus();
                                 setState(() {});
                               },
                               icon: const Icon(Icons.close_rounded),
@@ -414,6 +420,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
     if (monthItems.isEmpty && !filtering) {
       return Center(
         child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: EmptyState(
             icon: Icons.receipt_long_rounded,
             title: l10n.txMonthEmpty(_month.month),
@@ -428,6 +435,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
     if (items.isEmpty) {
       return Center(
         child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: EmptyState(
             icon: Icons.search_off_rounded,
             title: l10n.txNoMatch,
@@ -442,6 +450,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
 
     final groups = _groupByDay(items);
     return ListView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
       children: [
         for (final group in groups) ...[
