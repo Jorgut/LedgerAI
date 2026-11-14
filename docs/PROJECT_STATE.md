@@ -288,6 +288,7 @@
 - 繁体：`zhHant` locale 改为 `zh-Hant`，修复 zh_TW 回落到简体。
 - Split Preview：build 16 用 `SHOW_SPLIT_PREVIEW=true` 打开首页入口；默认生产构建仍隐藏，等真实数据。
 - TestFlight 1.1.0 (16) 已上传并挂内部组。
+- TestFlight 1.1.0 (17) 已挂组：印章正方形并移到 HENG 右侧。
 
 ## 下一步
 
