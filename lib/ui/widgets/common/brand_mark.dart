@@ -1,12 +1,15 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 
 import '../../theme.dart';
 
-/// HENG wordmark with the oracle-bone seal as a signature at its lower right.
+/// HENG wordmark with the oracle-bone seal as a small signature.
 ///
-/// The wordmark is intentionally larger than body text and slightly bold;
-/// the seal is small, like a stamp/signature. Text scaling is clamped so the
-/// brand mark never crowds the AppBar under large Dynamic Type settings.
+/// The seal is baseline-aligned to the wordmark: its bottom edge sits on the
+/// HENG baseline, exactly like a stamp/signature. The seal is deliberately
+/// smaller than the cap height; the glyph is slightly dilated so it stays
+/// legible at 24–25 px.
 class BrandMark extends StatelessWidget {
   const BrandMark({
     super.key,
@@ -21,52 +24,91 @@ class BrandMark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const word = 'HENG';
     final ink = color ?? Theme.of(context).colorScheme.onSurface;
-    // HENG 的 cap height 约为字号的 0.72；默认让印章与字母视觉高度一致。
-    final effectiveSealSize = sealSize ?? wordSize * 0.74;
-    return MediaQuery.withClampedTextScaling(
-      maxScaleFactor: 1.15,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.end,
+    final style = TextStyle(
+      color: ink,
+      fontSize: wordSize,
+      fontWeight: FontWeight.w800,
+      height: 1.0,
+      letterSpacing: -1.2,
+    );
+
+    // Brand marks are fixed-size; dynamic type should not deform the lockup.
+    final painter = TextPainter(
+      text: TextSpan(text: word, style: style),
+      textDirection: TextDirection.ltr,
+      textScaler: TextScaler.noScaling,
+      maxLines: 1,
+    )..layout();
+    final baseline =
+        painter.computeDistanceToActualBaseline(TextBaseline.alphabetic);
+    final wordWidth = painter.width;
+    final wordHeight = painter.height;
+    painter.dispose();
+
+    final seal = sealSize ?? wordSize * 0.74 * 0.8;
+    final gap = wordSize * 0.12;
+    final totalWidth = wordWidth + gap + seal;
+
+    return SizedBox(
+      width: totalWidth,
+      height: wordHeight,
+      child: Stack(
+        clipBehavior: Clip.none,
         children: [
-          Text(
-            'HENG',
-            maxLines: 1,
-            style: TextStyle(
-              color: ink,
-              fontSize: wordSize,
-              fontWeight: FontWeight.w800,
-              height: 0.96,
-              letterSpacing: -1.2,
+          Positioned(
+            left: 0,
+            top: 0,
+            child: Text(
+              word,
+              maxLines: 1,
+              textScaler: TextScaler.noScaling,
+              style: style,
             ),
           ),
-          const SizedBox(width: 5),
-          Transform.translate(
-            offset: const Offset(0, 2),
-            child: Container(
-              width: effectiveSealSize,
-              height: effectiveSealSize,
-              decoration: BoxDecoration(
-                gradient: AppTheme.brandGradientOf(context),
-                borderRadius: BorderRadius.circular(2.5),
-                border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.22),
-                  width: 0.8,
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(effectiveSealSize * 0.11),
-                child: Image.asset(
-                  'assets/brand/heng_glyph.png',
-                  fit: BoxFit.contain,
-                  color: Colors.white,
-                  colorBlendMode: BlendMode.srcIn,
-                ),
-              ),
-            ),
+          Positioned(
+            left: wordWidth + gap,
+            // Bottom edge of the seal sits on the HENG baseline.
+            top: baseline - seal,
+            child: _Seal(size: seal),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _Seal extends StatelessWidget {
+  const _Seal({required this.size});
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        gradient: AppTheme.brandGradientOf(context),
+        borderRadius: BorderRadius.circular(size * 0.10),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.22),
+          width: size > 30 ? 0.8 : 0.6,
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(size * 0.08),
+        child: ImageFiltered(
+          imageFilter: ui.ImageFilter.dilate(radiusX: 0.35, radiusY: 0.35),
+          child: Image.asset(
+            'assets/brand/heng_glyph.png',
+            fit: BoxFit.contain,
+            color: Colors.white,
+            colorBlendMode: BlendMode.srcIn,
+            filterQuality: FilterQuality.high,
+          ),
+        ),
       ),
     );
   }
