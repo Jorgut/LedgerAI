@@ -1066,21 +1066,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyOneLineBody =>
-      'HENG is a local-first finance app: no sign-in, no network, and none of your ledger data is uploaded. Text recognition, voice recognition, and insights all run on your iPhone.';
+      'HENG is a local-first bookkeeping app: no account, and your ledger stays on this iPhone by default. Optional iCloud sync writes only to your own private database; the developer has no server. OCR, speech, and insights all run on-device.';
 
   @override
   String get privacyNotCollectedTitle => 'What we don\'t collect';
 
   @override
   String get privacyNotCollectedBody =>
-      'The developer does not collect, store, or transmit any of your personal information or ledger data. The app has no accounts and includes no third-party analytics, advertising, push, or social login SDKs. That is why the App Store privacy label says “Data Not Collected.”';
+      'The developer does not collect, store, or transmit your personal information or ledger. There is no HENG account and no third-party analytics, ads, or social-login SDK. Optional iCloud sync keeps data in your own iCloud. The App Store privacy label is Data Not Collected.';
 
   @override
   String get privacyStorageTitle => 'Where your data lives';
 
   @override
   String get privacyStorageBody =>
-      'Entries, budgets, and preferences are stored only in the app\'s sandboxed database on this device. Unless you explicitly export and share them from Settings → Data, this data never leaves your device.';
+      'Entries, budgets, and settings are stored in the app sandbox on this device by default. If you enable iCloud sync, data is written to your own iCloud private database, which the developer cannot access. Data is not sent to the developer unless you export, share, or enable iCloud sync.';
 
   @override
   String get privacyCameraTitle => 'Camera and photos';

@@ -1901,7 +1901,7 @@ abstract class AppLocalizations {
   /// No description provided for @privacyOneLineBody.
   ///
   /// In zh, this message translates to:
-  /// **'衡记是一款本地优先的记账 App：不登录、不联网、不上传你的任何账单数据。文字识别、语音识别与统计建议全部在你的 iPhone 上完成。'**
+  /// **'衡记是一款本地优先的记账 App：无需注册，账本默认只存本机；可选 iCloud 同步只写入你自己的 private database，开发者没有服务器。文字识别、语音识别与统计建议都在你的 iPhone 上完成。'**
   String get privacyOneLineBody;
 
   /// No description provided for @privacyNotCollectedTitle.
@@ -1913,7 +1913,7 @@ abstract class AppLocalizations {
   /// No description provided for @privacyNotCollectedBody.
   ///
   /// In zh, this message translates to:
-  /// **'开发者不收集、不存储、不传输你的任何个人信息或记账数据。App 没有账号体系，也不包含第三方统计、广告、推送或社交登录 SDK。因此 App Store 的隐私标签为「Data Not Collected」（不收集数据）。'**
+  /// **'开发者不收集、不存储、不传输你的任何个人信息或记账数据。App 没有账号体系，不包含第三方统计、广告或社交登录 SDK；可选 iCloud 同步的数据只存在你自己的 iCloud。因此 App Store 的隐私标签为「Data Not Collected」。'**
   String get privacyNotCollectedBody;
 
   /// No description provided for @privacyStorageTitle.
@@ -1925,7 +1925,7 @@ abstract class AppLocalizations {
   /// No description provided for @privacyStorageBody.
   ///
   /// In zh, this message translates to:
-  /// **'账单记录、预算和偏好设置只写入 App 在本机的沙盒数据库。除非你主动在「设置 → 数据」中导出并分享，这些数据不会离开你的设备。'**
+  /// **'账单记录、预算和偏好设置默认只写入 App 在本机的沙盒数据库。开启 iCloud 同步后，数据会写入你自己的 iCloud private database，开发者无法访问。除非你主动导出、分享或开启 iCloud 同步，这些数据不会发送给开发者。'**
   String get privacyStorageBody;
 
   /// No description provided for @privacyCameraTitle.

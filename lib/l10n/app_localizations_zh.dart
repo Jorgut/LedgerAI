@@ -1020,21 +1020,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get privacyOneLineBody =>
-      '衡记是一款本地优先的记账 App：不登录、不联网、不上传你的任何账单数据。文字识别、语音识别与统计建议全部在你的 iPhone 上完成。';
+      '衡记是一款本地优先的记账 App：无需注册，账本默认只存本机；可选 iCloud 同步只写入你自己的 private database，开发者没有服务器。文字识别、语音识别与统计建议都在你的 iPhone 上完成。';
 
   @override
   String get privacyNotCollectedTitle => '我们不收集什么';
 
   @override
   String get privacyNotCollectedBody =>
-      '开发者不收集、不存储、不传输你的任何个人信息或记账数据。App 没有账号体系，也不包含第三方统计、广告、推送或社交登录 SDK。因此 App Store 的隐私标签为「Data Not Collected」（不收集数据）。';
+      '开发者不收集、不存储、不传输你的任何个人信息或记账数据。App 没有账号体系，不包含第三方统计、广告或社交登录 SDK；可选 iCloud 同步的数据只存在你自己的 iCloud。因此 App Store 的隐私标签为「Data Not Collected」。';
 
   @override
   String get privacyStorageTitle => '数据保存在哪里';
 
   @override
   String get privacyStorageBody =>
-      '账单记录、预算和偏好设置只写入 App 在本机的沙盒数据库。除非你主动在「设置 → 数据」中导出并分享，这些数据不会离开你的设备。';
+      '账单记录、预算和偏好设置默认只写入 App 在本机的沙盒数据库。开启 iCloud 同步后，数据会写入你自己的 iCloud private database，开发者无法访问。除非你主动导出、分享或开启 iCloud 同步，这些数据不会发送给开发者。';
 
   @override
   String get privacyCameraTitle => '相机与照片';
@@ -2557,21 +2557,21 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get privacyOneLineBody =>
-      '衡記是一款本地優先的記帳 App：不登入、不連網、不上傳你的任何帳單資料。文字辨識、語音辨識與統計建議全部在你的 iPhone 上完成。';
+      '衡記是一款本地優先的記帳 App：無需註冊，帳本預設只存本機；可選 iCloud 同步只寫入你自己的 private database，開發者沒有伺服器。文字辨識、語音辨識與統計建議都在你的 iPhone 上完成。';
 
   @override
   String get privacyNotCollectedTitle => '我們不收集什麼';
 
   @override
   String get privacyNotCollectedBody =>
-      '開發者不收集、不儲存、不傳輸你的任何個人資訊或記帳資料。App 沒有帳號系統，也不包含第三方統計、廣告、推播或社群登入 SDK。因此 App Store 的隱私標籤為「Data Not Collected」（不收集資料）。';
+      '開發者不收集、不儲存、不傳輸你的任何個人資訊或記帳資料。App 沒有帳號體系，不含第三方統計、廣告或社交登入 SDK；可選 iCloud 同步的資料只存在你自己的 iCloud。因此 App Store 的隱私標籤為「Data Not Collected」。';
 
   @override
   String get privacyStorageTitle => '資料儲存在哪裡';
 
   @override
   String get privacyStorageBody =>
-      '帳單記錄、預算和偏好設定只寫入 App 在本機的沙盒資料庫。除非你主動在「設定 → 資料」中匯出並分享，這些資料不會離開你的裝置。';
+      '帳單紀錄、預算與偏好設定預設只寫入 App 在本機的沙盒資料庫。開啟 iCloud 同步後，資料會寫入你自己的 iCloud private database，開發者無法存取。除非你主動匯出、分享或開啟 iCloud 同步，這些資料不會傳送給開發者。';
 
   @override
   String get privacyCameraTitle => '相機與照片';
