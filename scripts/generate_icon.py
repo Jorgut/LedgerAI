@@ -3,7 +3,7 @@
 """HENG / 衡记 · App icon generator (Pillow + numpy).
 
 Flat market-green field, no stars, no streaks, no glyph shadow. The oracle-bone
-"衡" glyph is pre-cleaned and slightly boldened in assets/brand/heng_glyph_bold.png
+"衡" glyph is cleaned and boldened in assets/brand/heng_glyph_bolder.png
 so it survives 20–60 px.
 
 Usage (repo root):
@@ -27,12 +27,12 @@ ROOT = Path(__file__).resolve().parents[1]
 MASTER_PATH = ROOT / "assets" / "app_icon_1024.png"
 ICONSET_DIR = ROOT / "ios" / "Runner" / "Assets.xcassets" / "AppIcon.appiconset"
 CONTENTS_PATH = ICONSET_DIR / "Contents.json"
-GLYPH_PATH = ROOT / "assets" / "brand" / "heng_glyph_bold.png"
+GLYPH_PATH = ROOT / "assets" / "brand" / "heng_glyph_bolder.png"
 
 CANVAS = 1024
 SUPERSAMPLE = 2
 S = CANVAS * SUPERSAMPLE
-GLYPH_HEIGHT_RATIO = 0.605
+GLYPH_HEIGHT_RATIO = 0.645
 INK = (244, 241, 230)  # warm cream
 
 # Rising-market green: vivid jade at the light end, deep pine at the dark end.
