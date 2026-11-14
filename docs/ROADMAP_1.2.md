@@ -5,6 +5,7 @@ Updated: 2026-11-14
 ## Locked decisions
 
 - One app, one bundle ID (`com.archintera.ledgerai`), one binary. Region behavior is gated at runtime by App Store storefront.
+- No HENG account and no Sign in with Apple. Identity for sync/sharing comes from iCloud/CloudKit; purchases from StoreKit. Revisit only for Android/Web or cross-platform accounts.
 - Repo stays `Jorgut/LedgerAI`; GitHub description is `衡记 HENG · 本地优先的私密记账 App`.
 - Free themes: **A Fresh**, **D Rose Paper**.
 - Pro themes: **B Forest**, **C Fresh Forest**, **E Peach**, **F Lavender**.
