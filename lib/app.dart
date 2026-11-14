@@ -8,6 +8,7 @@ import 'l10n/app_localizations.dart';
 import 'ui/brand_intro.dart';
 import 'ui/screens/add_transaction_screen.dart';
 import 'ui/screens/budget_screen.dart';
+import 'ui/screens/brand_lockup_demo.dart';
 import 'ui/screens/split_demo_screen.dart';
 import 'ui/screens/onboarding_screen.dart';
 import 'ui/screens/root_shell.dart';
@@ -107,6 +108,8 @@ class LedgerApp extends StatelessWidget {
         );
       case 'budget':
         return const BudgetScreen();
+      case 'brand_lockup':
+        return const BrandLockupDemo();
       case 'trip':
         return const SplitDemoScreen();
       case 'home_split':

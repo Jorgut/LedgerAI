@@ -15,11 +15,16 @@ class BrandMark extends StatelessWidget {
     super.key,
     this.wordSize = 42,
     this.sealSize,
+    this.matchCapHeight = false,
     this.color,
   });
 
   final double wordSize;
   final double? sealSize;
+
+  /// When true the seal is exactly the height of the HENG capital letters and
+  /// aligned top-to-top and bottom-to-bottom with them.
+  final bool matchCapHeight;
   final Color? color;
 
   @override
@@ -45,11 +50,19 @@ class BrandMark extends StatelessWidget {
         painter.computeDistanceToActualBaseline(TextBaseline.alphabetic);
     final wordWidth = painter.width;
     final wordHeight = painter.height;
+    final boxes = painter.getBoxesForSelection(
+      const TextSelection(baseOffset: 0, extentOffset: 4),
+    );
+    final capTop = boxes.isEmpty ? 0.0 : boxes.first.top;
+    final capHeight = boxes.isEmpty
+        ? wordSize * 0.72
+        : boxes.first.bottom - boxes.first.top;
     painter.dispose();
 
-    final seal = sealSize ?? wordSize * 0.74 * 0.8;
+    final seal = matchCapHeight ? capHeight : (sealSize ?? wordSize * 0.74 * 0.8);
     final gap = wordSize * 0.12;
     final totalWidth = wordWidth + gap + seal;
+    final sealTop = matchCapHeight ? capTop : baseline - seal;
 
     return SizedBox(
       width: totalWidth,
@@ -69,8 +82,7 @@ class BrandMark extends StatelessWidget {
           ),
           Positioned(
             left: wordWidth + gap,
-            // Bottom edge of the seal sits on the HENG baseline.
-            top: baseline - seal,
+            top: sealTop,
             child: _Seal(size: seal),
           ),
         ],
