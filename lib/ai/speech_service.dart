@@ -109,9 +109,13 @@ class SpeechRecognizer {
   }
 
   /// 设备端模型是否可用。模拟器、无中文离线模型或未授权时返回 false。
-  Future<bool> isAvailable() async {
+  Future<bool> isAvailable({String localeId = 'zh-CN'}) async {
     try {
-      return await _methods.invokeMethod<bool>('isAvailable') ?? false;
+      return await _methods.invokeMethod<bool>(
+            'isAvailable',
+            <String, dynamic>{'localeId': localeId},
+          ) ??
+          false;
     } on PlatformException {
       return false;
     } on MissingPluginException {

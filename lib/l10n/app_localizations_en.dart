@@ -1602,4 +1602,39 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get syncNetwork =>
       'No network. Try again when online; your ledger stays on this device.';
+
+  @override
+  String get voiceExample1 => 'Lunch 42 dollars';
+
+  @override
+  String get voiceExample2 => 'Taxi 35 yesterday';
+
+  @override
+  String get voiceExample3 => 'Salary 3000';
+
+  @override
+  String get splitPreviewBadge => 'PREVIEW';
+
+  @override
+  String get splitPreviewBanner =>
+      'Preview · sample data, not connected to your ledger';
+
+  @override
+  String get addCurrencyLabel => 'Currency';
+
+  @override
+  String get addRateLabel => 'Manual rate';
+
+  @override
+  String addRateHint(Object code) {
+    return '1 $code = ? CNY';
+  }
+
+  @override
+  String get addConvertedLabel => 'Converted CNY';
+
+  @override
+  String addRateRequired(Object code) {
+    return 'Enter the rate (CNY per 1 $code)';
+  }
 }

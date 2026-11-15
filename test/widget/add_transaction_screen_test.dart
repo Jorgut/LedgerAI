@@ -4,6 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'package:ledger_ai/core/currency.dart';
 import 'package:ledger_ai/core/models.dart';
 import 'package:ledger_ai/ui/screens/add_transaction_screen.dart';
 import 'package:ledger_ai/ui/theme.dart';
@@ -85,7 +87,9 @@ void main() {
     await pumpPushed(tester, harness.state, const AddTransactionScreen());
 
     await tester.enterText(find.byType(TextField).first, '12');
-    await tester.enterText(find.widgetWithText(TextField, '备注'), '地铁通勤');
+    await tester.drag(find.byType(ListView).first, const Offset(0, -420));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).at(1), '地铁通勤');
     await tapWithIo(tester, find.text('保存记录'));
 
     await waitUntil(
@@ -202,4 +206,28 @@ void main() {
       label: '删除按钮',
     );
   });
+  testWidgets('外币金额按手动汇率折算为人民币保存', (tester) async {
+    await pumpPushed(tester, harness.state, const AddTransactionScreen());
+
+    await tester.enterText(find.byType(TextField).first, '42');
+    await tester.tap(find.widgetWithText(InputChip, 'CNY'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('USD · 美元').last);
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byType(TextField).at(1), '7.2');
+    await tapWithIo(tester, find.text('保存记录'));
+
+    await waitUntil(
+      tester,
+      () => harness.state.transactions.isNotEmpty,
+      reason: '保存外币记录',
+    );
+    final txn = harness.state.transactions.single;
+    expect(txn.currency, AppCurrency.usd);
+    expect(txn.originalAmount, 42);
+    expect(txn.fxRate, 7.2);
+    expect(txn.amount, 302.4);
+  });
+
 }

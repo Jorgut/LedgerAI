@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 
 import '../core/app_state.dart';
+import '../core/currency.dart';
 import '../core/models.dart';
 
 /// iCloud 同步失败时的可读错误。
@@ -173,6 +174,9 @@ class CloudSyncService {
         'isIncome': txn.isIncome,
         'source': txn.source.name,
         'merchant': txn.merchant,
+        'currencyCode': txn.currency.code,
+        'originalAmount': txn.originalAmount,
+        'fxRate': txn.fxRate,
         'updatedAt': txn.updatedAt.millisecondsSinceEpoch,
         'deletedAt': null,
       };
@@ -192,6 +196,9 @@ class CloudSyncService {
       isIncome: map['isIncome'] as bool? ?? false,
       source: EntrySource.parse(map['source'] as String?),
       merchant: map['merchant'] as String?,
+      currency: AppCurrency.parse(map['currencyCode'] as String?),
+      originalAmount: (map['originalAmount'] as num?)?.toDouble(),
+      fxRate: (map['fxRate'] as num?)?.toDouble(),
       createdAt: DateTime.fromMillisecondsSinceEpoch(dateMs),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(updatedMs),
     );

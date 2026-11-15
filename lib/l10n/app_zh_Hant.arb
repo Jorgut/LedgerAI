@@ -730,5 +730,15 @@
   "syncNoAccount": "請先在系統設定中登入 iCloud，再試一次。",
   "syncNoSpace": "iCloud 空間不足，請清理空間後重試。",
   "syncRestricted": "iCloud 被系統限制，暫時無法同步。",
-  "syncNetwork": "網路無法使用，請連線後重試；帳本仍保存在本機。"
+  "syncNetwork": "網路無法使用，請連線後重試；帳本仍保存在本機。",
+  "voiceExample1": "今天午餐花了 42 塊",
+  "voiceExample2": "昨天計程車 35",
+  "voiceExample3": "薪水入帳 8500",
+  "splitPreviewBadge": "預覽",
+  "splitPreviewBanner": "預覽 · 範例資料，尚未連接你的帳本",
+  "addCurrencyLabel": "幣別",
+  "addRateLabel": "手動匯率",
+  "addRateHint": "1 {code} = ? CNY",
+  "addConvertedLabel": "折算人民幣",
+  "addRateRequired": "請輸入匯率（1 {code} 等於多少人民幣）"
 }

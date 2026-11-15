@@ -682,9 +682,10 @@ class VoiceEntryParser {
     '还款', '充了', '充值', '交了', '转账给', '转给', '发红包', '发了红包', '给红包',
   ];
 
-  ParsedReceipt parse(String spoken) {
+  ParsedReceipt parse(String spoken, {String languageCode = 'zh'}) {
     final raw = spoken.trim();
     if (raw.isEmpty) return const ParsedReceipt();
+    if (languageCode != 'zh') return _parseLatin(raw, languageCode);
     final text = _normalize(raw);
     final isIncome = _detectIncome(text);
     final amount = _pickAmount(text);
@@ -698,6 +699,119 @@ class VoiceEntryParser {
       rawText: raw,
       isIncome: isIncome,
     );
+  }
+
+  // ---------------------------------------------------------------------------
+  // English / Russian voice entries
+  // ---------------------------------------------------------------------------
+
+  ParsedReceipt _parseLatin(String raw, String languageCode) {
+    final lower = raw.toLowerCase();
+    final isIncome = _latinIncomeHints.any(lower.contains);
+    final amount = _pickLatinAmount(raw);
+    final date = _pickLatinDate(lower);
+    final categoryId = _latinCategory(lower, isIncome);
+    return ParsedReceipt(
+      amount: amount,
+      date: date,
+      categoryId: categoryId,
+      note: raw,
+      rawText: raw,
+      isIncome: isIncome,
+    );
+  }
+
+  static const List<String> _latinIncomeHints = <String>[
+    'salary', 'paycheck', 'payroll', 'income', 'refund', 'bonus', 'received',
+    'got paid', 'deposit', 'зарплата', 'доход', 'вернули', 'бонус', 'получил',
+    'зачислен', 'перевод',
+  ];
+
+  static final RegExp _latinCurrencyAfter = RegExp(
+    r'(\d+(?:[.,]\d{1,2})?)\s*(?:\$|€|£|₽|usd|dollars?|eur|euros?|gbp|pounds?|rub|rubles?|руб(?:лей|ля)?)',
+    caseSensitive: false,
+  );
+  static final RegExp _latinCurrencyBefore = RegExp(
+    r'(?:\$|€|£|₽)\s*(\d+(?:[.,]\d{1,2})?)',
+  );
+  static final RegExp _latinAnyNumber = RegExp(r'\d+(?:[.,]\d{1,2})?');
+
+  double? _pickLatinAmount(String raw) {
+    for (final pattern in [_latinCurrencyBefore, _latinCurrencyAfter]) {
+      final match = pattern.firstMatch(raw);
+      if (match != null) {
+        return double.tryParse(match.group(1)!.replaceAll(',', '.'));
+      }
+    }
+    // Fallback: last bare number. This handles "lunch 42", "taxi 35 yesterday".
+    final matches = _latinAnyNumber.allMatches(raw).toList();
+    if (matches.isEmpty) return null;
+    return double.tryParse(matches.last.group(0)!.replaceAll(',', '.'));
+  }
+
+  DateTime? _pickLatinDate(String lower) {
+    final now = DateTime.now();
+    if (lower.contains('today') || lower.contains('сегодня')) {
+      return DateTime(now.year, now.month, now.day, 12);
+    }
+    if (lower.contains('yesterday') || lower.contains('вчера')) {
+      final d = now.subtract(const Duration(days: 1));
+      return DateTime(d.year, d.month, d.day, 12);
+    }
+    final iso = RegExp(r'(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})').firstMatch(lower);
+    if (iso != null) {
+      return DateTime(
+        int.parse(iso.group(1)!),
+        int.parse(iso.group(2)!),
+        int.parse(iso.group(3)!),
+        12,
+      );
+    }
+    return null;
+  }
+
+  String _latinCategory(String lower, bool isIncome) {
+    bool has(List<String> words) => words.any(lower.contains);
+    if (isIncome) {
+      if (has(['bonus', 'бонус'])) return 'bonus';
+      if (has(['salary', 'paycheck', 'payroll', 'зарплата', 'доход'])) {
+        return 'salary';
+      }
+      return 'other_income';
+    }
+    if (has(['lunch', 'dinner', 'breakfast', 'coffee', 'restaurant', 'cafe',
+        'food', 'grocery', 'обед', 'ужин', 'завтрак', 'кофе', 'кафе',
+        'ресторан', 'еда', 'продукт'])) {
+      return 'food';
+    }
+    if (has(['taxi', 'uber', 'bus', 'metro', 'subway', 'train', 'fuel',
+        'gas', 'такси', 'метро', 'автобус', 'поезд', 'бензин', 'заправк'])) {
+      return 'transport';
+    }
+    if (has(['shop', 'store', 'clothes', 'amazon', 'магазин', 'покупк',
+        'одежд'])) {
+      return 'shopping';
+    }
+    if (has(['rent', 'home', 'utility', 'аренда', 'квартир', 'коммунал',
+        'дом'])) {
+      return 'home';
+    }
+    if (has(['movie', 'cinema', 'game', 'concert', 'кино', 'театр', 'игр',
+        'концерт', 'развлеч'])) {
+      return 'entertainment';
+    }
+    if (has(['doctor', 'medicine', 'pharmacy', 'врач', 'аптек', 'медицин',
+        'больниц'])) {
+      return 'medical';
+    }
+    if (has(['book', 'course', 'school', 'книг', 'курс', 'школ', 'учеб'])) {
+      return 'education';
+    }
+    if (has(['phone', 'internet', 'связь', 'телефон', 'интернет'])) {
+      return 'communication';
+    }
+    if (has(['gift', 'friend', 'подарок', 'друг'])) return 'social';
+    return 'other_expense';
   }
 
   String _normalize(String input) {

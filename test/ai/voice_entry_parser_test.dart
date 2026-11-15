@@ -134,4 +134,47 @@ void main() {
       expect(result.hasUsefulData, isFalse);
     });
   });
+  group('English / Russian voice entries', () {
+    test('English amount + food', () {
+      final result = parser.parse('Lunch 42 dollars', languageCode: 'en');
+      expect(result.amount, 42.0);
+      expect(result.categoryId, 'food');
+      expect(result.isIncome, isFalse);
+    });
+
+    test('English yesterday date', () {
+      final result = parser.parse('Taxi 35 yesterday', languageCode: 'en');
+      expect(result.amount, 35.0);
+      expect(result.categoryId, 'transport');
+      expect(result.date, isNotNull);
+    });
+
+    test('English salary is income', () {
+      final result = parser.parse('Salary 3000', languageCode: 'en');
+      expect(result.amount, 3000.0);
+      expect(result.isIncome, isTrue);
+      expect(result.categoryId, 'salary');
+    });
+
+    test('Russian food', () {
+      final result = parser.parse('Обед 1200 рублей', languageCode: 'ru');
+      expect(result.amount, 1200.0);
+      expect(result.categoryId, 'food');
+    });
+
+    test('Russian transport yesterday', () {
+      final result = parser.parse('Такси 350 вчера', languageCode: 'ru');
+      expect(result.amount, 350.0);
+      expect(result.categoryId, 'transport');
+      expect(result.date, isNotNull);
+    });
+
+    test('Russian salary is income', () {
+      final result = parser.parse('Зарплата 50000', languageCode: 'ru');
+      expect(result.amount, 50000.0);
+      expect(result.isIncome, isTrue);
+      expect(result.categoryId, 'salary');
+    });
+  });
+
 }

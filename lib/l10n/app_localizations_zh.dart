@@ -1539,6 +1539,40 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get syncNetwork => '网络不可用，请联网后重试；账本仍保存在本机。';
+
+  @override
+  String get voiceExample1 => '今天午餐花了 42 块';
+
+  @override
+  String get voiceExample2 => '昨天打车 35';
+
+  @override
+  String get voiceExample3 => '工资到账 8500';
+
+  @override
+  String get splitPreviewBadge => '预览';
+
+  @override
+  String get splitPreviewBanner => '预览 · 示例数据，尚未连接你的账本';
+
+  @override
+  String get addCurrencyLabel => '币种';
+
+  @override
+  String get addRateLabel => '手动汇率';
+
+  @override
+  String addRateHint(Object code) {
+    return '1 $code = ? CNY';
+  }
+
+  @override
+  String get addConvertedLabel => '折算人民币';
+
+  @override
+  String addRateRequired(Object code) {
+    return '请输入汇率（1 $code 等于多少人民币）';
+  }
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3076,4 +3110,38 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get syncNetwork => '網路無法使用，請連線後重試；帳本仍保存在本機。';
+
+  @override
+  String get voiceExample1 => '今天午餐花了 42 塊';
+
+  @override
+  String get voiceExample2 => '昨天計程車 35';
+
+  @override
+  String get voiceExample3 => '薪水入帳 8500';
+
+  @override
+  String get splitPreviewBadge => '預覽';
+
+  @override
+  String get splitPreviewBanner => '預覽 · 範例資料，尚未連接你的帳本';
+
+  @override
+  String get addCurrencyLabel => '幣別';
+
+  @override
+  String get addRateLabel => '手動匯率';
+
+  @override
+  String addRateHint(Object code) {
+    return '1 $code = ? CNY';
+  }
+
+  @override
+  String get addConvertedLabel => '折算人民幣';
+
+  @override
+  String addRateRequired(Object code) {
+    return '請輸入匯率（1 $code 等於多少人民幣）';
+  }
 }

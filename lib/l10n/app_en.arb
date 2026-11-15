@@ -730,5 +730,15 @@
   "syncNoAccount": "Sign in to iCloud in Settings, then try again.",
   "syncNoSpace": "iCloud storage is full. Free some space and try again.",
   "syncRestricted": "iCloud is restricted on this device, so sync is unavailable.",
-  "syncNetwork": "No network. Try again when online; your ledger stays on this device."
+  "syncNetwork": "No network. Try again when online; your ledger stays on this device.",
+  "voiceExample1": "Lunch 42 dollars",
+  "voiceExample2": "Taxi 35 yesterday",
+  "voiceExample3": "Salary 3000",
+  "splitPreviewBadge": "PREVIEW",
+  "splitPreviewBanner": "Preview · sample data, not connected to your ledger",
+  "addCurrencyLabel": "Currency",
+  "addRateLabel": "Manual rate",
+  "addRateHint": "1 {code} = ? CNY",
+  "addConvertedLabel": "Converted CNY",
+  "addRateRequired": "Enter the rate (CNY per 1 {code})"
 }

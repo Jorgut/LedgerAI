@@ -937,5 +937,15 @@
   "syncNoAccount": "请先在系统设置中登录 iCloud，再试一次。",
   "syncNoSpace": "iCloud 空间不足，请清理空间后重试。",
   "syncRestricted": "iCloud 被系统限制，暂时无法同步。",
-  "syncNetwork": "网络不可用，请联网后重试；账本仍保存在本机。"
+  "syncNetwork": "网络不可用，请联网后重试；账本仍保存在本机。",
+  "voiceExample1": "今天午餐花了 42 块",
+  "voiceExample2": "昨天打车 35",
+  "voiceExample3": "工资到账 8500",
+  "splitPreviewBadge": "预览",
+  "splitPreviewBanner": "预览 · 示例数据，尚未连接你的账本",
+  "addCurrencyLabel": "币种",
+  "addRateLabel": "手动汇率",
+  "addRateHint": "1 {code} = ? CNY",
+  "addConvertedLabel": "折算人民币",
+  "addRateRequired": "请输入汇率（1 {code} 等于多少人民币）"
 }

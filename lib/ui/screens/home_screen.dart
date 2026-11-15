@@ -20,13 +20,16 @@ import 'transactions_screen.dart';
 
 /// 首页：本月概览、预算进度、快速记账入口、最近记录。
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, this.onSeeAll, this.onOpenSplit});
+  const HomeScreen({super.key, this.onSeeAll, this.onOpenSplit, this.splitPreview = false});
 
   /// 「查看全部」回调；由 RootShell 切换到账单 Tab。为 null 时打开账单页。
   final VoidCallback? onSeeAll;
 
   /// Demo/1.2 preview: open the optional Trip tab.
   final VoidCallback? onOpenSplit;
+
+  /// Whether the Split entry is a demo preview rather than real data.
+  final bool splitPreview;
 
   @override
   Widget build(BuildContext context) {

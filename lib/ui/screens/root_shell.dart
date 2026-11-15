@@ -92,6 +92,7 @@ class _RootShellState extends State<RootShell> {
           HomeScreen(
             onSeeAll: () => _selectTab(1),
             onOpenSplit: widget.splitPreview ? _openSplitPreview : null,
+            splitPreview: widget.splitPreview,
           ),
           const TransactionsScreen(),
           ReportsScreen(initialScrollOffset: widget.reportsInitialScrollOffset),

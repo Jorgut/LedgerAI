@@ -9,6 +9,7 @@ import '../../ai/ocr_service.dart';
 import '../../ai/parsing.dart';
 import '../../ai/speech_service.dart';
 import '../../core/app_state.dart';
+import '../../core/currency.dart';
 import '../../core/format.dart';
 import '../../core/models.dart';
 import '../../l10n/app_localizations.dart';
@@ -50,17 +51,11 @@ class AddTransactionScreen extends StatefulWidget {
 }
 
 class _AddTransactionScreenState extends State<AddTransactionScreen> {
-  // 语音示例保持中文：语音识别固定使用 zh-CN，示例同时也是解析器可识别的数据。
-  static const List<String> _voiceExamples = [
-    '今天午餐花了 42 块',
-    '昨天打车 35',
-    '工资到账 8500',
-  ];
-
   final SpeechRecognizer _speech = const SpeechRecognizer();
   final ImagePicker _imagePicker = ImagePicker();
 
   late final TextEditingController _amountController;
+  late final TextEditingController _rateController;
   late final TextEditingController _noteController;
   late final FocusNode _amountFocus;
 
@@ -73,6 +68,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   String? _merchant;
   String? _rawText;
   String? _amountError;
+  String? _rateError;
+  AppCurrency _currency = AppCurrency.cny;
   String? _ocrError;
 
   bool _showRawText = false;
@@ -111,8 +108,15 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       _isIncome,
     );
 
+    _currency = txn?.currency ?? AppCurrency.cny;
     _amountController = TextEditingController(
-      text: _amountInputText(txn?.amount ?? receipt?.amount),
+      text: _amountInputText(
+        txn?.originalAmount ??
+            (txn == null ? receipt?.amount : txn.amount),
+      ),
+    );
+    _rateController = TextEditingController(
+      text: txn?.fxRate == null ? '' : _amountInputText(txn!.fxRate),
     );
     _noteController = TextEditingController(
       text: txn?.note ?? receipt?.note ?? '',
@@ -159,6 +163,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     _speechSubscription?.cancel();
     _speech.cancel();
     _amountController.dispose();
+    _rateController.dispose();
     _noteController.dispose();
     _amountFocus.dispose();
     super.dispose();
@@ -193,7 +198,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   Future<void> _checkSpeech() async {
-    final available = await _speech.isAvailable();
+    final localeId = _speechLocaleId;
+    final available = await _speech.isAvailable(localeId: localeId);
     if (!mounted) return;
     setState(() => _speechAvailable = available);
   }
@@ -321,11 +327,24 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     }
   }
 
+  String get _speechLocaleId {
+    final locale = Localizations.localeOf(context);
+    if (locale.languageCode == 'zh') {
+      return locale.scriptCode == 'Hant' ? 'zh-TW' : 'zh-CN';
+    }
+    return switch (locale.languageCode) {
+      'ru' => 'ru-RU',
+      'en' => 'en-US',
+      _ => 'en-US',
+    };
+  }
+
   Future<void> _startVoice() async {
     if (_listening) return;
     final app = AppScope.read(context);
     final l10n = AppLocalizations.of(context);
-    final available = await _speech.isAvailable();
+    final localeId = _speechLocaleId;
+    final available = await _speech.isAvailable(localeId: localeId);
     if (!mounted) return;
     if (!available) {
       setState(() => _speechAvailable = false);
@@ -338,7 +357,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       _voiceHandled = false;
       _liveText = '';
     });
-    final started = await _speech.start(localeId: 'zh-CN');
+    final started = await _speech.start(localeId: localeId);
     if (!mounted) return;
     if (!started) {
       setState(() => _listening = false);
@@ -380,7 +399,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     if (trimmed.isEmpty || _voiceHandled) return;
     final l10n = AppLocalizations.of(context);
     _voiceHandled = true;
-    final parsed = const VoiceEntryParser().parse(trimmed);
+    final languageCode = Localizations.localeOf(context).languageCode;
+    final parsed =
+        const VoiceEntryParser().parse(trimmed, languageCode: languageCode);
     if (parsed.amount == null) {
       if (!mounted) return;
       AppSnack.error(context, l10n.addVoiceNoAmount);
@@ -507,16 +528,26 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   Future<void> _save() async {
     if (_saving) return;
     final l10n = AppLocalizations.of(context);
-    final amount = _parsedAmount();
-    if (amount == null) {
+    final enteredAmount = _parsedAmount();
+    if (enteredAmount == null) {
       setState(() => _amountError = l10n.addAmountRequired);
       _amountFocus.requestFocus();
       AppSnack.error(context, l10n.addAmountRequired);
       return;
     }
+    final rate = _currency == AppCurrency.cny ? null : _parsedRate();
+    if (_currency != AppCurrency.cny && rate == null) {
+      setState(() => _rateError = l10n.addRateRequired(_currency.code));
+      AppSnack.error(context, l10n.addRateRequired(_currency.code));
+      return;
+    }
+    final amount = rate == null
+        ? enteredAmount
+        : (enteredAmount * rate * 100).roundToDouble() / 100;
     setState(() {
       _saving = true;
       _amountError = null;
+      _rateError = null;
     });
 
     final app = AppScope.read(context);
@@ -530,6 +561,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       isIncome: _isIncome,
       source: existing?.source ?? _source,
       merchant: _merchant,
+      currency: _currency,
+      originalAmount: _currency == AppCurrency.cny ? null : enteredAmount,
+      fxRate: rate,
       createdAt: existing?.createdAt,
     );
 
@@ -741,11 +775,23 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            l10n.addAmountLabel,
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
+          Row(
+            children: [
+              Text(
+                l10n.addAmountLabel,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              const Spacer(),
+              InputChip(
+                avatar: Icon(_currency.icon, size: 16),
+                label: Text(_currency.code),
+                onPressed: _pickCurrency,
+                visualDensity: VisualDensity.compact,
+                labelStyle: theme.textTheme.labelSmall,
+              ),
+            ],
           ),
           const SizedBox(height: 2),
           Row(
@@ -754,7 +800,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 2),
                 child: Text(
-                  '¥',
+                  _currency.symbol,
                   style: theme.textTheme.headlineSmall?.copyWith(
                     color: accent,
                     fontWeight: FontWeight.w700,
@@ -802,9 +848,101 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               ),
             ],
           ),
+          if (_currency != AppCurrency.cny) ...[
+            const SizedBox(height: 8),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _rateController,
+                    keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true),
+                    decoration: InputDecoration(
+                      labelText: l10n.addRateLabel,
+                      hintText: l10n.addRateHint(_currency.code),
+                      errorText: _rateError,
+                      isDense: true,
+                    ),
+                    onChanged: (_) {
+                      if (_rateError != null) {
+                        setState(() => _rateError = null);
+                      } else {
+                        setState(() {});
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    _convertedPreview(l10n.addConvertedLabel),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: accent,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ],
       ),
     );
+  }
+
+  double? _parsedRate() {
+    final rate = parseAmount(_rateController.text);
+    if (rate == null || rate <= 0) return null;
+    return rate;
+  }
+
+  String _convertedPreview(String label) {
+    final amount = _parsedAmount();
+    final rate = _parsedRate();
+    if (amount == null || rate == null) return '$label ¥—';
+    final base = (amount * rate * 100).roundToDouble() / 100;
+    return '$label ¥${formatMoney(base, withSymbol: false)}';
+  }
+
+  Future<void> _pickCurrency() async {
+    final l10n = AppLocalizations.of(context);
+    final picked = await showModalBottomSheet<AppCurrency>(
+      context: context,
+      showDragHandle: true,
+      builder: (context) => SafeArea(
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
+              child: Text(
+                l10n.addCurrencyLabel,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            for (final currency in AppCurrency.values)
+              ListTile(
+                leading: Icon(currency.icon),
+                title: Text(currency.displayName),
+                trailing: currency == _currency
+                    ? const Icon(Icons.check_rounded)
+                    : null,
+                onTap: () => Navigator.pop(context, currency),
+              ),
+          ],
+        ),
+      ),
+    );
+    if (picked == null || !mounted) return;
+    setState(() {
+      _currency = picked;
+      if (picked == AppCurrency.cny) {
+        _rateController.clear();
+        _rateError = null;
+      }
+    });
   }
 
   Widget _buildTypeToggle(ThemeData theme) {
@@ -921,7 +1059,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     );
   }
 
-  Widget _buildCategoryCell(BuildContext context, ThemeData theme, Category category) {
+  Widget _buildCategoryCell(
+      BuildContext context, ThemeData theme, Category category) {
     final selected = _categoryId == category.id;
     final accent = _accent(theme);
     return Semantics(
@@ -1356,7 +1495,11 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               Text(l10n.addVoiceExamplesTitle,
                   style: theme.textTheme.titleSmall),
               const SizedBox(height: 10),
-              for (final example in _voiceExamples)
+              for (final example in [
+                l10n.voiceExample1,
+                l10n.voiceExample2,
+                l10n.voiceExample3,
+              ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Row(

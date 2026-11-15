@@ -2797,6 +2797,66 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'网络不可用，请联网后重试；账本仍保存在本机。'**
   String get syncNetwork;
+
+  /// No description provided for @voiceExample1.
+  ///
+  /// In zh, this message translates to:
+  /// **'今天午餐花了 42 块'**
+  String get voiceExample1;
+
+  /// No description provided for @voiceExample2.
+  ///
+  /// In zh, this message translates to:
+  /// **'昨天打车 35'**
+  String get voiceExample2;
+
+  /// No description provided for @voiceExample3.
+  ///
+  /// In zh, this message translates to:
+  /// **'工资到账 8500'**
+  String get voiceExample3;
+
+  /// No description provided for @splitPreviewBadge.
+  ///
+  /// In zh, this message translates to:
+  /// **'预览'**
+  String get splitPreviewBadge;
+
+  /// No description provided for @splitPreviewBanner.
+  ///
+  /// In zh, this message translates to:
+  /// **'预览 · 示例数据，尚未连接你的账本'**
+  String get splitPreviewBanner;
+
+  /// No description provided for @addCurrencyLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'币种'**
+  String get addCurrencyLabel;
+
+  /// No description provided for @addRateLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'手动汇率'**
+  String get addRateLabel;
+
+  /// No description provided for @addRateHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'1 {code} = ? CNY'**
+  String addRateHint(Object code);
+
+  /// No description provided for @addConvertedLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'折算人民币'**
+  String get addConvertedLabel;
+
+  /// No description provided for @addRateRequired.
+  ///
+  /// In zh, this message translates to:
+  /// **'请输入汇率（1 {code} 等于多少人民币）'**
+  String addRateRequired(Object code);
 }
 
 class _AppLocalizationsDelegate

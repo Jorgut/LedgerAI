@@ -1606,4 +1606,39 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get syncNetwork =>
       'Нет сети. Повторите позже; журнал остаётся на устройстве.';
+
+  @override
+  String get voiceExample1 => 'Обед 1200 рублей';
+
+  @override
+  String get voiceExample2 => 'Такси 350 вчера';
+
+  @override
+  String get voiceExample3 => 'Зарплата 50000';
+
+  @override
+  String get splitPreviewBadge => 'ПРЕВЬЮ';
+
+  @override
+  String get splitPreviewBanner =>
+      'Предпросмотр · демо-данные, не связаны с вашим журналом';
+
+  @override
+  String get addCurrencyLabel => 'Валюта';
+
+  @override
+  String get addRateLabel => 'Ручной курс';
+
+  @override
+  String addRateHint(Object code) {
+    return '1 $code = ? CNY';
+  }
+
+  @override
+  String get addConvertedLabel => 'В юанях';
+
+  @override
+  String addRateRequired(Object code) {
+    return 'Введите курс (CNY за 1 $code)';
+  }
 }

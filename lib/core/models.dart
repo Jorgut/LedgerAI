@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'currency.dart';
+
 /// 一条交易记录的录入来源。用于统计与「AI 记账」体验展示。
 enum EntrySource {
   manual('手动'),
@@ -30,6 +32,9 @@ class Txn {
     this.isIncome = false,
     this.source = EntrySource.manual,
     this.merchant,
+    this.currency = AppCurrency.cny,
+    this.originalAmount,
+    this.fxRate,
     DateTime? createdAt,
     DateTime? updatedAt,
   })  : createdAt = createdAt ?? date,
@@ -43,6 +48,17 @@ class Txn {
   final bool isIncome;
   final EntrySource source;
   final String? merchant;
+
+  /// Currency the user typed the amount in. [amount] is always the CNY value
+  /// used by totals and reports.
+  final AppCurrency currency;
+
+  /// Amount in [currency]; null for legacy transactions (same as [amount]).
+  final double? originalAmount;
+
+  /// Manual conversion rate: 1 unit of [currency] = [fxRate] CNY.
+  final double? fxRate;
+
   final DateTime createdAt;
 
   /// 最后修改时间（同步用 LWW 合并）。
@@ -59,6 +75,9 @@ class Txn {
     bool? isIncome,
     EntrySource? source,
     String? merchant,
+    AppCurrency? currency,
+    double? originalAmount,
+    double? fxRate,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -71,6 +90,9 @@ class Txn {
       isIncome: isIncome ?? this.isIncome,
       source: source ?? this.source,
       merchant: merchant ?? this.merchant,
+      currency: currency ?? this.currency,
+      originalAmount: originalAmount ?? this.originalAmount,
+      fxRate: fxRate ?? this.fxRate,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -85,6 +107,9 @@ class Txn {
         'isIncome': isIncome,
         'source': source.name,
         'merchant': merchant,
+        'currency': currency.code,
+        if (originalAmount != null) 'originalAmount': originalAmount,
+        if (fxRate != null) 'fxRate': fxRate,
         'createdAt': createdAt.toIso8601String(),
         'updatedAt': updatedAt.toIso8601String(),
       };
@@ -102,6 +127,9 @@ class Txn {
       isIncome: json['isIncome'] as bool? ?? false,
       source: EntrySource.parse(json['source'] as String?),
       merchant: json['merchant'] as String?,
+      currency: AppCurrency.parse(json['currency'] as String?),
+      originalAmount: (json['originalAmount'] as num?)?.toDouble(),
+      fxRate: (json['fxRate'] as num?)?.toDouble(),
       createdAt: rawCreated is String ? DateTime.parse(rawCreated) : date,
       updatedAt: json['updatedAt'] is String
           ? DateTime.parse(json['updatedAt'] as String)
@@ -120,7 +148,10 @@ class Txn {
           other.note == note &&
           other.isIncome == isIncome &&
           other.source == source &&
-          other.merchant == merchant;
+          other.merchant == merchant &&
+          other.currency == currency &&
+          other.originalAmount == originalAmount &&
+          other.fxRate == fxRate;
 
   @override
   int get hashCode => Object.hash(
@@ -132,6 +163,9 @@ class Txn {
         isIncome,
         source,
         merchant,
+        currency,
+        originalAmount,
+        fxRate,
       );
 
   @override

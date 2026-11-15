@@ -261,7 +261,9 @@ private final class LedgerAISpeechHandler: NSObject, FlutterStreamHandler {
   func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "isAvailable":
-      result(isOnDeviceRecognitionAvailable())
+      let args = call.arguments as? [String: Any]
+      let localeId = (args?["localeId"] as? String) ?? "zh-CN"
+      result(isOnDeviceRecognitionAvailable(localeId: localeId))
     case "start":
       let arguments = call.arguments as? [String: Any]
       let localeId = (arguments?["localeId"] as? String) ?? "zh-CN"
@@ -277,11 +279,11 @@ private final class LedgerAISpeechHandler: NSObject, FlutterStreamHandler {
     }
   }
 
-  private func isOnDeviceRecognitionAvailable() -> Bool {
+  private func isOnDeviceRecognitionAvailable(localeId: String) -> Bool {
     #if targetEnvironment(simulator)
     return false
     #else
-    guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "zh-CN")) else {
+    guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: localeId)) else {
       return false
     }
     // 只看「设备本身是否支持离线识别」：isAvailable 受网络/Siri 开关影响，
@@ -758,6 +760,15 @@ private final class LedgerAICloudKitHandler {
       record["note"] = (map["note"] as? String ?? "") as NSString
       record["isIncome"] = NSNumber(value: map["isIncome"] as? Bool ?? false)
       record["source"] = (map["source"] as? String ?? "manual") as NSString
+      if let currency = map["currencyCode"] as? String, currency != "CNY" {
+        record["currencyCode"] = currency as NSString
+        if let original = map["originalAmount"] as? Double {
+          record["originalAmount"] = NSNumber(value: original)
+        }
+        if let rate = map["fxRate"] as? Double {
+          record["fxRate"] = NSNumber(value: rate)
+        }
+      }
       if let merchant = map["merchant"] as? String, !merchant.isEmpty {
         record["merchant"] = merchant as NSString
       }
@@ -828,6 +839,15 @@ private final class LedgerAICloudKitHandler {
     }
     if let updated = record["updatedAt"] as? Date {
       map["updatedAt"] = Int64(updated.timeIntervalSince1970 * 1000)
+    }
+    if let currency = record["currencyCode"] as? String, currency != "CNY" {
+      map["currencyCode"] = currency
+      if let original = record["originalAmount"] as? NSNumber {
+        map["originalAmount"] = original.doubleValue
+      }
+      if let rate = record["fxRate"] as? NSNumber {
+        map["fxRate"] = rate.doubleValue
+      }
     }
     if let merchant = record["merchant"] as? String {
       map["merchant"] = merchant

@@ -730,5 +730,15 @@
   "syncNoAccount": "Войдите в iCloud в Настройках и повторите.",
   "syncNoSpace": "Хранилище iCloud заполнено. Освободите место и повторите.",
   "syncRestricted": "iCloud ограничен на этом устройстве.",
-  "syncNetwork": "Нет сети. Повторите позже; журнал остаётся на устройстве."
+  "syncNetwork": "Нет сети. Повторите позже; журнал остаётся на устройстве.",
+  "voiceExample1": "Обед 1200 рублей",
+  "voiceExample2": "Такси 350 вчера",
+  "voiceExample3": "Зарплата 50000",
+  "splitPreviewBadge": "ПРЕВЬЮ",
+  "splitPreviewBanner": "Предпросмотр · демо-данные, не связаны с вашим журналом",
+  "addCurrencyLabel": "Валюта",
+  "addRateLabel": "Ручной курс",
+  "addRateHint": "1 {code} = ? CNY",
+  "addConvertedLabel": "В юанях",
+  "addRateRequired": "Введите курс (CNY за 1 {code})"
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/format.dart';
+import '../../../core/currency.dart';
 import '../../../core/models.dart';
 import '../../theme.dart';
 import '../../../l10n/app_localizations.dart';
@@ -50,6 +51,9 @@ class TransactionTile extends StatelessWidget {
       if (showDate) dateLabel,
       if (showSource && txn.source != EntrySource.manual)
         localizedSourceLabel(context, txn.source),
+      if (txn.currency != AppCurrency.cny && txn.originalAmount != null)
+        '${txn.currency.code} ${formatCurrency(txn.originalAmount!, txn.currency, withSymbol: false)}'
+            '${txn.fxRate == null ? '' : ' · 1 ${txn.currency.code} = ${txn.fxRate} CNY'}',
     ];
 
     final semantic = StringBuffer()
