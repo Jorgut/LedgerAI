@@ -842,6 +842,18 @@ private final class LedgerAICloudKitHandler {
 
   private func message(for error: Error) -> String {
     if let ckError = error as? CKError {
+      if ckError.code == .partialFailure {
+        let partial = ckError.partialErrorsByItemID.flatMap { $0 } ?? [:]
+        let details = partial
+          .prefix(3)
+          .map { id, itemError -> String in
+            let code = (itemError as? CKError)?.code.rawValue ?? -1
+            let name = (id as? CKRecord.ID)?.recordName ?? "\(id)"
+            return "\(name):code=\(code)"
+          }
+          .joined(separator: ",")
+        return "iCloud 同步失败：code=2 partial \(details)"
+      }
       switch ckError.code {
       case .notAuthenticated:
         return "请先在系统设置中登录 iCloud"
