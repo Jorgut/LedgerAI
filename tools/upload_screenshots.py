@@ -22,12 +22,12 @@ LOC_ID = os.environ["ASC_LOC_ID"]
 
 # 展示顺序：首页 → 拍照识别 → 报表 → 预算 → 账单 → 设置
 SCREENSHOTS = [
-    ("store/screenshots_raw/01_home.png", "01_home.png"),
-    ("store/screenshots_raw/07_add_receipt.png", "02_receipt.png"),
-    ("store/screenshots_raw/03_reports_donut.png", "03_reports.png"),
-    ("store/screenshots_raw/04_budget.png", "04_budget.png"),
-    ("store/screenshots_raw/02_transactions.png", "05_transactions.png"),
-    ("store/screenshots_raw/05_settings.png", "06_settings.png"),
+    ("/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/screenshots/raw/01_home.png", "01_home.png"),
+    ("/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/screenshots/raw/07_add_receipt.png", "02_receipt.png"),
+    ("/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/screenshots/raw/03_reports_donut.png", "03_reports.png"),
+    ("/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/screenshots/raw/04_budget.png", "04_budget.png"),
+    ("/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/screenshots/raw/02_transactions.png", "05_transactions.png"),
+    ("/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/screenshots/raw/05_settings.png", "06_settings.png"),
 ]
 
 DISPLAY_TYPES = ["APP_IPHONE_69", "APP_IPHONE_67"]

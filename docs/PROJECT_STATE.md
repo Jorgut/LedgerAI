@@ -85,7 +85,7 @@
   - 记账页：语音聆听呼吸圆环、OCR 扫描线；引导页图标光晕与页面入场；
   - 全部动效尊重系统「减少动态效果」，不使用无限循环（进行中状态除外），不影响 widget 测试 pumpAndSettle。
 - 多语言：用户决定**英文放进 1.1**（与 IAP/图标同版）；沿用 `gen-l10n` + ARB 方案。
-- 验证：`dart analyze lib` 无问题；模拟器截图确认新图标/启动图/首页科技卡片（`store/screenshots_raw/00_launch_tech.png`、`01_home_tech.png`）。
+- 验证：`dart analyze lib` 无问题；模拟器截图确认新图标/启动图/首页科技卡片（`/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/screenshots/raw/00_launch_tech.png`、`01_home_tech.png`）。
 - 已知遗留：200% 系统字号下首页仍有横向溢出（既有问题，组件测试 6/7 通过、1 例失败）；已列入 1.1 无障碍修复，
   不要因为动效改动被误判为新回归（改动前即失败）。
 
@@ -119,7 +119,7 @@
   构建包含：OCR 金额修复 + 新科技感图标/启动图 + 应用内动效。用户可在 TestFlight 更新测试同一张小票。
 - 商店提交已按用户要求撤回并改提 **build 3（1.0.0 (3)）**：
   - build 3 = 简化版图标（去掉同心圆/弧线/HUD 边框）+ OCR 金额修复 + 应用内动效；
-  - 6 张带中英文案排版的商店截图已替换上传（`store/screenshots_marketing/`）；
+  - 6 张带中英文案排版的商店截图已替换上传（`/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/screenshots/marketing/`）；
   - 2026-11-12T11:10Z 重新提交，状态 `WAITING_FOR_REVIEW`。
 - 15 秒演示视频已生成：`store/marketing/demo_15s.mp4`（1080×1920，含小票→识别→隐私→CTA 四段）。
 - 英文/买断 IAP 按用户决定推迟到 1.1，并与全球发布一起做。
@@ -211,7 +211,7 @@
 - 本月结余卡去掉 TechBackdrop/SheenSweep 弧线与扫光，改为干净渐变 + 柔和高光；
 - 下一批：设置页（约 97 条文案）与语言选择器；首页头部已改为 HENG。
 - 余额卡极简版截图：`store/marketing/brand/final/home_clean_card.png`。
-- App 图标已替换为甲骨文「衡」：`store/marketing/brand/final/icon/app_icon_oracle_1024.png`；构造图已归一到 8px 网格（456×720、x284、y160、安全区104、圆角224），首页头部同步使用小字标。App Store 1.0 仍用旧图标，新图标随 1.1。
+- App 图标已替换为甲骨文「衡」：`/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/marketing/brand/final/icon/app_icon_oracle_1024.png`；构造图已归一到 8px 网格（456×720、x284、y160、安全区104、圆角224），首页头部同步使用小字标。App Store 1.0 仍用旧图标，新图标随 1.1。
 - 1.0 仍在 App Store `WAITING_FOR_REVIEW`。
 
 
@@ -219,7 +219,7 @@
 
 - App 图标背景换成 **Aurora Halo**：深墨底 + 青绿极光带 + 微光/星点 + 甲骨文「衡」；
 - 1024 源文件与全部 iOS 尺寸已同步；
-- 预热封面：`store/marketing/brand/final/icon/xhs_preheat_cover.png`（1242×1660）；
+- 预热封面：`/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/marketing/brand/final/icon/xhs_preheat_cover.png`（1242×1660）；
 - 图标多尺寸预览：`app_icon_aurora_preview.png`。
 
 ## 四语言/语言选择器进度（2026-11-13）
@@ -246,7 +246,7 @@
 
 ## 营销展示与无障碍（2026-11-14）
 
-- 英文关键页面展示：`store/marketing/brand/final/showcase/pages_english.png`
+- 英文关键页面展示：`/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/marketing/brand/final/showcase/pages_english.png`
 - 免费/付费主题 + 明亮/暗色：`themes_light_dark.png`（A 免费，B/C 计划 Pro）
 - 无障碍审计板：`accessibility_audit.png`；报告：`docs/ACCESSIBILITY_AUDIT.md`
 - 修复：B/C 浅色 warning 对比度 3.81/4.03 → 5.70/6.02；暗色 SegmentedButton 选中文字对比度；交易行来源标签本地化；图表月份标签按语言。
@@ -259,9 +259,9 @@
 ## 展示资产 v1（2026-11-14）
 
 - 7 个关键页面英文截图（Home/Transactions/Reports/Add/Budget/Settings/Onboarding）：
-  - `store/marketing/brand/final/v1/key_screens_light.png`
-  - `store/marketing/brand/final/v1/key_screens_dark.png`
-- 主题展示：`store/marketing/brand/final/showcase/themes_light_dark.png`（A 免费，B/C 计划 Pro）
+  - `/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/marketing/brand/final/v1/key_screens_light.png`
+  - `/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/marketing/brand/final/v1/key_screens_dark.png`
+- 主题展示：`/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/marketing/brand/final/showcase/themes_light_dark.png`（A 免费，B/C 计划 Pro）
 - 无障碍：`showcase/accessibility_audit.png` + `docs/ACCESSIBILITY_AUDIT.md`
 - 主题研究：`docs/THEME_STRATEGY.md`（女性向 D/E/F；建议上架 3 套：D 免费 + E/F Pro；A/B/C 可作 Classic）
 - 旅行分账概念页：`lib/ui/screens/trip_demo_screen.dart` + `DEMO_SCREEN=trip`（1.2 才接数据/CloudKit）。
@@ -277,7 +277,7 @@
 - 移除 0.95 小数缩放；改为整数 type scale，避免 CJK 半像素模糊；
 - 标题 w700→w600，正文行高 1.55；
 - 显式 CJK fallback：PingFang SC/TC、Hiragino Sans GB、Noto Sans CJK；
-- 对比板：`store/marketing/brand/final/showcase/typography_before_after.png`；
+- 对比板：`/Users/aj/Documents/LedgerAI-archive/2026-11-15-pre-1.1/marketing/brand/final/showcase/typography_before_after.png`；
 - 说明：`docs/TYPOGRAPHY.md`；仍可评估思源黑体/Songti 标题。
 
 
