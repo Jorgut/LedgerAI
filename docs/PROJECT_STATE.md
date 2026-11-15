@@ -299,6 +299,7 @@
 - iCloud 同步真机验证通过：CloudKit Development/Production schema + Txn.recordName QUERYABLE 索引；build 22 调试版同步 9 条成功。
 - build 23：正式候选，不带 Split 预览；友善 iCloud 错误文案。
 - build 24：更新 iCloud 隐私说明（可选同步/开发者无服务器），商店物料截图完成；正式候选。
+- build 28：CloudKit Production merchant 字段部署完成，TestFlight 同步成功；恢复友善文案，最终候选。
 
 ## 下一步
 

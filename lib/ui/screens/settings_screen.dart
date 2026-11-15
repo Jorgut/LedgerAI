@@ -128,7 +128,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ? l10n.syncRestricted
                   : raw.contains('联网') || raw.contains('网络')
                       ? l10n.syncNetwork
-                      : l10n.syncFailed(raw);
+                      : l10n.syncFailed(l10n.icloudUnavailable);
       _showSnack(message);
     } catch (e) {
       if (!mounted) return;
