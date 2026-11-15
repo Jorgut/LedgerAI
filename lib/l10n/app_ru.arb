@@ -740,5 +740,13 @@
   "addRateLabel": "Ручной курс",
   "addRateHint": "1 {code} = ? CNY",
   "addConvertedLabel": "В юанях",
-  "addRateRequired": "Введите курс (CNY за 1 {code})"
+  "addRateRequired": "Введите курс (CNY за 1 {code})",
+  "viewCurrencyTitle": "Валюта просмотра",
+  "currencySettingsTitle": "Валюта и курсы",
+  "defaultCurrencyLabel": "Валюта по умолчанию",
+  "manualRatesLabel": "Ручные курсы",
+  "manualRatesSubtitle": "Сколько CNY стоит 1 единица валюты",
+  "rateNotSet": "Не задан",
+  "rateDialogTitle": "1 {code} = сколько CNY?",
+  "rateSaved": "Курс сохранён"
 }

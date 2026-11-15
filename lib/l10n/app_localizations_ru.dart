@@ -1641,4 +1641,30 @@ class AppLocalizationsRu extends AppLocalizations {
   String addRateRequired(Object code) {
     return 'Введите курс (CNY за 1 $code)';
   }
+
+  @override
+  String get viewCurrencyTitle => 'Валюта просмотра';
+
+  @override
+  String get currencySettingsTitle => 'Валюта и курсы';
+
+  @override
+  String get defaultCurrencyLabel => 'Валюта по умолчанию';
+
+  @override
+  String get manualRatesLabel => 'Ручные курсы';
+
+  @override
+  String get manualRatesSubtitle => 'Сколько CNY стоит 1 единица валюты';
+
+  @override
+  String get rateNotSet => 'Не задан';
+
+  @override
+  String rateDialogTitle(Object code) {
+    return '1 $code = сколько CNY?';
+  }
+
+  @override
+  String get rateSaved => 'Курс сохранён';
 }

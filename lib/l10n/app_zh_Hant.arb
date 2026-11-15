@@ -740,5 +740,13 @@
   "addRateLabel": "手動匯率",
   "addRateHint": "1 {code} = ? CNY",
   "addConvertedLabel": "折算人民幣",
-  "addRateRequired": "請輸入匯率（1 {code} 等於多少人民幣）"
+  "addRateRequired": "請輸入匯率（1 {code} 等於多少人民幣）",
+  "viewCurrencyTitle": "查看幣別",
+  "currencySettingsTitle": "幣別與匯率",
+  "defaultCurrencyLabel": "預設幣別",
+  "manualRatesLabel": "手動匯率",
+  "manualRatesSubtitle": "設定 1 單位外幣等於多少人民幣",
+  "rateNotSet": "未設定",
+  "rateDialogTitle": "1 {code} 等於多少 CNY？",
+  "rateSaved": "匯率已儲存"
 }

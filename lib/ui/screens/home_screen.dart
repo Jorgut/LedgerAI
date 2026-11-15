@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_state.dart';
 import '../../core/format.dart';
+import '../../core/currency.dart';
+import '../../core/money_display.dart';
 import '../../core/models.dart';
 import '../../core/stats.dart';
 import '../motion/motion.dart';
@@ -31,6 +33,40 @@ class HomeScreen extends StatelessWidget {
   /// Whether the Split entry is a demo preview rather than real data.
   final bool splitPreview;
 
+  Future<void> _pickViewCurrency(BuildContext context) async {
+    final app = AppScope.read(context);
+    final l10n = AppLocalizations.of(context);
+    final picked = await showModalBottomSheet<AppCurrency>(
+      context: context,
+      showDragHandle: true,
+      builder: (context) => SafeArea(
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
+              child: Text(
+                l10n.viewCurrencyTitle,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            for (final currency in AppCurrency.values)
+              if (currency == AppCurrency.cny || MoneyDisplay.hasRate(currency))
+              ListTile(
+                leading: Icon(currency.icon),
+                title: Text(currency.displayName),
+                trailing: currency == app.viewCurrency
+                    ? const Icon(Icons.check_rounded)
+                    : null,
+                onTap: () => Navigator.pop(context, currency),
+              ),
+          ],
+        ),
+      ),
+    );
+    if (picked != null) app.setViewCurrency(picked);
+  }
+
   @override
   Widget build(BuildContext context) {
     final app = AppScope.of(context);
@@ -51,7 +87,14 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 120),
         children: [
-          FadeSlideIn(child: _BalanceCard(summary: summary, now: now)),
+          FadeSlideIn(
+            child: _BalanceCard(
+              summary: summary,
+              now: now,
+              viewCurrency: app.viewCurrency,
+              onPickCurrency: () => _pickViewCurrency(context),
+            ),
+          ),
           const SizedBox(height: 16),
           FadeSlideIn(
             delayFraction: 0.06,
@@ -271,10 +314,17 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _BalanceCard extends StatelessWidget {
-  const _BalanceCard({required this.summary, required this.now});
+  const _BalanceCard({
+    required this.summary,
+    required this.now,
+    required this.viewCurrency,
+    required this.onPickCurrency,
+  });
 
   final MonthSummary summary;
   final DateTime now;
+  final AppCurrency viewCurrency;
+  final VoidCallback onPickCurrency;
 
   @override
   Widget build(BuildContext context) {
@@ -324,19 +374,45 @@ class _BalanceCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
-                        Expanded(
-                          child: Text(
-                            l10n.balanceLabel,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: Colors.white.withValues(alpha: 0.94),
+                        Text(
+                          l10n.balanceLabel,
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: Colors.white.withValues(alpha: 0.94),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: onPickCurrency,
+                          borderRadius: BorderRadius.circular(999),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.22),
+                              borderRadius: BorderRadius.circular(999),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  viewCurrency.code,
+                                  style: theme.textTheme.labelSmall?.copyWith(
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                const SizedBox(width: 2),
+                                const Icon(Icons.expand_more_rounded,
+                                    size: 16, color: Colors.white),
+                              ],
                             ),
                           ),
                         ),
-                        const SizedBox(width: 8),
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 4),
@@ -345,7 +421,8 @@ class _BalanceCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(999),
                           ),
                           child: Text(
-                            formatMonthLabel(now.year, now.month, locale: Localizations.localeOf(context)),
+                            formatMonthLabel(now.year, now.month,
+                                locale: Localizations.localeOf(context)),
                             style: theme.textTheme.labelSmall?.copyWith(
                               color: Colors.white,
                               fontSize: 13,

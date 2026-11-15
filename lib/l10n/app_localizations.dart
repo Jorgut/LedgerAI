@@ -2857,6 +2857,54 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'请输入汇率（1 {code} 等于多少人民币）'**
   String addRateRequired(Object code);
+
+  /// No description provided for @viewCurrencyTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'查看币种'**
+  String get viewCurrencyTitle;
+
+  /// No description provided for @currencySettingsTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'币种与汇率'**
+  String get currencySettingsTitle;
+
+  /// No description provided for @defaultCurrencyLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'默认币种'**
+  String get defaultCurrencyLabel;
+
+  /// No description provided for @manualRatesLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'手动汇率'**
+  String get manualRatesLabel;
+
+  /// No description provided for @manualRatesSubtitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'设置 1 单位外币等于多少人民币'**
+  String get manualRatesSubtitle;
+
+  /// No description provided for @rateNotSet.
+  ///
+  /// In zh, this message translates to:
+  /// **'未设置'**
+  String get rateNotSet;
+
+  /// No description provided for @rateDialogTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'1 {code} 等于多少 CNY？'**
+  String rateDialogTitle(Object code);
+
+  /// No description provided for @rateSaved.
+  ///
+  /// In zh, this message translates to:
+  /// **'汇率已保存'**
+  String get rateSaved;
 }
 
 class _AppLocalizationsDelegate

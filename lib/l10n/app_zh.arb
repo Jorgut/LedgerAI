@@ -947,5 +947,13 @@
   "addRateLabel": "手动汇率",
   "addRateHint": "1 {code} = ? CNY",
   "addConvertedLabel": "折算人民币",
-  "addRateRequired": "请输入汇率（1 {code} 等于多少人民币）"
+  "addRateRequired": "请输入汇率（1 {code} 等于多少人民币）",
+  "viewCurrencyTitle": "查看币种",
+  "currencySettingsTitle": "币种与汇率",
+  "defaultCurrencyLabel": "默认币种",
+  "manualRatesLabel": "手动汇率",
+  "manualRatesSubtitle": "设置 1 单位外币等于多少人民币",
+  "rateNotSet": "未设置",
+  "rateDialogTitle": "1 {code} 等于多少 CNY？",
+  "rateSaved": "汇率已保存"
 }

@@ -76,6 +76,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   bool _justParsed = false;
   bool _typeTouchedByUser = false;
   bool _saving = false;
+  bool _rateInitialized = false;
   bool _ocrBusy = false;
 
   bool _listening = false;
@@ -156,6 +157,19 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       },
     );
     WidgetsBinding.instance.addPostFrameCallback((_) => _checkSpeech());
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_rateInitialized) return;
+    _rateInitialized = true;
+    if (_currency != AppCurrency.cny && _rateController.text.isEmpty) {
+      final rate = AppScope.read(context).prefs.manualRates[_currency.code];
+      if (rate != null && rate > 0) {
+        _rateController.text = _amountInputText(rate);
+      }
+    }
   }
 
   @override
@@ -903,7 +917,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     final rate = _parsedRate();
     if (amount == null || rate == null) return '$label ¥—';
     final base = (amount * rate * 100).roundToDouble() / 100;
-    return '$label ¥${formatMoney(base, withSymbol: false)}';
+    return '$label ${formatCurrency(base, AppCurrency.cny)}';
   }
 
   Future<void> _pickCurrency() async {
@@ -938,9 +952,14 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     if (picked == null || !mounted) return;
     setState(() {
       _currency = picked;
+      _rateError = null;
       if (picked == AppCurrency.cny) {
         _rateController.clear();
-        _rateError = null;
+      } else if (_rateController.text.isEmpty) {
+        final rate = AppScope.read(context).prefs.manualRates[picked.code];
+        if (rate != null && rate > 0) {
+          _rateController.text = _amountInputText(rate);
+        }
       }
     });
   }

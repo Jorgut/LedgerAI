@@ -8,12 +8,25 @@ import 'package:intl/intl.dart';
 enum AppCurrency {
   cny('CNY', '¥', '人民币'),
   usd('USD', r'$', '美元'),
+  sgd('SGD', r'S$', '新加坡元'),
+  hkd('HKD', r'HK$', '港币'),
+  jpy('JPY', '¥', '日元'),
   eur('EUR', '€', '欧元'),
+  gbp('GBP', '£', '英镑'),
+  krw('KRW', '₩', '韩元'),
+  thb('THB', '฿', '泰铢'),
+  myr('MYR', 'RM', '马币'),
+  aud('AUD', r'A$', '澳元'),
+  cad('CAD', r'C$', '加元'),
+  twd('TWD', r'NT$', '新台币'),
   kzt('KZT', '₸', '坚戈'),
   rub('RUB', '₽', '卢布'),
-  jpy('JPY', '¥', '日元'),
-  gbp('GBP', '£', '英镑'),
-  hkd('HKD', r'HK$', '港币');
+  aed('AED', 'د.إ', '迪拉姆'),
+  idr('IDR', 'Rp', '印尼盾'),
+  php('PHP', '₱', '比索'),
+  vnd('VND', '₫', '越南盾'),
+  nzd('NZD', r'NZ$', '新西兰元'),
+  chf('CHF', 'CHF', '瑞士法郎');
 
   const AppCurrency(this.code, this.symbol, this.label);
 
@@ -59,13 +72,10 @@ extension AppCurrencyDisplay on AppCurrency {
   String get displayName => '$code · $label';
 
   IconData get icon => switch (this) {
-        AppCurrency.cny => Icons.currency_yen_rounded,
-        AppCurrency.usd => Icons.attach_money_rounded,
+        AppCurrency.cny || AppCurrency.jpy => Icons.currency_yen_rounded,
         AppCurrency.eur => Icons.euro_rounded,
-        AppCurrency.kzt => Icons.payments_rounded,
-        AppCurrency.rub => Icons.currency_ruble_rounded,
-        AppCurrency.jpy => Icons.currency_yen_rounded,
         AppCurrency.gbp => Icons.currency_pound_rounded,
-        AppCurrency.hkd => Icons.attach_money_rounded,
+        AppCurrency.rub => Icons.currency_ruble_rounded,
+        _ => Icons.payments_rounded,
       };
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'currency.dart';
+
 /// App 语言。默认跟随系统；当前 i18n 迁移未完成时由设置页显式选择。
 enum AppLanguage {
   system('跟随系统', 'System'),
@@ -54,6 +56,8 @@ class AppSettings {
     this.lastSyncAt,
     this.colorTheme = AppColorTheme.fresh,
     this.language = AppLanguage.system,
+    this.defaultCurrency = AppCurrency.cny,
+    this.manualRates = const {},
   });
 
   /// 是否已完成首次引导。
@@ -96,6 +100,13 @@ class AppSettings {
   /// App 语言；默认跟随系统。
   final AppLanguage language;
 
+  /// 默认显示币种（账本内部仍以 CNY 存储）。
+  final AppCurrency defaultCurrency;
+
+  /// 手动汇率：币种代码 → 1 单位该币种可兑换的 CNY。
+  /// CNY 固定为 1，不在此表中。
+  final Map<String, double> manualRates;
+
   static const AppSettings defaults = AppSettings();
 
   AppSettings copyWith({
@@ -114,6 +125,8 @@ class AppSettings {
     bool clearLastSyncAt = false,
     AppColorTheme? colorTheme,
     AppLanguage? language,
+    AppCurrency? defaultCurrency,
+    Map<String, double>? manualRates,
   }) {
     return AppSettings(
       onboardingDone: onboardingDone ?? this.onboardingDone,
@@ -130,6 +143,8 @@ class AppSettings {
       lastSyncAt: clearLastSyncAt ? null : (lastSyncAt ?? this.lastSyncAt),
       colorTheme: colorTheme ?? this.colorTheme,
       language: language ?? this.language,
+      defaultCurrency: defaultCurrency ?? this.defaultCurrency,
+      manualRates: manualRates ?? this.manualRates,
     );
   }
 
@@ -147,6 +162,8 @@ class AppSettings {
         'lastSyncAt': lastSyncAt?.toIso8601String(),
         'colorTheme': colorTheme.name,
         'language': language.name,
+        'defaultCurrency': defaultCurrency.code,
+        'manualRates': manualRates,
       };
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
@@ -181,6 +198,11 @@ class AppSettings {
         (lang) => lang.name == json['language'],
         orElse: () => AppLanguage.system,
       ),
+      defaultCurrency: AppCurrency.parse(json['defaultCurrency'] as String?),
+      manualRates: (json['manualRates'] as Map?)?.map(
+            (key, value) => MapEntry('$key', (value as num).toDouble()),
+          ) ??
+          const {},
     );
   }
 }

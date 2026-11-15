@@ -1637,4 +1637,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String addRateRequired(Object code) {
     return 'Enter the rate (CNY per 1 $code)';
   }
+
+  @override
+  String get viewCurrencyTitle => 'View currency';
+
+  @override
+  String get currencySettingsTitle => 'Currency & rates';
+
+  @override
+  String get defaultCurrencyLabel => 'Default currency';
+
+  @override
+  String get manualRatesLabel => 'Manual rates';
+
+  @override
+  String get manualRatesSubtitle =>
+      'How many CNY one unit of each currency is worth';
+
+  @override
+  String get rateNotSet => 'Not set';
+
+  @override
+  String rateDialogTitle(Object code) {
+    return '1 $code = how many CNY?';
+  }
+
+  @override
+  String get rateSaved => 'Rate saved';
 }

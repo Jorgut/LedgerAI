@@ -1573,6 +1573,32 @@ class AppLocalizationsZh extends AppLocalizations {
   String addRateRequired(Object code) {
     return '请输入汇率（1 $code 等于多少人民币）';
   }
+
+  @override
+  String get viewCurrencyTitle => '查看币种';
+
+  @override
+  String get currencySettingsTitle => '币种与汇率';
+
+  @override
+  String get defaultCurrencyLabel => '默认币种';
+
+  @override
+  String get manualRatesLabel => '手动汇率';
+
+  @override
+  String get manualRatesSubtitle => '设置 1 单位外币等于多少人民币';
+
+  @override
+  String get rateNotSet => '未设置';
+
+  @override
+  String rateDialogTitle(Object code) {
+    return '1 $code 等于多少 CNY？';
+  }
+
+  @override
+  String get rateSaved => '汇率已保存';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3144,4 +3170,30 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String addRateRequired(Object code) {
     return '請輸入匯率（1 $code 等於多少人民幣）';
   }
+
+  @override
+  String get viewCurrencyTitle => '查看幣別';
+
+  @override
+  String get currencySettingsTitle => '幣別與匯率';
+
+  @override
+  String get defaultCurrencyLabel => '預設幣別';
+
+  @override
+  String get manualRatesLabel => '手動匯率';
+
+  @override
+  String get manualRatesSubtitle => '設定 1 單位外幣等於多少人民幣';
+
+  @override
+  String get rateNotSet => '未設定';
+
+  @override
+  String rateDialogTitle(Object code) {
+    return '1 $code 等於多少 CNY？';
+  }
+
+  @override
+  String get rateSaved => '匯率已儲存';
 }

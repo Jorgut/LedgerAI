@@ -1,6 +1,6 @@
 /// Public app identity used by About and feedback reports.
 const String kAppVersion = '1.1.0';
-const String kBuildNumber = '31';
+const String kBuildNumber = '32';
 
 /// Official HENG contact aliases.
 const String kFeedbackEmail = 'feedback@altn.vision';

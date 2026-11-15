@@ -1,55 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'money_display.dart';
 
-/// 金额格式：¥1,234.56 / -¥42.00（始终两位小数，千分位；负号在 ¥ 前）。
+/// 金额格式：按当前显示币种展示，始终两位小数、千分位。
 String formatMoney(double amount,
     {bool withSymbol = true, bool signed = false}) {
-  final negative = amount < 0;
-  final abs = amount.abs();
-  final parts = abs.toStringAsFixed(2).split('.');
-  final integer = parts[0];
-  final buffer = StringBuffer();
-  for (var i = 0; i < integer.length; i++) {
-    if (i > 0 && (integer.length - i) % 3 == 0) buffer.write(',');
-    buffer.write(integer[i]);
-  }
-  final sign = negative ? '-' : (signed && amount > 0 ? '+' : '');
-  final symbol = withSymbol ? '¥' : '';
-  final locale = (Intl.defaultLocale ?? 'zh').toLowerCase();
-  if (locale.startsWith('ru')) {
-    final grouped = parts[0].replaceAll(',', '\u00A0');
-    return '$sign$symbol$grouped,${parts[1]}';
-  }
-  return '$sign$symbol$buffer.${parts[1]}';
+  return MoneyDisplay.format(amount, withSymbol: withSymbol, signed: signed);
 }
 
 /// 简洁金额（用于图表坐标轴）：1.2万 / 850。
 String formatCompactMoney(double amount) {
-  final abs = amount.abs();
-  final sign = amount < 0 ? '-' : '';
-  final locale = (Intl.defaultLocale ?? 'zh').toLowerCase();
-  final useK = locale.startsWith('en') || locale.startsWith('ru');
-  if (abs >= 10000) {
-    if (useK) {
-      final value = abs / 1000;
-      final text =
-          value >= 10 ? value.toStringAsFixed(0) : value.toStringAsFixed(1);
-      return '$sign${text.replaceAll(RegExp(r'\.0$'), '')}K';
-    }
-    final value = abs / 10000;
-    final text =
-        value >= 10 ? value.toStringAsFixed(0) : value.toStringAsFixed(1);
-    return '$sign${text.replaceAll(RegExp(r'\.0$'), '')}万';
-  }
-  if (abs >= 1000) {
-    if (useK) {
-      final text = (abs / 1000).toStringAsFixed(1);
-      return '$sign${text.replaceAll(RegExp(r'\.0$'), '')}K';
-    }
-    final text = (abs / 1000).toStringAsFixed(1);
-    return '$sign${text.replaceAll(RegExp(r'\.0$'), '')}千';
-  }
-  return '$sign${abs.toStringAsFixed(0)}';
+  return MoneyDisplay.compact(amount);
 }
 
 const _enMonths = [
@@ -192,3 +152,9 @@ const Color kBrandDark = Color(0xFF063A2C);
 
 /// 浅色背景上的正文/链接用深一档的绿，保证对比度（#10B981 仅用于填充与强调）。
 const Color kBrandText = Color(0xFF0B5B47);
+
+/// Plain number without a currency symbol (rates, inputs).
+String formatNumber(double value) {
+  if (value == value.roundToDouble()) return value.toStringAsFixed(0);
+  return value.toStringAsFixed(4).replaceAll(RegExp(r'0+$'), '').replaceAll(RegExp(r'\.$'), '');
+}

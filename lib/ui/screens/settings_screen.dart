@@ -10,6 +10,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../core/app_info.dart';
 import '../../core/app_settings.dart';
 import '../../core/app_state.dart';
+import '../../core/currency.dart';
 import '../../core/bill_import.dart';
 import '../../core/models.dart';
 import '../../l10n/app_localizations.dart';
@@ -20,6 +21,7 @@ import '../widgets/common/app_snack.dart';
 import '../widgets/common/section_header.dart';
 import '../widgets/common/theme_label.dart';
 import 'budget_screen.dart';
+import 'currency_settings_screen.dart';
 import 'language_screen.dart';
 import 'theme_color_screen.dart';
 import 'feedback_screen.dart';
@@ -617,6 +619,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Card(
               child: Column(
                 children: [
+                  ListTile(
+                    leading: const Icon(Icons.currency_exchange_rounded),
+                    title: Text(l10n.currencySettingsTitle),
+                    subtitle: Text(prefs.defaultCurrency.displayName),
+                    trailing: const Icon(Icons.chevron_right_rounded),
+                    onTap: () => _openPage(const CurrencySettingsScreen()),
+                  ),
+                  const Divider(),
                   SwitchListTile(
                     secondary: const Icon(Icons.vibration_rounded),
                     title: Text(l10n.haptics),

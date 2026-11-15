@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger_ai/core/app_settings.dart';
+import 'package:ledger_ai/core/currency.dart';
 import 'package:ledger_ai/ui/screens/home_screen.dart';
 import 'package:ledger_ai/ui/theme.dart';
 import 'package:ledger_ai/ui/widgets/common/quick_action_tile.dart';
@@ -163,4 +164,30 @@ void main() {
       expectMinTapTarget(tester, tiles.at(i), label: '快速记账入口 $i');
     }
   });
+
+  testWidgets('默认币种切换后首页按 SGD 显示', (tester) async {
+    usePhoneSurface(tester);
+    await tester.runAsync(() async {
+      await harness.setPrefs(const AppSettings(
+        onboardingDone: true,
+        defaultCurrency: AppCurrency.sgd,
+        manualRates: {'SGD': 5.3},
+      ));
+      await harness.seed([
+        testTxn(
+          id: 'sgd-income',
+          amount: 530,
+          categoryId: 'salary',
+          isIncome: true,
+          date: DateTime.now(),
+        ),
+      ]);
+    });
+    harness.state.setViewCurrency(AppCurrency.sgd);
+    await pumpScoped(tester, harness.state, const HomeScreen());
+
+    expect(find.text('SGD'), findsOneWidget);
+    expect(find.textContaining('S\$100.00'), findsWidgets);
+  });
+
 }

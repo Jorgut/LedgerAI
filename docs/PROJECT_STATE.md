@@ -302,6 +302,7 @@
 - build 28：CloudKit Production merchant 字段部署完成，TestFlight 同步成功；恢复友善文案，最终候选。
 - build 29（TestFlight 内测）：三语语音输入（中/英/俄）+ Split 预览入口；正式 App Store 版仍不带 Split。
 - build 31：1.1 增加手动汇率多币种（USD/EUR/KZT/RUB/JPY/GBP/HKD 折算 CNY），Split 入口带 Preview 标注；待补 CloudKit 三个币种字段。
+- build 32（TestFlight）：默认币种 + 手动汇率表 + 首页币种切换 + 报表/预算跟随；热门币种排序（21 种）。
 
 ## 下一步
 

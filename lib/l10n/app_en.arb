@@ -740,5 +740,13 @@
   "addRateLabel": "Manual rate",
   "addRateHint": "1 {code} = ? CNY",
   "addConvertedLabel": "Converted CNY",
-  "addRateRequired": "Enter the rate (CNY per 1 {code})"
+  "addRateRequired": "Enter the rate (CNY per 1 {code})",
+  "viewCurrencyTitle": "View currency",
+  "currencySettingsTitle": "Currency & rates",
+  "defaultCurrencyLabel": "Default currency",
+  "manualRatesLabel": "Manual rates",
+  "manualRatesSubtitle": "How many CNY one unit of each currency is worth",
+  "rateNotSet": "Not set",
+  "rateDialogTitle": "1 {code} = how many CNY?",
+  "rateSaved": "Rate saved"
 }

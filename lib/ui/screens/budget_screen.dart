@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../../core/app_state.dart';
 import '../../core/format.dart';
 import '../../core/models.dart';
+import '../../core/money_display.dart';
 import '../../l10n/app_localizations.dart';
 import '../theme.dart';
 import '../widgets/charts/budget_progress_bar.dart';
@@ -41,12 +42,14 @@ class _BudgetScreenState extends State<BudgetScreen> {
     final app = AppScope.read(context);
     final l10n = AppLocalizations.of(context);
     final current = app.prefs.monthlyBudget;
+    final currentDisplay =
+        current == null ? null : MoneyDisplay.fromCny(current);
     final result = await _showAmountSheet(
       title: current == null
           ? l10n.budgetTotalDialogTitle
           : l10n.budgetTotalDialogTitleEdit,
       subtitle: l10n.budgetTotalDialogSubtitle,
-      current: current,
+      current: currentDisplay,
       allowClear: current != null,
     );
     if (result == null) return;
@@ -55,7 +58,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
       await app.updateSettingsWith(
         (settings) => result.clear
             ? settings.copyWith(clearMonthlyBudget: true)
-            : settings.copyWith(monthlyBudget: result.value),
+            : settings.copyWith(monthlyBudget: MoneyDisplay.toCny(result.value!)),
       );
       if (!mounted) return;
       _haptic();
@@ -69,10 +72,12 @@ class _BudgetScreenState extends State<BudgetScreen> {
     final app = AppScope.read(context);
     final l10n = AppLocalizations.of(context);
     final current = app.prefs.categoryBudgets[category.id];
+    final currentDisplay =
+        current == null ? null : MoneyDisplay.fromCny(current);
     final result = await _showAmountSheet(
       title: l10n.budgetCategoryDialogTitle(localizedCategoryName(context, category)),
       subtitle: l10n.budgetCategoryDialogSubtitle,
-      current: current,
+      current: currentDisplay,
       allowClear: current != null,
     );
     if (result == null) return;
@@ -83,7 +88,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
         if (result.clear) {
           budgets.remove(category.id);
         } else {
-          budgets[category.id] = result.value!;
+          budgets[category.id] = MoneyDisplay.toCny(result.value!);
         }
         return settings.copyWith(categoryBudgets: budgets);
       });

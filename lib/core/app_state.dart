@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 import 'app_settings.dart';
+import 'currency.dart';
+import 'money_display.dart';
 import 'export.dart';
 import 'insights.dart';
 import 'models.dart';
@@ -19,6 +21,8 @@ class AppState extends ChangeNotifier {
     insights = InsightsService(repo, stats);
     repo.addListener(_handleChange);
     settings.addListener(_handleChange);
+    _viewCurrency = prefs.defaultCurrency;
+    _syncMoneyDisplay();
   }
 
   static Future<AppState> create({String? subDirectory}) async {
@@ -37,6 +41,22 @@ class AppState extends ChangeNotifier {
   final ExportService export = const ExportService();
 
   AppSettings get prefs => settings.value;
+
+  AppCurrency _viewCurrency = AppCurrency.cny;
+
+  /// Currency currently used for display; quick-switchable from home.
+  AppCurrency get viewCurrency => _viewCurrency;
+
+  void setViewCurrency(AppCurrency currency) {
+    if (_viewCurrency == currency) return;
+    _viewCurrency = currency;
+    _syncMoneyDisplay();
+    notifyListeners();
+  }
+
+  void _syncMoneyDisplay() {
+    MoneyDisplay.configure(_viewCurrency, prefs.manualRates);
+  }
 
   /// 是否为商店截图模式（`--dart-define=DEMO=true`）。
   static bool get isDemo => const bool.fromEnvironment('DEMO', defaultValue: false);
@@ -74,7 +94,10 @@ class AppState extends ChangeNotifier {
   /// 清空全部账本数据（设置保留）。
   Future<void> clearTransactions() => repo.clear();
 
-  void _handleChange() => notifyListeners();
+  void _handleChange() {
+    _syncMoneyDisplay();
+    notifyListeners();
+  }
 
   @override
   void dispose() {
