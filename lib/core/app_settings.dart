@@ -57,7 +57,7 @@ class AppSettings {
     this.colorTheme = AppColorTheme.fresh,
     this.language = AppLanguage.system,
     this.defaultCurrency = AppCurrency.cny,
-    this.manualRates = const {},
+    this.manualRates = defaultManualRates,
   });
 
   /// 是否已完成首次引导。
@@ -199,10 +199,13 @@ class AppSettings {
         orElse: () => AppLanguage.system,
       ),
       defaultCurrency: AppCurrency.parse(json['defaultCurrency'] as String?),
-      manualRates: (json['manualRates'] as Map?)?.map(
-            (key, value) => MapEntry('$key', (value as num).toDouble()),
-          ) ??
-          const {},
+      manualRates: () {
+        final raw = json['manualRates'] as Map?;
+        if (raw == null || raw.isEmpty) return defaultManualRates;
+        return raw.map(
+          (key, value) => MapEntry('$key', (value as num).toDouble()),
+        );
+      }(),
     );
   }
 }

@@ -1664,4 +1664,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rateSaved => 'Rate saved';
+
+  @override
+  String get searchCurrencyHint => 'Search currency code or name';
+
+  @override
+  String get ratesReset => 'Reset rates';
+
+  @override
+  String get ratesResetDone => 'Reference rates restored';
+
+  @override
+  String get ratesReferenceNote =>
+      'These are reference rates, not live rates. Edit them anytime.';
 }

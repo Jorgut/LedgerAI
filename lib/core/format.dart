@@ -156,5 +156,9 @@ const Color kBrandText = Color(0xFF0B5B47);
 /// Plain number without a currency symbol (rates, inputs).
 String formatNumber(double value) {
   if (value == value.roundToDouble()) return value.toStringAsFixed(0);
-  return value.toStringAsFixed(4).replaceAll(RegExp(r'0+$'), '').replaceAll(RegExp(r'\.$'), '');
+  final decimals = value.abs() < 0.01 ? 6 : 4;
+  return value
+      .toStringAsFixed(decimals)
+      .replaceAll(RegExp(r'0+$'), '')
+      .replaceAll(RegExp(r'\.$'), '');
 }

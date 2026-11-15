@@ -748,5 +748,9 @@
   "manualRatesSubtitle": "設定 1 單位外幣等於多少人民幣",
   "rateNotSet": "未設定",
   "rateDialogTitle": "1 {code} 等於多少 CNY？",
-  "rateSaved": "匯率已儲存"
+  "rateSaved": "匯率已儲存",
+  "searchCurrencyHint": "搜尋幣別代碼或名稱",
+  "ratesReset": "恢復參考匯率",
+  "ratesResetDone": "已恢復參考匯率",
+  "ratesReferenceNote": "以下為參考匯率，不是即時匯率；可隨時修改。"
 }

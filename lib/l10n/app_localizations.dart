@@ -2905,6 +2905,30 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'汇率已保存'**
   String get rateSaved;
+
+  /// No description provided for @searchCurrencyHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'搜索币种代码或名称'**
+  String get searchCurrencyHint;
+
+  /// No description provided for @ratesReset.
+  ///
+  /// In zh, this message translates to:
+  /// **'恢复参考汇率'**
+  String get ratesReset;
+
+  /// No description provided for @ratesResetDone.
+  ///
+  /// In zh, this message translates to:
+  /// **'已恢复参考汇率'**
+  String get ratesResetDone;
+
+  /// No description provided for @ratesReferenceNote.
+  ///
+  /// In zh, this message translates to:
+  /// **'以下为参考汇率，不是实时汇率；可随时修改。'**
+  String get ratesReferenceNote;
 }
 
 class _AppLocalizationsDelegate

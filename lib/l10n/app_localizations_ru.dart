@@ -1667,4 +1667,17 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get rateSaved => 'Курс сохранён';
+
+  @override
+  String get searchCurrencyHint => 'Поиск кода или названия валюты';
+
+  @override
+  String get ratesReset => 'Сбросить курсы';
+
+  @override
+  String get ratesResetDone => 'Курсы восстановлены';
+
+  @override
+  String get ratesReferenceNote =>
+      'Это справочные курсы, а не живые. Их можно изменить.';
 }

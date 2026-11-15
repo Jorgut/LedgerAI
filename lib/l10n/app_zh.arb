@@ -955,5 +955,9 @@
   "manualRatesSubtitle": "设置 1 单位外币等于多少人民币",
   "rateNotSet": "未设置",
   "rateDialogTitle": "1 {code} 等于多少 CNY？",
-  "rateSaved": "汇率已保存"
+  "rateSaved": "汇率已保存",
+  "searchCurrencyHint": "搜索币种代码或名称",
+  "ratesReset": "恢复参考汇率",
+  "ratesResetDone": "已恢复参考汇率",
+  "ratesReferenceNote": "以下为参考汇率，不是实时汇率；可随时修改。"
 }

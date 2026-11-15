@@ -1599,6 +1599,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get rateSaved => '汇率已保存';
+
+  @override
+  String get searchCurrencyHint => '搜索币种代码或名称';
+
+  @override
+  String get ratesReset => '恢复参考汇率';
+
+  @override
+  String get ratesResetDone => '已恢复参考汇率';
+
+  @override
+  String get ratesReferenceNote => '以下为参考汇率，不是实时汇率；可随时修改。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3196,4 +3208,16 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get rateSaved => '匯率已儲存';
+
+  @override
+  String get searchCurrencyHint => '搜尋幣別代碼或名稱';
+
+  @override
+  String get ratesReset => '恢復參考匯率';
+
+  @override
+  String get ratesResetDone => '已恢復參考匯率';
+
+  @override
+  String get ratesReferenceNote => '以下為參考匯率，不是即時匯率；可隨時修改。';
 }

@@ -303,6 +303,8 @@
 - build 29（TestFlight 内测）：三语语音输入（中/英/俄）+ Split 预览入口；正式 App Store 版仍不带 Split。
 - build 31：1.1 增加手动汇率多币种（USD/EUR/KZT/RUB/JPY/GBP/HKD 折算 CNY），Split 入口带 Preview 标注；待补 CloudKit 三个币种字段。
 - build 32（TestFlight）：默认币种 + 手动汇率表 + 首页币种切换 + 报表/预算跟随；热门币种排序（21 种）。
+- build 34（TestFlight）：币种扩展至 84 个常用 ISO 币种，支持代码/名称搜索；手动汇率预置参考值并可重置；默认币种/首页切换。
+- build 35：1.1 最终候选（无 Split 预览），含汇率参考说明；TestFlight 34 保留分账预览。
 
 ## 下一步
 

@@ -748,5 +748,9 @@
   "manualRatesSubtitle": "Сколько CNY стоит 1 единица валюты",
   "rateNotSet": "Не задан",
   "rateDialogTitle": "1 {code} = сколько CNY?",
-  "rateSaved": "Курс сохранён"
+  "rateSaved": "Курс сохранён",
+  "searchCurrencyHint": "Поиск кода или названия валюты",
+  "ratesReset": "Сбросить курсы",
+  "ratesResetDone": "Курсы восстановлены",
+  "ratesReferenceNote": "Это справочные курсы, а не живые. Их можно изменить."
 }

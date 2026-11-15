@@ -8,8 +8,39 @@ import '../../l10n/app_localizations.dart';
 import '../widgets/common/app_snack.dart';
 
 /// Default display currency plus the manual CNY rates used by the ledger.
-class CurrencySettingsScreen extends StatelessWidget {
+class CurrencySettingsScreen extends StatefulWidget {
   const CurrencySettingsScreen({super.key});
+
+  @override
+  State<CurrencySettingsScreen> createState() => _CurrencySettingsScreenState();
+}
+
+class _CurrencySettingsScreenState extends State<CurrencySettingsScreen> {
+  final TextEditingController _search = TextEditingController();
+  String _query = '';
+
+  @override
+  void dispose() {
+    _search.dispose();
+    super.dispose();
+  }
+
+  bool _matches(AppCurrency c) {
+    final q = _query.trim().toLowerCase();
+    if (q.isEmpty) return true;
+    return c.code.toLowerCase().contains(q) ||
+        c.label.contains(q) ||
+        c.englishName.toLowerCase().contains(q);
+  }
+
+  Future<void> _resetRates(BuildContext context) async {
+    final app = AppScope.read(context);
+    final l10n = AppLocalizations.of(context);
+    await app.updateSettingsWith(
+      (settings) => settings.copyWith(manualRates: defaultManualRates),
+    );
+    if (context.mounted) AppSnack.success(context, l10n.ratesResetDone);
+  }
 
   Future<void> _setDefault(BuildContext context, AppCurrency currency) async {
     final app = AppScope.read(context);
@@ -83,6 +114,16 @@ class CurrencySettingsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
+          TextField(
+            controller: _search,
+            decoration: InputDecoration(
+              hintText: l10n.searchCurrencyHint,
+              prefixIcon: const Icon(Icons.search_rounded),
+              isDense: true,
+            ),
+            onChanged: (value) => setState(() => _query = value),
+          ),
+          const SizedBox(height: 16),
           Text(
             l10n.defaultCurrencyLabel,
             style: theme.textTheme.titleSmall?.copyWith(
@@ -93,7 +134,7 @@ class CurrencySettingsScreen extends StatelessWidget {
           Card(
             child: Column(
               children: [
-                for (final currency in AppCurrency.values) ...[
+                for (final currency in AppCurrency.values.where(_matches)) ...[
                   ListTile(
                     leading: Icon(currency.icon),
                     title: Text(currency.displayName),
@@ -109,11 +150,21 @@ class CurrencySettingsScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          Text(
-            l10n.manualRatesLabel,
-            style: theme.textTheme.titleSmall?.copyWith(
-              color: theme.colorScheme.primary,
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  l10n.manualRatesLabel,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () => _resetRates(context),
+                child: Text(l10n.ratesReset),
+              ),
+            ],
           ),
           const SizedBox(height: 2),
           Text(
@@ -122,11 +173,18 @@ class CurrencySettingsScreen extends StatelessWidget {
               color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
+          const SizedBox(height: 2),
+          Text(
+            l10n.ratesReferenceNote,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
           const SizedBox(height: 8),
           Card(
             child: Column(
               children: [
-                for (final currency in AppCurrency.values)
+                for (final currency in AppCurrency.values.where(_matches))
                   if (currency != AppCurrency.cny) ...[
                     ListTile(
                       leading: Icon(currency.icon),

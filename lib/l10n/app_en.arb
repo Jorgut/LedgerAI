@@ -748,5 +748,9 @@
   "manualRatesSubtitle": "How many CNY one unit of each currency is worth",
   "rateNotSet": "Not set",
   "rateDialogTitle": "1 {code} = how many CNY?",
-  "rateSaved": "Rate saved"
+  "rateSaved": "Rate saved",
+  "searchCurrencyHint": "Search currency code or name",
+  "ratesReset": "Reset rates",
+  "ratesResetDone": "Reference rates restored",
+  "ratesReferenceNote": "These are reference rates, not live rates. Edit them anytime."
 }
