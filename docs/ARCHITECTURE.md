@@ -160,7 +160,7 @@ class AppTheme {
 - `OnboardingScreen({required VoidCallback onDone})`：首次启动 2-3 屏介绍（本地隐私、拍照/语音记账），完成后写入 `onboardingDone`。
 - 图表一律用 `CustomPainter` 或基础 Widget 自绘，**不要引入图表库**。第一版不做登录/注册、微信/支付宝绑定、假用户昵称与假连续天数。
 
-设计参考：仓库根目录 `AI记账APP原型.html`（8 屏原型，浏览器打开可看）。品牌绿 `#10B981`，卡片圆角 16，
+设计参考：`docs/archive/AI记账APP原型.html`（8 屏原型，浏览器打开可看）。品牌绿 `#10B981`，卡片圆角 16，
 浅色背景 `#F6F7F9`，深色背景 `#0F1419`；金额用 tabular 数字（`FontFeature.tabularFigures()`）。
 
 ## 7. 发布（release 负责）

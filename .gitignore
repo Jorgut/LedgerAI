@@ -49,3 +49,6 @@ app.*.map.json
 
 # 本地 ASC 凭据/ID
 .env.asc
+
+# 本地发布产物
+/dist/
