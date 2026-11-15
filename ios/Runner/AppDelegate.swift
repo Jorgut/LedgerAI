@@ -852,7 +852,7 @@ private final class LedgerAICloudKitHandler {
       case .serviceUnavailable, .zoneBusy:
         return "iCloud 繁忙，请稍后重试"
       default:
-        return "iCloud 同步失败：\(ckError.localizedDescription)"
+        return "iCloud 同步失败：code=\(ckError.code.rawValue) \(ckError.localizedDescription)"
       }
     }
     return "iCloud 同步失败：\(error.localizedDescription)"
