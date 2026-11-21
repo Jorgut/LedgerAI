@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
+import 'theme.dart';
 import 'package:flutter/services.dart';
 
 /// 冷启动后的品牌开场。
@@ -24,13 +25,6 @@ class _BrandIntroState extends State<BrandIntro>
   late AnimationController _controller;
   bool _started = false;
   bool _finished = false;
-
-  static const Color _deep = Color(0xFF063A2C);
-  static const Color _dark = Color(0xFF0B1512);
-  static const Color _cream = Color(0xFFF4F3EE);
-  static const Color _mint = Color(0xFFCDEEE1);
-  static const Color _muted = Color(0xFF96BEAF);
-  static const Color _credit = Color(0xFF8FA69B);
 
   @override
   void initState() {
@@ -78,10 +72,18 @@ class _BrandIntroState extends State<BrandIntro>
   @override
   Widget build(BuildContext context) {
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
+    final palette = AppTheme.paletteOf(context);
+    final deep = palette.primaryDark;
+    final dark = palette.background;
+    final cream = Colors.white;
+    final mint = Colors.white.withValues(alpha: 0.88);
+    final muted = Colors.white.withValues(alpha: 0.58);
+    final credit = Colors.white.withValues(alpha: 0.38);
+    final gradientStart = palette.gradient.colors.first;
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: Material(
-        color: _dark,
+        color: dark,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: _skip,
@@ -108,7 +110,7 @@ class _BrandIntroState extends State<BrandIntro>
                 label: AppLocalizations.of(context).introStarting,
                 container: true,
                 child: ColoredBox(
-                  color: _dark,
+                  color: dark,
                   child: LayoutBuilder(
                     builder: (context, constraints) {
                       final w = constraints.maxWidth;
@@ -122,12 +124,12 @@ class _BrandIntroState extends State<BrandIntro>
                       return Stack(
                         fit: StackFit.expand,
                         children: [
-                          const DecoratedBox(
+                          DecoratedBox(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
-                                colors: [_deep, _dark],
+                                colors: [gradientStart, deep],
                               ),
                             ),
                           ),
@@ -141,7 +143,7 @@ class _BrandIntroState extends State<BrandIntro>
                               decoration: BoxDecoration(
                                 gradient: RadialGradient(
                                   colors: [
-                                    _mint.withValues(alpha: 0.07),
+                                    mint.withValues(alpha: 0.07),
                                     Colors.transparent
                                   ],
                                 ),
@@ -210,7 +212,7 @@ class _BrandIntroState extends State<BrandIntro>
                                         fontSize: taglineSize,
                                         fontWeight: FontWeight.w500,
                                         letterSpacing: 0.2,
-                                        color: _mint,
+                                        color: mint,
                                         height: 1.25,
                                         decoration: TextDecoration.none),
                                   ),
@@ -227,7 +229,7 @@ class _BrandIntroState extends State<BrandIntro>
                                         fontSize: metaSize,
                                         fontWeight: FontWeight.w500,
                                         letterSpacing: 1.1,
-                                        color: _muted,
+                                        color: muted,
                                           height: 1.3,
                                           decoration: TextDecoration.none),
                                       ),
@@ -253,7 +255,7 @@ class _BrandIntroState extends State<BrandIntro>
                                       fontSize: footerSize,
                                       fontWeight: FontWeight.w500,
                                       letterSpacing: 1.8,
-                                      color: _cream,
+                                      color: cream,
                                       decoration: TextDecoration.none,
                                     ),
                                   ),
@@ -266,7 +268,7 @@ class _BrandIntroState extends State<BrandIntro>
                                       fontSize: footerSize,
                                       fontWeight: FontWeight.w400,
                                       letterSpacing: 1.5,
-                                      color: _credit,
+                                      color: credit,
                                       decoration: TextDecoration.none,
                                     ),
                                   ),

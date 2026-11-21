@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 
+import 'app_icon.dart';
 import 'app_settings.dart';
 import 'currency.dart';
 import 'money_display.dart';
@@ -23,6 +26,7 @@ class AppState extends ChangeNotifier {
     settings.addListener(_handleChange);
     _viewCurrency = prefs.defaultCurrency;
     _syncMoneyDisplay();
+    _syncAppIcon();
   }
 
   static Future<AppState> create({String? subDirectory}) async {
@@ -94,8 +98,17 @@ class AppState extends ChangeNotifier {
   /// 清空全部账本数据（设置保留）。
   Future<void> clearTransactions() => repo.clear();
 
+  AppColorTheme? _lastIconTheme;
+
+  void _syncAppIcon() {
+    if (_lastIconTheme == prefs.colorTheme) return;
+    _lastIconTheme = prefs.colorTheme;
+    unawaited(AppIconService.apply(prefs.colorTheme));
+  }
+
   void _handleChange() {
     _syncMoneyDisplay();
+    _syncAppIcon();
     notifyListeners();
   }
 

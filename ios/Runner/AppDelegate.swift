@@ -39,6 +39,33 @@ import Vision
     let registrar = registry.registrar(forPlugin: "LedgerAIInputChannels")
     let messenger = registrar?.messenger() ?? engineBridge.applicationRegistrar.messenger()
 
+    let iconChannel = FlutterMethodChannel(
+      name: "heng/app_icon",
+      binaryMessenger: messenger
+    )
+    iconChannel.setMethodCallHandler { call, result in
+      guard call.method == "setAppIcon" else {
+        result(FlutterMethodNotImplemented)
+        return
+      }
+      let args = call.arguments as? [String: Any]
+      let name = args?["name"] as? String
+      guard UIApplication.shared.supportsAlternateIcons else {
+        result(false)
+        return
+      }
+      UIApplication.shared.setAlternateIconName(name) { error in
+        DispatchQueue.main.async {
+          if let error = error {
+            NSLog("setAlternateIconName failed: \(error.localizedDescription)")
+            result(false)
+          } else {
+            result(true)
+          }
+        }
+      }
+    }
+
     let ocrChannel = FlutterMethodChannel(
       name: "com.archintera.ledgerai/ocr",
       binaryMessenger: messenger
