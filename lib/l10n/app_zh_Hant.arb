@@ -656,7 +656,7 @@
   },
   "introStarting": "HENG，正在啟動",
   "introTagline": "把帳本留在自己手機裡",
-  "introFooter": "本地優先 · 不登入 · 不聯網",
+  "introFooter": "本地優先 · 無需登入 · iCloud 可選",
   "sourceManual": "手動",
   "sourceOcr": "拍照辨識",
   "sourceVoice": "語音記帳",

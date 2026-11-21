@@ -1327,7 +1327,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get introTagline => 'A ledger that stays on your phone';
 
   @override
-  String get introFooter => 'LOCAL FIRST · NO LOGIN · NO NETWORK';
+  String get introFooter => 'LOCAL FIRST · NO LOGIN · ICLOUD OPTIONAL';
 
   @override
   String get sourceManual => 'Manual';

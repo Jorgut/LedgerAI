@@ -2351,7 +2351,7 @@ abstract class AppLocalizations {
   /// No description provided for @introFooter.
   ///
   /// In zh, this message translates to:
-  /// **'本地优先 · 不登录 · 不联网'**
+  /// **'本地优先 · 无需登录 · iCloud 可选'**
   String get introFooter;
 
   /// No description provided for @sourceManual.

@@ -1330,7 +1330,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get introTagline => 'Учёт, который остаётся в вашем телефоне';
 
   @override
-  String get introFooter => 'ЛОКАЛЬНО · БЕЗ ВХОДА · БЕЗ СЕТИ';
+  String get introFooter => 'ЛОКАЛЬНО · БЕЗ ВХОДА · ICLOUD ОПЦИОНАЛЬНО';
 
   @override
   String get sourceManual => 'Вручную';

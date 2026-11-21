@@ -1279,7 +1279,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get introTagline => '把账本留在自己手机里';
 
   @override
-  String get introFooter => '本地优先 · 不登录 · 不联网';
+  String get introFooter => '本地优先 · 无需登录 · iCloud 可选';
 
   @override
   String get sourceManual => '手动';
@@ -2888,7 +2888,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get introTagline => '把帳本留在自己手機裡';
 
   @override
-  String get introFooter => '本地優先 · 不登入 · 不聯網';
+  String get introFooter => '本地優先 · 無需登入 · iCloud 可選';
 
   @override
   String get sourceManual => '手動';

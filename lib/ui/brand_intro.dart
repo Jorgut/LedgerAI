@@ -114,7 +114,11 @@ class _BrandIntroState extends State<BrandIntro>
                       final w = constraints.maxWidth;
                       final h = constraints.maxHeight;
                       final s = w / 1320;
-                      final glyphH = 280 * s;
+                      final glyphH = (w * 0.30).clamp(105.0, 190.0);
+                      final wordmarkSize = (w * 0.115).clamp(40.0, 62.0);
+                      final taglineSize = (w * 0.047).clamp(15.0, 22.0);
+                      final metaSize = (w * 0.030).clamp(9.5, 13.0);
+                      final footerSize = (w * 0.027).clamp(9.0, 12.0);
                       return Stack(
                         fit: StackFit.expand,
                         children: [
@@ -145,7 +149,7 @@ class _BrandIntroState extends State<BrandIntro>
                             ),
                           ),
                           Positioned(
-                            top: h * 860 / 2868,
+                            top: h * 0.27,
                             left: 0,
                             right: 0,
                             height: glyphH,
@@ -166,7 +170,7 @@ class _BrandIntroState extends State<BrandIntro>
                             ),
                           ),
                           Positioned(
-                            top: h * 1270 / 2868 - (130 * s * 1.2) / 2,
+                            top: h * 0.46,
                             left: 0,
                             right: 0,
                             child: Opacity(
@@ -178,9 +182,9 @@ class _BrandIntroState extends State<BrandIntro>
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontFamily: 'Helvetica Neue',
-                                    fontSize: 130 * s,
+                                    fontSize: wordmarkSize,
                                     fontWeight: FontWeight.bold,
-                                    letterSpacing: 5 * s,
+                                    letterSpacing: wordmarkSize * 0.04,
                                     height: 1.0,
                                     color: Colors.white,
                                     decoration: TextDecoration.none,
@@ -190,7 +194,7 @@ class _BrandIntroState extends State<BrandIntro>
                             ),
                           ),
                           Positioned(
-                            top: h * 1410 / 2868,
+                            top: h * 0.545,
                             left: 0,
                             right: 0,
                             child: Opacity(
@@ -200,21 +204,34 @@ class _BrandIntroState extends State<BrandIntro>
                                   Text(
                                     AppLocalizations.of(context).introTagline,
                                     textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        fontSize: 28 * s,
+                                        fontSize: taglineSize,
+                                        fontWeight: FontWeight.w500,
+                                        letterSpacing: 0.2,
                                         color: _mint,
-                                        height: 1.3,
+                                        height: 1.25,
                                         decoration: TextDecoration.none),
                                   ),
-                                  SizedBox(height: 6 * s),
-                                  Text(
-                                    AppLocalizations.of(context).introFooter,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 18 * s,
+                                  SizedBox(height: 8 * s),
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                                      child: Text(
+                                        AppLocalizations.of(context).introFooter,
+                                        textAlign: TextAlign.center,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                        fontSize: metaSize,
+                                        fontWeight: FontWeight.w500,
+                                        letterSpacing: 1.1,
                                         color: _muted,
-                                        height: 1.3,
-                                        decoration: TextDecoration.none),
+                                          height: 1.3,
+                                          decoration: TextDecoration.none),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -233,9 +250,9 @@ class _BrandIntroState extends State<BrandIntro>
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontFamily: 'Helvetica Neue',
-                                      fontSize: 26 * s,
-                                      fontWeight: FontWeight.w400,
-                                      letterSpacing: 3 * s,
+                                      fontSize: footerSize,
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 1.8,
                                       color: _cream,
                                       decoration: TextDecoration.none,
                                     ),
@@ -246,9 +263,9 @@ class _BrandIntroState extends State<BrandIntro>
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontFamily: 'Helvetica Neue',
-                                      fontSize: 26 * s,
+                                      fontSize: footerSize,
                                       fontWeight: FontWeight.w400,
-                                      letterSpacing: 3 * s,
+                                      letterSpacing: 1.5,
                                       color: _credit,
                                       decoration: TextDecoration.none,
                                     ),
