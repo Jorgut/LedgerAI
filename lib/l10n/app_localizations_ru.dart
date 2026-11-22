@@ -1680,4 +1680,106 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get ratesReferenceNote =>
       'Это справочные курсы, а не живые. Их можно изменить.';
+
+  @override
+  String get splitGroupsTitle => 'Разделить счёт';
+
+  @override
+  String get splitNewGroup => 'Новый раздел';
+
+  @override
+  String get splitGroupName => 'Название группы';
+
+  @override
+  String get splitKind => 'Тип';
+
+  @override
+  String get splitKindMeal => 'Еда';
+
+  @override
+  String get splitKindTrip => 'Поездка';
+
+  @override
+  String get splitKindRent => 'Аренда';
+
+  @override
+  String get splitKindGift => 'Подарок';
+
+  @override
+  String get splitKindOther => 'Другое';
+
+  @override
+  String get splitCreate => 'Создать';
+
+  @override
+  String get splitParticipants => 'Участники';
+
+  @override
+  String get splitAddParticipant => 'Добавить участника';
+
+  @override
+  String get splitParticipantName => 'Имя';
+
+  @override
+  String get splitExpenses => 'Расходы';
+
+  @override
+  String get splitAddExpense => 'Добавить расход';
+
+  @override
+  String get splitNoGroups => 'Пока нет разделов';
+
+  @override
+  String get splitNoExpenses => 'Пока нет расходов';
+
+  @override
+  String get splitPaidBy => 'Кто заплатил';
+
+  @override
+  String get splitAmount => 'Сумма';
+
+  @override
+  String get splitNote => 'Заметка';
+
+  @override
+  String get splitBalances => 'Балансы';
+
+  @override
+  String get splitSettled => 'Всё сходится';
+
+  @override
+  String get splitOwes => 'Должен';
+
+  @override
+  String get splitOwed => 'Должен получить';
+
+  @override
+  String get splitSettleTransfers => 'Расчёты';
+
+  @override
+  String get splitDeleteGroup => 'Удалить группу';
+
+  @override
+  String get splitDeleteConfirm => 'Удалить группу и все расходы?';
+
+  @override
+  String get splitTotal => 'Итого';
+
+  @override
+  String get splitInvalidAmount => 'Введите корректную сумму';
+
+  @override
+  String get splitSelectParticipants => 'Выберите хотя бы одного участника';
+
+  @override
+  String get splitBaseCurrency => 'Базовая валюта';
+
+  @override
+  String get splitAdd => 'Добавить';
+
+  @override
+  String get splitDone => 'Готово';
+
+  @override
+  String get splitMe => 'Я';
 }

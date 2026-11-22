@@ -1611,6 +1611,108 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get ratesReferenceNote => '以下为参考汇率，不是实时汇率；可随时修改。';
+
+  @override
+  String get splitGroupsTitle => '分账';
+
+  @override
+  String get splitNewGroup => '新建分账';
+
+  @override
+  String get splitGroupName => '群组名称';
+
+  @override
+  String get splitKind => '类型';
+
+  @override
+  String get splitKindMeal => '聚餐';
+
+  @override
+  String get splitKindTrip => '旅行';
+
+  @override
+  String get splitKindRent => '房租';
+
+  @override
+  String get splitKindGift => '礼物';
+
+  @override
+  String get splitKindOther => '其他';
+
+  @override
+  String get splitCreate => '创建';
+
+  @override
+  String get splitParticipants => '参与者';
+
+  @override
+  String get splitAddParticipant => '添加参与者';
+
+  @override
+  String get splitParticipantName => '姓名';
+
+  @override
+  String get splitExpenses => '支出';
+
+  @override
+  String get splitAddExpense => '添加支出';
+
+  @override
+  String get splitNoGroups => '还没有分账';
+
+  @override
+  String get splitNoExpenses => '还没有支出';
+
+  @override
+  String get splitPaidBy => '付款人';
+
+  @override
+  String get splitAmount => '金额';
+
+  @override
+  String get splitNote => '备注';
+
+  @override
+  String get splitBalances => '余额';
+
+  @override
+  String get splitSettled => '已结清';
+
+  @override
+  String get splitOwes => '应付';
+
+  @override
+  String get splitOwed => '应收';
+
+  @override
+  String get splitSettleTransfers => '结算方式';
+
+  @override
+  String get splitDeleteGroup => '删除群组';
+
+  @override
+  String get splitDeleteConfirm => '确定删除这个群组和全部支出吗？';
+
+  @override
+  String get splitTotal => '合计';
+
+  @override
+  String get splitInvalidAmount => '请输入有效金额';
+
+  @override
+  String get splitSelectParticipants => '至少选择一位参与者';
+
+  @override
+  String get splitBaseCurrency => '基础币种';
+
+  @override
+  String get splitAdd => '添加';
+
+  @override
+  String get splitDone => '完成';
+
+  @override
+  String get splitMe => '我';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3220,4 +3322,106 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get ratesReferenceNote => '以下為參考匯率，不是即時匯率；可隨時修改。';
+
+  @override
+  String get splitGroupsTitle => '分帳';
+
+  @override
+  String get splitNewGroup => '新建分帳';
+
+  @override
+  String get splitGroupName => '群組名稱';
+
+  @override
+  String get splitKind => '類型';
+
+  @override
+  String get splitKindMeal => '聚餐';
+
+  @override
+  String get splitKindTrip => '旅行';
+
+  @override
+  String get splitKindRent => '房租';
+
+  @override
+  String get splitKindGift => '禮物';
+
+  @override
+  String get splitKindOther => '其他';
+
+  @override
+  String get splitCreate => '建立';
+
+  @override
+  String get splitParticipants => '參與者';
+
+  @override
+  String get splitAddParticipant => '新增參與者';
+
+  @override
+  String get splitParticipantName => '姓名';
+
+  @override
+  String get splitExpenses => '支出';
+
+  @override
+  String get splitAddExpense => '新增支出';
+
+  @override
+  String get splitNoGroups => '還沒有分帳';
+
+  @override
+  String get splitNoExpenses => '還沒有支出';
+
+  @override
+  String get splitPaidBy => '付款人';
+
+  @override
+  String get splitAmount => '金額';
+
+  @override
+  String get splitNote => '備註';
+
+  @override
+  String get splitBalances => '餘額';
+
+  @override
+  String get splitSettled => '已結清';
+
+  @override
+  String get splitOwes => '應付';
+
+  @override
+  String get splitOwed => '應收';
+
+  @override
+  String get splitSettleTransfers => '結算方式';
+
+  @override
+  String get splitDeleteGroup => '刪除群組';
+
+  @override
+  String get splitDeleteConfirm => '確定刪除這個群組和全部支出嗎？';
+
+  @override
+  String get splitTotal => '合計';
+
+  @override
+  String get splitInvalidAmount => '請輸入有效金額';
+
+  @override
+  String get splitSelectParticipants => '請至少選一位參與者';
+
+  @override
+  String get splitBaseCurrency => '基礎幣別';
+
+  @override
+  String get splitAdd => '新增';
+
+  @override
+  String get splitDone => '完成';
+
+  @override
+  String get splitMe => '我';
 }

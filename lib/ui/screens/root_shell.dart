@@ -7,7 +7,7 @@ import 'add_transaction_screen.dart';
 import 'home_screen.dart';
 import 'reports_screen.dart';
 import 'settings_screen.dart';
-import 'split_demo_screen.dart';
+import 'split_groups_screen.dart';
 import 'transactions_screen.dart';
 
 /// 主壳：首页 / 账单 / 报表 / 我的 四个 Tab + 中央「记一笔」FAB。
@@ -59,7 +59,7 @@ class _RootShellState extends State<RootShell> {
 
   Future<void> _openSplitPreview() async {
     await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(builder: (_) => const SplitDemoScreen()),
+      MaterialPageRoute<void>(builder: (_) => const SplitGroupsScreen()),
     );
   }
 

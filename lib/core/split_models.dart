@@ -301,3 +301,16 @@ class SplitSettlement {
   final AppCurrency currency;
   final int totalMinor;
 }
+
+/// Number of minor units in one major unit (100 for CNY/USD, 1 for JPY/KRW).
+int splitMinorFactor(AppCurrency currency) => switch (currency) {
+      AppCurrency.jpy || AppCurrency.krw || AppCurrency.vnd => 1,
+      _ => 100,
+    };
+
+/// Formats an integer minor-unit amount in [currency].
+String formatSplitMinor(int minor, AppCurrency currency,
+    {bool withSymbol = true}) {
+  final factor = splitMinorFactor(currency);
+  return formatCurrency(minor / factor, currency, withSymbol: withSymbol);
+}

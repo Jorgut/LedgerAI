@@ -2929,6 +2929,210 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'以下为参考汇率，不是实时汇率；可随时修改。'**
   String get ratesReferenceNote;
+
+  /// No description provided for @splitGroupsTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'分账'**
+  String get splitGroupsTitle;
+
+  /// No description provided for @splitNewGroup.
+  ///
+  /// In zh, this message translates to:
+  /// **'新建分账'**
+  String get splitNewGroup;
+
+  /// No description provided for @splitGroupName.
+  ///
+  /// In zh, this message translates to:
+  /// **'群组名称'**
+  String get splitGroupName;
+
+  /// No description provided for @splitKind.
+  ///
+  /// In zh, this message translates to:
+  /// **'类型'**
+  String get splitKind;
+
+  /// No description provided for @splitKindMeal.
+  ///
+  /// In zh, this message translates to:
+  /// **'聚餐'**
+  String get splitKindMeal;
+
+  /// No description provided for @splitKindTrip.
+  ///
+  /// In zh, this message translates to:
+  /// **'旅行'**
+  String get splitKindTrip;
+
+  /// No description provided for @splitKindRent.
+  ///
+  /// In zh, this message translates to:
+  /// **'房租'**
+  String get splitKindRent;
+
+  /// No description provided for @splitKindGift.
+  ///
+  /// In zh, this message translates to:
+  /// **'礼物'**
+  String get splitKindGift;
+
+  /// No description provided for @splitKindOther.
+  ///
+  /// In zh, this message translates to:
+  /// **'其他'**
+  String get splitKindOther;
+
+  /// No description provided for @splitCreate.
+  ///
+  /// In zh, this message translates to:
+  /// **'创建'**
+  String get splitCreate;
+
+  /// No description provided for @splitParticipants.
+  ///
+  /// In zh, this message translates to:
+  /// **'参与者'**
+  String get splitParticipants;
+
+  /// No description provided for @splitAddParticipant.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加参与者'**
+  String get splitAddParticipant;
+
+  /// No description provided for @splitParticipantName.
+  ///
+  /// In zh, this message translates to:
+  /// **'姓名'**
+  String get splitParticipantName;
+
+  /// No description provided for @splitExpenses.
+  ///
+  /// In zh, this message translates to:
+  /// **'支出'**
+  String get splitExpenses;
+
+  /// No description provided for @splitAddExpense.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加支出'**
+  String get splitAddExpense;
+
+  /// No description provided for @splitNoGroups.
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有分账'**
+  String get splitNoGroups;
+
+  /// No description provided for @splitNoExpenses.
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有支出'**
+  String get splitNoExpenses;
+
+  /// No description provided for @splitPaidBy.
+  ///
+  /// In zh, this message translates to:
+  /// **'付款人'**
+  String get splitPaidBy;
+
+  /// No description provided for @splitAmount.
+  ///
+  /// In zh, this message translates to:
+  /// **'金额'**
+  String get splitAmount;
+
+  /// No description provided for @splitNote.
+  ///
+  /// In zh, this message translates to:
+  /// **'备注'**
+  String get splitNote;
+
+  /// No description provided for @splitBalances.
+  ///
+  /// In zh, this message translates to:
+  /// **'余额'**
+  String get splitBalances;
+
+  /// No description provided for @splitSettled.
+  ///
+  /// In zh, this message translates to:
+  /// **'已结清'**
+  String get splitSettled;
+
+  /// No description provided for @splitOwes.
+  ///
+  /// In zh, this message translates to:
+  /// **'应付'**
+  String get splitOwes;
+
+  /// No description provided for @splitOwed.
+  ///
+  /// In zh, this message translates to:
+  /// **'应收'**
+  String get splitOwed;
+
+  /// No description provided for @splitSettleTransfers.
+  ///
+  /// In zh, this message translates to:
+  /// **'结算方式'**
+  String get splitSettleTransfers;
+
+  /// No description provided for @splitDeleteGroup.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除群组'**
+  String get splitDeleteGroup;
+
+  /// No description provided for @splitDeleteConfirm.
+  ///
+  /// In zh, this message translates to:
+  /// **'确定删除这个群组和全部支出吗？'**
+  String get splitDeleteConfirm;
+
+  /// No description provided for @splitTotal.
+  ///
+  /// In zh, this message translates to:
+  /// **'合计'**
+  String get splitTotal;
+
+  /// No description provided for @splitInvalidAmount.
+  ///
+  /// In zh, this message translates to:
+  /// **'请输入有效金额'**
+  String get splitInvalidAmount;
+
+  /// No description provided for @splitSelectParticipants.
+  ///
+  /// In zh, this message translates to:
+  /// **'至少选择一位参与者'**
+  String get splitSelectParticipants;
+
+  /// No description provided for @splitBaseCurrency.
+  ///
+  /// In zh, this message translates to:
+  /// **'基础币种'**
+  String get splitBaseCurrency;
+
+  /// No description provided for @splitAdd.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加'**
+  String get splitAdd;
+
+  /// No description provided for @splitDone.
+  ///
+  /// In zh, this message translates to:
+  /// **'完成'**
+  String get splitDone;
+
+  /// No description provided for @splitMe.
+  ///
+  /// In zh, this message translates to:
+  /// **'我'**
+  String get splitMe;
 }
 
 class _AppLocalizationsDelegate

@@ -1677,4 +1677,106 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get ratesReferenceNote =>
       'These are reference rates, not live rates. Edit them anytime.';
+
+  @override
+  String get splitGroupsTitle => 'Split';
+
+  @override
+  String get splitNewGroup => 'New split';
+
+  @override
+  String get splitGroupName => 'Group name';
+
+  @override
+  String get splitKind => 'Kind';
+
+  @override
+  String get splitKindMeal => 'Meal';
+
+  @override
+  String get splitKindTrip => 'Trip';
+
+  @override
+  String get splitKindRent => 'Rent';
+
+  @override
+  String get splitKindGift => 'Gift';
+
+  @override
+  String get splitKindOther => 'Other';
+
+  @override
+  String get splitCreate => 'Create';
+
+  @override
+  String get splitParticipants => 'Participants';
+
+  @override
+  String get splitAddParticipant => 'Add participant';
+
+  @override
+  String get splitParticipantName => 'Name';
+
+  @override
+  String get splitExpenses => 'Expenses';
+
+  @override
+  String get splitAddExpense => 'Add expense';
+
+  @override
+  String get splitNoGroups => 'No splits yet';
+
+  @override
+  String get splitNoExpenses => 'No expenses yet';
+
+  @override
+  String get splitPaidBy => 'Paid by';
+
+  @override
+  String get splitAmount => 'Amount';
+
+  @override
+  String get splitNote => 'Note';
+
+  @override
+  String get splitBalances => 'Balances';
+
+  @override
+  String get splitSettled => 'Settled';
+
+  @override
+  String get splitOwes => 'Owes';
+
+  @override
+  String get splitOwed => 'Is owed';
+
+  @override
+  String get splitSettleTransfers => 'Settle up';
+
+  @override
+  String get splitDeleteGroup => 'Delete group';
+
+  @override
+  String get splitDeleteConfirm => 'Delete this group and all expenses?';
+
+  @override
+  String get splitTotal => 'Total';
+
+  @override
+  String get splitInvalidAmount => 'Enter a valid amount';
+
+  @override
+  String get splitSelectParticipants => 'Select at least one participant';
+
+  @override
+  String get splitBaseCurrency => 'Base currency';
+
+  @override
+  String get splitAdd => 'Add';
+
+  @override
+  String get splitDone => 'Done';
+
+  @override
+  String get splitMe => 'Me';
 }
