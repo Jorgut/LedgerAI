@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'app_settings.dart';
 import 'models.dart';
+import 'split_repository.dart';
 
 /// 本地存储入口：三个 Hive box。
 /// - `txns_v2`：Txn 的 JSON 字符串，key 为交易 id。
@@ -13,22 +14,33 @@ import 'models.dart';
 ///
 /// 刻意不依赖 Hive codegen：手写 JSON 序列化，字段向后兼容，便于测试。
 class LocalStore {
-  LocalStore._(this._txnBox, this._settingsBox, this._deletionBox);
+  LocalStore._(this._txnBox, this._settingsBox, this._deletionBox,
+      this._splitGroupBox, this._splitParticipantBox, this._splitExpenseBox);
 
   final Box<String> _txnBox;
   final Box<String> _settingsBox;
   final Box<int> _deletionBox;
+  final Box<String> _splitGroupBox;
+  final Box<String> _splitParticipantBox;
+  final Box<String> _splitExpenseBox;
 
   late final TransactionRepository transactions =
       TransactionRepository(_txnBox, _deletionBox);
   late final SettingsStore settings = SettingsStore(_settingsBox);
+  late final SplitRepository split = SplitRepository(
+      _splitGroupBox, _splitParticipantBox, _splitExpenseBox);
 
   static Future<LocalStore> open({String? subDirectory}) async {
     await Hive.initFlutter(subDirectory);
     final txnBox = await Hive.openBox<String>('txns_v2');
     final settingsBox = await Hive.openBox<String>('settings_v1');
     final deletionBox = await Hive.openBox<int>('deletions_v1');
-    return LocalStore._(txnBox, settingsBox, deletionBox);
+    final splitGroupBox = await Hive.openBox<String>('split_groups_v1');
+    final splitParticipantBox =
+        await Hive.openBox<String>('split_participants_v1');
+    final splitExpenseBox = await Hive.openBox<String>('split_expenses_v1');
+    return LocalStore._(txnBox, settingsBox, deletionBox, splitGroupBox,
+        splitParticipantBox, splitExpenseBox);
   }
 
   /// 仅测试使用：用已初始化的 Hive 打开独立箱。
@@ -37,13 +49,22 @@ class LocalStore {
     final txnBox = await Hive.openBox<String>('txns_v2$suffix');
     final settingsBox = await Hive.openBox<String>('settings_v1$suffix');
     final deletionBox = await Hive.openBox<int>('deletions_v1$suffix');
-    return LocalStore._(txnBox, settingsBox, deletionBox);
+    final splitGroupBox = await Hive.openBox<String>('split_groups_v1$suffix');
+    final splitParticipantBox =
+        await Hive.openBox<String>('split_participants_v1$suffix');
+    final splitExpenseBox =
+        await Hive.openBox<String>('split_expenses_v1$suffix');
+    return LocalStore._(txnBox, settingsBox, deletionBox, splitGroupBox,
+        splitParticipantBox, splitExpenseBox);
   }
 
   Future<void> close() async {
     await _txnBox.close();
     await _settingsBox.close();
     await _deletionBox.close();
+    await _splitGroupBox.close();
+    await _splitParticipantBox.close();
+    await _splitExpenseBox.close();
   }
 }
 

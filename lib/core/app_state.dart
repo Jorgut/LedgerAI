@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 
 import 'app_icon.dart';
 import 'app_settings.dart';
+import 'split_repository.dart';
 import 'currency.dart';
 import 'money_display.dart';
 import 'export.dart';
@@ -19,11 +20,13 @@ import 'storage.dart';
 class AppState extends ChangeNotifier {
   AppState._(this.store)
       : repo = store.transactions,
-        settings = store.settings {
+        settings = store.settings,
+        split = store.split {
     stats = StatsService(repo);
     insights = InsightsService(repo, stats);
     repo.addListener(_handleChange);
     settings.addListener(_handleChange);
+    split.addListener(_handleChange);
     _viewCurrency = prefs.defaultCurrency;
     _syncMoneyDisplay();
     _syncAppIcon();
@@ -40,6 +43,7 @@ class AppState extends ChangeNotifier {
   final LocalStore store;
   final TransactionRepository repo;
   final SettingsStore settings;
+  final SplitRepository split;
   late final StatsService stats;
   late final InsightsService insights;
   final ExportService export = const ExportService();
@@ -116,6 +120,7 @@ class AppState extends ChangeNotifier {
   void dispose() {
     repo.removeListener(_handleChange);
     settings.removeListener(_handleChange);
+    split.removeListener(_handleChange);
     super.dispose();
   }
 
