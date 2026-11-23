@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../core/app_state.dart';
 import '../../core/split_models.dart';
 import '../../l10n/app_localizations.dart';
+import '../../split/split_share_service.dart';
 import '../theme.dart';
 import '../widgets/common/app_card.dart';
+import '../widgets/common/app_snack.dart';
 import 'add_split_expense_screen.dart';
 
 class SplitGroupScreen extends StatelessWidget {
@@ -46,6 +49,56 @@ class SplitGroupScreen extends StatelessWidget {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => AddSplitExpenseScreen(groupId: groupId),
+      ),
+    );
+  }
+
+  Future<void> _share(BuildContext context) async {
+    final l10n = AppLocalizations.of(context);
+    final app = AppScope.read(context);
+    final group = app.split.groupById(groupId);
+    if (group == null) return;
+    var url = group.cloudShareUrl;
+    if (url == null || url.isEmpty) {
+      try {
+        final result = await const SplitShareService().createShare(
+          group: group,
+          participants: app.split.participantsOf(groupId),
+          expenses: app.split.expensesOf(groupId),
+        );
+        url = result.url;
+        await app.split.markShared(
+          groupId: groupId,
+          shareRecordName: result.shareRecordName,
+          shareUrl: result.url,
+        );
+      } catch (e) {
+        if (!context.mounted) return;
+        AppSnack.error(context, l10n.splitShareFailed);
+        return;
+      }
+    }
+    if (!context.mounted) return;
+    final link = url;
+    await showDialog<void>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.splitShareTitle),
+        content: SelectableText(link),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              await Clipboard.setData(ClipboardData(text: link));
+              if (dialogContext.mounted) Navigator.pop(dialogContext);
+              if (context.mounted) AppSnack.success(context, l10n.splitShareCopied);
+            },
+            child: Text(l10n.splitShareCopy),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(l10n.splitDone),
+          ),
+        ],
       ),
     );
   }
@@ -94,6 +147,11 @@ class SplitGroupScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(group.title),
         actions: [
+          IconButton(
+            tooltip: l10n.splitShare,
+            onPressed: () => _share(context),
+            icon: const Icon(Icons.ios_share_rounded),
+          ),
           IconButton(
             tooltip: l10n.splitDeleteGroup,
             onPressed: () => _deleteGroup(context),

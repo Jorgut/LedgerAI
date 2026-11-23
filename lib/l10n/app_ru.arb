@@ -793,5 +793,11 @@
   "splitSharesMismatch": "Сумма долей должна совпадать с общей",
   "splitEditExpense": "Изменить расход",
   "splitDeleteExpense": "Удалить расход",
-  "splitDeleteExpenseConfirm": "Удалить этот расход?"
+  "splitDeleteExpenseConfirm": "Удалить этот расход?",
+  "splitShare": "Поделиться",
+  "splitShareTitle": "Ссылка-приглашение",
+  "splitShareCopy": "Копировать ссылку",
+  "splitShareCopied": "Ссылка скопирована",
+  "splitShareFailed": "Не удалось поделиться",
+  "splitShareExisting": "Группа уже открыта для участников"
 }

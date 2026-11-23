@@ -3175,6 +3175,42 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'确定删除这笔分账支出吗？'**
   String get splitDeleteExpenseConfirm;
+
+  /// No description provided for @splitShare.
+  ///
+  /// In zh, this message translates to:
+  /// **'共享分账'**
+  String get splitShare;
+
+  /// No description provided for @splitShareTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'邀请链接'**
+  String get splitShareTitle;
+
+  /// No description provided for @splitShareCopy.
+  ///
+  /// In zh, this message translates to:
+  /// **'复制链接'**
+  String get splitShareCopy;
+
+  /// No description provided for @splitShareCopied.
+  ///
+  /// In zh, this message translates to:
+  /// **'链接已复制'**
+  String get splitShareCopied;
+
+  /// No description provided for @splitShareFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'共享失败'**
+  String get splitShareFailed;
+
+  /// No description provided for @splitShareExisting.
+  ///
+  /// In zh, this message translates to:
+  /// **'这个群组已共享'**
+  String get splitShareExisting;
 }
 
 class _AppLocalizationsDelegate

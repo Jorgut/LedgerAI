@@ -20,6 +20,7 @@ import Vision
   private let ocrHandler = LedgerAIOcrHandler()
   private let speechHandler = LedgerAISpeechHandler()
   private let cloudKitHandler = LedgerAICloudKitHandler()
+  private let splitShareHandler = LedgerAISplitShareHandler()
 
   override func application(
     _ application: UIApplication,
@@ -95,6 +96,18 @@ import Vision
       binaryMessenger: messenger
     )
     speechEvents.setStreamHandler(speechHandler)
+
+    let splitShareChannel = FlutterMethodChannel(
+      name: "com.archintera.ledgerai/split_share",
+      binaryMessenger: messenger
+    )
+    splitShareChannel.setMethodCallHandler { [weak self] call, result in
+      guard let self = self else {
+        result(FlutterError(code: "engine_detached", message: "应用正在退出", details: nil))
+        return
+      }
+      self.splitShareHandler.handle(call, result: result)
+    }
 
     let cloudChannel = FlutterMethodChannel(
       name: "com.archintera.ledgerai/cloudkit",
@@ -903,5 +916,204 @@ private final class LedgerAICloudKitHandler {
       }
     }
     return "iCloud 同步失败：\(error.localizedDescription)"
+  }
+}
+
+
+// MARK: - 分账 CloudKit 共享（CKShare）
+
+/// 群组及支出写入用户自己的 private database，通过 CKShare 邀请参与者。
+/// 通道：com.archintera.ledgerai/split_share
+private final class LedgerAISplitShareHandler {
+  private let container = CKContainer(identifier: "iCloud.com.archintera.ledgerai")
+  private let zoneID = CKRecordZone.ID(
+    zoneName: "SplitZone",
+    ownerName: CKCurrentUserDefaultName
+  )
+
+  private var database: CKDatabase { container.privateCloudDatabase }
+
+  func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    switch call.method {
+    case "createShare":
+      guard let args = call.arguments as? [String: Any] else {
+        result(FlutterError(code: "bad_args", message: "共享参数不正确", details: nil))
+        return
+      }
+      ensureZone { [weak self] error in
+        guard let self = self else { return }
+        if let error = error {
+          self.fail(error, result)
+          return
+        }
+        self.createShare(args: args, result: result)
+      }
+    case "acceptShare":
+      guard
+        let args = call.arguments as? [String: Any],
+        let raw = args["url"] as? String,
+        let url = URL(string: raw)
+      else {
+        result(FlutterError(code: "bad_args", message: "邀请链接不正确", details: nil))
+        return
+      }
+      acceptShare(url: url, result: result)
+    default:
+      result(FlutterMethodNotImplemented)
+    }
+  }
+
+  private func ensureZone(completion: @escaping (Error?) -> Void) {
+    database.save(CKRecordZone(zoneID: zoneID)) { _, error in
+      DispatchQueue.main.async { completion(error) }
+    }
+  }
+
+  private func createShare(args: [String: Any], result: @escaping FlutterResult) {
+    guard
+      let group = args["group"] as? [String: Any],
+      let groupId = group["id"] as? String,
+      let title = group["title"] as? String
+    else {
+      result(FlutterError(code: "bad_args", message: "群组数据不完整", details: nil))
+      return
+    }
+    let participants = args["participants"] as? [[String: Any]] ?? []
+    let expenses = args["expenses"] as? [[String: Any]] ?? []
+
+    let groupRecord = CKRecord(
+      recordType: "SplitGroup",
+      recordID: CKRecord.ID(recordName: groupId, zoneID: zoneID)
+    )
+    groupRecord["title"] = title as CKRecordValue
+    groupRecord["kind"] = (group["kind"] as? String ?? "other") as CKRecordValue
+    groupRecord["baseCurrency"] = (group["baseCurrency"] as? String ?? "CNY") as CKRecordValue
+    groupRecord["ownerId"] = (group["ownerId"] as? String ?? "") as CKRecordValue
+    groupRecord["archived"] = NSNumber(value: (group["archived"] as? Bool ?? false))
+    if let ms = group["createdAt"] as? Int64 {
+      groupRecord["createdAt"] = Date(timeIntervalSince1970: Double(ms) / 1000) as NSDate
+    }
+    if let ms = group["updatedAt"] as? Int64 {
+      groupRecord["updatedAt"] = Date(timeIntervalSince1970: Double(ms) / 1000) as NSDate
+    }
+
+    var records: [CKRecord] = [groupRecord]
+    for person in participants {
+      guard let id = person["id"] as? String else { continue }
+      let record = CKRecord(
+        recordType: "SplitParticipant",
+        recordID: CKRecord.ID(recordName: id, zoneID: zoneID)
+      )
+      record["groupId"] = (person["groupId"] as? String ?? groupId) as CKRecordValue
+      record["displayName"] = (person["displayName"] as? String ?? "") as CKRecordValue
+      record["role"] = (person["role"] as? String ?? "member") as CKRecordValue
+      if let ms = person["joinedAt"] as? Int64 {
+        record["joinedAt"] = Date(timeIntervalSince1970: Double(ms) / 1000) as NSDate
+      }
+      records.append(record)
+    }
+    for expense in expenses {
+      guard let id = expense["id"] as? String else { continue }
+      let record = CKRecord(
+        recordType: "SplitExpense",
+        recordID: CKRecord.ID(recordName: id, zoneID: zoneID)
+      )
+      record["groupId"] = (expense["groupId"] as? String ?? groupId) as CKRecordValue
+      record["payerId"] = (expense["payerId"] as? String ?? "") as CKRecordValue
+      record["amountMinor"] = NSNumber(value: expense["amountMinor"] as? Int64 ?? 0)
+      record["currency"] = (expense["currency"] as? String ?? "CNY") as CKRecordValue
+      record["fxRate"] = NSNumber(value: expense["fxRate"] as? Double ?? 1)
+      record["baseAmountMinor"] = NSNumber(value: expense["baseAmountMinor"] as? Int64 ?? 0)
+      record["baseCurrency"] = (expense["baseCurrency"] as? String ?? "CNY") as CKRecordValue
+      if let shares = expense["shares"],
+         let data = try? JSONSerialization.data(withJSONObject: shares),
+         let json = String(data: data, encoding: .utf8) {
+        record["sharesJSON"] = json as CKRecordValue
+      }
+      if let ms = expense["date"] as? Int64 {
+        record["date"] = Date(timeIntervalSince1970: Double(ms) / 1000) as NSDate
+      }
+      if let ms = expense["updatedAt"] as? Int64 {
+        record["updatedAt"] = Date(timeIntervalSince1970: Double(ms) / 1000) as NSDate
+      }
+      record["createdBy"] = (expense["createdBy"] as? String ?? "") as CKRecordValue
+      record["categoryId"] = (expense["categoryId"] as? String ?? "other_expense") as CKRecordValue
+      record["note"] = (expense["note"] as? String ?? "") as CKRecordValue
+      records.append(record)
+    }
+
+    let share = CKShare(rootRecord: groupRecord)
+    share[CKShare.SystemFieldKey.title] = title as CKRecordValue
+    records.append(share)
+
+    let operation = CKModifyRecordsOperation(recordsToSave: records)
+    operation.savePolicy = .allKeys
+    operation.isAtomic = true
+    operation.modifyRecordsCompletionBlock = { [weak self] saved, _, error in
+      guard let self = self else { return }
+      if let error = error {
+        DispatchQueue.main.async { self.fail(error, result) }
+        return
+      }
+      let shareRecord = (saved ?? []).first { $0 is CKShare } as? CKShare
+      let url = shareRecord?.url?.absoluteString ?? share.url?.absoluteString
+      DispatchQueue.main.async {
+        guard let url = url else {
+          result(FlutterError(
+            code: "share_url_missing",
+            message: "共享已创建，但暂时没有邀请链接，请重试。",
+            details: nil
+          ))
+          return
+        }
+        result(["url": url, "shareRecordName": shareRecord?.recordID.recordName ?? ""])
+      }
+    }
+    database.add(operation)
+  }
+
+  private func acceptShare(url: URL, result: @escaping FlutterResult) {
+    let operation = CKFetchShareMetadataOperation(shareURLs: [url])
+    operation.perShareMetadataResultBlock = { _, metadataResult in
+      switch metadataResult {
+      case .success(let metadata):
+        self.container.accept(metadata) { share, error in
+          DispatchQueue.main.async {
+            if let error = error {
+              self.fail(error, result)
+            } else {
+              result([
+                "accepted": true,
+                "title": share?[CKShare.SystemFieldKey.title] as? String ?? "",
+              ])
+            }
+          }
+        }
+      case .failure(let error):
+        DispatchQueue.main.async { self.fail(error, result) }
+      }
+    }
+    container.add(operation)
+  }
+
+  private func fail(_ error: Error, _ result: @escaping FlutterResult) {
+    let message: String
+    if let ckError = error as? CKError {
+      switch ckError.code {
+      case .notAuthenticated:
+        message = "请先在系统设置中登录 iCloud"
+      case .networkUnavailable, .networkFailure:
+        message = "网络不可用，请稍后重试"
+      case .quotaExceeded:
+        message = "iCloud 空间不足，请清理后重试"
+      case .serviceUnavailable, .zoneBusy:
+        message = "iCloud 繁忙，请稍后重试"
+      default:
+        message = "分账共享失败：\(ckError.localizedDescription)"
+      }
+    } else {
+      message = "分账共享失败：\(error.localizedDescription)"
+    }
+    result(FlutterError(code: "split_share_error", message: message, details: nil))
   }
 }

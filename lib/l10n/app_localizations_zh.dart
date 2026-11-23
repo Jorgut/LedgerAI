@@ -1736,6 +1736,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get splitDeleteExpenseConfirm => '确定删除这笔分账支出吗？';
+
+  @override
+  String get splitShare => '共享分账';
+
+  @override
+  String get splitShareTitle => '邀请链接';
+
+  @override
+  String get splitShareCopy => '复制链接';
+
+  @override
+  String get splitShareCopied => '链接已复制';
+
+  @override
+  String get splitShareFailed => '共享失败';
+
+  @override
+  String get splitShareExisting => '这个群组已共享';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3470,4 +3488,22 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get splitDeleteExpenseConfirm => '確定刪除這筆分帳支出嗎？';
+
+  @override
+  String get splitShare => '共享分帳';
+
+  @override
+  String get splitShareTitle => '邀請連結';
+
+  @override
+  String get splitShareCopy => '複製連結';
+
+  @override
+  String get splitShareCopied => '連結已複製';
+
+  @override
+  String get splitShareFailed => '共享失敗';
+
+  @override
+  String get splitShareExisting => '這個群組已共享';
 }

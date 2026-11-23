@@ -793,5 +793,11 @@
   "splitSharesMismatch": "分攤金額合計必須等於總金額",
   "splitEditExpense": "編輯支出",
   "splitDeleteExpense": "刪除支出",
-  "splitDeleteExpenseConfirm": "確定刪除這筆分帳支出嗎？"
+  "splitDeleteExpenseConfirm": "確定刪除這筆分帳支出嗎？",
+  "splitShare": "共享分帳",
+  "splitShareTitle": "邀請連結",
+  "splitShareCopy": "複製連結",
+  "splitShareCopied": "連結已複製",
+  "splitShareFailed": "共享失敗",
+  "splitShareExisting": "這個群組已共享"
 }

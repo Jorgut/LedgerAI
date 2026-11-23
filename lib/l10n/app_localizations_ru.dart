@@ -1805,4 +1805,22 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get splitDeleteExpenseConfirm => 'Удалить этот расход?';
+
+  @override
+  String get splitShare => 'Поделиться';
+
+  @override
+  String get splitShareTitle => 'Ссылка-приглашение';
+
+  @override
+  String get splitShareCopy => 'Копировать ссылку';
+
+  @override
+  String get splitShareCopied => 'Ссылка скопирована';
+
+  @override
+  String get splitShareFailed => 'Не удалось поделиться';
+
+  @override
+  String get splitShareExisting => 'Группа уже открыта для участников';
 }

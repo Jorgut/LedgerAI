@@ -793,5 +793,11 @@
   "splitSharesMismatch": "Shares must add up to the total",
   "splitEditExpense": "Edit expense",
   "splitDeleteExpense": "Delete expense",
-  "splitDeleteExpenseConfirm": "Delete this split expense?"
+  "splitDeleteExpenseConfirm": "Delete this split expense?",
+  "splitShare": "Share split",
+  "splitShareTitle": "Invite link",
+  "splitShareCopy": "Copy link",
+  "splitShareCopied": "Link copied",
+  "splitShareFailed": "Sharing failed",
+  "splitShareExisting": "This group is already shared"
 }

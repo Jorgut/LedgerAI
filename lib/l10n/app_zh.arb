@@ -1000,5 +1000,11 @@
   "splitSharesMismatch": "分摊金额合计必须等于总金额",
   "splitEditExpense": "编辑支出",
   "splitDeleteExpense": "删除支出",
-  "splitDeleteExpenseConfirm": "确定删除这笔分账支出吗？"
+  "splitDeleteExpenseConfirm": "确定删除这笔分账支出吗？",
+  "splitShare": "共享分账",
+  "splitShareTitle": "邀请链接",
+  "splitShareCopy": "复制链接",
+  "splitShareCopied": "链接已复制",
+  "splitShareFailed": "共享失败",
+  "splitShareExisting": "这个群组已共享"
 }

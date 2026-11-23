@@ -129,6 +129,23 @@ class SplitRepository extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> markShared({
+    required String groupId,
+    required String shareRecordName,
+    required String shareUrl,
+  }) async {
+    final group = groupById(groupId);
+    if (group == null) return;
+    final updated = group.copyWith(
+      cloudShareId: shareRecordName,
+      cloudShareUrl: shareUrl,
+      updatedAt: DateTime.now(),
+    );
+    await _groupBox.put(groupId, jsonEncode(updated.toJson()));
+    _groupCache = null;
+    notifyListeners();
+  }
+
   Future<void> deleteExpense(String id) async {
     await _expenseBox.delete(id);
     _expenseCache = null;

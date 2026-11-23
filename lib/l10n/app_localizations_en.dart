@@ -1802,4 +1802,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get splitDeleteExpenseConfirm => 'Delete this split expense?';
+
+  @override
+  String get splitShare => 'Share split';
+
+  @override
+  String get splitShareTitle => 'Invite link';
+
+  @override
+  String get splitShareCopy => 'Copy link';
+
+  @override
+  String get splitShareCopied => 'Link copied';
+
+  @override
+  String get splitShareFailed => 'Sharing failed';
+
+  @override
+  String get splitShareExisting => 'This group is already shared';
 }

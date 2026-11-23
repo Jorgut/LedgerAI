@@ -66,6 +66,7 @@ class SplitGroup {
     required this.updatedAt,
     this.archived = false,
     this.cloudShareId,
+    this.cloudShareUrl,
   });
 
   final String id;
@@ -77,6 +78,7 @@ class SplitGroup {
   final DateTime updatedAt;
   final bool archived;
   final String? cloudShareId;
+  final String? cloudShareUrl;
 
   SplitGroup copyWith({
     String? title,
@@ -85,6 +87,7 @@ class SplitGroup {
     DateTime? updatedAt,
     bool? archived,
     String? cloudShareId,
+    String? cloudShareUrl,
   }) {
     return SplitGroup(
       id: id,
@@ -96,6 +99,7 @@ class SplitGroup {
       updatedAt: updatedAt ?? this.updatedAt,
       archived: archived ?? this.archived,
       cloudShareId: cloudShareId ?? this.cloudShareId,
+      cloudShareUrl: cloudShareUrl ?? this.cloudShareUrl,
     );
   }
 
@@ -109,6 +113,7 @@ class SplitGroup {
         'updatedAt': updatedAt.toIso8601String(),
         'archived': archived,
         if (cloudShareId != null) 'cloudShareId': cloudShareId,
+        if (cloudShareUrl != null) 'cloudShareUrl': cloudShareUrl,
       };
 
   factory SplitGroup.fromJson(Map<String, dynamic> json) {
@@ -127,6 +132,7 @@ class SplitGroup {
           DateTime.tryParse(json['updatedAt'] as String? ?? '') ?? DateTime.now(),
       archived: json['archived'] as bool? ?? false,
       cloudShareId: json['cloudShareId'] as String?,
+      cloudShareUrl: json['cloudShareUrl'] as String?,
     );
   }
 }
