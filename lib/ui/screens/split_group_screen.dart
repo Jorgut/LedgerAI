@@ -38,7 +38,6 @@ class SplitGroupScreen extends StatelessWidget {
         ],
       ),
     );
-    controller.dispose();
     if (name == null || name.isEmpty) return;
     await app.split.addParticipant(groupId: groupId, displayName: name);
   }
