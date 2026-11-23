@@ -52,7 +52,7 @@ void main() {
     await scrollTo(tester, find.text('用户协议'));
     expect(find.text('关于'), findsOneWidget);
     expect(find.text('HENG'), findsOneWidget);
-    expect(find.textContaining('1.1.0'), findsWidgets);
+    expect(find.textContaining('1.2.0'), findsWidgets);
     expect(find.text('不登录'), findsOneWidget);
     expect(find.text('不联网'), findsOneWidget);
     expect(find.text('不上传'), findsOneWidget);
