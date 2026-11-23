@@ -993,5 +993,12 @@
   "splitBaseCurrency": "基础币种",
   "splitAdd": "添加",
   "splitDone": "完成",
-  "splitMe": "我"
+  "splitMe": "我",
+  "splitEqual": "等额分摊",
+  "splitCustom": "自定义金额",
+  "splitShareFor": "{name} 分摊",
+  "splitSharesMismatch": "分摊金额合计必须等于总金额",
+  "splitEditExpense": "编辑支出",
+  "splitDeleteExpense": "删除支出",
+  "splitDeleteExpenseConfirm": "确定删除这笔分账支出吗？"
 }

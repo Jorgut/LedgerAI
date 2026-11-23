@@ -1779,4 +1779,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get splitMe => 'Me';
+
+  @override
+  String get splitEqual => 'Equal split';
+
+  @override
+  String get splitCustom => 'Custom amounts';
+
+  @override
+  String splitShareFor(Object name) {
+    return '$name share';
+  }
+
+  @override
+  String get splitSharesMismatch => 'Shares must add up to the total';
+
+  @override
+  String get splitEditExpense => 'Edit expense';
+
+  @override
+  String get splitDeleteExpense => 'Delete expense';
+
+  @override
+  String get splitDeleteExpenseConfirm => 'Delete this split expense?';
 }

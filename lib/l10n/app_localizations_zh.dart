@@ -1713,6 +1713,29 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get splitMe => '我';
+
+  @override
+  String get splitEqual => '等额分摊';
+
+  @override
+  String get splitCustom => '自定义金额';
+
+  @override
+  String splitShareFor(Object name) {
+    return '$name 分摊';
+  }
+
+  @override
+  String get splitSharesMismatch => '分摊金额合计必须等于总金额';
+
+  @override
+  String get splitEditExpense => '编辑支出';
+
+  @override
+  String get splitDeleteExpense => '删除支出';
+
+  @override
+  String get splitDeleteExpenseConfirm => '确定删除这笔分账支出吗？';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3424,4 +3447,27 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get splitMe => '我';
+
+  @override
+  String get splitEqual => '等額分攤';
+
+  @override
+  String get splitCustom => '自訂金額';
+
+  @override
+  String splitShareFor(Object name) {
+    return '$name 分攤';
+  }
+
+  @override
+  String get splitSharesMismatch => '分攤金額合計必須等於總金額';
+
+  @override
+  String get splitEditExpense => '編輯支出';
+
+  @override
+  String get splitDeleteExpense => '刪除支出';
+
+  @override
+  String get splitDeleteExpenseConfirm => '確定刪除這筆分帳支出嗎？';
 }

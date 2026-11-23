@@ -1782,4 +1782,27 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get splitMe => 'Я';
+
+  @override
+  String get splitEqual => 'Поровну';
+
+  @override
+  String get splitCustom => 'Свои суммы';
+
+  @override
+  String splitShareFor(Object name) {
+    return 'Доля $name';
+  }
+
+  @override
+  String get splitSharesMismatch => 'Сумма долей должна совпадать с общей';
+
+  @override
+  String get splitEditExpense => 'Изменить расход';
+
+  @override
+  String get splitDeleteExpense => 'Удалить расход';
+
+  @override
+  String get splitDeleteExpenseConfirm => 'Удалить этот расход?';
 }

@@ -786,5 +786,12 @@
   "splitBaseCurrency": "基礎幣別",
   "splitAdd": "新增",
   "splitDone": "完成",
-  "splitMe": "我"
+  "splitMe": "我",
+  "splitEqual": "等額分攤",
+  "splitCustom": "自訂金額",
+  "splitShareFor": "{name} 分攤",
+  "splitSharesMismatch": "分攤金額合計必須等於總金額",
+  "splitEditExpense": "編輯支出",
+  "splitDeleteExpense": "刪除支出",
+  "splitDeleteExpenseConfirm": "確定刪除這筆分帳支出嗎？"
 }

@@ -786,5 +786,12 @@
   "splitBaseCurrency": "Базовая валюта",
   "splitAdd": "Добавить",
   "splitDone": "Готово",
-  "splitMe": "Я"
+  "splitMe": "Я",
+  "splitEqual": "Поровну",
+  "splitCustom": "Свои суммы",
+  "splitShareFor": "Доля {name}",
+  "splitSharesMismatch": "Сумма долей должна совпадать с общей",
+  "splitEditExpense": "Изменить расход",
+  "splitDeleteExpense": "Удалить расход",
+  "splitDeleteExpenseConfirm": "Удалить этот расход?"
 }

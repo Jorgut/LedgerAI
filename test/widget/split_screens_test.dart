@@ -84,4 +84,56 @@ void main() {
     expectNoLayoutOverflow(tester);
   });
 
+
+  testWidgets('编辑分账支出只更新原记录', (tester) async {
+    usePhoneSurface(tester);
+    await tester.runAsync(() async {
+      await harness.setPrefs(const AppSettings(
+          onboardingDone: true, language: AppLanguage.zhHans));
+      final group = await harness.state.split.createGroup(
+        title: '晚餐',
+        kind: SplitKind.meal,
+        ownerName: '我',
+      );
+      await harness.state.split
+          .addParticipant(groupId: group.id, displayName: '小王');
+      final people = harness.state.split.participantsOf(group.id);
+      final shares = SplitExpense.equalShares(
+        participantIds: people.map((p) => p.id).toList(),
+        amountMinor: 8000,
+      );
+      await harness.state.split.saveExpense(SplitExpense(
+        id: 'edit-me',
+        groupId: group.id,
+        payerId: people.first.id,
+        amountMinor: 8000,
+        currency: AppCurrency.cny,
+        fxRate: 1,
+        baseAmountMinor: 8000,
+        baseCurrency: AppCurrency.cny,
+        shares: shares,
+        date: DateTime.now(),
+        createdBy: people.first.id,
+        updatedAt: DateTime.now(),
+        note: '晚餐',
+      ));
+    });
+    final group = harness.state.split.groups.single;
+    await pumpScoped(
+        tester, harness.state, SplitGroupScreen(groupId: group.id));
+    await tester.tap(find.text('晚餐').first);
+    await tester.pumpAndSettle();
+    expect(find.text('编辑支出'), findsOneWidget);
+    await tester.enterText(find.byType(TextField).first, '120');
+    await tester.tap(find.text('完成'));
+    await waitUntil(
+      tester,
+      () => harness.state.split.expensesOf(group.id).single.amountMinor == 12000,
+      reason: '保存编辑后的分账支出',
+    );
+    final expenses = harness.state.split.expensesOf(group.id);
+    expect(expenses, hasLength(1));
+    expect(expenses.single.id, 'edit-me');
+  });
+
 }

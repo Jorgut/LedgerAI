@@ -786,5 +786,12 @@
   "splitBaseCurrency": "Base currency",
   "splitAdd": "Add",
   "splitDone": "Done",
-  "splitMe": "Me"
+  "splitMe": "Me",
+  "splitEqual": "Equal split",
+  "splitCustom": "Custom amounts",
+  "splitShareFor": "{name} share",
+  "splitSharesMismatch": "Shares must add up to the total",
+  "splitEditExpense": "Edit expense",
+  "splitDeleteExpense": "Delete expense",
+  "splitDeleteExpenseConfirm": "Delete this split expense?"
 }

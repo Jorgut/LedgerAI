@@ -246,6 +246,14 @@ class SplitGroupScreen extends StatelessWidget {
                 children: [
                   for (final expense in expenses)
                     ListTile(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => AddSplitExpenseScreen(
+                            groupId: group.id,
+                            expense: expense,
+                          ),
+                        ),
+                      ),
                       leading: CircleAvatar(
                         child: Text(
                           names[expense.payerId]?.characters.first ?? '?',

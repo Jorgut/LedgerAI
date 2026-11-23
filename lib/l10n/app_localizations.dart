@@ -3133,6 +3133,48 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'我'**
   String get splitMe;
+
+  /// No description provided for @splitEqual.
+  ///
+  /// In zh, this message translates to:
+  /// **'等额分摊'**
+  String get splitEqual;
+
+  /// No description provided for @splitCustom.
+  ///
+  /// In zh, this message translates to:
+  /// **'自定义金额'**
+  String get splitCustom;
+
+  /// No description provided for @splitShareFor.
+  ///
+  /// In zh, this message translates to:
+  /// **'{name} 分摊'**
+  String splitShareFor(Object name);
+
+  /// No description provided for @splitSharesMismatch.
+  ///
+  /// In zh, this message translates to:
+  /// **'分摊金额合计必须等于总金额'**
+  String get splitSharesMismatch;
+
+  /// No description provided for @splitEditExpense.
+  ///
+  /// In zh, this message translates to:
+  /// **'编辑支出'**
+  String get splitEditExpense;
+
+  /// No description provided for @splitDeleteExpense.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除支出'**
+  String get splitDeleteExpense;
+
+  /// No description provided for @splitDeleteExpenseConfirm.
+  ///
+  /// In zh, this message translates to:
+  /// **'确定删除这笔分账支出吗？'**
+  String get splitDeleteExpenseConfirm;
 }
 
 class _AppLocalizationsDelegate
