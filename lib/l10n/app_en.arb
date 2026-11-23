@@ -799,5 +799,9 @@
   "splitShareCopy": "Copy link",
   "splitShareCopied": "Link copied",
   "splitShareFailed": "Sharing failed",
-  "splitShareExisting": "This group is already shared"
+  "splitShareExisting": "This group is already shared",
+  "splitJoinShared": "Join shared split",
+  "splitJoinHint": "Paste the iCloud invite link",
+  "splitJoined": "Joined shared split",
+  "splitJoinFailed": "Could not join shared split"
 }

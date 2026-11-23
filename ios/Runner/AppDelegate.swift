@@ -958,6 +958,8 @@ private final class LedgerAISplitShareHandler {
         return
       }
       acceptShare(url: url, result: result)
+    case "fetchShared":
+      fetchShared(result: result)
     default:
       result(FlutterMethodNotImplemented)
     }
@@ -1094,6 +1096,63 @@ private final class LedgerAISplitShareHandler {
       }
     }
     container.add(operation)
+  }
+
+  private func fetchShared(result: @escaping FlutterResult) {
+    let database = container.sharedCloudDatabase
+    let recordTypes = ["SplitGroup", "SplitParticipant", "SplitExpense"]
+    var output: [String: Any] = [:]
+    var remaining = recordTypes.count
+    var failed = false
+    for type in recordTypes {
+      let query = CKQuery(recordType: type, predicate: NSPredicate(value: true))
+      let operation = CKQueryOperation(query: query)
+      operation.resultsLimit = 200
+      var records: [CKRecord] = []
+      operation.recordFetchedBlock = { records.append($0) }
+      operation.queryCompletionBlock = { [weak self] _, error in
+        guard let self = self else { return }
+        if let error = error {
+          if !failed {
+            failed = true
+            DispatchQueue.main.async { self.fail(error, result) }
+          }
+          return
+        }
+        output[type] = records.compactMap { self.encodeShared($0) }
+        remaining -= 1
+        if remaining == 0 {
+          DispatchQueue.main.async {
+            result([
+              "groups": output["SplitGroup"] ?? [],
+              "participants": output["SplitParticipant"] ?? [],
+              "expenses": output["SplitExpense"] ?? [],
+            ])
+          }
+        }
+      }
+      database.add(operation)
+    }
+  }
+
+  private func encodeShared(_ record: CKRecord) -> [String: Any] {
+    var map: [String: Any] = ["id": record.recordID.recordName]
+    for key in ["title", "kind", "baseCurrency", "ownerId", "groupId",
+                "displayName", "role", "payerId", "currency", "baseCurrency",
+                "createdBy", "categoryId", "note"] {
+      if let value = record[key] as? String { map[key] = value }
+    }
+    for key in ["amountMinor", "baseAmountMinor", "archived"] {
+      if let value = record[key] as? NSNumber { map[key] = value.int64Value }
+    }
+    if let value = record["fxRate"] as? NSNumber { map["fxRate"] = value.doubleValue }
+    for key in ["createdAt", "updatedAt", "joinedAt", "date"] {
+      if let value = record[key] as? Date {
+        map[key] = Int64(value.timeIntervalSince1970 * 1000)
+      }
+    }
+    if let json = record["sharesJSON"] as? String { map["sharesJSON"] = json }
+    return map
   }
 
   private func fail(_ error: Error, _ result: @escaping FlutterResult) {

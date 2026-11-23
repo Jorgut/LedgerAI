@@ -1820,4 +1820,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get splitShareExisting => 'This group is already shared';
+
+  @override
+  String get splitJoinShared => 'Join shared split';
+
+  @override
+  String get splitJoinHint => 'Paste the iCloud invite link';
+
+  @override
+  String get splitJoined => 'Joined shared split';
+
+  @override
+  String get splitJoinFailed => 'Could not join shared split';
 }

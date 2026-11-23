@@ -77,4 +77,10 @@ class SplitShareService {
     );
     return result?['accepted'] == true;
   }
+
+  Future<Map<String, dynamic>> fetchShared() async {
+    final result = await _channel.invokeMapMethod<String, dynamic>('fetchShared');
+    return result ?? const {};
+  }
+
 }

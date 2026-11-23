@@ -799,5 +799,9 @@
   "splitShareCopy": "複製連結",
   "splitShareCopied": "連結已複製",
   "splitShareFailed": "共享失敗",
-  "splitShareExisting": "這個群組已共享"
+  "splitShareExisting": "這個群組已共享",
+  "splitJoinShared": "加入共享",
+  "splitJoinHint": "貼上 iCloud 邀請連結",
+  "splitJoined": "已加入共享",
+  "splitJoinFailed": "加入共享失敗"
 }

@@ -3211,6 +3211,30 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'这个群组已共享'**
   String get splitShareExisting;
+
+  /// No description provided for @splitJoinShared.
+  ///
+  /// In zh, this message translates to:
+  /// **'加入共享'**
+  String get splitJoinShared;
+
+  /// No description provided for @splitJoinHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'粘贴 iCloud 邀请链接'**
+  String get splitJoinHint;
+
+  /// No description provided for @splitJoined.
+  ///
+  /// In zh, this message translates to:
+  /// **'已加入共享'**
+  String get splitJoined;
+
+  /// No description provided for @splitJoinFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'加入共享失败'**
+  String get splitJoinFailed;
 }
 
 class _AppLocalizationsDelegate

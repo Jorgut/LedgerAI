@@ -799,5 +799,9 @@
   "splitShareCopy": "Копировать ссылку",
   "splitShareCopied": "Ссылка скопирована",
   "splitShareFailed": "Не удалось поделиться",
-  "splitShareExisting": "Группа уже открыта для участников"
+  "splitShareExisting": "Группа уже открыта для участников",
+  "splitJoinShared": "Присоединиться",
+  "splitJoinHint": "Вставьте ссылку-приглашение iCloud",
+  "splitJoined": "Вы присоединились",
+  "splitJoinFailed": "Не удалось присоединиться"
 }

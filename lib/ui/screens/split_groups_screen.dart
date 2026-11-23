@@ -4,7 +4,9 @@ import '../../core/app_state.dart';
 import '../../core/currency.dart';
 import '../../core/split_models.dart';
 import '../../l10n/app_localizations.dart';
+import '../../split/split_share_service.dart';
 import '../widgets/common/app_card.dart';
+import '../widgets/common/app_snack.dart';
 import 'split_group_screen.dart';
 
 /// Local split-group list. CloudKit sharing is added in the next milestone.
@@ -85,6 +87,53 @@ class SplitGroupsScreen extends StatelessWidget {
     );
   }
 
+  Future<void> _join(BuildContext context) async {
+    final l10n = AppLocalizations.of(context);
+    final app = AppScope.read(context);
+    final controller = TextEditingController();
+    final url = await showDialog<String>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.splitJoinShared),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          keyboardType: TextInputType.url,
+          decoration: InputDecoration(
+            labelText: l10n.splitJoinHint,
+            border: const OutlineInputBorder(),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(l10n.commonCancel),
+          ),
+          FilledButton(
+            onPressed: () =>
+                Navigator.pop(dialogContext, controller.text.trim()),
+            child: Text(l10n.splitJoinShared),
+          ),
+        ],
+      ),
+    );
+    if (url == null || url.isEmpty) return;
+    try {
+      final service = const SplitShareService();
+      final accepted = await service.acceptShare(url);
+      if (!accepted) throw StateError('share not accepted');
+      final data = await service.fetchShared();
+      await app.split.importShared(data, shareUrl: url);
+      if (context.mounted) {
+        AppSnack.success(context, l10n.splitJoined);
+      }
+    } catch (_) {
+      if (context.mounted) {
+        AppSnack.error(context, l10n.splitJoinFailed);
+      }
+    }
+  }
+
   static String _kindLabel(AppLocalizations l10n, SplitKind kind) =>
       switch (kind) {
         SplitKind.meal => l10n.splitKindMeal,
@@ -100,7 +149,16 @@ class SplitGroupsScreen extends StatelessWidget {
     final app = AppScope.of(context);
     final groups = app.split.groups;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.splitGroupsTitle)),
+      appBar: AppBar(
+        title: Text(l10n.splitGroupsTitle),
+        actions: [
+          IconButton(
+            tooltip: l10n.splitJoinShared,
+            onPressed: () => _join(context),
+            icon: const Icon(Icons.group_add_rounded),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _create(context),
         icon: const Icon(Icons.add_rounded),

@@ -1823,4 +1823,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get splitShareExisting => 'Группа уже открыта для участников';
+
+  @override
+  String get splitJoinShared => 'Присоединиться';
+
+  @override
+  String get splitJoinHint => 'Вставьте ссылку-приглашение iCloud';
+
+  @override
+  String get splitJoined => 'Вы присоединились';
+
+  @override
+  String get splitJoinFailed => 'Не удалось присоединиться';
 }

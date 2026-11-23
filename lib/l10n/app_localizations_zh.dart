@@ -1754,6 +1754,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get splitShareExisting => '这个群组已共享';
+
+  @override
+  String get splitJoinShared => '加入共享';
+
+  @override
+  String get splitJoinHint => '粘贴 iCloud 邀请链接';
+
+  @override
+  String get splitJoined => '已加入共享';
+
+  @override
+  String get splitJoinFailed => '加入共享失败';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3506,4 +3518,16 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get splitShareExisting => '這個群組已共享';
+
+  @override
+  String get splitJoinShared => '加入共享';
+
+  @override
+  String get splitJoinHint => '貼上 iCloud 邀請連結';
+
+  @override
+  String get splitJoined => '已加入共享';
+
+  @override
+  String get splitJoinFailed => '加入共享失敗';
 }

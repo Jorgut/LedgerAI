@@ -129,6 +129,66 @@ class SplitRepository extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Merge records returned by CloudKit shared database into local storage.
+  /// LWW is by updatedAt; the local copy wins only when it is newer.
+  Future<void> importShared(
+    Map<String, dynamic> data, {
+    String? shareUrl,
+  }) async {
+    final groups = (data['groups'] as List?) ?? const [];
+    final people = (data['participants'] as List?) ?? const [];
+    final expenses = (data['expenses'] as List?) ?? const [];
+    final localGroups = {for (final g in this.groups) g.id: g};
+    for (final raw in groups) {
+      if (raw is! Map) continue;
+      final map = _sharedMap(raw);
+      final group = SplitGroup.fromJson(map);
+      final local = localGroups[group.id];
+      if (local != null && !group.updatedAt.isAfter(local.updatedAt)) continue;
+      final stored = shareUrl == null
+          ? group
+          : group.copyWith(cloudShareUrl: shareUrl);
+      await _groupBox.put(stored.id, jsonEncode(stored.toJson()));
+    }
+    for (final raw in people) {
+      if (raw is! Map) continue;
+      final participant = SplitParticipant.fromJson(_sharedMap(raw));
+      await _participantBox.put(
+          participant.id, jsonEncode(participant.toJson()));
+    }
+    for (final raw in expenses) {
+      if (raw is! Map) continue;
+      final expense = SplitExpense.fromJson(_sharedMap(raw));
+      await _expenseBox.put(expense.id, jsonEncode(expense.toJson()));
+    }
+    _invalidate();
+    notifyListeners();
+  }
+
+  Map<String, dynamic> _sharedMap(Map raw) {
+    final map = <String, dynamic>{for (final e in raw.entries) '${e.key}': e.value};
+    for (final key in ['createdAt', 'updatedAt', 'joinedAt', 'date']) {
+      final value = map[key];
+      if (value is num) {
+        map[key] = DateTime.fromMillisecondsSinceEpoch(value.toInt())
+            .toIso8601String();
+      }
+    }
+    final archived = map['archived'];
+    if (archived is num) map['archived'] = archived != 0;
+    final sharesJson = map.remove('sharesJSON');
+    if (sharesJson is String && sharesJson.isNotEmpty) {
+      try {
+        final decoded = jsonDecode(sharesJson);
+        if (decoded is Map) {
+          map['shares'] =
+              decoded.map((k, v) => MapEntry('$k', (v as num).toInt()));
+        }
+      } catch (_) {}
+    }
+    return map;
+  }
+
   Future<void> markShared({
     required String groupId,
     required String shareRecordName,

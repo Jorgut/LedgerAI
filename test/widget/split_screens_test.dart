@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger_ai/core/app_settings.dart';
@@ -134,6 +136,56 @@ void main() {
     final expenses = harness.state.split.expensesOf(group.id);
     expect(expenses, hasLength(1));
     expect(expenses.single.id, 'edit-me');
+  });
+
+
+  testWidgets('CloudKit 共享记录可合并进本地仓库', (tester) async {
+    await tester.runAsync(() async {
+      final now = DateTime.now().millisecondsSinceEpoch;
+      await harness.state.split.importShared({
+        'groups': [
+          {
+            'id': 'shared-group',
+            'title': '共享旅行',
+            'kind': 'trip',
+            'baseCurrency': 'CNY',
+            'ownerId': 'p1',
+            'createdAt': now,
+            'updatedAt': now,
+            'archived': 0,
+          }
+        ],
+        'participants': [
+          {'id': 'p1', 'groupId': 'shared-group', 'displayName': 'A', 'role': 'owner', 'joinedAt': now},
+          {'id': 'p2', 'groupId': 'shared-group', 'displayName': 'B', 'role': 'member', 'joinedAt': now},
+        ],
+        'expenses': [
+          {
+            'id': 'shared-expense',
+            'groupId': 'shared-group',
+            'payerId': 'p1',
+            'amountMinor': 1000,
+            'currency': 'CNY',
+            'fxRate': 1,
+            'baseAmountMinor': 1000,
+            'baseCurrency': 'CNY',
+            'sharesJSON': jsonEncode({'p1': 500, 'p2': 500}),
+            'date': now,
+            'createdBy': 'p1',
+            'updatedAt': now,
+            'categoryId': 'food',
+            'note': '晚餐',
+          }
+        ],
+      }, shareUrl: 'https://www.icloud.com/share/test');
+    });
+    final group = harness.state.split.groups.single;
+    expect(group.title, '共享旅行');
+    expect(group.cloudShareUrl, 'https://www.icloud.com/share/test');
+    expect(harness.state.split.participantsOf(group.id), hasLength(2));
+    final expense = harness.state.split.expensesOf(group.id).single;
+    expect(expense.shares, {'p1': 500, 'p2': 500});
+    expect(expense.note, '晚餐');
   });
 
 }
